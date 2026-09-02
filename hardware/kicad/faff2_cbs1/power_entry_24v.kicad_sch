@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "c6fcd1f2-81af-5930-b510-4ffbb5f4ea2e")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - Power Entry 24 V")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: power_entry_24v\n\nSCOPE\n  24 V DC input via KPJX-4S latching circular connector (REQ-EL-04).\n  Reverse-polarity protection, inrush limiting, input fusing, TVS clamp,\n  input bulk capacitance and common-mode filtering for the 24 V rail.\n  Owns the +24V master isolation link and its current-measurement break.\n  Provides the V24_MON divider into the STM32 internal ADC (PC1/ADC1_INP11).\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   J-PWR : 24 V DC, 25 W peak / 7 W typical (REQ-EL-02/03)\n  OUT  +24V_SW, PGND -> power_rails, motor_drive\n  OUT  V24_MON (scaled, filtered) -> mcu PC1\n  TEST TP +24V_IN, TP +24V_SW, TP PGND; LK current break on +24V_SW\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "126000ca-0b01-5bfb-9640-593fd8c4c7f4")
+	)
+	(embedded_fonts no)
+)

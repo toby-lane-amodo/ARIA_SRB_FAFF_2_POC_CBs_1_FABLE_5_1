@@ -1,0 +1,53 @@
+# ---- KiCad 9 ----
+# Tracked: .kicad_pro, .kicad_sch, .kicad_pcb, sym-lib-table, fp-lib-table
+
+# Backups and autosaves
+*-backups/
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*.kicad_pro-bak
+*.kicad_prl-bak
+*-bak
+*.bak
+_autosave-*
+~*.kicad_sch
+~*.kicad_pcb
+
+# Lock files (an open KiCad session)
+*.lck
+~*.lck
+
+# Per-user local settings, not project state
+*.kicad_prl
+
+# Caches
+fp-info-cache
+*.kicad_sym-bak
+sym-lib-table-bak
+
+# Netlists and other regenerated intermediates
+*.net
+*.xml.bak
+*.000
+
+# Generated outputs - regenerate, do not commit
+gerbers/
+*.gbr
+*.gbrjob
+*.drl
+*.step
+*.stp.zip
+*.pos
+
+# ERC / DRC reports are a check result, not a deliverable
+*.rpt
+
+# ---- Windows / WSL ----
+*:Zone.Identifier
+Thumbs.db
+desktop.ini
+
+# ---- macOS / editors ----
+.DS_Store
+*~
+*.swp

@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "ddf1b4fd-58bf-50ce-a627-d88b1b728027")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - Motor Drive (DRV8323)")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: motor_drive\n\nSCOPE\n  3-phase inverter for a 24 V BLDC. DRV8323 SPI-variant gate driver (per\n  the .ioc nets DRV8323_nCS/EN/CAL/nFAULT) with its three integrated\n  current-sense amplifiers, six power FETs, DC-link sense and bulk\n  capacitance, motor phase connector, FET temperature sense, and the motor\n  rotary encoder / Hall sensor interface (DEC-0004).\n  Peak current sense limit is configurable per variant so the actuator\n  cannot overload the load cell past 150 % of its absolute maximum\n  (REQ-SF-03). DRV8323_nFAULT drives TIM1_BKIN for a hardware trip.\n  Motor part deliberately NOT fixed - every candidate BLDC in the design\n  log shares this one electronics design (DEC-0004).\n  Working point: 0.0442 Nm screw torque, 1.229 A phase, 240 rpm at\n  20 mm/s with a 5 mm/rev lead (CALC-B-01).\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +24V_SW, PGND <- power_entry_24v; +3V3 logic; encoder supply\n  IN   MOTOR_PWM_AH/AL/BH/BL/CH/CL PE8-PE13 <- mcu TIM1\n  IN   DRV8323_EN PD10, DRV8323_CAL PD5, DRV8323_nCS PD7 <- mcu\n  IN/OUT CONFIG_SPI (SPI2) <-> mcu - SHARED with temp_sense, nvm_calibration\n  OUT  DRV8323_nFAULT PE15 -> mcu TIM1_BKIN (hardware trip)\n  OUT  MOTOR_I_A PA6, MOTOR_I_B PC4, MOTOR_I_C PA7 -> mcu ADC1/ADC2\n  OUT  MOTOR_FETTEMP PA4, VBUS_MON PC5 -> mcu ADC\n  OUT  J-MOT : motor phases U, V, W\n  IN   J-MENC : MOTOR_ENCODER_A/B/I PC6/PC7/PC8, HALL1/2/3 PE14/PD14/PD15\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "f5b14ba1-3c99-59aa-9dd1-27e9457c515b")
+	)
+	(embedded_fonts no)
+)

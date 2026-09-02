@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Amodo")(type "KiCad")(uri "${AMODO_KICAD_LIB}/Amodo.pretty")(options "")(descr "Amodo house footprint library"))
+)

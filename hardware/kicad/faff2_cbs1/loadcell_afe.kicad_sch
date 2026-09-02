@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "226d74c3-960f-5738-89d9-d2950bbfd928")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - Load Cell AFE (ADS1235)")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: loadcell_afe\n\nSCOPE\n  HBK S2M bridge interface. ADS1235 24-bit bridge ADC at gain 128,\n  4800 SPS Sinc2 (REQ-FF-06..09 / CALC-F-01). 5 V bridge excitation,\n  input filtering and EMI protection. The block diagram calls for a\n  4- OR 6-wire load cell connection, so the footprint must support both;\n  6-wire Kelvin sense is the accuracy-critical option (DEC-0014).\n  SPI3 to the MCU with hardware NSS. Serves both V50N and V10N with no\n  build variant - only the load cell part number changes (DEC-0010).\n  ADS1235 is already in Amodo_ADCs.kicad_sym - do not create a new symbol.\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +5V (excitation), analog rail + reference, AGND\n  IN/OUT J-LC : 4- or 6-wire load cell (EXC+/-, [SENSE+/-,] SIG+/-)\n  OUT  ADS1235_SCLK PC10, MISO PC11, MOSI PD6, nCS PA15 (SPI3) -> mcu\n  OUT  ADS1235_nDRDY PD1 -> mcu (EXTI1)\n  IN   ADS1235_START PC12, ADS1235_nRESET PD0 <- mcu\n  IN   ADS1235_CLKIN PC9 <- mcu MCO2 (ADC master clock)\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "e5c360e8-e8cf-5754-a7a5-122003078aff")
+	)
+	(embedded_fonts no)
+)

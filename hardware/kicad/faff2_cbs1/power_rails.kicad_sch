@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "f48a7003-4839-5242-bafe-13cbac888ed8")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - Power Rails")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: power_rails\n\nSCOPE\n  Conversion and distribution of every downstream rail from +24V_SW.\n  Rail set provisional pending the FAFF 2 block diagram SVG; presently\n  evidenced: +5V (load cell 5 V excitation, IKP11 V5 read-head supply),\n  +3V3 (STM32H723, USB3320, DRV8323 logic, QSPI, EEPROM, encoders) and a\n  quiet analog rail / reference pair for the ADS1235 and ADS1120.\n  Producer-owns-the-break rule (DEC-0007): every rail leaves this sheet\n  through its own 0R/jumper isolation link plus a current-measurement break.\n  Budget: ~5.2 W quiescent, 25 W peak (CALC-P-01).\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +24V_SW, PGND from power_entry_24v\n  OUT  +5V, +3V3, analog rail(s) + reference, AGND / DGND to all blocks\n  OUT  PGOOD / rail enable lines -> mcu (TBC - no .ioc pin allocated yet)\n  TEST TP + LK + current break per rail (see docs/TEST_PLAN.md)\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "1994f289-09a2-56dc-941f-2e13fcc7a990")
+	)
+	(embedded_fonts no)
+)

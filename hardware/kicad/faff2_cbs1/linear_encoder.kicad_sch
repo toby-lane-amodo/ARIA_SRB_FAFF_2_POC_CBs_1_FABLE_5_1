@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "6f07405d-66c5-5763-ad0b-64219ed8e478")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - Linear Encoder (IKP11)")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: linear_encoder\n\nSCOPE\n  Bogen IKP11-Z1.4-P1-V5-D1-R0.5-F1000-C1 magnetic read head interface\n  (DEC-0003). RS-422 differential A/B/Z receiver -> single-ended 3V3 into\n  TIM5 (encoder mode TI12 on A/B, CH3 input capture on Z), plus the 5 V\n  read-head supply, line termination and the 10-way 1.27 mm header\n  (IKP11 C1 connector option). 0.5 um resolution, 1 MHz/channel max.\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +5V (read head V5 supply), +3V3 (receiver logic side)\n  IN   J-ENC : A+/A-, B+/B-, Z+/Z-, +5V, 0V (10-way 1.27 mm)\n  OUT  LINEAR_ENCODER_A PA0, _B PA1, _Z PA2 (3V3) -> mcu TIM5\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "da6210a0-d531-53a9-b2d9-7448a5631b81")
+	)
+	(embedded_fonts no)
+)

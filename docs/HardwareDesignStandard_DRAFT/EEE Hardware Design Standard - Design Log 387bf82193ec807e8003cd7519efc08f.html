@@ -1,0 +1,804 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>EEE Hardware Design Standard - Design Log</title><meta name="data-notion-page-icon" content="/icons/list_gray.svg"/><link rel="icon" href="https://app.notion.com/icons/list_gray.svg"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="387bf821-93ec-807e-8003-cd7519efc08f" class="page sans" data-notion-page-icon="/icons/list_gray.svg"><header><div class="page-header-icon undefined"><img class="icon notion-static-icon" src="https://app.notion.com/icons/list_gray.svg"/></div><h1 class="page-title" dir="auto">EEE Hardware Design Standard - Design Log</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><p id="387bf821-93ec-803e-8f2e-fdece2ec0a28" class="" dir="auto">
+</p><nav id="e70bf821-93ec-8294-91da-81714846b543" class="block-color-gray table_of_contents" data-notion-highlight="gray" data-notion-toc="" dir="ltr"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#eb3bf821-93ec-8399-9ce2-0184cacb219f">v0.0.1+</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#387bf821-93ec-80a6-8740-d8763ab9aff3">Working out what to write about:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3b3bf821-93ec-80ef-968b-e676df76783e">Designing Something with a Microcontroller?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3b3bf821-93ec-8046-bb91-c1e201e43493">Test Coverage</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3b3bf821-93ec-8011-934d-dc8a9b1a06cd">A Quick Note on High Speed Signals</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#387bf821-93ec-809a-b6d1-c60bfb8a958f">EMC, Why Should we Care?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#387bf821-93ec-8009-9d56-e61febfc7dfc">Modern Silicon is FAST (and why clock speed doesn’t matter)!</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#387bf821-93ec-8068-884d-e4b80f7ab8fe">Current Flow, the Path of Least Impedance</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#389bf821-93ec-80f6-b506-c6ecfe9183c1">So How Should We Plan the Stackup For a Four-Layer PCB? </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3b3bf821-93ec-80c5-9c28-cc6069cf08f0">What If I Need to Break the Rules?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3b3bf821-93ec-8008-9979-e404399287af">Keeping Track of Hardware</a></div></nav><p id="04fbf821-93ec-8337-8e23-018a5e9df53c" class="" dir="auto">
+</p><hr id="15bbf821-93ec-83f8-80df-0152b3d8563e" dir="auto"/><h1 id="eb3bf821-93ec-8399-9ce2-0184cacb219f" class="" dir="auto">v0.0.1+</h1><table id="91ebf821-93ec-8222-b59c-019b83334710" class="simple-table" dir="ltr"><tbody><tr id="3fabf821-93ec-8277-ae86-819aedc499f4" dir="ltr"><th id="RTUa" class="simple-table-header-color simple-table-header" style="width:175px">Engineer</th><td id="q;ux" class="" style="width:523px"><span class="user">@Toby Lane</span> </td></tr><tr id="e4ebf821-93ec-83fd-9a9a-811277de2b95" dir="ltr"><th id="RTUa" class="simple-table-header-color simple-table-header" style="width:175px">Date</th><td id="q;ux" class="" style="width:523px"><time datetime="2026-06-22" data-notion-date-format="relative">@June 22, 2026</time></td></tr></tbody></table><p id="0cdbf821-93ec-836e-a1d8-011c9fea3638" class="" dir="auto"><em><mark class="highlight-gray" data-notion-highlight="gray">&lt;Fill design log content here, using heading 2 and heading 3 to structure&gt;</mark></em></p><h2 id="387bf821-93ec-80a6-8740-d8763ab9aff3" class="" dir="auto">Working out what to write about:</h2><p id="387bf821-93ec-80da-91ca-d7fa41224c57" class="" dir="auto">Some content that likely wants covering:</p><p id="3aebf821-93ec-80b6-bac8-da12b494ebc9" class="" dir="auto"><strong>Schematic:</strong></p><ul id="3aebf821-93ec-809e-8614-f4ee25ce4ca1" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Involve FW from day 0</span><div class="indented"></div></li></ul><ul id="3aebf821-93ec-8012-9f81-f63b26822fa3" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Ideally start writing FW from early as possible</span><div class="indented"></div></li></ul><ul id="3aebf821-93ec-8084-8d89-e0e309413b6c" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">If a board has a uC, probably shouldn’t order without a firmware at least reviewing the project so far (maybe this is optional as for very lean / lightweight projects, could be bad? QFOG example)</span><div class="indented"></div></li></ul><ul id="3aebf821-93ec-8095-a571-d274dcc768ef" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Enforce the hardware logger for tracking bugs / mods on boards and their state</span><div class="indented"><ul id="3b3bf821-93ec-80bd-be17-db7b69a8c53b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Maybe make this as a template of some kind?</span><div class="indented"></div></li></ul></div></li></ul><ul id="3b3bf821-93ec-801f-a5d8-c842d7371f18" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Test coverage</span><div class="indented"></div></li></ul><p id="3aebf821-93ec-8047-bd90-f54ce948ae3e" class="" dir="auto"><strong>PCB:</strong></p><ul id="387bf821-93ec-807d-a6c7-d6a3ff46dcc5" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Something about how we very rarely design things with the intention of CE marking, or doing any kind of formal emissions / susceptibility around it, but how they are an extremely important thing to still consider when designing a piece of electronics</span><div class="indented"></div></li></ul><ul id="387bf821-93ec-8073-9b11-d82c1ccdf01a" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Intermittent hardware problems and how time consuming they can be to solve</span><div class="indented"></div></li></ul><ul id="387bf821-93ec-80ea-be4b-c977bde5b0d0" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Return currents and their related things:</span><div class="indented"><ul id="387bf821-93ec-80c7-b6a2-f3b075e87cfa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Reference planes (or lack thereof)</li></ul><ul id="387bf821-93ec-804c-9488-da7914a9e5c3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pitfall of the classic SIG:GND:PWR:SIG stackup</li></ul></div></li></ul><ul id="387bf821-93ec-8021-849b-cd25e17f5d90" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Rise and fall times, and the pitfalls around moderns ICs</span><div class="indented"></div></li></ul><ul id="387bf821-93ec-80f6-a1b5-cd01acabeebc" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">ESD protection on interfaces</span><div class="indented"></div></li></ul><ul id="387bf821-93ec-80b2-9501-d269645ab488" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Something RE switchmode power supply layout?</span><div class="indented"><ul id="387bf821-93ec-8063-b1dc-fc27b84164b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">On this, something about decoupling capacitors and inductance and package sizes</li></ul></div></li></ul><ul id="387bf821-93ec-80eb-98ab-ff139ff6c479" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Something about design for test</span><div class="indented"><ul id="387bf821-93ec-8086-ba50-cb9b4ef9a8e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">TPs, preferably through hole</li></ul><ul id="387bf821-93ec-8067-ba65-fc394e64365a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">If a board needs to be small, and timelines allow, it is probably cheaper in the long run to make a big version first</li></ul><ul id="387bf821-93ec-8040-8723-ddf86164d7e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Additional strapping Rs (PU vs PD)</li></ul><ul id="387bf821-93ec-8068-9ee0-c69f45ecbcc3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Zero ohm links for measuring power consumption (although I never do this)</li></ul></div></li></ul><h2 id="3b3bf821-93ec-80ef-968b-e676df76783e" class="" dir="auto">Designing Something with a Microcontroller?</h2><p id="3b3bf821-93ec-80f4-85dc-d06a2bcd9e14" class="" dir="auto">When designing a board with a microcontroller, you should always seek some guidance / review from a firmware engineer, ideally an engineer who has been involved in the decision making early on in the project. Even if it is just a 15 minute informal chat, you could save yourself a headache down the line when your boards turn up, and it turns out you don’t have a peripheral hooked up quite right. If you are unsure, ask one of the firmware Triage Points: <a href="https://app.notion.com/p/Triage-Points-343bf82193ec80ca9059da76d9bcddc9?pvs=21" data-notion-page-id="343bf821-93ec-80ca-9059-da76d9bcddc9" data-notion-space-id="fbec3331-c8f6-4ff7-afe2-6919d8cc21a0"><span class="icon" data-emoji="🧭"></span>Triage Points</a>.</p><p id="3b3bf821-93ec-801d-84c8-c001626cebee" class="" dir="auto">If you project has complex firmware requirements, like using a timing critical interface, or performing some tricky DSP, consider starting firmware development in parallel. The typical hardware development cycle has firmware starting when the first PCB is delivered. If firmware development can be started early using a development board, you are much more likely to encounter potential architecture / system design problems early.</p><h2 id="3b3bf821-93ec-8046-bb91-c1e201e43493" class="" dir="auto">Test Coverage</h2><p id="3b3bf821-93ec-8027-a283-ea53974482a6" class="" dir="auto">The more test coverage you have on your PCB, the better. Good test coverage will substantially improve your experience whilst doing bringup, as well as make the engineer writing your firmware much happier! You are unlikely to ever regret placing that extra test point, but the chances are you will kick yourself if you don’t place it. </p><p id="3b3bf821-93ec-8004-a427-d3206ae58f8c" class="" dir="auto">There are a few very useful parts in the AmodoKiCadLib that are worth knowing about:</p><ul id="3b3bf821-93ec-80c9-8080-fc56782842ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Standard TestPoint:<ul id="3b3bf821-93ec-80d9-ad9c-d0f13a41e549" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Typically configured for a 1.0 mm SMT pad. </li></ul><ul id="3b3bf821-93ec-8091-8421-d8101d410892" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Good for when space is tight, and you might want to quickly check a voltage / pin state with a DMM.</li></ul><ul id="3b3bf821-93ec-8012-9664-c9b64c8ba5c1" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Bad for probing with an oscilloscope or logic analyser, as you will likely need to solder some wire on to it.</li></ul></li></ul><ul id="3b3bf821-93ec-801b-a79d-e99e5e89cff4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">TestPointHook:<ul id="3b3bf821-93ec-8027-83bf-e92fd84166c9" class="bulleted-list" dir="auto"><li style="list-style-type:circle">A THT soldered loop that is fitted to a PTH on your PCB.</li></ul><ul id="3b3bf821-93ec-8010-98b9-e58b2357103e" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Good for when space is tight, and you know you are likely want to attach a scope probe or logic analyser to the net (e.g. I2C / SPI pins).</li></ul><ul id="3b3bf821-93ec-8028-b3ea-e9b68d22e7d8" class="bulleted-list" dir="auto"><li style="list-style-type:circle">When placing these, make sure that you also put a few additional parts down tied to GND, so that you have something to attach your oscilloscope GND clip to.</li></ul></li></ul><ul id="3b3bf821-93ec-80ed-8a3d-cd3bf791278a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">TestPointDual:<ul id="3b3bf821-93ec-803d-a570-f15d35285b84" class="bulleted-list" dir="auto"><li style="list-style-type:circle">A THT test point designed for using an oscilloscope probe with a spring ground clip.</li></ul><ul id="3b3bf821-93ec-8025-855b-d43a49f073d2" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Good for when you know you will want to measure a net where signal integrity matters. There is a hole for the signal being measured, and a hole for where the scope probe GND spring goes to. In this case, the measurement loop area is very small, so you will minimise measurement inductance, reducing any false ringing, overshoot, and other probing artefacts. The small loop area also makes you less susceptible to magnetic field pickup from other circuits on your board.</li></ul></li></ul><div id="3b3bf821-93ec-8048-b6c0-cb6bc112500a" class="column-list" data-notion-column-list="" dir="auto"><div id="3b3bf821-93ec-805e-a2f8-c792268dce33" style="width:33.333333333333336%" class="column" data-notion-column-ratio="0.33333333333333337" dir="auto"><figure id="3b3bf821-93ec-8053-a575-f785c57f56a3" class="image" data-notion-image="image.png" dir="ltr"><a href="image.png"><img style="width:345.984375px" src="image.png"/></a></figure><p id="3b3bf821-93ec-8099-aab9-c7a26c68c523" class="" dir="auto">
+</p></div><div id="3b3bf821-93ec-80ce-bf4e-c8dcb7b8d7fa" style="width:33.333333333333336%" class="column" data-notion-column-ratio="0.33333333333333337" dir="auto"><figure id="3b3bf821-93ec-808a-bd6a-f7724c0e88ca" class="image" data-notion-image="image%201.png" dir="ltr"><a href="image%201.png"><img style="width:301.984375px" src="image%201.png"/></a></figure></div><div id="3b3bf821-93ec-80d4-8a15-d13718039530" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3b3bf821-93ec-8096-a6ed-d4797316c130" class="image" data-notion-image="image%202.png" dir="ltr"><a href="image%202.png"><img style="width:353.984375px" src="image%202.png"/></a></figure></div></div><p id="3b3bf821-93ec-80bc-bb56-cc560740ce76" class="" dir="auto">If your PCB is very space constrained, and timelines allow, then you should consider making a ‘big’ first revision of the board. The ‘big’ board can have plenty of test coverage, and additional debug features that wouldn’t necessarily fit in the final mechanical package. This will significantly accelerate bringup, firmware development, and testing. Once you have proved the hardware, you can then miniaturise at a later date.</p><p id="3b3bf821-93ec-807e-8102-e10708a34206" class="" dir="auto">If your board has a net that you will likely want to spend a lot of time measuring with an oscilloscope, or injecting into with a signal generator, then use a coaxial connector of some kind. It is very convenient to be able to hook your test equipment up directly with an off the shelf cable. If space is tight, consider using a U.FL, and then probing with a U.FL to BNC adapter cable, which we stock in the EEE lab.</p><h3 id="3b3bf821-93ec-8011-934d-dc8a9b1a06cd" class="" dir="auto">A Quick Note on High Speed Signals</h3><p id="3b3bf821-93ec-800e-abf5-eaf9b476b2e8" class="" dir="auto">It is not advisable to place test coverage on very high speed interfaces or signals. The additional stub / stray capacitance added by a test point (particularly through hole), will introduce an impedance discontinuity that could lead to signal integrity problems. Additionally, conventional passive probes will likely distort or load the signal. Accurate probing may require a high-bandwidth, very-low-capacitance active probe, which we do not currently have. If you think you need to probe a digital signal with rise / fall times that are single digit nanosecond, or an analogue signal with bandwidth &gt; 100 MHz, consider using a <a href="https://www.murata.com/en-eu/products/connector/switchconnector">switched coaxial connector</a>.</p><h2 id="387bf821-93ec-809a-b6d1-c60bfb8a958f" class="" dir="auto">EMC, Why Should we Care?</h2><p id="b4fbf821-93ec-8330-9053-8136b2afb443" class="" dir="auto">At Amodo, we design lots of hardware. Almost none of the hardware that we design ends up being sold in any volume, and as such, we don’t often consider regulatory requirements. <div class="indented"><p id="387bf821-93ec-8065-8ff0-e804144fbce5" class="" dir="auto">If you want to sell an electronic device within the EU, you, the manufacturer, must affix the CE mark, and in doing so, you are declaring that your product is conformant to any relevant standards. For an electronic device, that typically means conforming with the Electromagnetic Compatibility (EMC) Directive. </p></div></p><p id="387bf821-93ec-8090-bafd-c20755fa30d5" class="" dir="auto">We don’t usually sell our designs, and they are often produced one-off, or in the low tens of units, so why should we care about the EMC Directive? <div class="indented"><p id="387bf821-93ec-80a4-aa04-c7019ec6618e" class="" dir="auto">The aim of the EMC Directive is to ensure that interconnected devices (whether that interconnect is intentional or not) don’t negatively impact the performance of one another. This not only covers emissions (noise generated by the product we designed), but also susceptibility (whether our product is affected by noise from an aggressor product). If we design a circuit board, and follow EMC good practices, we get the following:</p><ul id="387bf821-93ec-8074-896a-f99ff88638ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">We reduce the chance that our product will negatively impact the performance of other products around it.</li></ul><ul id="387bf821-93ec-80ad-b5a5-fa26958933b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">We reduce the chance that our product will be negatively impacted by other products around it.</li></ul><ul id="387bf821-93ec-80d3-b86f-e9a0a730db1c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">In addition to these, we also reduce the chances of us encountering intra-system problems <strong>within </strong>our product. e.g.  an IC’s reset pin being routed too close to a switchmode power supply, causing spurious reset. </li></ul><p id="387bf821-93ec-804d-b3fc-ca17e60d739b" class="" dir="auto">EMC related problems are often difficult to predict, hard to reproduce, and complex to solve. As a result, they can consume huge amounts of engineering time. By applying the best practices defined within this document, we might spend a little more design time up front, but will gain this time back in the long run by reducing the number of hard to spot / reproduce / solve problems we unintentionally design in. </p></div></p><h2 id="387bf821-93ec-8009-9d56-e61febfc7dfc" class="" dir="auto">Modern Silicon is FAST (and why clock speed doesn’t matter)!</h2><p id="387bf821-93ec-8063-afa8-c3a507d6bc60" class="" dir="auto">At the output of a typical digital I/O pin, we typically find an NMOS and PMOS pair working in conjunction as a push-pull output (or simply just a pull-down NMOS in the open drain case). When we consider an edge, be that rising or falling, we are switching on one transistor whilst switching the other off. The rate at which these transition happen, known as the rise and fall times, is a function of the capacitance seen by the I/O pin, in combination with the drive strength (how quickly it can source / sink current to charge / discharge said capacitance). </p><p id="387bf821-93ec-80ae-9144-e034165612f4" class="" dir="auto">Let’s take the example of an STM32H723 driving a 4 inch / 100 mm track, of 0.15 mm width (on the EuroCircuits standard proto-pool for 4 layers). This track will have a load capacitance of around 6 pF. If we take a look at the H723 datasheet, for an I/O pin in very high speed mode, powered from 3.3 V, and driving a 10 pF load, we should expect the rise and fall time to be on the order of 1.5 ns. We can therefore estimate the bandwidth of this edge at around 230 MHz (BW ~= 0.35 / Tr). A 100 mm track on FR4 routed as microstrip will be an effective 1/4 wavelength antenna at around 4-500 MHz or so. Our signal likely has some meaningful energy at this frequency. If our signal is routed over a clean GND plane, then it is quite likely that our track will act as a very poor antenna, and we likely have nothing to worry about. However, if we are using a fairly typical layer stackup; SIG,GND,PWR,SIG, then we might run into problems!</p><h2 id="387bf821-93ec-8068-884d-e4b80f7ab8fe" class="" dir="auto">Current Flow, the Path of Least Impedance</h2><p id="388bf821-93ec-8094-9f69-d3091bd3694e" class="" dir="auto">To state a few obvious things:</p><ul id="388bf821-93ec-806e-8273-c4138dca5c1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Current flows in loops.</li></ul><ul id="388bf821-93ec-80fc-9f35-d50c6ea59c91" class="bulleted-list" dir="auto"><li style="list-style-type:disc">DC current finds the path of least resistance.</li></ul><ul id="388bf821-93ec-8068-ade1-c717ab68e5da" class="bulleted-list" dir="auto"><li style="list-style-type:disc">AC current finds the path of least impedance. </li></ul><p id="388bf821-93ec-802d-bb3f-d52235135b41" class="" dir="auto">If we consider the AC current case, at high frequencies, the path of least impedance turns out to be the path of least inductance, because the impedance of an inductor rises with frequency. If we re-introduce the previous example of an I/O pin driving a trace, that signal will have some outgoing current, that flows into the load, and a return current, that flows from the load back to the source. On a schematic, that return current that flows back to the source is typically shown as flowing into your schematics ideal GND net. On the PCB, this will not be the case. The high frequency portion of this current will return via the path of least inductance, which is proportional to the area of the loop, and thus, the path taken will be that with the least loop area. Typically what this means, for a multi-layer PCB, is that the return current flows in the copper on the nearest neighbouring layer. </p><p id="387bf821-93ec-8028-a43b-f915f382d9c4" class="" dir="auto">Continuing the last example, let’s say that we are designing a PCB with components on the top layer, signals on the top and bottom layers, a continuous GND / 0 V plane on inner layer 1, and power planes on inner layer 2. Let’s say that the power plane is made up of a mixture of 12 V, 5 V, and 3.3 V polygons to distribute power across the board. If we consider a digital signal travelling on the bottom layer, the return current will be on inner layer 2. Every time we cross a split between power polygons, we introduce a discontinuity / gap that the return current must find it’s way across. Without an EM field solver, we can’t predict what this path is going to be, and so we can’t predict the loop area. If the loop area is large, the inductance is high. High loop inductance means:</p><ul id="389bf821-93ec-8020-a80e-e01e15378389" class="bulleted-list" dir="auto"><li style="list-style-type:disc">There will be more voltage noise (<span data-notion-inline-equation="V_L = L \frac{di}{dt}" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord mathnormal">L</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">t</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>), which will appear as ground bounce (a difference in GND potential across the board). </li></ul><ul id="389bf821-93ec-80bf-ae3c-fce0dd820dbf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">We will be more susceptible to noise produced by other circuitry because a larger loop area effectively acts as a better pickup antenna. </li></ul><p id="389bf821-93ec-80bd-a1dc-c54284d9b7ce" class="" dir="auto">A slightly more intuitive way to think about this is the fields based approach (imagine the field being a river, and the copper being the riverbank that guides the flow of water (fields)). Imagine our microstrip trace travelling over a clean GND / reference plane:</p><ul id="389bf821-93ec-805d-acee-c0fbba4d75bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">We will develop an electric field between our outgoing signal trace, and the reference plane. The field lines will be well defined because the spacing between signal trace and reference plane is small and uniform. </li></ul><ul id="389bf821-93ec-806b-8325-e87db0cdada6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">We will develop a magnetic field surrounding our signal trace. We will also develop a magnetic field surrounding our return current path. Because we routed over a clean reference plane, our loop area is small, so these fields are well contained.</li></ul><p id="389bf821-93ec-806c-b02d-c66a059b912b" class="" dir="auto">If instead, we route our track over a split in the return plane, the return current must detour, increasing the loop area, and causing the fields to spread into a larger volume. A key thing to remember is that high-frequency return currents do not simply follow the copper labelled “GND”. They follow the path of lowest impedance, which is almost always the closest continuous reference conductor. If that reference conductor has splits, gaps, or discontinuities, the return path is disturbed, and the resulting larger area current loop can create more noise.</p><figure id="389bf821-93ec-8082-96f8-c69e0150d146" class="image" data-notion-image="image%203.png" dir="ltr"><a href="image%203.png"><img style="width:704px" src="image%203.png"/></a></figure><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-icon="‼️" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3b3bf821-93ec-80c7-9808-cfbd35f82f2a" dir="ltr"><div style="font-size:1.5em"><span class="icon" data-emoji="‼️"></span></div><div style="width:100%"><p id="3b3bf821-93ec-8014-a43e-d6fbaef11be7" class="" dir="auto">WRITE A SECTION (MAYBE HERE) ON RETURN PATH VIAS FOR LAYER CHANGES</p></div></aside><h2 id="389bf821-93ec-80f6-b506-c6ecfe9183c1" class="" dir="auto">So How Should We Plan the Stackup For a Four-Layer PCB? </h2><p id="3aabf821-93ec-8042-9402-c12740a8caef" class="" dir="auto">Rather than using the typical SIG:GND:PWR:SIG, I would instead suggest using SIG+PWR:GND:GND:SIG+PWR. </p><p id="3b3bf821-93ec-806d-b6e7-c7a8bbc1dc1e" class="" dir="auto">Route power using 0.5 mm traces. A 100 mm long power trace (0.5 mm width) can carry a load current of 1 A, with just 125 mV of drop. If you are happy to accept a 20 degree temperature rise in the track, you can deliver over 2.5 A. You only need to consider using power planes if you need to deliver tens of amps to a load, or your downstream circuit is intolerant to voltage drop along the power supply conductor.</p><p id="3aabf821-93ec-8001-9e3b-e96a7378a3e4" class="" dir="auto">If you don’t have space or time to route power, then consider going for a 6-layer stackup, and using the inner-most layers to distribute power (SIG:GND:PWR/GND:PWR/GND:GND:SIG). For a standard 100x100 mm EuroCircuits board, going from 4 layers to 6 layers (at 5-off) is a per-board cost increase from £42 to £70 (and an additional 4 days lead time).  You’ll probably save that additional cost in reduced layout time. If you save yourself from running into a signal integrity problem, you will have saved significant engineering time and project budget.</p><h3 id="3b3bf821-93ec-80c5-9c28-cc6069cf08f0" class="" dir="auto">What If I Need to Break the Rules?</h3><p id="389bf821-93ec-8037-9b07-c1d0d5d4d39d" class="" dir="auto">If you are going to route a track with fast rise and fall times (with respect to trace length) over a separation between two power polygons on the next layer below, then you must place a capacitor over the split, with a via connecting them together. This will provide a low impedance path for the return currents.</p><p id="3b3bf821-93ec-809a-aa28-d1d290ed61ac" class="" dir="auto">If you are going to use a power plane as reference for a signal (e.g. when using SIG:GND:PWR:SIG), and that signal needs to change layer (e.g. from bottom to top), then the return currents also need to change layer. Usually, we would place a return path via, but we can’t directly add a via between GND and your PWR net, as this will be a short. In this case, you must place a decoupling capacitor that allows high frequency return currents to transition from the PWR net to the GND net. It must be placed very close to the signal via.</p><h2 id="3b3bf821-93ec-8008-9979-e404399287af" class="" dir="auto">Keeping Track of Hardware</h2><p id="3b3bf821-93ec-8043-af21-d745424c1aaa" class="" dir="auto">So you’ve received the first revision of your board, and you’ve done lots of testing. Chances are, you’ll have found a few tweaks / modifications that need making. This might be a resistor value change, or perhaps a simple wire mod. Chances are, you have a few copies of your first board revision, and so might need to make mods on multiple boards. You might end up changing different things across the boards, to experiment with different possible solutions. </p><p id="3b3bf821-93ec-80cb-991b-f1f3d1df4053" class="" dir="auto">At this stage it is absolutely imperative that you make some documentation that describes what hardware has been built, what testing has been done on it, and what modification state all boards are in. Any engineer at Amodo should be able to pick up a PCB, read the serial number, find the relevant documentation, and understand what state the hardware is in, as well as how it might differ from the original data that was manufactured.</p><p id="3b3bf821-93ec-8001-84fb-e60f9cdbcc5d" class="" dir="auto">A great way to do this is using a Notion Database. </p><figure id="3b3bf821-93ec-80d6-8281-d31836cc54d9" class="image" data-notion-image="image%204.png" dir="ltr"><a href="image%204.png"><img style="width:703.953125px" src="image%204.png"/></a></figure><p id="3b3bf821-93ec-80d3-b745-c5f958345045" class="" dir="auto">Each test or modification is a new entry to the database. There is a column that defines the type, and a column for each physical piece of hardware you have. The status’s can be updated as and when boards are modified. Details on the test or modification carried out can be written in the page for each database entry. An example for a modification:</p><figure id="3b3bf821-93ec-8069-b292-e4253722dad9" class="image" data-notion-image="image%205.png" dir="ltr"><a href="image%205.png"><img style="width:703.984375px" src="image%205.png"/></a></figure><p id="3b3bf821-93ec-8003-a3bc-f94c866dbb56" class="" dir="auto">You can view the example here:</p><p id="3b3bf821-93ec-80f5-8663-e231bdf4bccc" class="" dir="auto"><a href="https://app.notion.com/p/ARIA_SANGT_ELEC_PH1_CBs_1-Bringup-and-Test-v0-1-33cbf82193ec803ab71bd1e1664ee8ff?pvs=21" data-notion-page-id="33cbf821-93ec-803a-b71b-d1e1664ee8ff" data-notion-space-id="fbec3331-c8f6-4ff7-afe2-6919d8cc21a0"><img class="icon notion-static-icon" src="https://app.notion.com/icons/checklist_gray.svg"/>ARIA_SANGT_ELEC_PH1_CBs_1 - Bringup and Test - v0.1</a> </p><p id="3b3bf821-93ec-8013-8cab-efe4ebecaca4" class="" dir="auto">
+</p><p id="389bf821-93ec-8007-947e-e8c8b387911f" class="" dir="auto">
+</p><p id="389bf821-93ec-80f2-a300-e1bae6582b9b" class="" dir="auto">Found this, and I am glad that I did:</p><p id="389bf821-93ec-807f-93de-f57f61bbd320" class="" dir="auto"><a href="https://resources.altium.com/p/dan-beeker-its-all-about-the-space">https://resources.altium.com/p/dan-beeker-its-all-about-the-space</a></p><p id="389bf821-93ec-8084-b3be-df384c3b44de" class="" dir="auto">
+</p><p id="5ebbf821-93ec-8262-9218-01dba3fcbb84" class="" dir="auto">
+</p><hr id="023bf821-93ec-8212-9187-01568b255517" dir="auto"/><hr id="98cbf821-93ec-824a-9940-01b9e02b0beb" dir="auto"/><p id="29fbf821-93ec-83ef-aca4-81b11f045459" class="" dir="auto"><em><mark class="highlight-gray" data-notion-highlight="gray"><strong>Final PDF Snapshot:</strong></mark></em><em><mark class="highlight-gray" data-notion-highlight="gray"> </mark></em></p><ol type="1" id="fc5bf821-93ec-8386-ade6-81c68ad78391" class="numbered-list" start="1" dir="auto"><li><em><mark class="highlight-gray" data-notion-highlight="gray">Modify title to reflect versions this document covers in the format ‘Design Log vX.Y.Z to vA.B.C’ inclusive of versions.</mark></em></li></ol><ol type="1" id="8c3bf821-93ec-822f-98b4-810c2fe840a2" class="numbered-list" start="2" dir="auto"><li><em><mark class="highlight-gray" data-notion-highlight="gray">Press ‘…’ → Export to get PDF.</mark></em></li></ol><ol type="1" id="129bf821-93ec-8215-8586-0145cc298786" class="numbered-list" start="3" dir="auto"><li><em><mark class="highlight-gray" data-notion-highlight="gray">Type ‘/file’ and upload to leave snapshot.</mark></em></li></ol><ol type="1" id="8aebf821-93ec-827b-a819-8107d1292555" class="numbered-list" start="4" dir="auto"><li><em><mark class="highlight-gray" data-notion-highlight="gray">Change document type from ‘Live Document’ to ‘Release’.</mark></em></li></ol><ol type="1" id="ac1bf821-93ec-82da-b4c8-01bae0108e2c" class="numbered-list" start="5" dir="auto"><li><em><mark class="highlight-gray" data-notion-highlight="gray">Delete this list!</mark></em></li></ol><p id="b78bf821-93ec-8275-9b05-010fc2762ac5" class="" dir="auto">
+</p><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-icon="/icons/help-alternate_pink.svg" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="54bbf821-93ec-83b9-bc7a-81abb55019b2" dir="ltr"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://app.notion.com/icons/help-alternate_pink.svg"/></div><div style="width:100%"><em><mark class="highlight-teal" data-notion-highlight="teal">Use buttons to add new version blocks!</mark></em></div></aside><p id="1b5bf821-93ec-8321-8c5c-018be91878fb" class="" dir="auto">
+</p><p id="294bf821-93ec-8209-8cbe-0119ea597f47" class="" dir="auto">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

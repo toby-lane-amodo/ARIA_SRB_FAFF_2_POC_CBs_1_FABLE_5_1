@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "a1e4c367-8e4a-5114-8ce9-b6eb54be8132")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - NVM / Calibration Store")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: nvm_calibration\n\nSCOPE\n  Non-volatile storage for force and temperature calibration and\n  compensation data (REQ-EL-08). I2C1 serial EEPROM per the .ioc\n  (EEPROM_SCL PB8, EEPROM_SDA PB9), with bus pull-ups, write protection\n  and a device-unique ID if the chosen part offers one.\n  Pull-ups follow the even-spacing / paired-alignment rule from\n  /schematic-style - this is the historically missed case.\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +3V3, DGND\n  IN/OUT EEPROM_SCL PB8, EEPROM_SDA PB9 (I2C1) <-> mcu\n  IN   nWP control -> mcu (TBC - no .ioc pin allocated yet)\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "0a9373fd-0bd0-557f-a848-ede29916170a")
+	)
+	(embedded_fonts no)
+)

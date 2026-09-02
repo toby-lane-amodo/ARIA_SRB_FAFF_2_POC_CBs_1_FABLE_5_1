@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "734cb3ac-0173-5eff-a397-e9b6965ea00a")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - User I/O, SYNC, Limit Switches")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: ui_io\n\nSCOPE\n  On-board user interface and external signal I/O:\n  - BTN_1 PE0, BTN_2 PE1 (one is the homing button, REQ-CC-06)\n  - LED_1 PA12, LED_2 PA11 status indicators\n  - SYNC/TRIGGER: 3.3 V push-pull, 50 R source terminated, SMA jack,\n    driven from TIM15_CH1 (SYNC_TRIG PE5) - REQ-EL-05/06\n  - End-of-stroke limit switches LIM_A PD2 (EXTI2), LIM_B PD4 (EXTI4)\n    with debounce and protection - REQ-SF-01/02\n  - LIMIT_nBRK PE6 -> TIM1_BKIN2: HARDWARE motor-drive kill on limit\n    actuation, in addition to the firmware kill (DEC-0012). This net is\n    safety-critical - see docs/TEST_PLAN.md bring-up step 8.\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +3V3, DGND\n  IN   J-LIM : limit switch(es), both ends of stroke\n  OUT  J-SYNC : SMA jack, 3V3 push-pull, 50 R source terminated\n  OUT  LIM_A PD2, LIM_B PD4, LIMIT_nBRK PE6 -> mcu\n  IN   LED_1 PA12, LED_2 PA11 <- mcu; BTN_1 PE0, BTN_2 PE1 -> mcu\n  IN   SYNC_TRIG PE5 <- mcu TIM15_CH1\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "b20473a6-f3d3-508b-8dcb-1c215ad1f7b6")
+	)
+	(embedded_fonts no)
+)

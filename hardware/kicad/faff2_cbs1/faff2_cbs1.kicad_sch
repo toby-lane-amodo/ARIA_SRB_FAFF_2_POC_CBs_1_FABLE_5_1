@@ -1,0 +1,281 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "5edb00fd-45c9-5fe7-8d71-adbf38f38546")
+	(paper "A3")
+	(title_block
+		(title "ARIA_SRB_FAFF_2 CBs_1 - Root")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Proof-of-concept control board - development-board form factor")
+		(comment 2 "Hierarchical block map; see docs/ARCHITECTURE.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Decisions: docs/DECISIONS.md")
+	)
+	(lib_symbols)
+	(text "ROOT SHEET - BLOCK MAP ONLY, DELIBERATELY UNWIRED (see docs/DECISIONS.md DEC-0009)\n\nEach block below is a hierarchical sheet in its own .kicad_sch file so that follow-up\nworkers can each own exactly one file and never collide (see AGENTS.md).\n\nBoth upstream authorities have now landed and the blocks below are reconciled against\nthem:\n  - docs/FAFF-2-Electronics-Full.svg  - the FAFF 2 electronics block diagram\n  - hardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc - STM32H723VET6, the pin-map authority\n\nSheet pins and root-level wiring are still NOT drawn. A sheet pin only passes ERC once\nthe child sheet declares the matching hierarchical label, and those labels are created\nby the per-block tasks that own each child file. Root wiring is therefore the first\nintegration pass AFTER the blocks are drawn, not part of this skeleton (DEC-0009).\n\nThe interface lists inside each child sheet are the binding contract in the meantime.\nA block worker that needs an interface not listed there must raise it rather than\ninventing it, so two blocks never disagree about a shared net.\n\nNOTE: the block diagram is signal-architecture only - it shows no power blocks. The two\npower sheets below are carried by the specification (REQ-EL-01..04), not the diagram.\n\nLeft-to-right signal flow: power in -> rails -> sensing / MCU -> motor drive."
+		(exclude_from_sim no)
+		(at 15.2400 200.6600 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "b0972861-0883-5811-adfb-1d8336a63533")
+	)
+	(sheet
+		(at 15.2400 25.4000)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "4ec0bd1c-b43d-5810-bc42-5f18ea0c8497")
+		(property "Sheetname" "power_entry_24v"
+			(at 15.2400 24.6882 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "power_entry_24v.kicad_sch"
+			(at 15.2400 46.4318 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "2"))
+			)
+		)
+	)
+	(sheet
+		(at 15.2400 60.9600)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "cfac6e86-3b1f-5c4c-b992-5519585fa944")
+		(property "Sheetname" "power_rails"
+			(at 15.2400 60.2482 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "power_rails.kicad_sch"
+			(at 15.2400 81.9918 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "3"))
+			)
+		)
+	)
+	(sheet
+		(at 15.2400 96.5200)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "07c1535d-fd75-5e35-93ca-efc2898cf844")
+		(property "Sheetname" "test_debug"
+			(at 15.2400 95.8082 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "test_debug.kicad_sch"
+			(at 15.2400 117.5518 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "4"))
+			)
+		)
+	)
+	(sheet
+		(at 101.6000 25.4000)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "94a105e9-fddd-5aae-8f2a-964f0eaa6212")
+		(property "Sheetname" "loadcell_afe"
+			(at 101.6000 24.6882 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "loadcell_afe.kicad_sch"
+			(at 101.6000 46.4318 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "5"))
+			)
+		)
+	)
+	(sheet
+		(at 101.6000 60.9600)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "7f1522a2-4954-524c-ba63-158dc350920f")
+		(property "Sheetname" "linear_encoder"
+			(at 101.6000 60.2482 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "linear_encoder.kicad_sch"
+			(at 101.6000 81.9918 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "6"))
+			)
+		)
+	)
+	(sheet
+		(at 101.6000 96.5200)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "4e1514d5-7414-55f0-9f35-1d20cac21a6b")
+		(property "Sheetname" "temp_sense"
+			(at 101.6000 95.8082 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "temp_sense.kicad_sch"
+			(at 101.6000 117.5518 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "7"))
+			)
+		)
+	)
+	(sheet
+		(at 101.6000 132.0800)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "9fddfe18-c15c-5dd7-9f89-62033d73aa2a")
+		(property "Sheetname" "nvm_calibration"
+			(at 101.6000 131.3682 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "nvm_calibration.kicad_sch"
+			(at 101.6000 153.1118 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "8"))
+			)
+		)
+	)
+	(sheet
+		(at 101.6000 167.6400)
+		(size 63.5000 20.3200)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "3ac83d89-6c2b-5de7-a46b-dbc34c85888b")
+		(property "Sheetname" "ui_io"
+			(at 101.6000 166.9282 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "ui_io.kicad_sch"
+			(at 101.6000 188.6718 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "9"))
+			)
+		)
+	)
+	(sheet
+		(at 190.5000 60.9600)
+		(size 76.2000 76.2000)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "1d7ef20a-ceb5-5848-8c8d-02f7ee5f958f")
+		(property "Sheetname" "mcu"
+			(at 190.5000 60.2482 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "mcu.kicad_sch"
+			(at 190.5000 137.8718 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "10"))
+			)
+		)
+	)
+	(sheet
+		(at 289.5600 60.9600)
+		(size 63.5000 25.4000)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "25605169-cb1e-52bd-8388-77d0027da969")
+		(property "Sheetname" "motor_drive"
+			(at 289.5600 60.2482 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Sheetfile" "motor_drive.kicad_sch"
+			(at 289.5600 87.0718 0)
+			(effects (font (size 1.27 1.27)) (justify left top))
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546" (page "11"))
+			)
+		)
+	)
+	(sheet_instances
+		(path "/" (page "1"))
+	)
+	(embedded_fonts no)
+)

@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "6850ed1c-d1e3-5902-b136-ccc2da8df05b")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - MCU (STM32H723VET6) + USB + QSPI")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: mcu\n\nSCOPE\n  STM32H723VET6 (LQFP100, CPN STM32H723VET6TR) and everything on its\n  immediate bus. Part pinned by the captain's CubeMX .ioc (DEC-0013) -\n  hardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc is the pin-map authority.\n  Contents:\n  - STM32H7 supplies (VDD/VDDA/VREF+/VCAP), decoupling, reset, boot, SWD\n  - HSE from an EXTERNAL CLOCK SOURCE on PH0-OSC_IN only (not a crystal:\n    PH1-OSC_OUT is unallocated) - source TBC, see OQ-03\n  - USB 2.0 HS device via USB3320 ULPI PHY (12 ULPI signals + PE4\n    USB3320_nRESET) into a USB-C receptacle: DATA ONLY, no USB-PD,\n    no bus power (DEC-0002)\n  - QSPI memory on OCTOSPI1 port 1 in quad mode for large force profiles.\n    The feared ULPI/OctoSPI pin collision does NOT occur on this part -\n    it is FITTED, not an option (DEC-0006)\n  - Internal ADC1/ADC2 in dual injected-simultaneous mode for phase current\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   +3V3, VDDA / VREF+ analog supply, DGND\n  OUT  MOTOR_PWM_AH/AL/BH/BL/CH/CL PE8-PE13 (TIM1) -> motor_drive\n  IN   TIM1_BKIN PE15 (DRV8323_nFAULT), TIM1_BKIN2 PE6 (LIMIT_nBRK)\n  IN   MOTOR_I_A PA6, _B PC4, _C PA7; MOTOR_FETTEMP PA4; VBUS_MON PC5\n  IN   V24_MON PC1 <- power_entry_24v\n  IN   MOTOR_ENCODER_A PC6, _B PC7, _I PC8 (TIM3) <- motor_drive\n  IN   HALL1 PE14, HALL2 PD14, HALL3 PD15 <- motor_drive\n  IN   LINEAR_ENCODER_A/B/Z PA0/PA1/PA2 (TIM5) <- linear_encoder\n  IN/OUT SPI3 <-> loadcell_afe; CONFIG_SPI (SPI2) <-> temp_sense,\n       motor_drive; I2C1 <-> nvm_calibration\n  IN/OUT GPIO <-> ui_io; SWD + USART3 -> test_debug\n  OUT  J-USB : USB-C receptacle, USB 2.0 data only\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "c88a5f3a-8e98-5e8d-8677-644059ff9a90")
+	)
+	(embedded_fonts no)
+)

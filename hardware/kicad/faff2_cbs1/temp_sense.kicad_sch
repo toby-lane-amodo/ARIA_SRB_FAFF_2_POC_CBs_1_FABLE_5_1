@@ -1,0 +1,28 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "3e42f7c5-2eec-5cf8-8093-876c7ca13864")
+	(paper "A3")
+	(title_block
+		(title "CBs_1 - Temperature Sense (ADS1120)")
+		(date "2026-09-02")
+		(rev "0.1")
+		(company "Amodo Design")
+		(comment 1 "Stub sheet - no circuitry drawn yet")
+		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
+		(comment 3 "Requirements: docs/REQUIREMENTS.md")
+		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+	)
+	(lib_symbols)
+	(text "BLOCK: temp_sense\n\nSCOPE\n  Two temperature probe points to 1 degC accuracy (REQ-EL-07): at the load\n  cell, and at the mid-point of the linear encoder measurement rail.\n  ADS1120 external SPI ADC (.ioc net ADS1120_nCS; block diagram\n  \"ADS1120 ADC (temperature measurement)\"). Both probes are labelled\n  RTD / NTC on the block diagram - support both, with IDAC excitation /\n  ratiometric reference, probe connectors and input protection. NOTE: motor FET temperature (MOTOR_FETTEMP PA4) is NOT in\n  this block - it goes to the STM32 internal ADC and belongs to\n  motor_drive (DEC-0011).\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   analog rail + reference, AGND\n  IN   J-T1 (load cell probe), J-T2 (encoder rail mid-point probe)\n  OUT  ADS1120_nCS PD3 -> mcu\n  IN/OUT CONFIG_SPI (SPI2): SCK PA9, MISO PB14, MOSI PB15 - SHARED BUS\n       shared with nvm_calibration and motor_drive; chip selects are\n       per-peripheral, so bus loading/termination is a joint concern.\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+		(exclude_from_sim no)
+		(at 15.2400 25.4000 0)
+		(effects
+			(font (size 1.27 1.27))
+			(justify left top)
+		)
+		(uuid "c777b82e-1fba-5320-acc5-3f2abfe69eb4")
+	)
+	(embedded_fonts no)
+)
