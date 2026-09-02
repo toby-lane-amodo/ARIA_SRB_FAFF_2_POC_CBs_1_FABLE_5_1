@@ -6,7 +6,15 @@ where possible, named `<MPN>.pdf`.
 Note that KiCad symbols must carry a **working web URL** in their Datasheet field (pressing `d`
 in KiCad opens it) — these local copies are for offline reference, not a substitute.
 
+## Collected
+
+| File | Part | Block | Revision |
+|---|---|---|---|
+| `250721_IKP11_technical_data_sheet.pdf` | Bogen IKP11 | `linear_encoder` | rev 3.7, 2025-07-21 (supersedes the rev linked below) |
+
 ## Fixed parts
+
+✅ = collected, see above.
 
 | Part | Block | Notes |
 |---|---|---|
@@ -16,7 +24,7 @@ in KiCad opens it) — these local copies are for offline reference, not a subst
 | TI ADS1235 | `loadcell_afe` | 24-bit bridge ADC. **Symbol already exists in `Amodo_ADCs.kicad_sym`** |
 | TI ADS1120 | `temp_sense` | 16-bit ADC with PGA and IDACs, for RTD/NTC |
 | HBK S2M | `loadcell_afe` | Load cell, 10 N and 50 N variants. Datasheet + wiring diagram (4- and 6-wire) |
-| Bogen IKP11 | `linear_encoder` | `IKP11-Z1.4-P1-V5-D1-R0.5-F1000-C1`. [Technical data sheet](https://www.bogen-magnetics.com/media/450/t-file/240802_IKP11_technical_data_sheet-1.pdf) |
+| Bogen IKP11 ✅ | `linear_encoder` | `IKP11-Z1.4-P1-V5-D1-R0.5-F1000-C1`. Local: `250721_IKP11_technical_data_sheet.pdf` (rev 3.7). Web: [technical data sheet](https://www.bogen-magnetics.com/media/450/t-file/240802_IKP11_technical_data_sheet-1.pdf) — note that URL serves the older 2024-08-02 revision |
 | Bogen LMS-I1-L70-W5-A03-K | (mechanical) | Magnetic scale, adhesive backed, ±3 µm accuracy class |
 | KPJX-4S | `power_entry_24v` | Latching circular power connector, 4-way |
 
