@@ -5311,6 +5311,138 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "faff2_passives:RES_TF_100R_0603_H"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.54 2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "100R"
+				(at 2.54 -2.286 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERJ-3EKF1000V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPR0603100R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "draft"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_100R_0603_H_0_1"
+				(rectangle
+					(start -1.016 1.016)
+					(end 6.096 -1.016)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "RES_TF_100R_0603_H_1_1"
+				(pin passive line
+					(at 0 0 0)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 	)
 	(rectangle
 		(start 15.24 17.78)
@@ -5573,66 +5705,12 @@
 		)
 		(uuid "af0522b3-2e9b-539c-8c17-3015622cac34")
 	)
-	(wire
-		(pts
-			(xy 62.23 190.5) (xy 91.44 190.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a6d87c5b-4d72-536e-87e8-fedc6868ecfb")
-	)
-	(wire
-		(pts
-			(xy 69.85 204.47) (xy 91.44 204.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3dc14307-d124-5361-9493-92d8c653df13")
-	)
-	(wire
-		(pts
-			(xy 77.47 218.44) (xy 91.44 218.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dfa22936-9e88-530e-95c8-ce65f9dd2157")
-	)
-	(wire
-		(pts
-			(xy 62.23 236.22) (xy 91.44 236.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3c640c9-6101-5804-8207-e979166a07e0")
-	)
-	(wire
-		(pts
-			(xy 69.85 250.19) (xy 91.44 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5209a67d-f40a-5c12-84a3-9a065a096ff6")
-	)
-	(wire
-		(pts
-			(xy 77.47 264.16) (xy 91.44 264.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2366f2d5-0ddf-5592-a9fd-eeb41afdfea8")
-	)
+
+
+
+
+
+
 	(wire
 		(pts
 			(xy 275.59 73.66) (xy 285.75 73.66)
@@ -5895,6 +5973,696 @@
 			(justify left top)
 		)
 		(uuid "37faacd7-ce6b-53fd-aec5-2333b26ed4dc")
+	)
+	(wire
+		(pts
+			(xy 62.23 190.5) (xy 81.28 190.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed33c531-4f10-59dc-b30e-bf3f261cb809")
+	)
+	(wire
+		(pts
+			(xy 86.36 190.5) (xy 91.44 190.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7dd2526e-301e-5047-8de5-518e5990174a")
+	)
+	(symbol
+		(lib_id "faff2_passives:RES_TF_100R_0603_H")
+		(at 81.28 190.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "94326640-525e-5e78-b560-b91c2725e283")
+		(property "Reference" "R1128"
+			(at 83.82 188.468 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 83.82 192.786 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 81.28 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 81.28 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+			(at 81.28 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1000V"
+			(at 81.28 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100R"
+			(at 81.28 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 81.28 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0a619fe8-a64c-5777-bbed-dffe053eeff8")
+		)
+		(pin "2"
+			(uuid "c54303bc-bb61-5e67-b37b-9571c4536c72")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/25605169-cb1e-52bd-8388-77d0027da969"
+					(reference "R1128")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 69.85 204.47) (xy 81.28 204.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6dd4a723-49d1-5e19-bf89-8ed95272f6fc")
+	)
+	(wire
+		(pts
+			(xy 86.36 204.47) (xy 91.44 204.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8154a817-aff0-5978-ae51-194575a49898")
+	)
+	(symbol
+		(lib_id "faff2_passives:RES_TF_100R_0603_H")
+		(at 81.28 204.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "91389919-a655-5877-ac89-88599de4ac80")
+		(property "Reference" "R1129"
+			(at 83.82 202.438 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 83.82 206.756 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 81.28 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 81.28 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+			(at 81.28 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1000V"
+			(at 81.28 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100R"
+			(at 81.28 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 81.28 204.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "efc31090-dd0f-56cb-909c-c6072d243b69")
+		)
+		(pin "2"
+			(uuid "be5a4810-ae2a-5bac-a58b-7e72f6ddb6dc")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/25605169-cb1e-52bd-8388-77d0027da969"
+					(reference "R1129")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 77.47 218.44) (xy 81.28 218.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d7ab5d0-83fc-59c5-83ac-5581d9d329dc")
+	)
+	(wire
+		(pts
+			(xy 86.36 218.44) (xy 91.44 218.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e20e419-e186-548a-ba53-01fd928e99fd")
+	)
+	(symbol
+		(lib_id "faff2_passives:RES_TF_100R_0603_H")
+		(at 81.28 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "879022d4-e232-5a92-8303-e47d0cc47106")
+		(property "Reference" "R1130"
+			(at 83.82 216.408 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 83.82 220.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 81.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 81.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+			(at 81.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1000V"
+			(at 81.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100R"
+			(at 81.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 81.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bc561ff0-e665-5def-872c-5c4ec39672ef")
+		)
+		(pin "2"
+			(uuid "3c4649df-7c9c-5291-a00c-4e54e31309af")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/25605169-cb1e-52bd-8388-77d0027da969"
+					(reference "R1130")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 62.23 236.22) (xy 81.28 236.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0b4e1db-89c3-570c-ac48-8c5436bfb69b")
+	)
+	(wire
+		(pts
+			(xy 86.36 236.22) (xy 91.44 236.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f13a9b8-4c8e-5992-9596-b6831f05b3ce")
+	)
+	(symbol
+		(lib_id "faff2_passives:RES_TF_100R_0603_H")
+		(at 81.28 236.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "f9c3b5bd-5b87-5ebf-8aba-45104367924f")
+		(property "Reference" "R1131"
+			(at 83.82 234.188 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 83.82 238.506 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 81.28 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 81.28 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+			(at 81.28 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1000V"
+			(at 81.28 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100R"
+			(at 81.28 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 81.28 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "56082bde-0216-524c-abb3-350366e2f454")
+		)
+		(pin "2"
+			(uuid "5be68950-1798-52ac-af65-312cc78d07a6")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/25605169-cb1e-52bd-8388-77d0027da969"
+					(reference "R1131")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 69.85 250.19) (xy 81.28 250.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44481607-a81b-5a7a-859f-98deda6e0fc0")
+	)
+	(wire
+		(pts
+			(xy 86.36 250.19) (xy 91.44 250.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bdb50783-0ef0-5d98-b073-9a47de2f086a")
+	)
+	(symbol
+		(lib_id "faff2_passives:RES_TF_100R_0603_H")
+		(at 81.28 250.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "b09ff8d4-75f8-5cf0-a825-c8c6adfc2e83")
+		(property "Reference" "R1132"
+			(at 83.82 248.158 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 83.82 252.476 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1000V"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100R"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "632284a3-917a-54d2-8b71-653d663101fd")
+		)
+		(pin "2"
+			(uuid "3c2adb5f-12d1-584b-88d8-7a3a62f63f68")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/25605169-cb1e-52bd-8388-77d0027da969"
+					(reference "R1132")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 77.47 264.16) (xy 81.28 264.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42ce75e4-61a9-58ba-8d5e-562150ad6a9b")
+	)
+	(wire
+		(pts
+			(xy 86.36 264.16) (xy 91.44 264.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb936d58-6601-511c-8c94-7371252b8924")
+	)
+	(symbol
+		(lib_id "faff2_passives:RES_TF_100R_0603_H")
+		(at 81.28 264.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "71343c7a-5062-5f8c-aa18-1549e1204626")
+		(property "Reference" "R1133"
+			(at 83.82 262.128 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100R"
+			(at 83.82 266.446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 81.28 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 81.28 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
+			(at 81.28 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1000V"
+			(at 81.28 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100R"
+			(at 81.28 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 81.28 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6ad74a65-6efa-5a1f-bdbd-a8d07b77f351")
+		)
+		(pin "2"
+			(uuid "7acd7614-e78b-5585-8b69-471bd9b066e6")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/25605169-cb1e-52bd-8388-77d0027da969"
+					(reference "R1133")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_2.2uF_1206_10%_100V")
@@ -10520,7 +11288,7 @@
 			)
 		)
 	)
-	(text "J102 A/B/Z -> TIM3 CH1/CH2/CH3 (PC6/PC7/PC8).  J103 halls -> PE14/PD14/PD15 (GPIO).\nMotor not fixed (DEC-0004): this pinout suits every candidate BLDC in the design log."
+	(text "J102 A/B/Z -> TIM3 CH1/CH2/CH3 (PC6/PC7/PC8).  J103 halls -> PE14/PD14/PD15 (GPIO).\nMotor not fixed (DEC-0004): this pinout suits every candidate BLDC in the design log.\nR1128..R1133 100R bound the current into the six MCU pins, the same treatment the\nlimit and button harnesses get. The cable is internal, so no TVS array - see the\nESD audit in docs/decisions/actuator-sch-review-r1.md."
 		(exclude_from_sim no)
 		(at 17.78 267.97 0)
 		(effects

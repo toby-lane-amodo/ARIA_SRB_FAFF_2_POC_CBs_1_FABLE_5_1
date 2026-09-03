@@ -512,3 +512,64 @@ that compensates the rotation - so the silkscreen names read vertically. Fixed,
 and `tools/apply_review_r1_sweep.py` now preserves a field's angle when it moves
 it. Neither the overlap checker nor the netlist can see this class; only a render
 can.
+
+## Item 3 - D601/D602, and an ESD audit of every external interface
+
+### Why D601 and D602 are in parallel
+
+**Not per-connector ESD.** `D602` is a **DNP second footprint in parallel with
+`D601`**, both on the read head's `+5V_ENC` feed, and it was added at the
+captain's own request in the AFE review round - `actuator-rev-afe.md` records it
+as "a second SC-79 clamp position at the connector. Populate both for more
+peak-pulse capability, or fit a different clamp voltage / bidirectional part here
+without reworking `D601`'s pads." It is one of **three** DNP parallel bring-up
+positions on that supply, and the sheet note says so: `R608` parallels `R601`
+(fit a shunt and lift `R601` to meter head current in circuit), `R609` parallels
+`FB601` (bypass the bead), `D602` parallels `D601`. None fitted by default.
+
+So it has nothing to do with J601 and J602 being two connectors. Those two are
+the *same ten signals in parallel* - one FFC receptacle and one 1.27 mm header
+for the same head, pin n to pin n - so a clamp on either serves both.
+
+### Why the other IOs do not all have clamps
+
+They follow a policy that is already written down and is **exposure-based, not
+per-connector**. Protection goes where a pin is exposed outside the enclosure or
+gets hot-plugged; everywhere else the current is bounded by a series resistor and
+an RC into a device that can absorb it. `REQ-SC-01` - prototype, EMC best
+practice, no formal testing, no CE mark - is what makes that proportionate.
+
+| Interface | Leaves the enclosure? | Protection | Where it is argued |
+|---|---|---|---|
+| `J201` 24 V input | yes | `D201` 5.0SMDJ26A TVS, 5 kW | `actuator-sch-power.md` DEC-P5 |
+| `J1001` USB-C | yes | `D1001` USBLC6-2P6 on D+/D-/VBUS | `actuator-sch-mcu.md` |
+| `J902` SMA sync | yes | `D903` ESD8351XV2T1G, 0.55 pF so the edge survives | `actuator-sch-periph.md` D-PER-16 |
+| `J601`/`J602` read head | no, but the FFC is hot-plugged | `D601` (+`D602` DNP) on the supply; the A/B/Z pairs terminate into an AM26LV32 line receiver, not the MCU; `ENC_SDO`/`ENC_nPROG` go through 1 k + 100 nF | `actuator-rev-afe.md` |
+| `J903` limit switches | no, internal harness | 1 k feed + 100 R + 10 nF, into the AND gate's and MCU's own clamps | `actuator-sch-periph.md` |
+| `J901` panel button | the button is user-touchable | 100 R + 100 nF - an 8 kV contact discharge is ~150 nC, which puts 1.5 V on 100 nF and microamps through the 100 R | `actuator-sch-periph.md` D-PER-15 |
+| `J501` load cell, `J701`/`J702` probes | no, internal | none, deliberately - these are the accuracy-critical analog paths and diode capacitance and leakage land straight on them | `actuator-sch-afe.md` |
+| `J1103` motor phases | no | none, and a clamp would be wrong: this is a bridge-protection question, answered by the FET avalanche rating and the DC-link TVS |  |
+| `J1002`/`J1003`/`J1004`/`J502`/`J603` | no, bench debug only | none needed |  |
+
+### The one gap, and what was done about it
+
+`J1101`/`J1102` - the motor rotary encoder and hall harness - ran **connector ->
+pull-up -> MCU pin with nothing in between**, on six pins. `D-MOT-11` justified
+that as an internal cable, which is true; but the **limit harness is equally
+internal and gets 1 k + 100 R + 10 nF, and the buttons get 100 R + 100 nF**,
+both explicitly "to protect the MCU pins". Two internal harnesses, two different
+answers, and the six bare ones are the safety-adjacent motor feedback.
+
+**Added `R1128`-`R1133`, 100 Ω in series**, one per line, between each pull-up
+node and its MCU pin. That is the cheap end of the same treatment the rest of the
+board already gets: at the ~270 kHz `D-MOT-11` sizes these lines for, 100 Ω into
+a few pF of pin capacitance is nothing, and it bounds the fault current into six
+GPIOs. **No TVS array** - the cable is internal, and an array would load the
+lines for exposure the design does not have.
+
+A pre-rotated `RES_TF_100R_0603_H` joins `faff2_passives.kicad_sym` rather than
+six rotated instances, which is what `AGENTS.md` asks for.
+
+**Not added, and why**: nothing on `J501`, `J701`/`J702` - diode capacitance and
+leakage on a 2 mV/V bridge and on RTD/NTC inputs is a decision for the AFE owner
+against `REQ-FF-04`, not a sweep. Raised rather than taken.
