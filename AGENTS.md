@@ -128,6 +128,21 @@ call in `docs/DECISIONS.md`.
 - Every wire end and pin must sit on the **1.27 mm grid**, or ERC reports `endpoint_off_grid`.
 - A stub that lands mid-wire does **not** connect, junction dot or not — split the wire at the
   junction point. The tell is `pin_not_connected` on a part that looks wired.
+- **An invalid token truncates a sheet silently.** KiCad stops parsing at the bad token,
+  keeps everything before it and drops the rest — no error, and the plotter still renders
+  what survived. The tell is a component count well below what the sheet contains, or wires
+  that ERC calls dangling for no visible reason. `(justify center)` is the trap: KiCad's
+  justify tokens are only `left`/`right`/`top`/`bottom`/`mirror`, and centred text is
+  expressed by **omitting** `justify`. Check with `kicad-cli sch export netlist` and count
+  components before trusting a clean ERC.
+- Inside a schematic's `lib_symbols`, the parent symbol is named `Lib:Name` but its unit
+  sub-symbols keep the **bare** library name (`RES_TF_10k_0603_1_1`, not
+  `Amodo_Resistors:RES_TF_10k_0603_1_1`). Prefixing them gives "Failed to load schematic".
+- A child sheet's own `(uuid …)` must **not** equal the uuid of its sheet symbol in the root.
+- The `schematic-style` overlap checker reports a false `body-vs-wire` on **multi-unit**
+  symbols: it merges every unit's graphics into each instance's body box, so one unit's body
+  appears at another unit's position. Confirm against the single unit's own extents before
+  moving anything.
 
 ## Maintaining this file
 

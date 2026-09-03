@@ -333,6 +333,16 @@ Power crosses on **global power symbols**, so it needs no sheet pins:
 | `+5V` | `linear_encoder` only | `power_rails` |
 | `GND` | all three | `power_rails` |
 
+These three sheets comply with the cross-block rules the `power_*` blocks set:
+only `GND` is used (no split `AGND`/`DGND`/`PGND`), and **no `PWR_FLAG` is placed
+anywhere** — the power sheets own all of them.
+
+The read head is fed from **`+5V`, not `+5VA`**, deliberately. The rule that
+excitation comes from the clean analog rail is for the AFE sheets; the IKP11 is a
+digital sensor drawing < 65 mA with switching edges on its outputs, so keeping it
+off `+5VA` protects the load-cell noise budget (`REQ-FF-04`) rather than harming
+it. `ARCHITECTURE §4` allocates the read head to the 5 V rail on the same basis.
+
 No net not listed above leaves these three sheets. No interface was invented:
 every name matches the stub-note contract, except that `nWP` in the
 `nvm_calibration` stub is drawn as active-high `WP` (D-PER-09) and no MCU-side
@@ -343,26 +353,27 @@ net exists for it at all.
 ## 6. Residual ERC — and proof they are hierarchy-context only
 
 `kicad-cli sch erc --severity-all` over the whole project, after rebasing onto
-`fca9982`:
+`107560d` (the `power_*` blocks landed):
 
 | Sheet | Class | Count |
 |---|---|---|
 | `linear_encoder` | `hier_label_mismatch` | 3 |
 | `nvm_calibration` | `hier_label_mismatch` | 2 |
-| `nvm_calibration` | `power_pin_not_driven` | 2 |
 | `ui_io` | `hier_label_mismatch` | 8 |
 | `ui_io` | `pin_not_driven` | 3 |
 
-**0 warnings.** Every one is in the three classes `AGENTS.md` records as
-expected during the parallel wave:
+**0 warnings**, and 13 `hier_label_mismatch` is exactly one per hierarchical
+label in §5. Both classes are ones `AGENTS.md` records as expected during the
+parallel wave:
 
-* `hier_label_mismatch` — one per hierarchical label in §5; cleared when the root
-  gets its sheet pins.
-* `power_pin_not_driven` — `U801` VCC/VSS. Nothing on any block sheet drives
-  `+3V3` or `GND`; `power_rails` (OQ-02) will.
+* `hier_label_mismatch` — cleared when the root gets its sheet pins.
 * `pin_not_driven` — `D901`/`D902` anodes and `U901` input. These are fed from
   the MCU through `LED_1`, `LED_2` and `SYNC_TRIG`; a hierarchical label is not
   an ERC driver, the parent's driver is.
+
+`power_pin_not_driven` appeared on these sheets while `power_rails` was still a
+stub and **disappeared on its own** the moment that block landed — which is the
+direct evidence that the class was hierarchy-context, not a defect here.
 
 **No `PWR_FLAG` was placed.** An earlier revision of these sheets used them and
 it was wrong: `PWR_FLAG` is a power *output*, so one per block collides at merge
