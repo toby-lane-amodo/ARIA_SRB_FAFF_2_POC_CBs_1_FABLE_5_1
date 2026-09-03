@@ -74,7 +74,7 @@ Kt 0.036 N·m/A, so T = F·lead / (2π·η) and I = T / Kt, giving **0.02458 A/N
 | V10N | 10 N | 0.246 A | 15 N | **0.369 A** | 55 mV |
 
 **Layer 1 — measurement, and the primary per-variant limit.** One shunt value,
-`R1301/R1302/R1303 = 0R15` (Vishay WSR5, 5 W, 4527), for both variants. The
+`R1125/R1126/R1127 = 0R15` (Vishay WSR5, 5 W, 4527), for both variants. The
 DRV8323 CSA gain is an SPI register (`CSA_GAIN`, 5/10/20/40 V/V), VREF = +3V3, so
 the output biases at 1.65 V with a linear range of 0.25 V … VREF−0.25 V — ±1.4 V
 usable either side of the bias.
@@ -152,13 +152,13 @@ SLVSDJ3D §7.5 specifies an internal 100 kΩ pull-down (`RPD`) on CAL, ENABLE,
 INHx, INLx, nSCS, SCLK and SDI. Six external PWM pull-downs would therefore be
 redundant.
 
-`R1208 = 10 k` to GND on ENABLE is fitted anyway, because ENABLE is the
+`R1121 = 10 k` to GND on ENABLE is fitted anyway, because ENABLE is the
 single point that disables the whole bridge and 100 kΩ is weak for a
 safety-relevant pull-down on a motor board. With PD10 high-impedance out of MCU
 reset, the bridge is off. `CAL` relies on its internal pull-down.
 
 `nSCS` is the exception that needs an external part in the other direction:
-its internal resistor pulls it **low**, i.e. selected. `R1202 = 10 k` to +3V3
+its internal resistor pulls it **low**, i.e. selected. `R1115 = 10 k` to +3V3
 holds the device deselected; against the internal 100 kΩ that is 3.0 V, a solid
 logic high.
 
@@ -167,29 +167,29 @@ logic high.
 The CSA output goes to the STM32's own ADC. Tying VREF to the same +3V3 the ADC
 references makes gain and bias track the reference, so a rail shift cancels
 instead of appearing as a current error. VREF draws 2–3 mA, decoupled at the pin
-by `C1205`/`C1206` (100 nF ∥ 1 µF). A series filter resistor was rejected: at
+by `C1113`/`C1114` (100 nF ∥ 1 µF). A series filter resistor was rejected: at
 3 mA it would introduce a gain error precisely by breaking that ratiometry.
 
 ### D-MOT-07 — SPI2 stub links on SCK and MOSI only, none on MISO
 
 `TEST_PLAN.md` §3.3 asks for a way to remove one peripheral from a shared bus.
-`R1203`/`R1204` (0R, fitted) are that: lift both and U1101 is off SPI2, and its
+`R1116`/`R1117` (0R, fitted) are that: lift both and U1101 is off SPI2, and its
 chip select is already private.
 
 MISO gets no link. The DRV8323's SDO is **open drain and Hi-Z whenever nSCS is
 high** (SLVSDJ3D Table 6-3), so it cannot load or corrupt the line that
-`temp_sense`'s ADS1120 shares — there is nothing to isolate. `R1205 = 10 k` to
+`temp_sense`'s ADS1120 shares — there is nothing to isolate. `R1118 = 10 k` to
 +3V3 is the pull-up that open-drain output requires. Reported here because SPI2
 is a cross-block concern (`ARCHITECTURE.md` §5): **`motor_drive` adds a 10 kΩ
 pull-up and two 0R stub resistors to SPI2 and nothing else.**
 
 ### D-MOT-08 — the TIM1 BREAK path, and the link that must default fitted
 
-`R1206` (0R) sits in the `DRV8323_nFAULT` net between the driver and PE15, so the
+`R1119` (0R) sits in the `DRV8323_nFAULT` net between the driver and PE15, so the
 `LIMIT_nBRK` trip source can be exercised alone at bring-up step 8. It is marked
-on the sheet as safety-critical and **default fitted**. `R1207` (10 k to +3V3) is
+on the sheet as safety-critical and **default fitted**. `R1120` (10 k to +3V3) is
 deliberately on the **MCU side** of that link, so opening the link leaves PE15
-pulled high — no break, defined state — rather than floating. `TP1114` is a hook
+pulled high — no break, defined state — rather than floating. `TP1109` is a hook
 on the same segment for forcing the trip by hand.
 
 Polarity and drive type are unchanged from `ARCHITECTURE.md` §5: active low, open
@@ -200,7 +200,7 @@ drain. Neither is this block's to change alone.
 `C1101`/`C1102` 100 µF electrolytic + `C1103` 10 µF + `C1104` 100 nF ceramic.
 Worst-case DC-link ripple ΔV = I·D·(1−D)/(fsw·C) = 1.843 × 0.25 / (20 kHz ×
 210 µF) = **0.11 V**, 0.5 % of the bus. SLVSDJ3D §11.1 asks for ≥ 10 µF local to
-VM plus separate bulk on the FET current path; `C1201`/`C1202` (100 nF + 10 µF)
+VM plus separate bulk on the FET current path; `C1109`/`C1110` (100 nF + 10 µF)
 are the VM-local pair. 63 V/100 V parts on a 24 V bus give 2.6× margin for
 inductive kickback, not the 1.5× a 35 V part would.
 
@@ -241,7 +241,7 @@ DEC-0018 ruling 4 prefers a coaxial connector for nets that will be scoped
 repeatedly, and `TEST_PLAN.md` §4 names "U.FL candidate on one phase node and the
 DC link". Not fitted, deliberately: a U.FL is a 50 Ω jack, and a DC-coupled 24 V
 switching node into a scope input left on 50 Ω is 11 W into the input stage. A
-50 Ω-terminated measurement of a switch node is also meaningless. `TP1119`–`TP1121`
+50 Ω-terminated measurement of a switch node is also meaningless. `TP1115` / `TP1118` / `TP1121`
 (`TestPointDual`, signal hole plus spring-ground hole) give the small measurement
 loop the design standard actually wants there, and `TP1102` does the same on the
 DC link.
@@ -264,10 +264,10 @@ capacitors.** That is a PCB-wave constraint recorded where layout will read it.
 break, and `TP1101` is the test point. Opening `R1101` leaves the entire logic
 side alive with the actuator dead, which is the state bring-up steps 1–8 run in.
 
-`V24_MOT` → `R1201` (0R) → `VM_DRV` gives the separate gate-driver supply
+`V24_MOT` → `R1114` (0R) → `VM_DRV` gives the separate gate-driver supply
 isolation that `TEST_PLAN.md` §4 asks for. `VDRAIN` is **not** taken from VM: it
 goes to the high-side FET drains on `V24_MOT`, so the VDS monitor sees the real
-bridge rail even with `R1201` out (SLVSDJ3D §11.1).
+bridge rail even with `R1114` out (SLVSDJ3D §11.1).
 
 ---
 
@@ -308,7 +308,7 @@ The bundled `schematic-style` overlap checker also reports this sheet **clean**.
 The one **PWR_FLAG** on the sheet (`#FLG1101`, on `VM_DRV`) is deliberate and
 permanent. `AGENTS.md` forbids flags on *shared* rails because one per block
 becomes a power-output conflict at merge; `VM_DRV` is generated on this sheet
-behind `R1201`, so no other block can ever drive it and no other block will ever
+behind `R1114`, so no other block can ever drive it and no other block will ever
 flag it. Without it this sheet could not reach the DEC-0021 end state.
 
 ---
@@ -356,11 +356,11 @@ Sheet-local nets the root must *not* try to wire: `V24_MOT`, `VM_DRV`, `VENC`,
 
 | Ref | Part | Pinout |
 |---|---|---|
-| `J1101` | Molex Micro-Fit 3.0, 1×3 | 1 `MOTOR_U`, 2 `MOTOR_V`, 3 `MOTOR_W` |
-| `J1102` | 1×6 header, 2.54 mm | 1 `VENC`, 2 A, 3 B, 4 Z, 5 GND, 6 GND |
-| `J1103` | 1×6 header, 2.54 mm | 1 `VENC`, 2 HALL1, 3 HALL2, 4 HALL3, 5 GND, 6 GND |
+| `J1101` | 1×6 header, 2.54 mm | 1 `VENC`, 2 A, 3 B, 4 Z, 5 GND, 6 GND |
+| `J1102` | 1×6 header, 2.54 mm | 1 `VENC`, 2 HALL1, 3 HALL2, 4 HALL3, 5 GND, 6 GND |
+| `J1103` | Molex Micro-Fit 3.0, 1×3 | 1 `MOTOR_U`, 2 `MOTOR_V`, 3 `MOTOR_W` |
 
-Unplugging `J1101` is the means `TEST_PLAN.md` §4 asks for to spin the motor with
+Unplugging `J1103` is the means `TEST_PLAN.md` §4 asks for to spin the motor with
 the load cell out of the force path.
 
 ---

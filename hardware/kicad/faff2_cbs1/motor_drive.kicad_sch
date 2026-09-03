@@ -9627,7 +9627,7 @@
 			)
 		)
 	)
-	(text "R1201 isolates the gate-driver\nsupply from the motor bus.\nVDRAIN comes from the high-side\nFET drains, not from VM, so the\nVDS monitor sees the real bridge\nrail (SLVSDJ3D 11.1)."
+	(text "R1114 isolates the gate-driver\nsupply from the motor bus.\nVDRAIN comes from the high-side\nFET drains, not from VM, so the\nVDS monitor sees the real bridge\nrail (SLVSDJ3D 11.1)."
 		(exclude_from_sim no)
 		(at 195.58 22.86 0)
 		(effects
@@ -9636,7 +9636,7 @@
 			)
 			(justify left top)
 		)
-		(uuid "2e802842-f7e7-5c6e-83ac-4e3822dd4331")
+		(uuid "e70cd291-cb0b-5315-9392-f277f57973f2")
 	)
 	(label "V24_MOT"
 		(at 177.8 62.23 0)
@@ -14070,7 +14070,7 @@
 		)
 		(uuid "967fff8a-69fe-5408-9c3c-4383525c2f12")
 	)
-	(text "SAFETY-CRITICAL BREAK PATH. R1206 is FITTED by default and marked on the silkscreen. DRV8323_nFAULT (open drain) drives\nTIM1_BKIN on PE15; opening R1206 exercises the LIMIT_nBRK path alone (TEST_PLAN.md 3.3, bring-up step 8). R1207 holds PE15\nhigh while R1206 is out. R1203/R1204 are the SPI2 stub links - remove both to lift U1101 off the shared bus; SDO is open\ndrain and Hi-Z while nSCS is high, so MISO needs no link. R1208 keeps ENABLE - and the bridge - off until PD10 drives high.\n\nPEAK CURRENT LIMIT (REQ-SF-03, closes OQ-08). One shunt value serves both variants; the limit is an SPI setting plus a\nfirmware threshold, not a board change. 0R15 with CSA gain 5 V/V gives +/-1.87 A full scale on V50N, so the 75 N (1.843 A)\nlimit lands on the last ADC code; gain 20 V/V gives +/-0.467 A on V10N, 15 N at 79 % of scale. SEN_LVL 00b trips the\nhardware comparator at 1.667 A = 67.8 N, below the V50N cell limit. A V10N build wanting that trip at 15 N fits 0R68.\n\nPOWER STAGE. No series gate resistors and no G-S pull-downs - slew rate is set by IDRIVE/TDRIVE over SPI, and external\ngate parts degrade the VDS and gate-fault monitors. SPx is the VDS monitor return as well as the CSA input, so keep it\nKelvin to the FET source. LAYOUT: shunt -> PGND -> bulk-cap negative is ONE tight loop, joined to system ground at a\nsingle point at the bulk capacitors."
+	(text "SAFETY-CRITICAL BREAK PATH. R1119 is FITTED by default and marked on the silkscreen. DRV8323_nFAULT (open drain) drives\nTIM1_BKIN on PE15; opening R1119 exercises the LIMIT_nBRK path alone (TEST_PLAN.md 3.3, bring-up step 8). R1120 holds PE15\nhigh while R1119 is out. R1116/R1117 are the SPI2 stub links - remove both to lift U1101 off the shared bus; SDO is open\ndrain and Hi-Z while nSCS is high, so MISO needs no link. R1121 keeps ENABLE - and the bridge - off until PD10 drives high.\n\nPEAK CURRENT LIMIT (REQ-SF-03, closes OQ-08). One shunt value serves both variants; the limit is an SPI setting plus a\nfirmware threshold, not a board change. 0R15 with CSA gain 5 V/V gives +/-1.87 A full scale on V50N, so the 75 N (1.843 A)\nlimit lands on the last ADC code; gain 20 V/V gives +/-0.467 A on V10N, 15 N at 79 % of scale. SEN_LVL 00b trips the\nhardware comparator at 1.667 A = 67.8 N, below the V50N cell limit. A V10N build wanting that trip at 15 N fits 0R68.\n\nPOWER STAGE. No series gate resistors and no G-S pull-downs - slew rate is set by IDRIVE/TDRIVE over SPI, and external\ngate parts degrade the VDS and gate-fault monitors. SPx is the VDS monitor return as well as the CSA input, so keep it\nKelvin to the FET source. LAYOUT: shunt -> PGND -> bulk-cap negative is ONE tight loop, joined to system ground at a\nsingle point at the bulk capacitors."
 		(exclude_from_sim no)
 		(at 251.46 222.25 0)
 		(effects
