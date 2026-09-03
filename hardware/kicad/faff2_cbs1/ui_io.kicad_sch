@@ -7270,14 +7270,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 179.0700 15.2400 0)
+		(property "Value" "SYNC"
+			(at 180.97 19.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -7462,14 +7462,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 196.85 15.24 0)
+		(property "Value" "SYNCO"
+			(at 198.75 19.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -8986,14 +8986,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 127.0000 181.6100 0)
+		(property "Value" "LIM_A"
+			(at 128.9 185.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -9714,14 +9714,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 127.0000 204.4700 0)
+		(property "Value" "LIM_B"
+			(at 128.9 208.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -10610,14 +10610,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 215.9 181.61 0)
+		(property "Value" "nBRK"
+			(at 217.8 185.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -10780,14 +10780,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 213.3600 213.3600 0)
+		(property "Value" "GND"
+			(at 215.26 217.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -10950,14 +10950,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 228.6000 213.3600 0)
+		(property "Value" "GND"
+			(at 230.5 217.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"

@@ -2544,14 +2544,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 63.5000 30.4800 0)
+		(property "Value" "SCL"
+			(at 65.4 34.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -2990,14 +2990,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 63.5000 40.6400 0)
+		(property "Value" "SDA"
+			(at 65.4 44.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -3787,14 +3787,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 137.1600 53.3400 0)
+		(property "Value" "WP"
+			(at 139.06 57.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -4109,14 +4109,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 22.8600 109.2200 0)
+		(property "Value" "GND"
+			(at 24.76 113.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -4279,14 +4279,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 33.0200 109.2200 0)
+		(property "Value" "GND"
+			(at 34.92 113.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"

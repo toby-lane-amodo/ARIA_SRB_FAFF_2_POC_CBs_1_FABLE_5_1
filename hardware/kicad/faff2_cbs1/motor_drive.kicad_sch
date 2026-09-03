@@ -6533,12 +6533,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 275.59 90.17 0)
+			(at 275.59 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -6598,12 +6597,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 285.75 90.17 0)
+			(at 285.75 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -6663,12 +6661,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 311.15 119.38 0)
+			(at 311.15 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -6728,12 +6725,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 321.31 119.38 0)
+			(at 321.31 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -6793,12 +6789,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 292.1 170.18 0)
+			(at 292.1 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -6858,12 +6853,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 302.26 170.18 0)
+			(at 302.26 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -7081,13 +7075,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 40.64 62.23 0)
+		(property "Value" "24MOT"
+			(at 42.545 57.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -7147,13 +7141,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 53.34 58.42 0)
+		(property "Value" "24MOT"
+			(at 55.88 53.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
@@ -7217,12 +7211,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 54.61 62.23 0)
+			(at 54.61 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -7352,12 +7345,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 57.15 80.01 0)
+			(at 57.15 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -7487,12 +7479,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 68.58 73.66 0)
+			(at 66.04 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -7622,12 +7614,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 80.01 73.66 0)
+			(at 82.55 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -7757,12 +7749,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 90.17 73.66 0)
+			(at 92.71 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -7961,12 +7953,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 110.49 96.52 0)
+			(at 110.49 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -8029,7 +8020,7 @@
 		(dnp no)
 		(uuid "fe1f4723-73d1-583f-a244-4449f8dfac9f")
 		(property "Reference" "TP1103"
-			(at 103.505 71.12 0)
+			(at 102.235 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8037,13 +8028,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 101.6 72.39 0)
+		(property "Value" "VBUSM"
+			(at 103.505 73.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -8173,12 +8164,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 88.9 96.52 0)
+			(at 91.44 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -8250,12 +8241,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 30.48 121.92 0)
+			(at 30.48 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -8454,12 +8444,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 30.48 147.32 0)
+			(at 30.48 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -8530,13 +8519,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 50.8 129.54 0)
+		(property "Value" "FETT"
+			(at 52.705 124.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -8666,12 +8655,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 41.91 147.32 0)
+			(at 41.91 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -8743,12 +8731,12 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 20.32 162.56 0)
+			(at 12.7 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -8878,12 +8866,11 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 38.1 162.56 0)
+			(at 38.1 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -9092,12 +9079,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 44.45 191.77 0)
+			(at 41.91 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -9227,12 +9214,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 52.07 191.77 0)
+			(at 52.07 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -9292,13 +9278,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 60.96 173.99 0)
+		(property "Value" "VENC"
+			(at 62.865 168.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -9370,7 +9356,7 @@
 			)
 		)
 		(property "Value" "1x6 2.54mm"
-			(at 20.32 196.85 0)
+			(at 19.05 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9541,12 +9527,12 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 62.23 186.69 0)
+			(at 64.77 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -9687,12 +9673,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 69.85 200.66 0)
+			(at 69.85 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -9833,12 +9818,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 77.47 214.63 0)
+			(at 77.47 203.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -9899,12 +9883,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 31.75 204.47 0)
+			(at 31.75 201.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -9965,7 +9948,7 @@
 			)
 		)
 		(property "Value" "1x6 2.54mm"
-			(at 20.32 242.57 0)
+			(at 19.05 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10136,12 +10119,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 62.23 232.41 0)
+			(at 62.23 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -10282,12 +10264,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 69.85 246.38 0)
+			(at 69.85 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -10428,12 +10409,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 77.47 260.35 0)
+			(at 77.47 248.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -10494,12 +10474,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 31.75 250.19 0)
+			(at 31.75 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -10846,12 +10825,12 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 146.05 45.72 0)
+			(at 143.51 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -10911,13 +10890,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 160.02 44.45 0)
+		(property "Value" "VMDRV"
+			(at 161.925 39.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -11047,12 +11026,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 177.8 62.23 0)
+			(at 177.8 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -11182,12 +11160,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 189.23 62.23 0)
+			(at 189.23 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -11337,13 +11314,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 185.42 78.74 0)
+		(property "Value" "VCP"
+			(at 187.325 73.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -11473,12 +11450,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 152.4 104.14 0)
+			(at 152.4 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -11608,12 +11584,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 160.02 116.84 0)
+			(at 160.02 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -11665,7 +11640,7 @@
 		(dnp no)
 		(uuid "990d6d0c-5011-54a8-b864-477da43ef5cc")
 		(property "Reference" "C1114"
-			(at 172.085 102.235 0)
+			(at 170.815 102.235 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11743,12 +11718,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 170.18 116.84 0)
+			(at 170.18 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -11878,12 +11852,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 177.8 119.38 0)
+			(at 177.8 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -11943,13 +11916,13 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 189.23 114.3 0)
+		(property "Value" "GND"
+			(at 187.325 109.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -12100,7 +12073,7 @@
 		(dnp no)
 		(uuid "195d03a4-d3bf-5de8-a4f7-852379624649")
 		(property "Reference" "R1115"
-			(at 189.865 153.035 0)
+			(at 188.595 153.035 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12178,12 +12151,12 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 187.96 154.94 0)
+			(at 190.5 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -12484,12 +12457,12 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 140.97 154.94 0)
+			(at 138.43 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -12541,7 +12514,7 @@
 		(dnp no)
 		(uuid "5e5707fa-a6e5-51b1-8672-29e58ab99f98")
 		(property "Reference" "R1119"
-			(at 173.355 188.595 0)
+			(at 177.165 188.595 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12699,12 +12672,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 166.37 181.61 0)
+			(at 166.37 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -12756,7 +12728,7 @@
 		(dnp no)
 		(uuid "bfd948c2-b128-57de-8d64-28d7e909cf04")
 		(property "Reference" "TP1109"
-			(at 144.145 190.5 0)
+			(at 145.415 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12764,13 +12736,13 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 146.05 198.12 0)
+		(property "Value" "nFLT"
+			(at 144.145 195.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -12911,12 +12883,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 175.26 193.04 0)
+			(at 175.26 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -13137,12 +13108,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 143.51 256.54 0)
+			(at 143.51 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -13194,7 +13164,7 @@
 		(dnp no)
 		(uuid "de3f6ac8-474c-5f91-afba-382ea49bb984")
 		(property "Reference" "TP1110"
-			(at 188.595 204.47 0)
+			(at 187.325 204.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13202,13 +13172,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 186.69 212.09 0)
+		(property "Value" "SOA"
+			(at 188.595 206.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -13418,12 +13388,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 156.21 259.08 0)
+			(at 156.21 256.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -13483,13 +13452,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 182.88 208.28 0)
+		(property "Value" "SOB"
+			(at 189.865 198.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -13699,12 +13668,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 168.91 261.62 0)
+			(at 168.91 259.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -13764,13 +13732,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 179.07 204.47 0)
+		(property "Value" "SOC"
+			(at 178.435 199.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -13831,12 +13799,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 190.5 238.76 0)
+			(at 190.5 236.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -14120,12 +14087,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 340.36 109.22 0)
+			(at 340.36 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -14185,13 +14151,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 250.19 62.23 0)
+		(property "Value" "GHA"
+			(at 252.095 57.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -14251,13 +14217,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 327.66 87.63 0)
+		(property "Value" "GLA"
+			(at 329.565 82.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -14317,13 +14283,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 363.22 72.39 0)
+		(property "Value" "PH_U"
+			(at 365.76 67.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
@@ -14387,12 +14353,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 364.49 76.2 0)
+			(at 364.49 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -14676,12 +14641,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 340.36 160.02 0)
+			(at 340.36 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -14741,13 +14705,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 250.19 87.63 0)
+		(property "Value" "GHB"
+			(at 252.095 82.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -14807,13 +14771,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 327.66 138.43 0)
+		(property "Value" "GLB"
+			(at 329.565 133.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -14865,7 +14829,7 @@
 		(dnp no)
 		(uuid "fb9eb6f1-a11e-58bd-b7ab-f76ad8b6bd85")
 		(property "Reference" "TP1118"
-			(at 365.76 115.57 0)
+			(at 364.49 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14873,13 +14837,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 363.22 123.19 0)
+		(property "Value" "PH_V"
+			(at 365.76 117.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
@@ -14943,12 +14907,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 364.49 127 0)
+			(at 364.49 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -15232,12 +15195,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 340.36 210.82 0)
+			(at 340.36 208.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -15297,13 +15259,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 250.19 113.03 0)
+		(property "Value" "GHC"
+			(at 252.095 107.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -15363,13 +15325,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 327.66 189.23 0)
+		(property "Value" "GLC"
+			(at 329.565 184.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
@@ -15429,13 +15391,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 363.22 173.99 0)
+		(property "Value" "PH_W"
+			(at 365.76 168.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
@@ -15499,12 +15461,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 364.49 177.8 0)
+			(at 364.49 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""

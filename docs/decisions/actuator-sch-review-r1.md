@@ -351,3 +351,108 @@ for overlap *and* crossing, and none of the new geometry does either:
 outputs of `motor_drive`. ERC is clean and the root agrees, so the shapes are at
 least self-consistent; raising it rather than changing an interface contract
 mid-review.
+
+---
+
+## Final pass - the design-wide sweep
+
+Five sweeps the captain asked for once the per-sheet batches had landed, run over
+all nine block sheets plus the root. **ERC 0/0, 404 components, 251 nets, and the
+per-net node sets identical to the pre-sweep export** - nothing here is
+electrical. Applied by `tools/apply_review_r1_sweep.py`, which rebuilds every
+sheet from `HEAD`, and verified with `tools/sch_geom.py`.
+
+| Sweep | Found | Done |
+|---|---|---|
+| Power labels missing | 92 hidden rail names, all on `loadcell_afe`, `motor_drive` and `temp_sense` | all shown, placed to the house pattern |
+| Test point silkscreen names | 66 of 83 still carried the library default `TestPoint` | all 83 named from the net they land on, longest 5 characters |
+| Text over wires, borders, bodies | 16 collisions, several invisible to the bundled checker | all cleared |
+| Ground symbols upside down | **none** - 0 of 285 power symbols is rotated or mirrored | nothing to do; recorded as verified |
+| Graphic lines shadowing wires | 1 - `power_rails` block D's bottom border lay along the last `PWR_FLAG`'s wire | the five-row flag column moved up 2.54 |
+
+### The overlap checker has three blind spots, and they matter
+
+This is the most re-usable thing the sweep produced. `check_overlaps.py` was
+treated as the arbiter by the earlier waves - `actuator-sch-integrate.md §7`
+dismisses eleven findings as artefacts on that basis. It is a good first pass, but
+it is wrong in three separable ways, each established here by measuring a render
+rather than by reading the format:
+
+1. **It grows every text field rightward from its anchor.** Text actually renders
+   leftward when `justify right` is set, when the symbol carries `(mirror y)`, or
+   when the symbol sits at 180° - and any two of those cancel. So for a field in
+   any of those states the checker's box is a mirror image of the truth: it
+   invents collisions that are not there (`J201`, `J501`, `TP505`, `TP702`,
+   `TP704`, `TP705`, `TP706`) and misses ones that are (`C1016` on `mcu`, whose
+   reference and value lay on `U1003`'s VDD wire; `R314` on `power_rails`).
+2. **It measures text at about 1.06 mm per character.** A 6 px/mm render says
+   `5.0SMDJ26A` inks 11.435 mm over ten characters and `100uF` 5.65 over five,
+   which back out to a **~1.19 mm advance**. The checker therefore under-measures
+   every box by about a tenth, and a "clear by 0.3 mm" verdict can be a real
+   overlap. Four of the sixteen collisions this sweep fixed were of exactly that
+   size.
+3. **It reflects a rotated or mirrored symbol's body about the origin**, and
+   reports a degenerate box at the wrong place. Every `body-vs-*` finding on such
+   a symbol is noise - already known, and now explained.
+
+`tools/sch_geom.py` implements the transforms and the text model that the renders
+support, and is the cross-check to run before believing either tool. Its rules:
+
+```
+pin/graphic transform   rot 0    (x+px, y-py)      rot 180  (x-px, y+py)
+                        rot 90   (x-py, y-px)      rot 270  (x+py, y+px)
+                        mirror y (x-px, y-py)
+
+text grows left when    (justify right) XOR (symbol at 180) XOR (mirrored)
+                        - but a hierarchical or local label takes no 180 flip
+note box                grows down from the anchor only with (justify ... top);
+                        otherwise it grows UP, and the line pitch is 1.85 mm
+```
+
+The last two lines were both bugs in my own first model, each caught by the
+checker disagreeing with me and then settled by a render. Neither tool is
+authoritative alone; the render is.
+
+### Placement was searched, not guessed
+
+Making 177 fields visible at a fixed offset produced 36 new collisions. The sweep
+instead **tries candidate offsets against every wire, block border, symbol body,
+note, label and already-placed field on the sheet, and takes the first that is
+clear**, with a 0.35 mm margin. A third pass then nudges any field that was
+already colliding before the sweep. That is what took the design from 16
+collisions to none, and it is why the script is worth keeping: re-run it after any
+placement change and it re-solves.
+
+### Test point silkscreen names
+
+Under six characters, taken from the net each test point actually lands on in the
+exported netlist - not from what its old value said. `GND` is used unqualified
+wherever a test point is a plain ground pad.
+
+| Sheet | Names |
+|---|---|
+| `power_entry_24v` | `24VIN` `24VPR` `24VSW` `24VLG` `24MON`, 2x `GND` |
+| `power_rails` | `+5V5` `+5V` `+5VA` `+3V3` `+3V3A` `PGOOD`, 4x `GND` |
+| `loadcell_afe` | `EXC+` `SNS+` `SNS-` `REFP` `REFN` `PWRDN`, 2x `GND` |
+| `linear_encoder` | `5VENC` |
+| `temp_sense` | `PRB1A` `PRB1B` `PRB2A` `PRB2B` `REFP` `REFN` `DRDY` `nCS` `SCK` `MOSI` `MISO`, 2x `GND` |
+| `nvm_calibration` | `SCL` `SDA` `WP`, 2x `GND` |
+| `ui_io` | `SYNC` `SYNCO` `LIM_A` `LIM_B` `nBRK`, 2x `GND` |
+| `mcu` | `BOOT0` `nRST` `24MHZ` `3V3U` `1V8U`, 6x `GND` |
+| `motor_drive` | 2x `24MOT`, `VBUSM` `FETT` `VENC` `VMDRV` `VCP` `nFLT` `SOA` `SOB` `SOC` `GHA` `GLA` `GHB` `GLB` `GHC` `GLC` `PH_U` `PH_V` `PH_W`, `GND` |
+
+`REFP`/`REFN` appear on both `loadcell_afe` and `temp_sense`: each is that ADC's
+own reference pair, unambiguous on its own sheet and on the board beside its own
+part. `TP1101` and `TP1102` are both `24MOT` because they are two pads on one net -
+a hook and a scope pair - and the label says what is measured, not which pad.
+
+### The instance-rotation rule, narrowed
+
+`AGENTS.md` briefly forbade instance rotation outright, on the grounds that it
+turns field text sideways. It does not, provided the field angle is compensated -
+a property's `(at x y angle)` is **relative to the symbol**, so 270 on a symbol at
+90 sums to 360 and the text comes out horizontal. 38 instances across the design
+rely on this and all of them render correctly. The rule now permits rotation with
+that condition and the requirement to prove it in a render, and still points at
+`faff2_passives.kicad_sym` as the lower-effort path. Ruled by firstmate on the
+captain's behalf; the 11 instances from batches 1 and 2 stand.

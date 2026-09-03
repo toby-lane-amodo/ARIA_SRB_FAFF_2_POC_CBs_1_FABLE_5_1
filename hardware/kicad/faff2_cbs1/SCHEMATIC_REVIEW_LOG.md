@@ -70,3 +70,62 @@ submitted in, and the points the captain is asked to rule on.
 | 1.9 | `RAIL_PGOOD` exported as a hierarchical label with no consumer anywhere | **Closed** as a sheet-local label; see 1.1 for the open half. DEC-0023 |
 | 1.10 | `TEST_PLAN §3.3` asked for a rail link from `power_rails` to each consumer block; the block wave drew one break per *rail* instead | **Closed.** `TEST_PLAN §3.2/§3.3` rewritten against what is drawn, with the 32 links tabulated and the bring-up steps naming the link each one opens |
 | 1.11 | Four sheet notes still told the reader the root was unwired and to expect `hier_label_mismatch` | **Closed.** `motor_drive`, `mcu`, `power_entry_24v`, `test_debug` corrected |
+
+---
+
+## Round 1 review - the captain's pass over the drawn schematic (2026-09-03)
+
+The captain reviewed the completed schematic sheet by sheet. His points arrived in
+batches and were applied in three parallel streams; the numbering below is by
+batch, not by arrival. Reasoning for every judgement call is in
+[`docs/decisions/actuator-sch-review-r1.md`](../../../docs/decisions/actuator-sch-review-r1.md)
+(power sheets, `motor_drive`, and the design-wide sweep),
+[`actuator-rev-afe.md`](../../../docs/decisions/actuator-rev-afe.md) and
+[`actuator-rev-testdebug.md`](../../../docs/decisions/actuator-rev-testdebug.md).
+
+### Placement and drawing style
+
+| # | Point (captain's words) | Sheet | Resolution |
+|---|---|---|---|
+| R1.1 | "Mirror the input power connector so that the pins come out left to right, and wires don't have to route around its body." | `power_entry_24v` | **Done.** `J201` mirrored and moved so all five pins leave rightward; no wire passes the body |
+| R1.2 | "Have the input protection FET horizontal, so that pins 1 and 5 are horizontal not vertical." | `power_entry_24v` | **Done.** `Q201` at 90° - drain left, source right, gate down; the gate net no longer loops round the body |
+| R1.3 | "Where you have a potential divider ... make sure they are vertically aligned." | `power_entry_24v` | **Done.** `R201`/`R202` share one column; the gate node is a 3-way tee, not a 4-way |
+| R1.4 | "D201 is in parallel with C204, etc, so graphically it should also be placed vertically like C204 etc. Same for D202." | `power_entry_24v` | **Done.** Both diodes vertical; `D201`'s GND flag joins the shunt bank's line |
+| R1.5 | "It would be nice if GND connections for parallel components are vertically aligned." | `power_entry_24v` | **Done.** `R206` and `C207` GND flags both at y=96.52 |
+| R1.6 | "Never ever use a 4-way net connection ... Also, do not place test coverage on PSU feedback nodes." | `power_rails` | **Done.** `TP301` and `TP305` deleted - one edit satisfies both halves, because removing the test point is what leaves each feedback node a 3-way tee |
+| R1.7 | "At the output of all regulators, use a dual test point, so that I can hook up an oscilloscope probe." | `power_rails` | **Done.** `TestPointDual` on all five rail outputs, hung below the rail on a stub so the pads do not straddle the wire they tap |
+| R1.8 | "Series output zero ohm links for regulators should be placed horizontally, not vertically." | `power_rails` | **Done.** `R305`, `R306`, `R307`, `R312` |
+| R1.9 | "Ferrite beads used for rail filtering should be placed horizontally ... to keep flow of power in one direction, without un-necessary corners." | `power_rails` | **Done.** `FB301` in line on the `+3V3` rail |
+| R1.10 | "Power LEDs should also ideally be placed vertically." | `power_rails` | **Done.** `D303`, anode up out of `R314` |
+| R1.11 | "R1101 and R1102 are in series, so I think the comment is wrong about fitting one vs the other. Also, the comment says R101 and R102, which I think is a mistake?" | `motor_drive` | **The refdes were wrong** - now `R1101`/`R1102`. The parts are genuinely two 0R in series, both fitted (D-MOT-14); the note is rewritten to say so and to give each link its own job |
+| R1.12 | "Text overlap around C1101" | `motor_drive` | **Done.** The bulk column was on an 8.89 pitch that put `C1101`'s reference on `C1102`'s body; respaced, and `TP1103` moved out of the capacitor value row |
+| R1.13 | "Same as other sheet review for sheet entry / exit labels justification. This text should not overlap the wires." | `motor_drive` | **Done.** Eight labels: seven took their wire from the left while facing left, so the wire ran through the text; `+24V_SW` ran vertically into the block title. All now face the way their wire arrives |
+| R1.14 | "J601 has text overlapping component body. Check all the schematic for instance of this and fix if required." | design-wide | **Done.** `J601` by the encoder worker; the design-wide sweep found and cleared 16 more, several of which the bundled checker cannot see (see below) |
+| R1.15 | "GND connections are upside down. You must never ever do this." | `temp_sense`, design-wide | **Done.** `C701`/`C702` by the temp worker; the sweep confirms **0** of the 285 power symbols is rotated or mirrored |
+| R1.16 | Graphic/drawing lines shadowing electrical wires | design-wide | **Done.** One real case: `power_rails` block D's bottom border ran along the last `PWR_FLAG`'s wire. The flag column moved up 2.54; the sweep finds no other |
+
+### Design questions answered
+
+| # | Point | Answer |
+|---|---|---|
+| R1.17 | "For regulators in general, can you tend towards using the same parts as used in this design: ARIA_EITSYS_CBs_1" | `U301` swapped to that design's **LMR51610XFDBVR** with divider, inductor and PGOOD re-derived from TI SLUSEY1B. `U304` keeps the LMR33630 (its rail's 1.1 A budget exceeds the LMR51610's 1 A) and both 5 V LDOs keep the TPS7A20 (7 µV<sub>RMS</sub> against the ADPL42005's 32, on the rail carrying `REQ-FF-04`). Both exceptions stand pending the captain |
+| R1.18 | "Should there be some bulk decoupling on this sheet? Also, decoupling per FET, or is this not usually done?" | Bulk was already there (210 µF at the bus entry, plus the driver's own VM bypass); **what was missing was capacitance at the bridge**, which TI asks for in as many words (SLVSDJ3D §10/§11.1). Added one 2.2 µF + 100 nF pair per half-bridge. **Not per FET** - a capacitor across one MOSFET is a snubber, not decoupling, and is a bring-up decision |
+| R1.19 | "Can all of the test_debug page be implemented on the relevant circuits page?" | **Done** by a parallel worker: `test_debug.kicad_sch` no longer exists, and the standing rule is in `AGENTS.md` |
+| R1.20 | "Is the intention that U501 provides / outputs the reference signal?" | Answered on the sheet by the AFE worker: **no** - the ADS1235 has no reference output; `REFP0`/`REFN0` are inputs, and what it measures against is the load cell's own excitation |
+| R1.21 | "Rather than using individual test points for the digital interface, can you use the amodokicadlib header for the logic analyser?" | **Done** by the AFE worker |
+
+### Design-wide sweep
+
+| # | Point | Resolution |
+|---|---|---|
+| R1.22 | "Power labels are missing on most of the power flags on the design" | **Done.** 92 hidden rail names on `loadcell_afe`, `motor_drive` and `temp_sense` are now visible, placed to the house pattern (GND below the symbol, rail arrows above) and collision-checked. All 285 power symbols now read |
+| R1.23 | "Across the schematic, can you label all of the TPs with some text for what they measure ... keep them as short as possible (< 6 characters)" | **Done.** All 83 test points named from the net each actually lands on; longest is 5 characters. Table in `actuator-sch-review-r1.md` |
+
+### What the bundled overlap checker cannot see
+
+The sweep found three structural blind spots in `check_overlaps.py`, all measured
+against renders. It grows every text field rightward regardless of `justify right`,
+mirroring or 180° rotation; it measures text at ~1.06 mm per character where the
+real advance is ~1.19; and it reflects a rotated symbol's body about the origin.
+`tools/sch_geom.py` models all three correctly and the design is **clean under it
+design-wide**. The checker's 24 residual findings are all in those classes.

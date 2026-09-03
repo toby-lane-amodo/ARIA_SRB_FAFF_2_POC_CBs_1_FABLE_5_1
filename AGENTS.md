@@ -67,9 +67,13 @@ reference their 3D models through it. `README.md` has the setup table; DEC-0015 
   `hardware/kicad/faff2_cbs1/faff2_<block>.kicad_sym` (and `faff2.pretty/` for footprints),
   registered in the project `sym-lib-table` / `fp-lib-table` through `${KIPRJMOD}`. Record why
   in the block's decisions file so the captain can fix the house library upstream.
-- **Never instance-rotate a symbol** to make it horizontal — it turns the reference and value
-  text sideways. Pre-rotated variants live in `faff2_passives.kicad_sym` (`RES_TF_*_H` so far);
-  add to it rather than rotating an instance. `schematic-style`; `actuator-rev-testdebug.md`.
+- **A pre-rotated variant is the low-effort way to lay a part horizontally** — they live in
+  `faff2_passives.kicad_sym` (`RES_TF_*_H` so far); add to it rather than rotating an instance.
+  Instance-rotation is *permitted* but carries a condition: a symbol property's `(at x y angle)`
+  angle is **relative to the symbol**, so the field angles must be compensated (270 on a symbol
+  at 90, 90 on one at 270) or the reference and value come out sideways. **Prove it in a render,
+  every time** — 38 instances across the design do this correctly. `schematic-style`;
+  `actuator-rev-testdebug.md`; `actuator-sch-review-r1.md`.
 - Some Amodo symbols are **uncommitted local additions** to that working copy — `ADS1235` is
   one. `git checkout --` on a file there deletes them. Do not run git operations in that
   library; it is not ours to manage.
@@ -104,7 +108,7 @@ exists (`docs/decisions/actuator-rev-testdebug.md`). Do not recreate it, in any 
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
 is the DEC-0021 baseline and the end state.
 
-**The design now meets it in full** — 398 components, 251 nets, 0/0 — so any violation you see
+**The design now meets it in full** — 404 components, 251 nets, 0/0 — so any violation you see
 is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
 `pin_not_driven`) all cleared when the root was wired; do not reintroduce them as "expected".
 
@@ -139,6 +143,22 @@ self-check; the client reviews in the KiCad GUI. The **one** committed PDF is
 
 Log any new review point in `SCHEMATIC_REVIEW_LOG.md` with its resolution, and any judgement
 call in `docs/DECISIONS.md`.
+
+## The bundled overlap checker is not the last word
+
+`check_overlaps.py` from `schematic-style` is the first pass, not the verdict. Three blind
+spots, each measured against renders and written up in `docs/decisions/actuator-sch-review-r1.md`:
+
+- It grows **every** text field rightward from its anchor, so its box is a mirror image of the
+  truth whenever the text actually renders leftward — which is what `justify right`, a
+  `(mirror y)` symbol, and a symbol at 180° each do (and any two of them cancel out).
+- It measures text at about **1.06 mm per character**; the real advance at size 1.27 is
+  **~1.19**, so it under-measures every box by a tenth and passes real near-misses.
+- It reflects a **rotated or mirrored symbol's body** about the origin, so `body-vs-*` findings
+  on those are noise.
+
+`tools/sch_geom.py` models all three correctly; run it as the cross-check before believing
+either tool. The design is clean under it design-wide.
 
 ## Sharp edges
 

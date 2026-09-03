@@ -7442,14 +7442,14 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 58.4200 157.4800 0)
+		(property "Value" "5VENC"
+			(at 60.32 161.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				
-				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -8767,7 +8767,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 154.9400 165.1000 0)
+			(at 153.67 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
