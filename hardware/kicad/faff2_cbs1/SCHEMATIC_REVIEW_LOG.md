@@ -121,11 +121,24 @@ batch, not by arrival. Reasoning for every judgement call is in
 | R1.22 | "Power labels are missing on most of the power flags on the design" | **Done.** 92 hidden rail names on `loadcell_afe`, `motor_drive` and `temp_sense` are now visible, placed to the house pattern (GND below the symbol, rail arrows above) and collision-checked. All 285 power symbols now read |
 | R1.23 | "Across the schematic, can you label all of the TPs with some text for what they measure ... keep them as short as possible (< 6 characters)" | **Done.** All 83 test points named from the net each actually lands on; longest is 5 characters. Table in `actuator-sch-review-r1.md` |
 
+## Round 3
+
+| # | Point | Resolution |
+|---|---|---|
+| R3.1 | "A deeper text-overlap pass — extend detection to text against wire segments and symbol outlines including rotated and mirrored ones, sweep every sheet, fix every hit, and record the improved checker. This all needs fixing before we can proceed" | **Done.** `tools/check_text_clearance.py`, calibrated at 0.35 mm; both screenshotted cases reproduced and fixed; 60 findings to 13, then a fifth blind spot found by render (labels and bodies were obstacles, never subjects) took the sweep design-wide. Reasoning in `actuator-sch-review-r1.md` |
+| R3.2 | "Replace `TP707`–`TP711` with the Amodo keyed logic-analyser header" | **Done.** `J703`, an `8510-4500PL` as on `J502`/`J603`; channel map copies `J603` pin for pin. This is `actuator-rev-afe.md` §7's own recommendation applied |
+| R3.3 | "Swap both 5 V LDOs to `ADPL42005ACPZ-5.0-R7`, fixed output, and re-derive the passives from the datasheet" | **Done.** DEC-P3 superseded. Every value from `datasheets/ADPL42005.pdf` (a mirror copy — analog.com is unreachable from the build environment). `CIN` 1 µF → 10 µF is the only passive the datasheet forced. **Two items for the captain:** wiring the new `PG` pins into `RAIL_PGOOD`, and whether to raise `+5V5` now that the 6.0 V ceiling is gone |
+| R3.4 | "Respace the grazing power-label placements and find the TIM1 note a clean home" | *in progress* |
+| R3.5 | "Leave ESD off the AFE inputs" | **Done** — recorded as a closed decision |
+
 ### What the bundled overlap checker cannot see
 
 The sweep found three structural blind spots in `check_overlaps.py`, all measured
 against renders. It grows every text field rightward regardless of `justify right`,
 mirroring or 180° rotation; it measures text at ~1.06 mm per character where the
 real advance is ~1.19; and it reflects a rotated symbol's body about the origin.
-`tools/sch_geom.py` models all three correctly and the design is **clean under it
-design-wide**. The checker's 24 residual findings are all in those classes.
+`tools/sch_geom.py` models all three correctly. **Run
+`tools/check_text_clearance.py --margin 0.35`** instead of either: round 3 found
+a fourth and fifth blind spot that my own model shared — a field was never
+compared against its own symbol's outline, and net labels and symbol bodies were
+only ever obstacles, never subjects.

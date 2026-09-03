@@ -24,8 +24,8 @@ KPJX-4S ─ F201 ─ L201 ─ Q201 ─┬─ D201 TVS + C204..C206 ── V24_PR
                                ├─ R204 (0R link) ─▶ V24_LOGIC  → power_rails
                                └─ R205/R206 divider ─▶ V24_MON → mcu PC1
 
-V24_LOGIC ─┬─ U301 LMR33630 buck ─▶ +5V5 ─┬─ U302 TPS7A20 ─▶ +5V   (5.0 V)
-           │   400 kHz, 5.525 V           └─ U303 TPS7A20 ─▶ +5VA  (5.0 V)
+V24_LOGIC ─┬─ U301 LMR33630 buck ─▶ +5V5 ─┬─ U302 ADPL42005 ─▶ +5V   (5.0 V)
+           │   400 kHz, 5.525 V           └─ U303 ADPL42005 ─▶ +5VA  (5.0 V)
            └─ U304 LMR33630 buck ─▶ +3V3 ──── FB301 ferrite ─▶ +3V3A
                400 kHz, 3.326 V
 ```
@@ -53,6 +53,14 @@ gets ripple rejection for free.
 5.5 V specifically: TPS7A20 recommended input maximum is 6.0 V (6.5 V absolute),
 and its dropout is 140 mV max at the full 300 mA, so 5.5 V ± 3 % sits inside the
 recommended range with about half a volt of dropout headroom.
+
+> **The 6.0 V ceiling is gone** with the round-3 move to the ADPL42005, whose
+> input range is 4 V to 20 V (data sheet Rev. 0, Specifications). 5.5 V still
+> works — 500 mV covers the 325 mV worst-case dropout at 300 mA — but it is now
+> the *floor* of what makes sense rather than a ceiling-constrained compromise.
+> **Worth a decision:** the ADPL42005's regulation, noise and PSRR figures are
+> specified at V<sub>IN</sub> = V<sub>OUT</sub> + 1 V, which 5.5 V does not
+> give. Raising `+5V5` (U301's divider, `R303`/`R304`) would recover them.
 
 *Alternative rejected.* One 5 V buck feeding everything, with a ferrite to the
 analog side. A ferrite does not reject the read head's low-frequency current
@@ -100,6 +108,18 @@ Inductor saturation ratings are above the 4.5 A high-side current limit, as TI
 asks, so the inductor does not saturate into an output short.
 
 ### DEC-P3 — Both 5 V rails are TPS7A20 (`TPS7A2050PDBVR`)
+
+> **SUPERSEDED, review round 3: both rails are `ADPL42005ACPZ-5.0-R7`.**
+> The captain overruled, which is what "raised for the captain to overrule"
+> below was for. The noise trade is real and stands on the record — 32
+> µV<sub>RMS</sub> and 58 dB PSRR at 10 kHz, against the TPS7A20's 7
+> µV<sub>RMS</sub> and 95 dB at 1 kHz — and it lands on `+5VA`, the rail that
+> carries `REQ-FF-04`. Two things soften it: the bridge path is ratiometric so
+> excitation noise cancels to first order, and the ADS1235 has its own supply
+> rejection. What the design gains is commonality with
+> `ARIA_EITSYS_CBs_1`, 500 mA instead of 300, a 20 V input range,
+> and a power-good output the TPS7A20 does not have. See
+> `actuator-sch-review-r1.md` for the passives and the pin-by-pin treatment.
 
 > **Re-examined and upheld, review round 1 batch 2**, against the captain's
 > ask to move to `ARIA_EITSYS_CBs_1`'s ADPL42005. Kept on noise: 7 µV<sub>RMS</sub>
@@ -414,7 +434,8 @@ Added to `datasheets/` by this task:
 |---|---|---|
 | `KPJX.pdf` | Kycon KPJX series | the 24 V input connector |
 | `LMR33630.pdf` | TI LMR33630 | both bucks; pinout, V<sub>FB</sub>, external component procedure |
-| `TPS7A20.pdf` | TI TPS7A20 | both 5 V LDOs; V<sub>IN</sub> range, dropout, PSRR, pin 4 = N/C |
+| `ADPL42005.pdf` | ADI ADPL42005 | both 5 V LDOs from round 3; Table 5 pin descriptions, capacitor selection, dropout |
+| `TPS7A20.pdf` | TI TPS7A20 | the superseded 5 V LDOs; V<sub>IN</sub> range, dropout, PSRR, pin 4 = N/C |
 | `DMP6023LFG.pdf` | Diodes DMP6023LFG | the reverse-polarity FET; V<sub>GS</sub> limit, R<sub>DS(ON)</sub> |
 
 `datasheets/README.md` has **not** been updated: every block task is adding

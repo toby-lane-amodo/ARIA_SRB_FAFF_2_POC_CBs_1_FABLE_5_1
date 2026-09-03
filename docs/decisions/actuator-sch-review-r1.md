@@ -209,6 +209,10 @@ requirement. The board now carries two buck part numbers where DEC-P2 wanted
 one; that is the price of the swap, and it is a fair one because the two rails
 are a 4x current apart and the 3 A part was always oversized for the 0.25 A one.
 
+> **Overruled by the captain, round 3 item 3: both rails are now
+> `ADPL42005ACPZ-5.0-R7`.** The record below is why I argued the other way; it
+> is not the design. Round 3's own section has the swap.
+
 **`U302`/`U303`, the 5 V LDOs: kept as TPS7A20.** The reference design's
 **ADPL42005** is a 20 V, 500 mA, **32 µV<sub>RMS</sub>** low-noise LDO; the
 TPS7A20 is **7 µV<sub>RMS</sub>** with 95 dB PSRR at 1 kHz. `+5VA` carries the
@@ -776,3 +780,78 @@ it stays sheet-local (DEC-0023) because the `.ioc` still has no DRDY pin.
 Net count 259 -> 262: the three no-connect channels each become an
 `unconnected-(J703-CHn-Padn)` net, exactly as J603's three do. Components
 412 -> 408: five hooks out, one connector in. ERC 0/0.
+
+## Item 3 - both 5 V LDOs become ADPL42005ACPZ-5.0-R7
+
+`tools/apply_review_r3_adpl.py`. The captain overruled round 2's decision to
+keep the TPS7A20 (DEC-P3 asked to be overruled, and was). The part was already
+in the house library, `SymLifecycle: tested`, with its LFCSP-8 footprint
+present - so nothing went project-local and no symbol work was needed.
+
+**The datasheet.** `analog.com` times out from this environment - twice, on two
+routes - so `datasheets/ADPL42005.pdf` is a mirror copy of the same Rev. 0
+document from `datasheetall.com`, verified as a real PDF and parsed with pypdf.
+The `datasheets/README.md` row says so and asks for a re-fetch from the vendor
+when a machine can reach it. Nothing below is from memory.
+
+**Pin-by-pin, against Table 5:**
+
+| Pin | Datasheet says | Here |
+|---|---|---|
+| 8 VIN | "Bypass VIN to GND with a 1µF or greater capacitor" | `+5V5`, C309/C312 |
+| 5 EN | "For automatic startup, connect EN to VIN" | tied to `+5V5`, as the TPS7A20 was |
+| 4 NC | "Do Not Connect to This Pin" | left bare; the pin's own type is `no_connect` |
+| 3, 6 GND | ground | both wired |
+| EPAD | internally GND, "highly recommended" on the ground plane | wired |
+| 1 VOUT | "Bypass VOUT to GND with a 1µF or greater capacitor" | C310/C313 + C311/C314 |
+| 2 SENSE | "Connect SENSE as close as possible to the load" | **to VOUT at the regulator** - see below |
+| 7 PG | open drain, pull-up to VIN or VOUT; "may be left open" if unused | no-connect - see below |
+
+Three left-side pins land on a 2.54 mm row (GND, GND, EPAD), so they stub out to
+one vertical rail terminating in a single downward GND below the block, which is
+`schematic-style`'s dense-pin-row rule. The GND that hung under the SOT-23
+became that rail's terminus.
+
+**SENSE goes to VOUT at the regulator, not past the 0R link.** "As close as
+possible to the load" argues for the far side of `R306`/`R307` - but those are
+TEST_PLAN 3.2 current-measurement breaks that get lifted on purpose during
+bring-up, and sensing downstream would open the feedback loop the moment one
+came out. The datasheet's own specifications are given for "SENSE connected to
+VOUT" (p.3), so this is the characterised configuration; what it costs is IR-drop
+correction across a 0 Ω link, which is nothing.
+
+**PG is a no-connect, and that is worth a decision.** DEC-P9 makes `RAIL_PGOOD`
+a wired-AND of each converter's PG through 1 k, and the only reason the 5 V rails
+are absent from it is that the TPS7A20 had no PG pin. Both LDOs now have one. Two
+more 1 k resistors would put all four converters on `RAIL_PGOOD` and make a dead
+5 V rail visible at `D303`/`TP308`, where today it is not. **I have not done it:**
+the ask was a part swap with re-derived passives, not new rail supervision, and
+nothing regresses by leaving it - but it is the obvious next step and the captain
+should decide. The datasheet permits the pin left open (Table 5).
+
+**The one passive that had to change: CIN, 1 µF -> 10 µF.** Capacitor Selection
+(p.17) requires COUT >= 1 µF with ESR <= 1 Ω, and then: "if greater than 1µF of
+output capacitance is required, the input capacitor should be increased to match
+it." COUT is 10 µF + 100 nF, kept because the datasheet says a larger COUT
+improves transient response, so CIN follows to 10 µF.
+
+C309/C312 use `CAP_MLCC_10uF_0805_20%_25V`, not the 0603 10 V part the outputs
+use. They sit on the 5.5 V pre-regulator rail, and a 10 V X5R at 5.5 V DC bias
+loses most of its capacitance - the wrong way to satisfy a "match COUT"
+requirement. `loadcell_afe` already uses this exact part for a 10 µF on a
+5 V-class rail. The wider 0805 body moved the library's Value offset 0.44 mm
+into the EN feed wire; the Value anchor now lines up with the Reference above it.
+
+**Headroom, and a question for the captain.** 5.5 V in, 5.0 V out is 500 mV.
+Worst-case dropout is 325 mV at 300 mA and 600 mV at 500 mA (Table 1), so the
+part cannot deliver its rated 500 mA from this rail - it does not need to, since
+`+5V` draws ~115 mA and `+5VA` ~30 mA. But the regulation, noise and PSRR figures
+are all specified at V<sub>IN</sub> = V<sub>OUT</sub> + 1 V, which 5.5 V does not
+give, and the reason `+5V5` is 5.5 V was the TPS7A20's 6.0 V input ceiling - a
+constraint the ADPL42005's 4-20 V range removes. Raising `+5V5` would recover the
+specified performance on the rail that carries `REQ-FF-04`. That is U301's
+feedback divider (`R303`/`R304`), so it is a real change and the captain's call;
+DEC-P1 now carries the note.
+
+Net count 262 -> 264: the two unused PG pins each become an `unconnected-(...)`
+net. Components unchanged at 408. ERC 0/0.

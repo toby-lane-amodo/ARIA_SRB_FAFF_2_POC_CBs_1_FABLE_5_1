@@ -2175,36 +2175,27 @@
 				)
 			)
 		)
-		(symbol "Amodo_Power_ICs:TPS7A2050PDBV"
+		(symbol "Amodo_Power_ICs:ADPL42005ACPZ-5.0-R7"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
-				(at 0 2.54 0)
+				(at 0 1.27 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "TPS7A20"
-				(at 0 0 0)
+			(property "Value" "ADPL42005"
+				(at 0 1.27 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" "Amodo:SOT23-5 - TI"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps7a20.pdf?ts=1787757656661&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTPS7A20%252Fpart-details%252FTPS7A2033PDBVR%253Futm_source%253Dgoogle%2526utm_medium%253Dcpc%2526utm_campaign%253Dapp-null-null-app_opn_en-cpc-storeic-google-eu_en_pur%2526utm_content%253DDevice%2526ds_k%253DTPS7A2033PDBVR%2526DCM%253Dyes%2526gclsrc%253Daw.ds%2526gad_source%253D1%2526gad_campaignid%253D18945642618%2526gbraid%253D0AAAAAC068F0I-Uqom_Q7JOHR9vfe29-1r%2526gclid%253DCj0KCQjwnbrUBhDOARIsAKKhPpdRKraf-FzRgg_xK77xnc2zGhsXIPGtjKWQ3BEq8qDgCONF3RDY078aAmqqEALw_wcB"
+			(property "Footprint" "Amodo:LFCSP-8 - 3x3mm body - 0.5mm pitch - 2.5x1.8mm EP"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2213,7 +2204,277 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "5V, 300mA, Ultra-Low-Noise, Low-IQ, High PSRR LDO"
+			(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/adpl42005.pdf"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "LDO Voltage Regulator, 5.0V, 0.5 A, 20 V in, 8-LFCSP"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ADPL42005ACPZ-5.0-R7"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ADPL42005ACPZ-5.0-R7_1_1"
+				(rectangle
+					(start 2.54 0)
+					(end 16.51 -20.32)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin power_in line
+					(at 0 -1.27 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -6.35 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 0 -11.43 0)
+					(length 2.54)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -13.97 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -16.51 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -19.05 0)
+					(length 2.54)
+					(name "EP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 19.05 -1.27 180)
+					(length 2.54)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 19.05 -6.35 180)
+					(length 2.54)
+					(name "SENSE"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at 19.05 -19.05 180)
+					(length 2.54)
+					(name "PG"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amodo_Capacitors:CAP_MLCC_10uF_0805_20%_25V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 1.905 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "10uF"
+				(at 1.905 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Amodo:C_0805_2012Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/76/2/GRM21BR61E106MA73_01A.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD MLCC Capacitor 10uF 0805 20% X5R 25V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "GRM21BR61E106MA73L"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2231,32 +2492,37 @@
 					(hide yes)
 				)
 			)
-			(property "mpn" "TPS7A2050PDBVR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
+			(symbol "CAP_MLCC_10uF_0805_20%_25V_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
 					)
-					(hide yes)
-				)
-			)
-			(symbol "TPS7A2050PDBV_1_1"
-				(rectangle
-					(start -7.62 0)
-					(end 7.62 -10.16)
 					(stroke
-						(width 0)
-						(type solid)
+						(width 0.3048)
+						(type default)
 					)
 					(fill
-						(type color)
-						(color 255 255 194 1)
+						(type none)
 					)
 				)
-				(pin power_in line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "IN"
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CAP_MLCC_10uF_0805_20%_25V_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2271,28 +2537,10 @@
 						)
 					)
 				)
-				(pin input line
-					(at -10.16 -7.62 0)
-					(length 2.54)
-					(name "EN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -12.7 90)
-					(length 2.54)
-					(name "GND"
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2307,44 +2555,8 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at 3.81 -12.7 90)
-					(length 2.54)
-					(hide yes)
-					(name "NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "OUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Amodo_Capacitors:CAP_MLCC_10uF_0603_20%_10V"
 			(pin_numbers
@@ -5806,30 +6018,10 @@
 		(uuid "03e77b4e-2f51-5a91-9250-c9183cb08e78")
 	)
 
-	(wire
-		(pts
-			(xy 238.76 83.82) (xy 238.76 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb8e693c-4b40-510d-ae12-714c4088a2eb")
-	)
 
 
 
 
-	(wire
-		(pts
-			(xy 248.92 73.66) (xy 254 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc921591-5a48-56f6-9cd7-639f673bcd48")
-	)
 	(wire
 		(pts
 			(xy 254 73.66) (xy 254 76.2)
@@ -6099,26 +6291,6 @@
 		)
 		(uuid "c53296bb-bd7b-5cf7-96d9-685c301f0f2c")
 	)
-	(wire
-		(pts
-			(xy 340.36 83.82) (xy 340.36 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "151165af-a8fb-553f-9283-f49fbc8503f5")
-	)
-	(wire
-		(pts
-			(xy 350.52 73.66) (xy 355.6 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fbcf47ae-59d7-520e-b756-c02e60de9ef1")
-	)
 
 
 
@@ -6198,6 +6370,438 @@
 			(type default)
 		)
 		(uuid "d20db6bf-f5a1-5f39-87ef-bb81e504bd06")
+	)
+	(symbol
+		(lib_id "Amodo_Power_ICs:ADPL42005ACPZ-5.0-R7")
+		(at 228.6 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "faa8b687-3b0f-50db-8a42-746eda892575")
+		(property "Reference" "U302"
+			(at 231.14 67.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ADPL42005"
+			(at 231.14 69.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:LFCSP-8 - 3x3mm body - 0.5mm pitch - 2.5x1.8mm EP"
+			(at 228.6 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/adpl42005.pdf"
+			(at 228.6 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "LDO Voltage Regulator, 5.0V, 0.5 A, 20 V in, 8-LFCSP"
+			(at 228.6 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 228.6 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ADPL42005ACPZ-5.0-R7"
+			(at 228.6 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fceb93a9-bcf7-5c6f-bcd9-955dc94c7351")
+		)
+		(pin "2"
+			(uuid "f266c7e6-2ea3-50fe-bea5-2be74a4b9976")
+		)
+		(pin "3"
+			(uuid "6ff244d8-86f8-5dae-b7b3-24811982b10d")
+		)
+		(pin "4"
+			(uuid "708deff8-4833-54f4-ac7d-5072d74d0cc1")
+		)
+		(pin "5"
+			(uuid "efd70caf-6f9f-50a3-8945-7b51953a160e")
+		)
+		(pin "6"
+			(uuid "9c6a9931-185c-5091-bdff-6046315467de")
+		)
+		(pin "7"
+			(uuid "59568533-1274-55e9-ac16-3fa590c5e55e")
+		)
+		(pin "8"
+			(uuid "54db2326-127d-50a7-850f-24db6e8fe482")
+		)
+		(pin "9"
+			(uuid "c0edb0f6-d3b3-513f-824c-5eacc76bf7e1")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "U302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 247.65 73.66) (xy 254 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "560796de-371f-561d-a86e-22c0fa5f1d5e")
+	)
+	(wire
+		(pts
+			(xy 247.65 73.66) (xy 247.65 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9df1a101-6ea6-5f79-b522-e4f03ee8448a")
+	)
+	(junction
+		(at 247.65 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e2a8b437-5d25-54ee-8383-a6b09d8b656d")
+	)
+	(wire
+		(pts
+			(xy 223.52 86.36) (xy 228.6 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2490486c-f88c-5a87-8c5c-82be4957d725")
+	)
+	(wire
+		(pts
+			(xy 223.52 88.9) (xy 228.6 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59ef84f1-1b15-5b18-a4f0-c54b52851b76")
+	)
+	(wire
+		(pts
+			(xy 223.52 91.44) (xy 228.6 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3d2a481-8024-5b1b-9c78-592f3c143dec")
+	)
+	(wire
+		(pts
+			(xy 223.52 86.36) (xy 223.52 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02484b62-438d-5c27-91cf-e26494a4fd6a")
+	)
+	(wire
+		(pts
+			(xy 223.52 88.9) (xy 223.52 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e6d0012-82b0-5612-b596-e1c265954245")
+	)
+	(junction
+		(at 223.52 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a1f9dde7-d5d9-575d-b725-09d849e57342")
+	)
+	(wire
+		(pts
+			(xy 223.52 91.44) (xy 223.52 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80648aad-f0ec-59e3-b954-9083caab4a92")
+	)
+	(junction
+		(at 223.52 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e6904940-f53f-5384-91d1-9e4a9f1a57e7")
+	)
+	(no_connect
+		(at 247.65 91.44)
+		(uuid "467f6f23-450a-595b-ba30-a0f14def8c3c")
+	)
+	(symbol
+		(lib_id "Amodo_Power_ICs:ADPL42005ACPZ-5.0-R7")
+		(at 330.2 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "ba16673d-7d0c-5024-8360-1427240b6302")
+		(property "Reference" "U303"
+			(at 332.74 67.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ADPL42005"
+			(at 332.74 69.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:LFCSP-8 - 3x3mm body - 0.5mm pitch - 2.5x1.8mm EP"
+			(at 330.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/adpl42005.pdf"
+			(at 330.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "LDO Voltage Regulator, 5.0V, 0.5 A, 20 V in, 8-LFCSP"
+			(at 330.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 330.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ADPL42005ACPZ-5.0-R7"
+			(at 330.2 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1db0e46d-7822-55c7-bc74-5d5b3ccbd308")
+		)
+		(pin "2"
+			(uuid "d6770f73-a103-5079-a813-68f20f10240b")
+		)
+		(pin "3"
+			(uuid "08ab3b1f-d164-5e78-8c5c-c18433fcffcc")
+		)
+		(pin "4"
+			(uuid "8d013c38-68f8-501f-ac05-4b2224723e0a")
+		)
+		(pin "5"
+			(uuid "eb5f721e-eb31-5919-8415-16639452dcb2")
+		)
+		(pin "6"
+			(uuid "da422e1b-4385-5ad8-b7bc-75115a251914")
+		)
+		(pin "7"
+			(uuid "5cfb46d5-5cbf-5153-af15-2b9fb83465cc")
+		)
+		(pin "8"
+			(uuid "a1a663ea-b9f2-50a3-9ab6-da92c91d8e10")
+		)
+		(pin "9"
+			(uuid "953b6286-809f-5127-bfe2-7d487e7c1b6f")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "U303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 349.25 73.66) (xy 355.6 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4d4e6b2-6d04-534b-afca-2dfb2c4b2e2e")
+	)
+	(wire
+		(pts
+			(xy 349.25 73.66) (xy 349.25 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a0079e2-df3d-5dc3-a661-84953fc06fd3")
+	)
+	(junction
+		(at 349.25 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "63873d0d-fc0c-5e73-8b21-64a72a261273")
+	)
+	(wire
+		(pts
+			(xy 325.12 86.36) (xy 330.2 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc17b4a3-17af-5cf8-80c1-2d9e2511a209")
+	)
+	(wire
+		(pts
+			(xy 325.12 88.9) (xy 330.2 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9a23d50-4062-5ad1-9271-65510f43f924")
+	)
+	(wire
+		(pts
+			(xy 325.12 91.44) (xy 330.2 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a2a80ae6-d692-5b4a-b287-5ad53b1cd5b3")
+	)
+	(wire
+		(pts
+			(xy 325.12 86.36) (xy 325.12 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dee69833-41fd-50b1-9139-ec56cca27d9c")
+	)
+	(wire
+		(pts
+			(xy 325.12 88.9) (xy 325.12 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca7b757f-9127-538c-8802-60fb40c768ee")
+	)
+	(junction
+		(at 325.12 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "983e4bb8-9af9-5a75-8b63-5c5f9f5cd0e2")
+	)
+	(wire
+		(pts
+			(xy 325.12 91.44) (xy 325.12 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b75f5a4b-29cd-5bde-babe-d984051e8a43")
+	)
+	(junction
+		(at 325.12 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a520a463-3845-5f5f-85de-d53c28b92b6c")
+	)
+	(no_connect
+		(at 349.25 91.44)
+		(uuid "87adb242-b0aa-544d-963e-5c1b4cefb3dc")
 	)
 	(junction
 		(at 27.94 63.5)
@@ -6474,7 +7078,7 @@
 		)
 		(uuid "40c82ab7-b711-55f9-b2c2-7faf97b83728")
 	)
-	(text "5.5 V, not 5.0 V: it gives both TPS7A20 LDOs\ntheir dropout headroom while staying inside the\nTPS7A20 6.0 V recommended input maximum."
+	(text "5.5 V, not 5.0 V: it gives both ADPL42005 LDOs\ntheir dropout headroom. 500 mV covers the 325 mV\nworst-case dropout at 300 mA (Table 1); the part\ntakes up to 20 V in, so 6.0 V no longer caps it."
 		(exclude_from_sim no)
 		(at 20.32 105.41 0)
 		(effects
@@ -6497,7 +7101,7 @@
 		)
 		(uuid "1ecda205-fa90-52a3-8cc7-1832b962b9eb")
 	)
-	(text "B.  POST-REGULATED 5 V RAILS  (TPS7A20: +5V digital, +5VA analog)"
+	(text "B.  POST-REGULATED 5 V RAILS  (ADPL42005: +5V digital, +5VA analog)"
 		(exclude_from_sim no)
 		(at 213.36 24.67 0)
 		(effects
@@ -6509,7 +7113,7 @@
 		)
 		(uuid "b9dcca5c-8ece-56b9-9bab-b8ba50bf01ec")
 	)
-	(text "EN is tied to each LDO input, so the 5 V rails\nfollow the pre-regulator with no sequencing logic.\n+5VA feeds ADS1235 / ADS1120 AVDD and the AFE\nexcitation chain; +5V feeds the IKP11 read head."
+	(text "EN is tied to each LDO input - the datasheet's own\nautomatic-startup connection - so the 5 V rails\nfollow the pre-regulator with no sequencing logic.\nSENSE ties to VOUT at the regulator, not past the\n0R link, so lifting the link cannot open the loop.\nPG is unused: no-connect, not tied to RAIL_PGOOD.\n+5VA feeds ADS1235 / ADS1120 AVDD and the AFE\nexcitation chain; +5V feeds the IKP11 read head."
 		(exclude_from_sim no)
 		(at 215.9 105.41 0)
 		(effects
@@ -6642,7 +7246,7 @@
 		(uuid "3886bb96-d0fe-51bd-9ea0-12a83c67e156")
 	)
 
-	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +5V5   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    TPS7A20 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   TPS7A20 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 5.5 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
+	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +5V5   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    ADPL42005 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   ADPL42005 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 5.5 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
 		(exclude_from_sim no)
 		(at 15.24 240.03 0)
 		(effects
@@ -10543,109 +11147,7 @@
 	)
 
 	(symbol
-		(lib_id "Amodo_Power_ICs:TPS7A2050PDBV")
-		(at 238.76 71.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "8889665b-5b58-514b-88a0-53153c7d3593")
-		(property "Reference" "U302"
-			(at 231.14 66.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TPS7A20"
-			(at 231.14 68.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:SOT23-5 - TI"
-			(at 238.76 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps7a20.pdf?ts=1787757656661&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTPS7A20%252Fpart-details%252FTPS7A2033PDBVR%253Futm_source%253Dgoogle%2526utm_medium%253Dcpc%2526utm_campaign%253Dapp-null-null-app_opn_en-cpc-storeic-google-eu_en_pur%2526utm_content%253DDevice%2526ds_k%253DTPS7A2033PDBVR%2526DCM%253Dyes%2526gclsrc%253Daw.ds%2526gad_source%253D1%2526gad_campaignid%253D18945642618%2526gbraid%253D0AAAAAC068F0I-Uqom_Q7JOHR9vfe29-1r%2526gclid%253DCj0KCQjwnbrUBhDOARIsAKKhPpdRKraf-FzRgg_xK77xnc2zGhsXIPGtjKWQ3BEq8qDgCONF3RDY078aAmqqEALw_wcB"
-			(at 238.76 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "5V, 300mA, Ultra-Low-Noise, Low-IQ, High PSRR LDO"
-			(at 238.76 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "reviewed"
-			(at 238.76 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "TPS7A2050PDBVR"
-			(at 238.76 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5a5d3c35-914d-538e-991e-23b12347a296")
-		)
-		(pin "2"
-			(uuid "f8ea0e0e-427d-5b51-9bb2-b59b3b274f41")
-		)
-		(pin "3"
-			(uuid "4b76bfad-c114-532c-8e7a-a5e35e10e2a9")
-		)
-		(pin "4"
-			(uuid "687fe3e0-6a70-5c11-897e-463ead8d5ddb")
-		)
-		(pin "5"
-			(uuid "5feb387f-6a63-5e11-89c5-dadb470155d7")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "U302")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Capacitors:CAP_MLCC_1uF_0603_10%_16V")
+		(lib_id "Amodo_Capacitors:CAP_MLCC_10uF_0805_20%_25V")
 		(at 215.9 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10663,8 +11165,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
-			(at 217.93 71.98 0)
+		(property "Value" "10uF"
+			(at 216.66 71.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10839,7 +11341,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 238.76 86.36 0)
+		(at 223.52 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10848,7 +11350,7 @@
 		(fields_autoplaced no)
 		(uuid "8b36f9bb-e2e9-5011-8126-af8bd24ee079")
 		(property "Reference" "#PWR314"
-			(at 241.3 85.09 0)
+			(at 226.06 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10858,7 +11360,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 238.76 90.17 0)
+			(at 223.52 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10866,7 +11368,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 86.36 0)
+			(at 223.52 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10876,7 +11378,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 86.36 0)
+			(at 223.52 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10886,7 +11388,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 238.76 86.36 0)
+			(at 223.52 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10896,7 +11398,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 238.76 86.36 0)
+			(at 223.52 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10906,7 +11408,7 @@
 			)
 		)
 		(property "ki_keywords" "global power"
-			(at 238.76 86.36 0)
+			(at 223.52 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11601,109 +12103,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Power_ICs:TPS7A2050PDBV")
-		(at 340.36 71.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "7a3817be-72a2-5ec1-8fa3-b5c9a1375714")
-		(property "Reference" "U303"
-			(at 332.74 66.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TPS7A20"
-			(at 332.74 68.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:SOT23-5 - TI"
-			(at 340.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps7a20.pdf?ts=1787757656661&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTPS7A20%252Fpart-details%252FTPS7A2033PDBVR%253Futm_source%253Dgoogle%2526utm_medium%253Dcpc%2526utm_campaign%253Dapp-null-null-app_opn_en-cpc-storeic-google-eu_en_pur%2526utm_content%253DDevice%2526ds_k%253DTPS7A2033PDBVR%2526DCM%253Dyes%2526gclsrc%253Daw.ds%2526gad_source%253D1%2526gad_campaignid%253D18945642618%2526gbraid%253D0AAAAAC068F0I-Uqom_Q7JOHR9vfe29-1r%2526gclid%253DCj0KCQjwnbrUBhDOARIsAKKhPpdRKraf-FzRgg_xK77xnc2zGhsXIPGtjKWQ3BEq8qDgCONF3RDY078aAmqqEALw_wcB"
-			(at 340.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "5V, 300mA, Ultra-Low-Noise, Low-IQ, High PSRR LDO"
-			(at 340.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "reviewed"
-			(at 340.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "TPS7A2050PDBVR"
-			(at 340.36 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fd036581-d0fe-5040-8bf5-51ab901a75fd")
-		)
-		(pin "2"
-			(uuid "e9401916-9134-5fe6-b274-f78c24228f2c")
-		)
-		(pin "3"
-			(uuid "e59d4c83-ec71-5c9d-898c-b11008f66536")
-		)
-		(pin "4"
-			(uuid "3c5917fd-d2e6-5cdb-b648-cc12bd29c26b")
-		)
-		(pin "5"
-			(uuid "afbb1d1e-03d3-5917-b6f4-56c3337b6ea1")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "U303")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Capacitors:CAP_MLCC_1uF_0603_10%_16V")
+		(lib_id "Amodo_Capacitors:CAP_MLCC_10uF_0805_20%_25V")
 		(at 317.5 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11721,8 +12121,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
-			(at 319.53 71.98 0)
+		(property "Value" "10uF"
+			(at 318.26 71.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11897,7 +12297,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 340.36 86.36 0)
+		(at 325.12 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11906,7 +12306,7 @@
 		(fields_autoplaced no)
 		(uuid "7ce304c9-b919-5b75-a7fb-b04719e3af7c")
 		(property "Reference" "#PWR319"
-			(at 342.9 85.09 0)
+			(at 327.66 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11916,7 +12316,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 340.36 90.17 0)
+			(at 325.12 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11924,7 +12324,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 340.36 86.36 0)
+			(at 325.12 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11934,7 +12334,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 340.36 86.36 0)
+			(at 325.12 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11944,7 +12344,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 340.36 86.36 0)
+			(at 325.12 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11954,7 +12354,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 340.36 86.36 0)
+			(at 325.12 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11964,7 +12364,7 @@
 			)
 		)
 		(property "ki_keywords" "global power"
-			(at 340.36 86.36 0)
+			(at 325.12 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)

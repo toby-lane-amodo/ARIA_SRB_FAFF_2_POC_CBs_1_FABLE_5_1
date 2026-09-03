@@ -12,6 +12,7 @@ in KiCad opens it) — these local copies are for offline reference, not a subst
 |---|---|---|---|
 | `250721_IKP11_technical_data_sheet.pdf` | Bogen IKP11 | `linear_encoder` | rev 3.7, 2025-07-21 (supersedes the rev linked below) |
 | `LMR51610.pdf` | TI LMR51606/LMR51610 buck | `power_rails` | SLUSEY1B, Dec 2023 - added for the `U301` swap, review round 1 batch 2 |
+| `ADPL42005.pdf` | ADI ADPL42005 LDO | `power_rails` | Rev. 0, 2024 - added for the `U302`/`U303` swap, review round 3. **Mirror copy** (datasheetall.com): analog.com times out from the build environment. Same Rev. 0 document; re-fetch from analog.com when a machine can reach it |
 
 ## Fixed parts
 
