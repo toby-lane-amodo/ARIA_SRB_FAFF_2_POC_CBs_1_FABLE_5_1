@@ -10784,7 +10784,7 @@
 		(uuid "b72ae1bc-ddd1-5904-b91f-27add0512fca")
 	)
 	(hierarchical_label "CONFIG_SPI_MISO"
-		(shape output)
+		(shape tri_state)
 		(at 137.16 168.91 180)
 		(effects
 			(font
