@@ -4823,7 +4823,7 @@
 			)
 		)
 		(property "Value" "SM0805UGC"
-			(at 40.1000 23.0000 0)
+			(at 40.1 19.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5097,7 +5097,7 @@
 			)
 		)
 		(property "Value" "SM0805UOC"
-			(at 40.1000 43.3200 0)
+			(at 47.085 43.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6914,7 +6914,7 @@
 			)
 		)
 		(property "Value" "SN74LVC1G17"
-			(at 163.1000 48.6400 0)
+			(at 163.1 49.275 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7352,7 +7352,7 @@
 		(dnp no)
 		(uuid "30e0a69f-06c6-5056-9391-59df5184d6c3")
 		(property "Reference" "R907"
-			(at 186.055 26.67 0)
+			(at 188.595 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7715,7 +7715,7 @@
 			)
 		)
 		(property "Value" "SMA Jack"
-			(at 218.48 23 0)
+			(at 218.48 19.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9796,7 +9796,7 @@
 		(dnp no)
 		(uuid "35f315f1-23d1-5575-93cb-c01fa49ed884")
 		(property "Reference" "U902"
-			(at 173.8 189.91 0)
+			(at 173.8 189.275 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9974,7 +9974,7 @@
 		(dnp no)
 		(uuid "e1ef3f79-a485-5eca-8350-c3e122340f5b")
 		(property "Reference" "U902"
-			(at 173.8000 211.2300 0)
+			(at 173.8 210.595 0)
 			(effects
 				(font
 					(size 1.27 1.27)

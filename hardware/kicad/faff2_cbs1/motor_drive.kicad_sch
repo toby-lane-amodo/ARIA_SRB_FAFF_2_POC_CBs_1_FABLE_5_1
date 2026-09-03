@@ -9150,7 +9150,7 @@
 		(dnp no)
 		(uuid "6473b69e-f5fe-5558-8a62-4db174b24fdc")
 		(property "Reference" "RT1101"
-			(at 28.575 132.715 0)
+			(at 27.94 132.715 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9159,7 +9159,7 @@
 			)
 		)
 		(property "Value" "10k NTC"
-			(at 28.575 136.525 0)
+			(at 27.94 136.525 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9784,7 +9784,7 @@
 		(dnp no)
 		(uuid "511ac506-272f-53c0-a2e3-57107928cc1e")
 		(property "Reference" "C1107"
-			(at 46.355 177.165 0)
+			(at 45.72 177.165 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12853,7 +12853,7 @@
 		(dnp no)
 		(uuid "195d03a4-d3bf-5de8-a4f7-852379624649")
 		(property "Reference" "R1115"
-			(at 188.595 153.035 0)
+			(at 188.595 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)

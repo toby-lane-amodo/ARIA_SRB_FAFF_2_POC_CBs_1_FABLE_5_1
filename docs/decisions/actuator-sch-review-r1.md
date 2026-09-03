@@ -647,3 +647,44 @@ Ranking by that number hid every wire-through-text case behind a wall of
 harmless-looking zeros. **For a zero-thickness obstacle the severity is how far
 inside the box the line sits, not the box intersection.** A render caught it; the
 number did not.
+
+---
+
+# Round 3
+
+## Item 1 - a text-clearance checker that can actually see these, and the sweep
+
+The captain found two overlaps on `power_rails` by eye that every previous pass
+had passed: `C312`'s reference against the vertical wire beside it, and **`U303`'s
+own value text sitting on its own body's top edge**. Both were real. Four
+separate reasons the tooling could not see them:
+
+| # | Blind spot | Whose |
+|---|---|---|
+| 1 | grows every field rightward from its anchor, so the box is a mirror image whenever the text renders leftward (`justify right`, `(mirror y)`, or a symbol at 180°) | `check_overlaps.py` |
+| 2 | measures text at ~1.06 mm per character where the real advance is ~1.19 | `check_overlaps.py` |
+| 3 | **never compares a field against its own symbol's outline** - exactly the `U303` case | both it and my round-1/2 model |
+| 4 | reports strict overlap only, so text 0.3 mm off a wire passes - and once both stroke widths are drawn, that reads as touching | both |
+
+`tools/check_text_clearance.py` is the recorded successor. It uses the transforms
+and text model in `sch_geom.py` (each settled against a render), compares every
+field against **every** symbol outline including its own, and requires a real
+**clearance** rather than the absence of overlap. `--fix` moves what it can.
+
+**Margin: 0.35 mm.** Calibrated, not guessed - the finding count is flat at 60
+from 0.30 to 0.35 and jumps to 149 at 0.40, because the Amodo library's own field
+offsets land at ~0.38 mm from a body. 0.35 passes normal house placement and
+catches the real thing.
+
+Result: **60 findings down to 13**, and all 13 are power-symbol Values, which
+round 2 pinned and this pass therefore may not move. They are item 4.
+
+### One bug worth recording
+
+The first `--fix` keyed fields by **refdes**, and a multi-unit part has one
+Reference field per unit under one refdes - so it stacked all five `U601` units'
+references on a single point, and both `U901` units' values, and `U902`'s. The
+checker reported it immediately as `field:U601.Reference` overlapping itself by
+exactly one line height, which is what a coincident pair looks like.
+`sch_geom.visible_fields_by_instance()` now keys by symbol uuid, and anything
+that walks fields on a sheet with a multi-unit part must do the same.

@@ -5659,7 +5659,7 @@
 		(dnp no)
 		(uuid "f3c24b85-2d1e-53e3-9240-bde4e67513a2")
 		(property "Reference" "TP705"
-			(at 113.03 116.11 0)
+			(at 113.03 115.475 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6334,7 +6334,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 216.92 45.72 0)
+			(at 217.555 46.355 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7046,7 +7046,7 @@
 		(dnp no)
 		(uuid "6793ca9e-7e38-5ca0-b769-3880b6831d40")
 		(property "Reference" "TP707"
-			(at 212.09 102.49 0)
+			(at 212.725 102.49 0)
 			(do_not_autoplace yes)
 			(effects
 				(font

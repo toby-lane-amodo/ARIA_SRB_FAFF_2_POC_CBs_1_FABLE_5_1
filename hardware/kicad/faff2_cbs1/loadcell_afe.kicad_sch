@@ -4613,7 +4613,7 @@
 		(dnp no)
 		(uuid "6e4da711-e05a-5b48-82ca-d73a1336ef0c")
 		(property "Reference" "TP501"
-			(at 94.61 19.3 0)
+			(at 94.61 18.665 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5750,7 +5750,7 @@
 		(dnp no)
 		(uuid "715adb58-96d6-5b94-8b6c-025e7258eadc")
 		(property "Reference" "R505"
-			(at 105.41 97.79 0)
+			(at 106.045 97.79 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5760,7 +5760,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 105.41 99.7 0)
+			(at 106.045 99.7 0)
 			(do_not_autoplace yes)
 			(effects
 				(font

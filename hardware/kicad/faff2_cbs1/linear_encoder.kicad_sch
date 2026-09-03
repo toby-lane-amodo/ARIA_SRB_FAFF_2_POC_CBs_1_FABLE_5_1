@@ -5913,7 +5913,7 @@
 		(dnp no)
 		(uuid "2e87cda6-6fb1-5f9e-8e4f-6426436ac57c")
 		(property "Reference" "SB601"
-			(at 112.1600 45.3100 0)
+			(at 111.525 45.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6087,7 +6087,7 @@
 		(dnp no)
 		(uuid "c02d3e9a-9936-5e30-ac36-c64c7ea2d952")
 		(property "Reference" "SB602"
-			(at 112.1600 73.2500 0)
+			(at 111.525 73.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6261,7 +6261,7 @@
 		(dnp no)
 		(uuid "509cfda4-da2b-5159-a2bd-21c06e62e595")
 		(property "Reference" "SB603"
-			(at 112.1600 101.1900 0)
+			(at 111.525 101.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6889,7 +6889,7 @@
 		(dnp no)
 		(uuid "f7e061f0-44f1-5d3d-a015-4bd914b3fe38")
 		(property "Reference" "U601"
-			(at 157.0800 30.8500 0)
+			(at 157.08 30.215 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6898,7 +6898,7 @@
 			)
 		)
 		(property "Value" "AM26LV32"
-			(at 157.0800 37.4500 0)
+			(at 157.08 38.085 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6984,7 +6984,7 @@
 		(dnp no)
 		(uuid "2c88d6c6-66e2-5723-ad43-1100928b231f")
 		(property "Reference" "U601"
-			(at 157.0800 58.7900 0)
+			(at 157.08 58.155 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6993,7 +6993,7 @@
 			)
 		)
 		(property "Value" "AM26LV32"
-			(at 157.0800 65.3900 0)
+			(at 157.08 66.025 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7079,7 +7079,7 @@
 		(dnp no)
 		(uuid "524dc36b-8052-5024-af96-09a0f2640488")
 		(property "Reference" "U601"
-			(at 157.0800 86.7300 0)
+			(at 157.08 86.095 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7088,7 +7088,7 @@
 			)
 		)
 		(property "Value" "AM26LV32"
-			(at 157.0800 93.3300 0)
+			(at 157.08 93.965 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8146,7 +8146,7 @@
 		(dnp no)
 		(uuid "3f1e3fa0-3ee9-5d4f-87ec-5562b8a2be99")
 		(property "Reference" "U601"
-			(at 162.5600 151.5000 0)
+			(at 162.56 150.865 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8155,7 +8155,7 @@
 			)
 		)
 		(property "Value" "AM26LV32"
-			(at 162.5600 158.1000 0)
+			(at 162.56 158.735 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8666,7 +8666,7 @@
 		(dnp no)
 		(uuid "dc68a9be-7940-5593-899e-3143d65562e6")
 		(property "Reference" "U601"
-			(at 162.56 179.44 0)
+			(at 162.56 178.805 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8675,7 +8675,7 @@
 			)
 		)
 		(property "Value" "AM26LV32"
-			(at 162.56 186.04 0)
+			(at 162.56 186.675 0)
 			(effects
 				(font
 					(size 1.27 1.27)

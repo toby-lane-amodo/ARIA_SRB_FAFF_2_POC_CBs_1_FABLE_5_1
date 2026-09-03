@@ -196,7 +196,13 @@ class Sheet:
         return kids(self.sch, "symbol")
 
     def visible_fields(self, skip_refs=()):
-        """[(ref, propname, box)] for every field that renders."""
+        """[(ref, propname, box, skip)] for every field that renders.
+
+        A multi-unit part has one Reference field per unit instance, all with
+        the same refdes, so anything that keys these by refdes collapses them -
+        which once put all five U601 units' references on one point. Use
+        `visible_fields_by_instance` when identity matters.
+        """
         out = []
         for s in self.symbols():
             p = at(s)
@@ -251,4 +257,26 @@ class Sheet:
                     out.append((p[0] - w, p[1] - LINE_H, p[0], p[1] + LINE_H))
                 else:
                     out.append((p[0], p[1] - LINE_H, p[0] + w, p[1] + LINE_H))
+        return out
+
+    def visible_fields_by_instance(self):
+        """[(uuid, ref, propname, box, meta)] - one entry per field per unit."""
+        out = []
+        for s in self.symbols():
+            p = at(s)
+            mir = bool(kid(s, "mirror"))
+            su = a(kid(s, "uuid"), 1)
+            ref = next((a(pr, 2) for pr in kids(s, "property")
+                        if a(pr, 1) == "Reference"), "")
+            for pr in kids(s, "property"):
+                eff = kid(pr, "effects")
+                h = kid(eff, "hide") if eff else None
+                if h and a(h, 1) == "yes":
+                    continue
+                j = [a(x, 1) for x in kids(eff, "justify")] if eff else []
+                just = j[0] if j and j[0] in ("left", "right") else None
+                pa = at(pr)
+                out.append((su, ref, a(pr, 1),
+                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir),
+                            (pa[0], pa[1], a(pr, 2), just, p[2], mir, pa[2])))
         return out

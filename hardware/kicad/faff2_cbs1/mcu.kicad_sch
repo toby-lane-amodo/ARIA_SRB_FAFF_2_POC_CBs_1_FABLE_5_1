@@ -8551,7 +8551,7 @@
 		(dnp no)
 		(uuid "dbdc3e20-da52-50f1-af28-150c4922b638")
 		(property "Reference" "C1009"
-			(at 103.505 55.88 0)
+			(at 103.505 56.515 0)
 			(effects (font (size 1.27 1.27)) (justify right))
 		)
 		(property "Value" "2.2uF"
@@ -10096,11 +10096,11 @@
 		(dnp no)
 		(uuid "b484cab8-16b2-5ffa-966d-117ca57efa2e")
 		(property "Reference" "C1016"
-			(at 164.59 96.52 0)
+			(at 163.32 95.25 0)
 			(effects (font (size 1.27 1.27)) (justify left))
 		)
 		(property "Value" "100nF"
-			(at 164.59 99.06 0)
+			(at 163.32 100.33 0)
 			(effects (font (size 1.27 1.27)) (justify left))
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
@@ -10932,7 +10932,7 @@
 			(effects (font (size 1.27 1.27)) (justify right))
 		)
 		(property "Value" "2.2uF"
-			(at 280.035 71.12 0)
+			(at 280.035 70.485 0)
 			(effects (font (size 1.27 1.27)) (justify right))
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
@@ -11026,7 +11026,7 @@
 			(effects (font (size 1.27 1.27)) (justify right))
 		)
 		(property "Value" "100nF"
-			(at 271.145 73.66 0)
+			(at 271.145 73.025 0)
 			(effects (font (size 1.27 1.27)) (justify right))
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
@@ -11876,7 +11876,7 @@
 		(dnp no)
 		(uuid "69e7adfb-95e5-516d-bc6d-6d0b3aa6d3a9")
 		(property "Reference" "TP1004"
-			(at 318.77 100.33 0)
+			(at 318.77 99.06 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Value" "3V3U"

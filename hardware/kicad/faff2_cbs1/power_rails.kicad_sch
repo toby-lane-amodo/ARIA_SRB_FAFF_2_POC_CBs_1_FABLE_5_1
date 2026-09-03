@@ -7260,7 +7260,7 @@
 			)
 		)
 		(property "Value" "LMR33630"
-			(at 66.04 39.99 0)
+			(at 66.04 39.355 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7364,7 +7364,7 @@
 		(fields_autoplaced no)
 		(uuid "1dde5e07-6819-5c81-886c-6ca2bfdb6d8b")
 		(property "Reference" "C304"
-			(at 57.91 63.23 0)
+			(at 57.91 63.865 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10553,7 +10553,7 @@
 		(fields_autoplaced no)
 		(uuid "8889665b-5b58-514b-88a0-53153c7d3593")
 		(property "Reference" "U302"
-			(at 231.14 68.52 0)
+			(at 231.14 66.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10562,7 +10562,7 @@
 			)
 		)
 		(property "Value" "TPS7A20"
-			(at 231.14 70.92 0)
+			(at 231.14 68.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10655,7 +10655,7 @@
 		(fields_autoplaced no)
 		(uuid "d939b874-bbd7-5f76-a17e-92370afac36e")
 		(property "Reference" "C309"
-			(at 216.66 69.58 0)
+			(at 216.66 70.215 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11611,7 +11611,7 @@
 		(fields_autoplaced no)
 		(uuid "7a3817be-72a2-5ec1-8fa3-b5c9a1375714")
 		(property "Reference" "U303"
-			(at 332.74 68.52 0)
+			(at 332.74 66.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11620,7 +11620,7 @@
 			)
 		)
 		(property "Value" "TPS7A20"
-			(at 332.74 70.92 0)
+			(at 332.74 68.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11713,7 +11713,7 @@
 		(fields_autoplaced no)
 		(uuid "569732e1-200c-5f8c-ac10-5249e92f2be7")
 		(property "Reference" "C312"
-			(at 318.26 69.58 0)
+			(at 318.26 70.215 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12678,7 +12678,7 @@
 			)
 		)
 		(property "Value" "LMR33630"
-			(at 66.04 147.94 0)
+			(at 66.04 147.305 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13758,7 +13758,7 @@
 		(fields_autoplaced no)
 		(uuid "6d006edb-6a37-55c2-a300-30e1c863f8c8")
 		(property "Reference" "C318"
-			(at 57.91 171.18 0)
+			(at 57.91 171.815 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16681,7 +16681,7 @@
 			)
 		)
 		(property "Value" "SM0805URC"
-			(at 276.35 204.33 90)
+			(at 276.985 204.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)

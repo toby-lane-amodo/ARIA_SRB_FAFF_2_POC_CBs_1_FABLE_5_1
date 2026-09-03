@@ -7109,7 +7109,7 @@
 			)
 		)
 		(property "Value" "SM0805UGC"
-			(at 197.61 87.49 90)
+			(at 198.245 87.49 90)
 			(effects
 				(font
 					(size 1.27 1.27)
