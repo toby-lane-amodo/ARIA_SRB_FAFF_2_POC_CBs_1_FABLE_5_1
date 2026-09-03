@@ -78,7 +78,29 @@ The schematic is ten hierarchical blocks, each in its own `.kicad_sch` under
 ## Before showing or committing schematic work
 
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
-is the current baseline (DEC-0021) and every block must preserve it.
+is the DEC-0021 baseline and the end state.
+
+**During the parallel block wave that baseline is temporarily unreachable, and that is
+expected.** Three error classes appear and clear only when the integration pass
+wires the root sheet (DEC-0009) and `power_rails` lands (OQ-02):
+
+| Class | Cause |
+|---|---|
+| `hier_label_mismatch` | one per hierarchical label — no sheet pin exists on the parent yet |
+| `label_dangling` | the same labels: KiCad 9 errors on a labelled single-pin net |
+| `power_pin_not_driven` | one per shared rail (`+3V3`, `+3V3A`, `+5V`, `GND`) — nothing drives them until `power_rails` exists |
+
+**Do not paper over these.** A PWR_FLAG on a shared rail is a power *output*: one per block
+becomes a power-output conflict at merge. Global labels instead of hierarchical ones would
+break the root-wiring plan. Keep **0 warnings**, keep every other error class at zero, and list
+the block's hierarchical labels under a "Root sheet needs" heading in its decisions file.
+
+**Reference designators are allocated per sheet, 100 apart, by the block's page number in the
+root sheet** — `power_entry_24v` 201+, `power_rails` 301+, `test_debug` 401+, `loadcell_afe`
+501+, `linear_encoder` 601+, `temp_sense` 701+, `nvm_calibration` 801+, `ui_io` 901+, `mcu`
+1001+, `motor_drive` 1101+. Designators must be unique across the whole project; two blocks
+both starting at `U1` do not raise an ERC error, they silently merge into one component in the
+netlist. See `docs/decisions/actuator-sch-mcu.md`.
 
 ```sh
 AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib \
@@ -101,7 +123,11 @@ call in `docs/DECISIONS.md`.
 - Text blocks anchored `justify left bottom` grow **upward** from the anchor and will run off
   the top of the page. Use `justify left top` for a block that should read downward.
 - Sheet titles longer than roughly 50 characters overrun the A3 title-block field and clip at
-  the page border (DEC-0020). Use the short `CBs_1 - <block>` form.
+  the page border (DEC-0020). Use the short `CBs_1 - <block>` form. Title-block **comments**
+  clip the same way past roughly 70 characters.
+- Every wire end and pin must sit on the **1.27 mm grid**, or ERC reports `endpoint_off_grid`.
+- A stub that lands mid-wire does **not** connect, junction dot or not — split the wire at the
+  junction point. The tell is `pin_not_connected` on a part that looks wired.
 
 ## Maintaining this file
 
