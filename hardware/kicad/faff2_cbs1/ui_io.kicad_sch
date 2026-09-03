@@ -4295,7 +4295,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1000 162.5600) (xy 38.1000 165.1000)
+			(xy 38.1000 165.1000) (xy 38.1000 167.6400)
 		)
 		(stroke
 			(width 0)
@@ -4305,7 +4305,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1000 170.1800) (xy 38.1000 176.5300)
+			(xy 38.1000 172.7200) (xy 38.1000 176.5300)
 		)
 		(stroke
 			(width 0)
@@ -4325,7 +4325,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8000 162.5600) (xy 50.8000 165.1000)
+			(xy 50.8000 165.1000) (xy 50.8000 167.6400)
 		)
 		(stroke
 			(width 0)
@@ -4335,7 +4335,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8000 170.1800) (xy 50.8000 179.0700)
+			(xy 50.8000 172.7200) (xy 50.8000 179.0700)
 		)
 		(stroke
 			(width 0)
@@ -8280,7 +8280,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 38.1000 162.5600 0)
+		(at 38.1000 165.1000 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8288,7 +8288,7 @@
 		(dnp no)
 		(uuid "869edfb1-bd7a-540c-8649-077be5f27ea4")
 		(property "Reference" "#PWR914"
-			(at 38.1000 156.2100 0)
+			(at 38.1000 158.7500 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8298,7 +8298,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 38.1000 158.7500 0)
+			(at 38.1000 161.2900 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8307,7 +8307,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 38.1000 162.5600 0)
+			(at 38.1000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8317,7 +8317,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 38.1000 162.5600 0)
+			(at 38.1000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8327,7 +8327,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 38.1000 162.5600 0)
+			(at 38.1000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8337,7 +8337,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 38.1000 162.5600 0)
+			(at 38.1000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8360,7 +8360,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
-		(at 38.1000 165.1000 0)
+		(at 38.1000 167.6400 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8368,15 +8368,6 @@
 		(dnp no)
 		(uuid "b57bbc6c-51e2-5ddd-a960-41c3acb3b105")
 		(property "Reference" "R909"
-			(at 40.0050 166.3700 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1k"
 			(at 40.0050 168.9100 0)
 			(effects
 				(font
@@ -8385,8 +8376,17 @@
 				(justify left)
 			)
 		)
+		(property "Value" "1k"
+			(at 40.0050 171.4500 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 38.1000 165.1000 0)
+			(at 38.1000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8396,7 +8396,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/cr_a-1858337.pdf"
-			(at 38.1000 165.1000 0)
+			(at 38.1000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8406,7 +8406,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 1k 0603 1% 100mW"
-			(at 38.1000 165.1000 0)
+			(at 38.1000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8416,7 +8416,7 @@
 			)
 		)
 		(property "mpn" "CR0603AFX-1001ELF"
-			(at 38.1000 165.1000 0)
+			(at 38.1000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8426,7 +8426,7 @@
 			)
 		)
 		(property "gpn" "GPR06031K"
-			(at 38.1000 165.1000 0)
+			(at 38.1000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8436,7 +8436,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 38.1000 165.1000 0)
+			(at 38.1000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8462,7 +8462,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 50.8000 162.5600 0)
+		(at 50.8000 165.1000 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8470,7 +8470,7 @@
 		(dnp no)
 		(uuid "b626f0be-c8f9-5b9b-861b-1bb0a78624d8")
 		(property "Reference" "#PWR915"
-			(at 50.8000 156.2100 0)
+			(at 50.8000 158.7500 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8480,7 +8480,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 50.8000 158.7500 0)
+			(at 50.8000 161.2900 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8489,7 +8489,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 50.8000 162.5600 0)
+			(at 50.8000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8499,7 +8499,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 50.8000 162.5600 0)
+			(at 50.8000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8509,7 +8509,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 50.8000 162.5600 0)
+			(at 50.8000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8519,7 +8519,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 50.8000 162.5600 0)
+			(at 50.8000 165.1000 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8542,7 +8542,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
-		(at 50.8000 165.1000 0)
+		(at 50.8000 167.6400 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8550,15 +8550,6 @@
 		(dnp no)
 		(uuid "60659087-0644-5a7c-a0b2-ff59845a9ba2")
 		(property "Reference" "R910"
-			(at 52.7050 166.3700 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1k"
 			(at 52.7050 168.9100 0)
 			(effects
 				(font
@@ -8567,8 +8558,17 @@
 				(justify left)
 			)
 		)
+		(property "Value" "1k"
+			(at 52.7050 171.4500 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 50.8000 165.1000 0)
+			(at 50.8000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8578,7 +8578,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/cr_a-1858337.pdf"
-			(at 50.8000 165.1000 0)
+			(at 50.8000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8588,7 +8588,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 1k 0603 1% 100mW"
-			(at 50.8000 165.1000 0)
+			(at 50.8000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8598,7 +8598,7 @@
 			)
 		)
 		(property "mpn" "CR0603AFX-1001ELF"
-			(at 50.8000 165.1000 0)
+			(at 50.8000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8608,7 +8608,7 @@
 			)
 		)
 		(property "gpn" "GPR06031K"
-			(at 50.8000 165.1000 0)
+			(at 50.8000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8618,7 +8618,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 50.8000 165.1000 0)
+			(at 50.8000 167.6400 0)
 			(effects
 				(font
 					(size 1.27 1.27)
