@@ -52,12 +52,17 @@ All components come from the Amodo library at `/mnt/c/Amodo/AmodoKiCadLib` (WSL)
 `fp-lib-table` via `${AMODO_KICAD_LIB}`. **`AMODO_3D` must be set too** — the Amodo footprints
 reference their 3D models through it. `README.md` has the setup table; DEC-0015 the rationale.
 
+**AmodoKiCadLib is read-only reference. Never modify it and never push it.**
+
 - **Prefer existing Amodo parts.** Search the library before drawing anything —
   e.g. `ADS1235` is already in `Amodo_ADCs.kicad_sym`.
-- Create a new part **only where absolutely necessary**, and create it **in the Amodo library**
-  (the correct `Amodo_<category>.kicad_sym`), never scattered in this repo.
-- Adding a part to a category file during parallel work? **Report it in a status line** so
-  firstmate can serialise concurrent edits to that file.
+- A part you must **create or correct** lives project-locally, in
+  `hardware/kicad/faff2_cbs1/faff2_<block>.kicad_sym` (and `faff2.pretty/` for footprints),
+  registered in the project `sym-lib-table` / `fp-lib-table` through `${KIPRJMOD}`. Record why
+  in the block's decisions file so the captain can fix the house library upstream.
+- Some Amodo symbols are **uncommitted local additions** to that working copy — `ADS1235` is
+  one. `git checkout --` on a file there deletes them. Do not run git operations in that
+  library; it is not ours to manage.
 
 ## One block per file, one owner per file
 
