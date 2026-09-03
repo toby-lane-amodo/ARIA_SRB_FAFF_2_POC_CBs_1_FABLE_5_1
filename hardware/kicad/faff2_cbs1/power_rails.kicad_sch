@@ -1356,343 +1356,6 @@
 				)
 			)
 		)
-		(symbol "Amodo_Inductors:IND_SMD_15uH_5.3A"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "L"
-				(at 0 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "15uH"
-				(at 0.508 -3.302 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Amodo:L_Bourns_SRR1210"
-				(at -0.254 23.622 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/srr1210-1391529.pdf"
-				(at 0 25.908 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power inductor 15uH 20% 5.3A 5.8Amax"
-				(at -0.254 21.082 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "mpn" "SRR1210-150M"
-				(at 0.508 18.796 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "SymLifecycle" "reviewed"
-				(at 0 28.448 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Current" "5.3A"
-				(at 0 2.794 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "IND_SMD_15uH_5.3A_0_1"
-				(arc
-					(start -2.5308 0.0024)
-					(mid -1.8958 0.6347)
-					(end -1.2608 0.0024)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -1.2608 0.0024)
-					(mid -0.6258 0.6347)
-					(end 0.0092 0.0024)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0.0092 0.0024)
-					(mid 0.6442 0.6347)
-					(end 1.2792 0.0024)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 1.2792 0.0024)
-					(mid 1.9142 0.6347)
-					(end 2.5492 0.0024)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "IND_SMD_15uH_5.3A_1_1"
-				(polyline
-					(pts
-						(xy -2.5308 1.5264) (xy -2.2768 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.5308 1.0184) (xy -2.2768 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.7688 1.5264) (xy -1.5148 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.7688 1.0184) (xy -1.5148 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.0068 1.5264) (xy -0.7528 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.0068 1.0184) (xy -0.7528 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.2448 1.5264) (xy 0.0092 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.2448 1.0184) (xy 0.0092 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.5172 1.5264) (xy 0.7712 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.5172 1.0184) (xy 0.7712 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.2792 1.5264) (xy 1.5332 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.2792 1.0184) (xy 1.5332 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.0412 1.5264) (xy 2.2952 1.5264)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.0412 1.0184) (xy 2.2952 1.0184)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -3.81 0 0)
-					(length 1.27)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 1.27)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Amodo_Capacitors:CAP_MLCC_22uF_1206_20%_16V"
 			(pin_numbers
 				(hide yes)
@@ -1932,154 +1595,6 @@
 				)
 			)
 			(symbol "RES_TNF_100k_0603_0.1%_1_1"
-				(polyline
-					(pts
-						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 0 0 270)
-					(length 1.016)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 1.016)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Amodo_Resistors:RES_TNF_22.1k_0603_0.1%"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R"
-				(at 1.27 -0.635 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "22.1k"
-				(at 1.27 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Amodo:R_0603_1608Metric"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "SMD Thin Film Resistor 22.1k 0603 0.1% 100mW"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "mpn" "RT0603BRD0722K1L"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "0.1%"
-				(at 1.27 -4.445 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "SymLifecycle" "reviewed"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "RES_TNF_22.1k_0603_0.1%_1_1"
 				(polyline
 					(pts
 						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
@@ -4425,6 +3940,863 @@
 				)
 			)
 		)
+		(symbol "Amodo_Power_ICs:LMR51610XFDBVR"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -1.27 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LMR51610XFDBVR"
+				(at 2.54 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:SOT23-6"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lmr51610.pdf?ts=1733751808039&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLMR51610"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "4 V to 65 V, 1 A Buck Converter - FPWM 400 kHz, SOT-23"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "LMR51610XFDBVR"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "smps"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LMR51610XFDBVR_0_1"
+				(rectangle
+					(start -2.54 1.27)
+					(end 7.62 -11.43)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "LMR51610XFDBVR_1_1"
+				(pin power_in line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -5.08 -5.08 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -5.08 -10.16 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "CB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 -5.08 180)
+					(length 2.54)
+					(name "SW"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -10.16 180)
+					(length 2.54)
+					(name "FB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amodo_Inductors:IND_SMD_33uH"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "33uH"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:L_Bourns_SRN6045TA_6x6mm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/srn6045ta.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power inductor 33uH 20% 1.8Arms 2.5Amax 6x6mm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "SRN6045TA-330M"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "IND_SMD_33uH_0_1"
+				(arc
+					(start 0 6.35)
+					(mid 0.6323 5.715)
+					(end 0 5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 5.08)
+					(mid 0.6323 4.445)
+					(end 0 3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.81)
+					(mid 0.6323 3.175)
+					(end 0 2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 2.54)
+					(mid 0.6323 1.905)
+					(end 0 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "IND_SMD_33uH_1_1"
+				(polyline
+					(pts
+						(xy 1.016 6.35) (xy 1.016 6.096)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 5.588) (xy 1.016 5.334)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 4.826) (xy 1.016 4.572)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 4.064) (xy 1.016 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 3.302) (xy 1.016 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 2.54) (xy 1.016 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 1.778) (xy 1.016 1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 6.35) (xy 1.524 6.096)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 5.588) (xy 1.524 5.334)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 4.826) (xy 1.524 4.572)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 4.064) (xy 1.524 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 3.302) (xy 1.524 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 2.54) (xy 1.524 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.524 1.778) (xy 1.524 1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 7.62 270)
+					(length 1.27)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 0 90)
+					(length 1.27)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amodo_Resistors:RES_TNF_16.9k_0603_0.1%"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 1.27 -0.635 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "16.9k"
+				(at 1.27 -2.54 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/508/1/PYu-RT_1-to-0.01_RoHS_L_15.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thin Film Resistor 16.9k 0603 0.1% 100mW"
+				(at 0 3.048 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "RT0603BRD0716K9L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "tolerance" "0.1%"
+				(at 3.556 -4.572 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TNF_16.9k_0603_0.1%_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amodo_Connectors:TestPointDual"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Test Point Dual"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp dual"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPointDual_0_1"
+				(polyline
+					(pts
+						(xy -1.778 3.302) (xy -0.762 3.302)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.27 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.794) (xy -1.27 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.27 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.794) (xy 1.27 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPointDual_1_1"
+				(pin passive line
+					(at -1.27 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 1.27 0 90)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(wire
 		(pts
@@ -4816,36 +5188,9 @@
 		)
 		(uuid "4f3477c4-d56b-5180-bee3-640d00c287dc")
 	)
-	(wire
-		(pts
-			(xy 57.15 57.15) (xy 57.15 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8554872a-2d1b-5020-aacb-51127cecc9b3")
-	)
-	(wire
-		(pts
-			(xy 57.15 57.15) (xy 60.96 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d0443cc2-0017-5434-bb38-01cb58962f2e")
-	)
-	(wire
-		(pts
-			(xy 57.15 64.77) (xy 57.15 67.31)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a0c08cb6-0665-5146-8ca9-d371b934c2c2")
-	)
+
+
+
 	(wire
 		(pts
 			(xy 57.15 165.1) (xy 57.15 167.64)
@@ -4876,16 +5221,7 @@
 		)
 		(uuid "92a707b8-019c-5f51-a817-0720f4a0edc0")
 	)
-	(wire
-		(pts
-			(xy 60.96 33.02) (xy 60.96 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2196e815-f071-5a43-b2bd-023b8a751265")
-	)
+
 	(wire
 		(pts
 			(xy 60.96 140.97) (xy 60.96 151.13)
@@ -4896,16 +5232,7 @@
 		)
 		(uuid "31a02d99-ecad-5ed8-a596-469d2be7270e")
 	)
-	(wire
-		(pts
-			(xy 72.39 67.31) (xy 72.39 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fcae481a-232d-5b84-a5cf-61eb5ecb7473")
-	)
+
 	(wire
 		(pts
 			(xy 72.39 175.26) (xy 72.39 179.07)
@@ -4916,46 +5243,10 @@
 		)
 		(uuid "2dadc93e-3834-5718-9bc1-696bc8f110a2")
 	)
-	(wire
-		(pts
-			(xy 83.82 43.18) (xy 99.06 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aed64392-9aab-5c55-97b8-b46403c6abaa")
-	)
-	(wire
-		(pts
-			(xy 83.82 48.26) (xy 88.9 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cc787b64-5fef-50c3-bd49-70acb57140ef")
-	)
-	(wire
-		(pts
-			(xy 83.82 54.61) (xy 86.36 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4270bf4-16b4-5d9e-ae6e-49a4a8825962")
-	)
-	(wire
-		(pts
-			(xy 83.82 59.69) (xy 127 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d22774d1-ee6c-5514-a31d-1f04fd155750")
-	)
+
+
+
+
 	(wire
 		(pts
 			(xy 83.82 151.13) (xy 99.06 151.13)
@@ -4996,56 +5287,11 @@
 		)
 		(uuid "fd427b17-d814-5dff-85ca-ec9c40cf890e")
 	)
-	(wire
-		(pts
-			(xy 86.36 54.61) (xy 86.36 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a77e502f-7134-57c5-9dda-9acd8ab4e1ba")
-	)
-	(wire
-		(pts
-			(xy 86.36 78.74) (xy 86.36 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9277b8cd-92e5-5037-a090-f97772f6d074")
-	)
-	(wire
-		(pts
-			(xy 86.36 86.36) (xy 86.36 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a6aad1c9-61b9-575d-b731-a6d70a922d17")
-	)
-	(wire
-		(pts
-			(xy 86.36 88.9) (xy 86.36 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d1fe4900-0346-526b-b0ad-cff045b0e52b")
-	)
-	(wire
-		(pts
-			(xy 86.36 93.98) (xy 104.14 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "35cdfb15-4441-5cd4-af4b-74a05fd79b5d")
-	)
+
+
+
+
+
 	(wire
 		(pts
 			(xy 86.36 162.56) (xy 86.36 186.69)
@@ -5096,16 +5342,7 @@
 		)
 		(uuid "f41d21f6-1166-5165-b025-a208b44cf098")
 	)
-	(wire
-		(pts
-			(xy 88.9 48.26) (xy 88.9 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "51313dfd-4ec8-58c0-880e-f44400f561a1")
-	)
+
 	(wire
 		(pts
 			(xy 88.9 53.34) (xy 99.06 53.34)
@@ -5136,16 +5373,7 @@
 		)
 		(uuid "e46a4e14-80ca-524a-8d12-9009c0b309e1")
 	)
-	(wire
-		(pts
-			(xy 99.06 43.18) (xy 99.06 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5bf4d474-93f3-59b4-af57-fb93f9d7f4a1")
-	)
+
 	(wire
 		(pts
 			(xy 99.06 50.8) (xy 99.06 53.34)
@@ -5336,16 +5564,7 @@
 		)
 		(uuid "4ea5a1c1-8c24-5cc9-a31d-3473e694f29d")
 	)
-	(wire
-		(pts
-			(xy 132.08 66.04) (xy 134.62 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1ad27b84-f6bd-54f8-b6e7-b83701364a13")
-	)
+
 	(wire
 		(pts
 			(xy 132.08 73.66) (xy 132.08 76.2)
@@ -5396,16 +5615,7 @@
 		)
 		(uuid "db2a95a8-fa84-57b3-b138-de5ad613c799")
 	)
-	(wire
-		(pts
-			(xy 132.08 173.99) (xy 134.62 173.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ed4fa1e-b69d-5572-91bc-493445cbf5be")
-	)
+
 	(wire
 		(pts
 			(xy 132.08 181.61) (xy 132.08 184.15)
@@ -5616,96 +5826,15 @@
 		)
 		(uuid "84f73ca9-5440-5fb7-bffc-3e5f373e5b54")
 	)
-	(wire
-		(pts
-			(xy 177.8 53.34) (xy 177.8 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e3500609-65ea-55d9-b92a-fc29656bc317")
-	)
-	(wire
-		(pts
-			(xy 177.8 60.96) (xy 177.8 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "075781de-dc4c-5705-88f7-7ebba96c6d9a")
-	)
-	(wire
-		(pts
-			(xy 177.8 63.5) (xy 180.34 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c9a419d7-fa97-530c-96f6-b44f2cca93a0")
-	)
-	(wire
-		(pts
-			(xy 177.8 161.29) (xy 177.8 163.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5f290e6e-bdc4-5587-8d5f-7c5b1a6d0199")
-	)
-	(wire
-		(pts
-			(xy 177.8 168.91) (xy 177.8 171.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ac2b77a2-798e-5f6b-891f-e441ef9b3a26")
-	)
-	(wire
-		(pts
-			(xy 177.8 171.45) (xy 180.34 171.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2f7e4ec9-5e56-5fd8-a9e3-28f5c2222dc0")
-	)
-	(wire
-		(pts
-			(xy 180.34 63.5) (xy 190.5 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "28464772-736e-584c-80ba-48597ee50fb8")
-	)
-	(wire
-		(pts
-			(xy 180.34 171.45) (xy 190.5 171.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8e93b9a0-aa00-5f15-8606-06fc1416d7f2")
-	)
-	(wire
-		(pts
-			(xy 190.5 58.42) (xy 190.5 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4882e22b-ed5f-55b9-b497-c446c7235710")
-	)
+
+
+
+
+
+
+
+
+
 	(wire
 		(pts
 			(xy 190.5 63.5) (xy 215.9 63.5)
@@ -5716,16 +5845,7 @@
 		)
 		(uuid "b3bb2652-eb57-5931-b4cc-d5de0cd4b741")
 	)
-	(wire
-		(pts
-			(xy 190.5 166.37) (xy 190.5 171.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1c9b461b-eff5-5fcb-b903-fd61d84e9d31")
-	)
+
 	(wire
 		(pts
 			(xy 190.5 171.45) (xy 200.66 171.45)
@@ -5876,16 +5996,7 @@
 		)
 		(uuid "03e77b4e-2f51-5a91-9250-c9183cb08e78")
 	)
-	(wire
-		(pts
-			(xy 231.14 210.82) (xy 281.94 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f167f86e-1522-5210-a3ed-41526283e402")
-	)
+
 	(wire
 		(pts
 			(xy 238.76 83.82) (xy 238.76 86.36)
@@ -5896,46 +6007,10 @@
 		)
 		(uuid "eb8e693c-4b40-510d-ae12-714c4088a2eb")
 	)
-	(wire
-		(pts
-			(xy 240.03 171.45) (xy 240.03 172.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ce07787d-3bd3-5b01-b581-b5d5475f4f37")
-	)
-	(wire
-		(pts
-			(xy 240.03 180.34) (xy 240.03 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cf9b445d-f5d5-5cbd-a217-1455e101dae4")
-	)
-	(wire
-		(pts
-			(xy 240.03 181.61) (xy 242.57 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "83829721-2d8e-59c8-af10-9576bcc90754")
-	)
-	(wire
-		(pts
-			(xy 242.57 181.61) (xy 254 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ad8bbd7-3e62-5555-8f29-c66b5d7fe250")
-	)
+
+
+
+
 	(wire
 		(pts
 			(xy 248.92 73.66) (xy 254 73.66)
@@ -6066,36 +6141,9 @@
 		)
 		(uuid "d40cc915-3fbb-54b0-8e62-9bf3795e7432")
 	)
-	(wire
-		(pts
-			(xy 274.32 73.66) (xy 274.32 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d6caaf30-b72f-539d-85d6-227eed79ec94")
-	)
-	(wire
-		(pts
-			(xy 274.32 81.28) (xy 274.32 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d1a552e-0223-5fec-8544-d8828c374c5a")
-	)
-	(wire
-		(pts
-			(xy 274.32 83.82) (xy 281.94 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b937baff-84ea-5a94-8d37-20468ae74917")
-	)
+
+
+
 	(wire
 		(pts
 			(xy 274.32 190.5) (xy 274.32 193.04)
@@ -6116,16 +6164,7 @@
 		)
 		(uuid "61250d04-bd97-5308-bb01-37d4a6712ee6")
 	)
-	(wire
-		(pts
-			(xy 281.94 78.74) (xy 281.94 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "493f4ae1-3d88-5052-a6e1-881eb81d278e")
-	)
+
 	(wire
 		(pts
 			(xy 281.94 83.82) (xy 292.1 83.82)
@@ -6136,36 +6175,9 @@
 		)
 		(uuid "d057249a-b915-58cc-8a0e-7043b4657ee9")
 	)
-	(wire
-		(pts
-			(xy 281.94 200.66) (xy 281.94 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fd804088-14b7-59a5-9294-79af6089d36e")
-	)
-	(wire
-		(pts
-			(xy 281.94 210.82) (xy 292.1 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e60dfa35-0907-595e-9fe8-15f17b379e54")
-	)
-	(wire
-		(pts
-			(xy 287.02 176.53) (xy 287.02 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "25adea30-cc12-50d9-8702-c11847e81b99")
-	)
+
+
+
 	(wire
 		(pts
 			(xy 287.02 181.61) (xy 297.18 181.61)
@@ -6426,46 +6438,10 @@
 		)
 		(uuid "4b93a6f3-7d00-561f-bdde-019e528e7491")
 	)
-	(wire
-		(pts
-			(xy 375.92 73.66) (xy 375.92 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fe0a416d-cb2b-57ad-bd74-259f92ae63f0")
-	)
-	(wire
-		(pts
-			(xy 375.92 81.28) (xy 375.92 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "500ef36f-a3d3-5493-9edc-eaaaf36a3081")
-	)
-	(wire
-		(pts
-			(xy 375.92 83.82) (xy 383.54 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9fe65a5a-dadc-5bf0-b3d6-af8541e6beb1")
-	)
-	(wire
-		(pts
-			(xy 383.54 78.74) (xy 383.54 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "81596bb2-0c28-5967-b448-0b51206726c6")
-	)
+
+
+
+
 	(wire
 		(pts
 			(xy 383.54 83.82) (xy 393.7 83.82)
@@ -6672,12 +6648,7 @@
 		(color 0 0 0 0)
 		(uuid "176f163f-ed3d-57d7-962e-3f578f4a5118")
 	)
-	(junction
-		(at 281.94 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "28f5f8e4-6723-51fc-a388-6ad820df3f14")
-	)
+
 	(junction
 		(at 287.02 181.61)
 		(diameter 0)
@@ -6732,7 +6703,7 @@
 		)
 		(uuid "650f2b9c-a135-5199-abff-b66cf77b626c")
 	)
-	(text "A.  PRE-REGULATOR  V24_LOGIC -> 5.5 V  (LMR33630, 400 kHz)"
+	(text "A.  PRE-REGULATOR  V24_LOGIC -> 5.5 V  (LMR51610, 400 kHz)"
 		(exclude_from_sim no)
 		(at 17.78 24.67 0)
 		(effects
@@ -6755,18 +6726,9 @@
 		)
 		(uuid "62eec9f5-7182-5db9-88de-7b9168fc35a4")
 	)
-	(label "RAIL_PGOOD"
-		(at 104.14 93.98 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "16f8a0c3-0421-58bc-847a-aef4d2f4eae4")
-	)
+
 	(label "+5V5"
-		(at 180.34 63.5 0)
+		(at 196.85 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6867,7 +6829,7 @@
 		(uuid "182ff79e-1ca6-5784-bc2b-f5b58c52a3e4")
 	)
 	(label "+3V3"
-		(at 180.34 171.45 0)
+		(at 193.04 171.45 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6901,7 +6863,7 @@
 		(uuid "3781339a-11fb-5619-b8a0-de56aba7140d")
 	)
 	(label "+3V3A"
-		(at 242.57 181.61 0)
+		(at 256.54 181.61 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6952,7 +6914,7 @@
 		)
 		(uuid "74ce89d5-d343-5d06-a694-1ca2e6a9186a")
 	)
-	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +5V5   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    TPS7A20 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   TPS7A20 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 5.5 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
+	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +5V5   LMR51610 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    TPS7A20 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   TPS7A20 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 5.5 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
 		(exclude_from_sim no)
 		(at 15.24 240.03 0)
 		(effects
@@ -6963,7 +6925,7 @@
 		)
 		(uuid "5a382840-9c42-55cf-b86e-8696f47f386f")
 	)
-	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, and a test point on each feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain, the wired-AND of both converters\n       through R315 / R316. It stays SHEET-LOCAL: LED D303 and TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
+	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, on a dual pad so a scope ground clips beside\n       the probe. No test point sits on a feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain from the +3V3 buck alone, through\n       R316 - the LMR51610 pre-regulator has no PG pin. It stays SHEET-LOCAL: LED D303 and TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
 		(exclude_from_sim no)
 		(at 204.47 240.03 0)
 		(effects
@@ -6974,7 +6936,773 @@
 		)
 		(uuid "b8fdf065-6058-5cec-965b-e1bad2c36345")
 	)
+	(wire
+		(pts
+			(xy 60.96 33.02) (xy 60.96 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "322d3fd7-7189-592f-a405-c93d67995cd8")
+	)
+	(wire
+		(pts
+			(xy 76.2 40.64) (xy 99.06 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcec81ed-76b2-5a6a-893b-3d875b4f0c12")
+	)
+	(wire
+		(pts
+			(xy 99.06 40.64) (xy 99.06 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d60d9f6-f8af-58be-90f9-e7c607aaa36b")
+	)
+	(wire
+		(pts
+			(xy 76.2 45.72) (xy 88.9 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ecfe2d42-15f9-5320-bd5d-36d99cacb2db")
+	)
+	(wire
+		(pts
+			(xy 88.9 45.72) (xy 88.9 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "244f47fe-cc3a-522e-a8b8-6aa5f3483f37")
+	)
+	(wire
+		(pts
+			(xy 76.2 50.8) (xy 80.01 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7615a27f-1670-525b-a1fa-2c4fa67e0ff2")
+	)
+	(wire
+		(pts
+			(xy 80.01 50.8) (xy 80.01 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf77706b-9b75-5fc9-9b13-e45e447ccfa1")
+	)
+	(wire
+		(pts
+			(xy 80.01 59.69) (xy 127 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8605c44e-d1a5-5add-b4b2-4235f65897d8")
+	)
+	(wire
+		(pts
+			(xy 182.88 53.34) (xy 190.5 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9440bf1b-7bfe-5292-ace3-9fcc8c69dad1")
+	)
+	(wire
+		(pts
+			(xy 190.5 53.34) (xy 190.5 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8394d810-0f10-5d8a-be86-b20631191ffb")
+	)
+	(wire
+		(pts
+			(xy 190.5 63.5) (xy 190.5 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b8c2891-3f6a-5f7a-ac8f-b90080af632b")
+	)
+	(wire
+		(pts
+			(xy 190.5 69.85) (xy 190.5 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50e84720-2b3f-5083-a0c0-ad46d251fa65")
+	)
+	(wire
+		(pts
+			(xy 279.4 73.66) (xy 281.94 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c1bcf305-f3c2-5be0-8a35-5029219471be")
+	)
+	(wire
+		(pts
+			(xy 281.94 73.66) (xy 281.94 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "859a3375-00f4-553a-bbb7-4bf3a020e7ea")
+	)
+	(wire
+		(pts
+			(xy 281.94 83.82) (xy 281.94 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "28ce31ee-6d88-5166-9fa6-c9b4a3a5195f")
+	)
+	(wire
+		(pts
+			(xy 281.94 90.17) (xy 281.94 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a05c7ff4-10a8-5a62-b66b-483b6d10daf8")
+	)
+	(wire
+		(pts
+			(xy 381 73.66) (xy 383.54 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e0950f15-6092-543e-b6e7-f8ad0da3eaac")
+	)
+	(wire
+		(pts
+			(xy 383.54 73.66) (xy 383.54 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7cb66fb9-790c-5311-a5f7-6191b05b3ca3")
+	)
+	(wire
+		(pts
+			(xy 383.54 83.82) (xy 383.54 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eeece5a8-6b33-5d68-9558-0bcebd69400e")
+	)
+	(wire
+		(pts
+			(xy 383.54 90.17) (xy 383.54 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4aaf5add-73d0-521d-9478-e2eb30fca0d5")
+	)
+	(wire
+		(pts
+			(xy 182.88 161.29) (xy 190.5 161.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "030dad1e-90c2-5a93-ba68-5a8e311cf7ad")
+	)
+	(wire
+		(pts
+			(xy 190.5 161.29) (xy 190.5 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea5ca6b1-7423-5b33-b0fc-1de607d19a99")
+	)
+	(wire
+		(pts
+			(xy 190.5 171.45) (xy 190.5 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e3dbd9a-2823-50a0-a4e7-27b9f48ee75c")
+	)
+	(wire
+		(pts
+			(xy 190.5 177.8) (xy 190.5 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e33a4c11-5b13-595d-99b3-054a23783929")
+	)
+	(wire
+		(pts
+			(xy 247.65 171.45) (xy 254 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a57de74b-b542-5ca5-b527-298a70b005cb")
+	)
+	(wire
+		(pts
+			(xy 254 171.45) (xy 254 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7722c2fb-03a9-5ad5-a6b7-f60d9ca1ca69")
+	)
+	(wire
+		(pts
+			(xy 287.02 181.61) (xy 287.02 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b835f3a3-1239-537e-b536-5e073fd5da6f")
+	)
+	(wire
+		(pts
+			(xy 287.02 187.96) (xy 287.02 190.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3f802e4-b4d1-5314-b8c8-43de238539ae")
+	)
+	(wire
+		(pts
+			(xy 274.32 208.28) (xy 274.32 210.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95971f30-fd6a-5490-818c-93b06f1def00")
+	)
+	(wire
+		(pts
+			(xy 231.14 210.82) (xy 274.32 210.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f0a732a-2465-5620-9668-997c8633dcd0")
+	)
+	(wire
+		(pts
+			(xy 274.32 210.82) (xy 292.1 210.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a356ac47-7a6e-550c-99cb-5537e0a3ab9b")
+	)
+	(junction
+		(at 274.32 210.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b2b99fd9-aad0-513e-b32e-a6271304605f")
+	)
 	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 190.5 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "8e7b14f6-b81d-54a6-bc08-4517c1e21c09")
+		(property "Reference" "#PWR353"
+			(at 149.86 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 190.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 190.5 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 190.5 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 190.5 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 190.5 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0426a3f0-ac36-52b9-95fd-077e4c6ec971")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR353")
+					(unit 1)
+				)
+			)
+		)
+	)	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 281.94 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "3286483f-0a18-540d-9111-4658e1acf6b5")
+		(property "Reference" "#PWR354"
+			(at 149.86 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 281.94 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 281.94 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 281.94 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 281.94 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 281.94 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 281.94 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "00200320-a3bb-5fc1-a30f-804fe503b0db")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR354")
+					(unit 1)
+				)
+			)
+		)
+	)	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 383.54 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "4613bdf9-62c9-58e1-810c-166f2b80691e")
+		(property "Reference" "#PWR355"
+			(at 149.86 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 383.54 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 383.54 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 383.54 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 383.54 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 383.54 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 383.54 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f2055677-8a49-54d6-a412-6d347e324d6a")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR355")
+					(unit 1)
+				)
+			)
+		)
+	)	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 190.5 180.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "7e8a17fa-a43a-517f-94f8-de337e5fcd7a")
+		(property "Reference" "#PWR356"
+			(at 149.86 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 190.5 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 190.5 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 190.5 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 190.5 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 190.5 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "72e98fea-0ab2-5348-9dfd-ffeed0ef47e8")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR356")
+					(unit 1)
+				)
+			)
+		)
+	)	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 287.02 190.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "3052d1c3-5fd1-580e-b307-4200104a24dd")
+		(property "Reference" "#PWR357"
+			(at 149.86 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 287.02 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 287.02 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 287.02 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 287.02 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 287.02 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 287.02 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e43e271b-414b-5149-873a-39720d45669c")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR357")
+					(unit 1)
+				)
+			)
+		)
+	)	(symbol
 		(lib_id "Amodo_Symbols:PWR_FLAG")
 		(at 38.1 33.02 0)
 		(unit 1)
@@ -7066,17 +7794,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Power_ICs:LMR33630")
-		(at 63.5 40.64 0)
+		(lib_id "Amodo_Power_ICs:LMR51610XFDBVR")
+		(at 66.04 40.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "b9342575-16d2-5878-aaab-c95c0692ab0c")
+		(uuid "4919561e-9f33-50fe-8c49-c6e7becd4f70")
 		(property "Reference" "U301"
-			(at 66.04 37.59 0)
+			(at 63.5 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7084,8 +7812,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LMR33630"
-			(at 66.04 39.99 0)
+		(property "Value" "LMR51610"
+			(at 63.5 36.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7093,18 +7821,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:PowerPAD SOIC-8 HSOIC (8)"
-			(at 63.5 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lmr33630.pdf"
-			(at 63.5 40.64 0)
+		(property "Footprint" "Amodo:SOT23-6"
+			(at 66.04 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7113,8 +7831,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "3.8-V to 36-V, 3-A synchronous step-down converter in SOIC-8 package"
-			(at 63.5 40.64 0)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lmr51610.pdf?ts=1733751808039&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLMR51610"
+			(at 66.04 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7123,8 +7841,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "LMR33630"
-			(at 63.5 40.64 0)
+		(property "Description" "4 V to 65 V, 1 A Buck Converter - FPWM 400 kHz, SOT-23"
+			(at 66.04 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7133,8 +7851,8 @@
 				(hide yes)
 			)
 		)
-		(property "SymLifecycle" "draft"
-			(at 63.5 40.64 0)
+		(property "mpn" "LMR51610XFDBVR"
+			(at 66.04 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7143,32 +7861,43 @@
 				(hide yes)
 			)
 		)
-		(pin "1"
-			(uuid "7e0656a7-0cbc-544b-a9d4-6426896947db")
+		(property "SymLifecycle" "reviewed"
+			(at 66.04 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
 		)
-		(pin "2"
-			(uuid "cd43ddaf-f80b-5576-b35f-0dd2485a0ee3")
-		)
-		(pin "3"
-			(uuid "e97136c6-ddcc-5aa2-85a5-bd2499308b13")
-		)
-		(pin "4"
-			(uuid "0bae7573-f4dc-5998-bddd-8591e490afcc")
+		(property "ki_keywords" "smps"
+			(at 66.04 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
 		)
 		(pin "5"
-			(uuid "58d1ad75-7bc3-5bc6-ad07-9a7a66326fbd")
+			(uuid "ac60515e-4dd3-5d01-a80f-7727b307f29b")
+		)
+		(pin "4"
+			(uuid "dfdd0393-6fce-54fd-8a52-21b2006b87a2")
+		)
+		(pin "2"
+			(uuid "f5860138-d6e5-59bc-8b84-c82e35ec0426")
+		)
+		(pin "1"
+			(uuid "b5230b89-2e50-5ce2-8529-99db054b48b3")
 		)
 		(pin "6"
-			(uuid "4e427c95-5ef7-5c36-adca-a1f0826a042b")
+			(uuid "3cabafe5-46fe-5049-b91b-bd5c8b5a5d4d")
 		)
-		(pin "7"
-			(uuid "4c681dae-b8ce-5481-9f81-5d16d2a03f21")
-		)
-		(pin "8"
-			(uuid "5d3617a9-69d9-5f0f-a5b7-926347004764")
-		)
-		(pin "TP"
-			(uuid "d5a6a352-a028-5c7d-bb1e-cc9069682856")
+		(pin "3"
+			(uuid "8546291a-6ca1-53a0-9853-c300a0d2b45b")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -7179,6 +7908,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_10uF_1206_20%_50V")
 		(at 30.48 38.1 0)
@@ -8159,291 +8889,9 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Amodo_Capacitors:CAP_MLCC_1uF_0603_10%_16V")
-		(at 57.15 62.23 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "1dde5e07-6819-5c81-886c-6ca2bfdb6d8b")
-		(property "Reference" "C304"
-			(at 59.18 63.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1uF"
-			(at 59.18 65.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 57.15 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/585/MLCC-1837944.pdf"
-			(at 57.15 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "SMD MLCC Capacitor 1uF 0603 10% X7R 16V"
-			(at 57.15 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "CL10B105KO8NNNC"
-			(at 57.15 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "gpn" "GPC0603105-16-X7R"
-			(at 57.15 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 57.15 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0bd1327a-9054-52f7-8ded-482b2c0e3bbc")
-		)
-		(pin "2"
-			(uuid "da2fbe39-4507-5ca1-a1ad-4e231cced84b")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "C304")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Symbols:GND")
-		(at 57.15 67.31 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "f37b3624-3e0a-5cda-97bf-d387498054bc")
-		(property "Reference" "#PWR307"
-			(at 59.69 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 53.15 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 57.15 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 57.15 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 57.15 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 57.15 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" "global power"
-			(at 57.15 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "42bed821-567e-5eff-b921-dc96d79006cb")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "#PWR307")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Symbols:GND")
-		(at 72.39 71.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "93cbf497-06eb-5556-b640-9946048a1313")
-		(property "Reference" "#PWR308"
-			(at 74.93 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 72.39 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 72.39 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 72.39 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 72.39 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 72.39 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" "global power"
-			(at 72.39 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "332c5fa1-4f50-5e73-adf7-9acbcb72ee2b")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "#PWR308")
-					(unit 1)
-				)
-			)
-		)
-	)
+
+
+
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0603_20%_50V")
 		(at 99.06 48.26 0)
@@ -8548,17 +8996,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Inductors:IND_SMD_15uH_5.3A")
-		(at 118.11 53.34 0)
+		(lib_id "Amodo_Inductors:IND_SMD_33uH")
+		(at 121.92 53.34 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "1d5a4268-0048-54d5-9c35-5c5fd16cba49")
+		(uuid "d562eb64-1835-5a87-b435-541b074eb50e")
 		(property "Reference" "L301"
-			(at 114.3 47.94 0)
+			(at 114.3 47.94 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8566,8 +9014,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "15uH"
-			(at 114.3 50.34 0)
+		(property "Value" "33uH"
+			(at 114.3 50.34 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8575,18 +9023,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:L_Bourns_SRR1210"
-			(at 118.11 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/srr1210-1391529.pdf"
-			(at 118.11 53.34 0)
+		(property "Footprint" "Amodo:L_Bourns_SRN6045TA_6x6mm"
+			(at 121.92 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8595,8 +9033,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power inductor 15uH 20% 5.3A 5.8Amax"
-			(at 118.11 53.34 0)
+		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/srn6045ta.pdf"
+			(at 121.92 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8605,8 +9043,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "SRR1210-150M"
-			(at 118.11 53.34 0)
+		(property "Description" "Power inductor 33uH 20% 1.8Arms 2.5Amax 6x6mm"
+			(at 121.92 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8615,8 +9053,8 @@
 				(hide yes)
 			)
 		)
-		(property "SymLifecycle" "reviewed"
-			(at 118.11 53.34 0)
+		(property "mpn" "SRN6045TA-330M"
+			(at 121.92 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8625,8 +9063,8 @@
 				(hide yes)
 			)
 		)
-		(property "Current" "5.3A"
-			(at 118.11 53.34 0)
+		(property "SymLifecycle" "tested"
+			(at 121.92 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8636,10 +9074,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "3b6eea8a-653b-5edf-934d-b9caa36571c5")
+			(uuid "8a12ac1a-f877-505b-9676-f64f5feef8cb")
 		)
 		(pin "2"
-			(uuid "ead19f2e-30b5-5542-8694-1701e1cf1632")
+			(uuid "84f3c5f6-0c9c-5a08-97ed-07fb7c367809")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -8650,6 +9088,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_22uF_1206_20%_16V")
 		(at 147.32 58.42 0)
@@ -9346,7 +9785,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TNF_22.1k_0603_0.1%")
+		(lib_id "Amodo_Resistors:RES_TNF_16.9k_0603_0.1%")
 		(at 132.08 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9354,7 +9793,7 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "f009a4ff-1aa8-526e-bda9-5f570c063f3c")
+		(uuid "844e9808-b94e-51cf-a80e-f87e67c788fa")
 		(property "Reference" "R304"
 			(at 134.11 69.58 0)
 			(effects
@@ -9364,7 +9803,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22k1"
+		(property "Value" "16k9"
 			(at 134.11 71.98 0)
 			(effects
 				(font
@@ -9383,7 +9822,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/508/1/PYu-RT_1-to-0.01_RoHS_L_15.pdf"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -9393,7 +9832,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thin Film Resistor 22.1k 0603 0.1% 100mW"
+		(property "Description" "SMD Thin Film Resistor 16.9k 0603 0.1% 100mW"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -9403,7 +9842,7 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "RT0603BRD0722K1L"
+		(property "mpn" "RT0603BRD0716K9L"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -9413,7 +9852,7 @@
 				(hide yes)
 			)
 		)
-		(property "Tolerance" "0.1%"
+		(property "tolerance" "0.1%"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -9434,10 +9873,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "bdb8ecec-bf57-5314-8336-2266f906c02d")
+			(uuid "d991d705-ea62-5d68-9c4c-08327fca5039")
 		)
 		(pin "2"
-			(uuid "f3b81595-1d44-5ebb-9940-350f6dcdc5ce")
+			(uuid "d429ddad-fdcf-5bec-812b-d9d9188f348b")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -9448,6 +9887,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 132.08 76.2 0)
@@ -9539,212 +9979,11 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPoint")
-		(at 134.62 66.04 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "0f69877d-548b-5b28-af5d-1d3503f9d270")
-		(property "Reference" "TP301"
-			(at 139.19 60.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "FB"
-			(at 139.19 62.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
-			(at 134.62 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 134.62 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 134.62 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 134.62 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" "test point tp"
-			(at 134.62 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "Pin* Test*"
-			(at 134.62 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f79e65a8-c3b0-5cdc-9ef1-d338231b863a")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "TP301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
-		(at 86.36 81.28 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "d335fa30-cbdf-548c-bf5b-511af816dae8")
-		(property "Reference" "R315"
-			(at 88.39 82.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1k"
-			(at 88.39 84.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 86.36 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/cr_a-1858337.pdf"
-			(at 86.36 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "SMD Thick Film Resistor 1k 0603 1% 100mW"
-			(at 86.36 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "CR0603AFX-1001ELF"
-			(at 86.36 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "gpn" "GPR06031K"
-			(at 86.36 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 86.36 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3bbffba6-a13e-5869-8735-88f06b0778b4")
-		)
-		(pin "2"
-			(uuid "80793a88-9a49-5da3-8cc1-50fd2e27b450")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "R315")
-					(unit 1)
-				)
-			)
-		)
-	)
+
+
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 177.8 55.88 0)
+		(at 177.8 53.34 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9753,7 +9992,7 @@
 		(fields_autoplaced no)
 		(uuid "084ae91f-6169-5643-b2bd-9e1749f5f596")
 		(property "Reference" "R305"
-			(at 179.83 56.88 0)
+			(at 176.53 48.26 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9762,7 +10001,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 179.83 59.28 0)
+			(at 176.53 50.66 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9771,7 +10010,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9781,7 +10020,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9791,7 +10030,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9801,7 +10040,7 @@
 			)
 		)
 		(property "mpn" "RC0603FR-070RL"
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9811,7 +10050,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9836,17 +10075,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 190.5 58.42 0)
+		(lib_id "Amodo_Connectors:TestPointDual")
+		(at 190.5 68.58 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "826bd1f8-2cda-5801-93d6-bdf43ac1c91f")
+		(uuid "eb6856d4-43eb-512d-be85-702109d4d02c")
 		(property "Reference" "TP302"
-			(at 192.53 55.42 0)
+			(at 196.85 69.85 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9855,7 +10094,7 @@
 			)
 		)
 		(property "Value" "+5V5"
-			(at 192.53 57.82 0)
+			(at 196.85 72.25 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9863,18 +10102,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 190.5 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 190.5 58.42 0)
+		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
+			(at 190.5 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9883,8 +10112,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Test Point"
-			(at 190.5 58.42 0)
+		(property "Datasheet" "~"
+			(at 190.5 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9893,8 +10122,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "5002"
-			(at 190.5 58.42 0)
+		(property "Description" "Test Point Dual"
+			(at 190.5 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9904,7 +10133,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 190.5 58.42 0)
+			(at 190.5 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9913,8 +10142,8 @@
 				(hide yes)
 			)
 		)
-		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
-			(at 190.5 58.42 0)
+		(property "ki_keywords" "test point tp dual"
+			(at 190.5 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9924,7 +10153,7 @@
 			)
 		)
 		(property "ki_fp_filters" "Pin* Test*"
-			(at 190.5 58.42 0)
+			(at 190.5 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9934,7 +10163,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "9c36cd6b-7290-5c76-8cc4-6859107136ce")
+			(uuid "2c7b96b4-6790-5775-80e1-974ac9581dff")
+		)
+		(pin "2"
+			(uuid "e395917c-c7b6-58fe-b560-d254e84313dc")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -9945,6 +10177,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Power_ICs:TPS7A2050PDBV")
 		(at 238.76 71.12 0)
@@ -10722,7 +10955,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 274.32 76.2 0)
+		(at 274.32 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10731,7 +10964,7 @@
 		(fields_autoplaced no)
 		(uuid "394c4d31-3dc7-5a2c-ba7b-3cf8b61a03b0")
 		(property "Reference" "R306"
-			(at 276.35 77.2 0)
+			(at 273.05 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10740,7 +10973,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 276.35 79.6 0)
+			(at 273.05 70.98 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10749,7 +10982,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 274.32 76.2 0)
+			(at 274.32 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10759,7 +10992,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 274.32 76.2 0)
+			(at 274.32 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10769,7 +11002,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 274.32 76.2 0)
+			(at 274.32 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10779,7 +11012,7 @@
 			)
 		)
 		(property "mpn" "RC0603FR-070RL"
-			(at 274.32 76.2 0)
+			(at 274.32 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10789,7 +11022,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 274.32 76.2 0)
+			(at 274.32 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10814,17 +11047,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 281.94 78.74 0)
+		(lib_id "Amodo_Connectors:TestPointDual")
+		(at 281.94 88.9 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "cdef22c8-1cf3-5e60-90dc-275d11365100")
+		(uuid "156d348e-15fe-5e20-b868-e7871bee58da")
 		(property "Reference" "TP303"
-			(at 283.97 75.74 0)
+			(at 288.29 90.17 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10833,7 +11066,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 283.97 78.14 0)
+			(at 288.29 92.57 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10841,18 +11074,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 281.94 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 281.94 78.74 0)
+		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
+			(at 281.94 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10861,8 +11084,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Test Point"
-			(at 281.94 78.74 0)
+		(property "Datasheet" "~"
+			(at 281.94 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10871,8 +11094,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "5002"
-			(at 281.94 78.74 0)
+		(property "Description" "Test Point Dual"
+			(at 281.94 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10882,7 +11105,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 281.94 78.74 0)
+			(at 281.94 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10891,8 +11114,8 @@
 				(hide yes)
 			)
 		)
-		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
-			(at 281.94 78.74 0)
+		(property "ki_keywords" "test point tp dual"
+			(at 281.94 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10902,7 +11125,7 @@
 			)
 		)
 		(property "ki_fp_filters" "Pin* Test*"
-			(at 281.94 78.74 0)
+			(at 281.94 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10912,7 +11135,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "749d10c6-353a-5c90-9916-8be713deb913")
+			(uuid "506d461f-d327-5055-899f-f308558bbce5")
+		)
+		(pin "2"
+			(uuid "da89d6a6-ae40-5656-9be8-430929941169")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -10923,6 +11149,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Symbols:+5V")
 		(at 292.1 78.74 0)
@@ -11791,7 +12018,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 375.92 76.2 0)
+		(at 375.92 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11800,7 +12027,7 @@
 		(fields_autoplaced no)
 		(uuid "44b25fde-53d6-5b93-9889-1c6a1e590852")
 		(property "Reference" "R307"
-			(at 377.95 77.2 0)
+			(at 374.65 68.58 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11809,7 +12036,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 377.95 79.6 0)
+			(at 374.65 70.98 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11818,7 +12045,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 375.92 76.2 0)
+			(at 375.92 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11828,7 +12055,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 375.92 76.2 0)
+			(at 375.92 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11838,7 +12065,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 375.92 76.2 0)
+			(at 375.92 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11848,7 +12075,7 @@
 			)
 		)
 		(property "mpn" "RC0603FR-070RL"
-			(at 375.92 76.2 0)
+			(at 375.92 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11858,7 +12085,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 375.92 76.2 0)
+			(at 375.92 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11883,17 +12110,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 383.54 78.74 0)
+		(lib_id "Amodo_Connectors:TestPointDual")
+		(at 383.54 88.9 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "8aa0d948-307b-5563-a6c0-acd98f90f69d")
+		(uuid "1d1bb431-2724-5e2d-af04-ed19853ac9b3")
 		(property "Reference" "TP304"
-			(at 385.57 75.74 0)
+			(at 389.89 90.17 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11902,7 +12129,7 @@
 			)
 		)
 		(property "Value" "+5VA"
-			(at 385.57 78.14 0)
+			(at 389.89 92.57 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11910,18 +12137,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 383.54 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 383.54 78.74 0)
+		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
+			(at 383.54 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11930,8 +12147,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Test Point"
-			(at 383.54 78.74 0)
+		(property "Datasheet" "~"
+			(at 383.54 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11940,8 +12157,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "5002"
-			(at 383.54 78.74 0)
+		(property "Description" "Test Point Dual"
+			(at 383.54 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11951,7 +12168,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 383.54 78.74 0)
+			(at 383.54 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11960,8 +12177,8 @@
 				(hide yes)
 			)
 		)
-		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
-			(at 383.54 78.74 0)
+		(property "ki_keywords" "test point tp dual"
+			(at 383.54 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11971,7 +12188,7 @@
 			)
 		)
 		(property "ki_fp_filters" "Pin* Test*"
-			(at 383.54 78.74 0)
+			(at 383.54 88.9 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11981,7 +12198,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "7c07b35f-5782-59a3-851d-84f53951a421")
+			(uuid "bb7e5362-d6a9-5be5-ae20-81a68191f10f")
+		)
+		(pin "2"
+			(uuid "9eac9253-4fc3-517e-bab3-05054e034075")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -11992,6 +12212,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Symbols:+5VA")
 		(at 393.7 78.74 0)
@@ -14537,106 +14758,7 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPoint")
-		(at 134.62 173.99 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced no)
-		(uuid "c20e9dda-a050-5f99-8d89-c2db23bb5aee")
-		(property "Reference" "TP305"
-			(at 139.19 167.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "FB"
-			(at 139.19 170.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
-			(at 134.62 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 134.62 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 134.62 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 134.62 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" "test point tp"
-			(at 134.62 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "Pin* Test*"
-			(at 134.62 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1e0cebb2-5c89-5afd-be16-60159ec394d5")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
-					(reference "TP305")
-					(unit 1)
-				)
-			)
-		)
-	)
+
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
 		(at 86.36 189.23 0)
@@ -14742,7 +14864,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 177.8 163.83 0)
+		(at 177.8 161.29 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14751,7 +14873,7 @@
 		(fields_autoplaced no)
 		(uuid "615569f4-9ab0-5d16-8e8e-b704b7b697a2")
 		(property "Reference" "R312"
-			(at 179.83 164.83 0)
+			(at 176.53 156.21 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14760,7 +14882,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 179.83 167.23 0)
+			(at 176.53 158.61 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14769,7 +14891,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 177.8 163.83 0)
+			(at 177.8 161.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14779,7 +14901,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 163.83 0)
+			(at 177.8 161.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14789,7 +14911,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 177.8 163.83 0)
+			(at 177.8 161.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14799,7 +14921,7 @@
 			)
 		)
 		(property "mpn" "RC0603FR-070RL"
-			(at 177.8 163.83 0)
+			(at 177.8 161.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14809,7 +14931,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 177.8 163.83 0)
+			(at 177.8 161.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14834,17 +14956,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 190.5 166.37 0)
+		(lib_id "Amodo_Connectors:TestPointDual")
+		(at 190.5 176.53 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "c60b8ef2-9561-5b3a-ba6d-b7e259bdbf60")
+		(uuid "03ba472b-84e2-5a08-88a4-9770030e6f10")
 		(property "Reference" "TP306"
-			(at 192.53 163.37 0)
+			(at 196.85 177.8 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14853,7 +14975,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 192.53 165.77 0)
+			(at 196.85 180.2 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14861,18 +14983,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 190.5 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 190.5 166.37 0)
+		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
+			(at 190.5 176.53 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14881,8 +14993,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Test Point"
-			(at 190.5 166.37 0)
+		(property "Datasheet" "~"
+			(at 190.5 176.53 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14891,8 +15003,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "5002"
-			(at 190.5 166.37 0)
+		(property "Description" "Test Point Dual"
+			(at 190.5 176.53 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14902,7 +15014,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 190.5 166.37 0)
+			(at 190.5 176.53 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14911,8 +15023,8 @@
 				(hide yes)
 			)
 		)
-		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
-			(at 190.5 166.37 0)
+		(property "ki_keywords" "test point tp dual"
+			(at 190.5 176.53 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14922,7 +15034,7 @@
 			)
 		)
 		(property "ki_fp_filters" "Pin* Test*"
-			(at 190.5 166.37 0)
+			(at 190.5 176.53 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14932,7 +15044,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "7d4de7c6-6b15-5a0b-801f-9286acde1670")
+			(uuid "0e09c35c-9ab2-50a9-8f25-a94cd71da004")
+		)
+		(pin "2"
+			(uuid "1f77d3f6-10b9-5de1-8261-a0aeac689cb6")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -14943,6 +15058,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
 		(at 200.66 166.37 0)
@@ -15036,7 +15152,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Inductors:FB_SMD_600R_0603")
-		(at 240.03 176.53 0)
+		(at 243.84 171.45 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15045,7 +15161,7 @@
 		(fields_autoplaced no)
 		(uuid "f465e8c0-6023-5ecb-89f5-077ae7ea20d5")
 		(property "Reference" "FB301"
-			(at 238 177.53 0)
+			(at 240.03 166.37 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15054,7 +15170,7 @@
 			)
 		)
 		(property "Value" "600R@100MHz"
-			(at 238 179.93 0)
+			(at 240.03 168.77 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15063,7 +15179,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 240.03 176.53 0)
+			(at 243.84 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15073,7 +15189,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/76/2/ENFA0004.pdf"
-			(at 240.03 176.53 0)
+			(at 243.84 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15083,7 +15199,7 @@
 			)
 		)
 		(property "Description" "Ferrite Beads 0603 600R 25% 800mA"
-			(at 240.03 176.53 0)
+			(at 243.84 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15093,7 +15209,7 @@
 			)
 		)
 		(property "mpn" "BLM18HE601SN1D"
-			(at 240.03 176.53 0)
+			(at 243.84 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15103,7 +15219,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 240.03 176.53 0)
+			(at 243.84 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15516,17 +15632,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 287.02 176.53 0)
+		(lib_id "Amodo_Connectors:TestPointDual")
+		(at 287.02 186.69 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced no)
-		(uuid "5b9f3c96-bc6a-5f50-a94d-3fd4cab325bd")
+		(uuid "8e920538-be23-5f76-9c02-2f6bfbaa2dca")
 		(property "Reference" "TP307"
-			(at 289.05 173.53 0)
+			(at 293.37 187.96 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15535,7 +15651,7 @@
 			)
 		)
 		(property "Value" "+3V3A"
-			(at 289.05 175.93 0)
+			(at 293.37 190.36 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15543,18 +15659,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 287.02 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 287.02 176.53 0)
+		(property "Footprint" "Amodo:TestPoint_Dual_D1.5mm_H1.0mm"
+			(at 287.02 186.69 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15563,8 +15669,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Test Point"
-			(at 287.02 176.53 0)
+		(property "Datasheet" "~"
+			(at 287.02 186.69 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15573,8 +15679,8 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "5002"
-			(at 287.02 176.53 0)
+		(property "Description" "Test Point Dual"
+			(at 287.02 186.69 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15584,7 +15690,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 287.02 176.53 0)
+			(at 287.02 186.69 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15593,8 +15699,8 @@
 				(hide yes)
 			)
 		)
-		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
-			(at 287.02 176.53 0)
+		(property "ki_keywords" "test point tp dual"
+			(at 287.02 186.69 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15604,7 +15710,7 @@
 			)
 		)
 		(property "ki_fp_filters" "Pin* Test*"
-			(at 287.02 176.53 0)
+			(at 287.02 186.69 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15614,7 +15720,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "dc8bae54-fb81-53ff-b09b-700455ef3710")
+			(uuid "3951682e-7f9d-5b67-b12d-6b38ed2b4715")
+		)
+		(pin "2"
+			(uuid "d3504821-7583-5a34-bf25-22da7f85e9d1")
 		)
 		(instances
 			(project "faff2_cbs1"
@@ -15625,6 +15734,7 @@
 			)
 		)
 	)
+
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3A")
 		(at 297.18 176.53 0)
@@ -16122,21 +16232,21 @@
 		(fields_autoplaced no)
 		(uuid "9a1f3112-eafb-5b43-9c76-60e29362c4d4")
 		(property "Reference" "R314"
-			(at 272.29 194.04 0)
+			(at 276.35 194.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "330R"
-			(at 272.29 196.44 0)
+			(at 276.35 196.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
@@ -16216,7 +16326,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_LEDs:LED_SMD_0805_RED")
-		(at 274.32 200.66 0)
+		(at 274.32 200.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16225,7 +16335,7 @@
 		(fields_autoplaced no)
 		(uuid "b98ae707-b4aa-5f30-a3fb-4a3358a51601")
 		(property "Reference" "D303"
-			(at 275.59 196.26 0)
+			(at 276.35 201.93 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16234,7 +16344,7 @@
 			)
 		)
 		(property "Value" "SM0805URC"
-			(at 275.59 198.66 0)
+			(at 276.35 204.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16243,7 +16353,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:LED 0805 SM0805"
-			(at 274.32 200.66 0)
+			(at 274.32 200.66 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16253,7 +16363,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/50/SM0805URC-3002127.pdf"
-			(at 274.32 200.66 0)
+			(at 274.32 200.66 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16263,7 +16373,7 @@
 			)
 		)
 		(property "Description" "Ultra Red 660 nm Water Clear 0805 2.1SM0805UOC 20mA 55mcd"
-			(at 274.32 200.66 0)
+			(at 274.32 200.66 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16273,7 +16383,7 @@
 			)
 		)
 		(property "mpn" "SM0805URC"
-			(at 274.32 200.66 0)
+			(at 274.32 200.66 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16283,7 +16393,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 274.32 200.66 0)
+			(at 274.32 200.66 270)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -11,6 +11,7 @@ in KiCad opens it) — these local copies are for offline reference, not a subst
 | File | Part | Block | Revision |
 |---|---|---|---|
 | `250721_IKP11_technical_data_sheet.pdf` | Bogen IKP11 | `linear_encoder` | rev 3.7, 2025-07-21 (supersedes the rev linked below) |
+| `LMR51610.pdf` | TI LMR51606/LMR51610 buck | `power_rails` | SLUSEY1B, Dec 2023 - added for the `U301` swap, review round 1 batch 2 |
 
 ## Fixed parts
 

@@ -66,6 +66,13 @@ temperature-sensitive circuit on the board.
 
 ### DEC-P2 — Both bucks are LMR33630 at 400 kHz
 
+> **Partly superseded, review round 1 batch 2.** `U301`, the `+5V5`
+> pre-regulator, is now an **LMR51610XFDBVR** - the buck
+> `ARIA_EITSYS_CBs_1` uses - with the divider, inductor and PGOOD
+> consequences re-derived. `U304` stays LMR33630 because this rail's 1.1 A
+> exceeds the LMR51610's 1 A rating. See
+> [`actuator-sch-review-r1.md`](actuator-sch-review-r1.md).
+
 `LMR33630ADDAR`, 3.8–36 V in, 3 A, HSOIC-8 with PowerPAD. One part number and
 one identical layout block for both rails.
 
@@ -93,6 +100,11 @@ Inductor saturation ratings are above the 4.5 A high-side current limit, as TI
 asks, so the inductor does not saturate into an output short.
 
 ### DEC-P3 — Both 5 V rails are TPS7A20 (`TPS7A2050PDBVR`)
+
+> **Re-examined and upheld, review round 1 batch 2**, against the captain's
+> ask to move to `ARIA_EITSYS_CBs_1`'s ADPL42005. Kept on noise: 7 µV<sub>RMS</sub>
+> against the ADPL42005's 32 µV<sub>RMS</sub>, on the rail that carries
+> `REQ-FF-04`. Raised for the captain to overrule.
 
 Fixed 5.0 V, 300 mA, 7 µV<sub>RMS</sub> with no noise-bypass capacitor needed,
 PSRR 95 dB at 1 kHz and ~60 dB at 100 kHz, SOT-23-5.
@@ -210,6 +222,10 @@ across the project, no duplicate references.
 
 ### DEC-P9 — `RAIL_PGOOD` is a wired-AND, isolated by 1 k per converter (answers OQ-07)
 
+> **Partly superseded, review round 1 batch 2.** The LMR51610 has no PG pin,
+> so `RAIL_PGOOD` is now the `+3V3` buck's PG alone, through `R316`; `R315`
+> is gone. Still open-drain, still sheet-local.
+
 Both LMR33630 PG pins are open drain. They are joined through `R315` / `R316`
 (1 k each) into one `RAIL_PGOOD` node pulled up to `+3V3` by `R313` (100 k), with
 a test point and a red LED (`D303`, through `R314` 330 Ω) that lights while
@@ -255,6 +271,10 @@ deliver §3.3's per-block links.
   `TEST_PLAN` step 8 depends on.
 
 ### DEC-P11 — Test point types
+
+> **Superseded in part, review round 1 batch 2.** Every regulator output now
+> carries a `TestPointDual` - probe tip and ground clip - and no test point
+> sits on a PSU feedback node (`TP301` and `TP305` removed).
 
 `TestPointHook` (THT loop) on every rail, with `TestPointHook`-to-`GND` pairs
 distributed for scope grounds; `TestPoint` (SMT pad) on the two feedback nodes

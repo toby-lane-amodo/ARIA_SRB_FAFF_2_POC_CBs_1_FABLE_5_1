@@ -135,3 +135,138 @@ gives the same file rather than compounding. Coordinates live in tables at the t
 - `TP202` sits at x=133.35 between `C203` and the divider, 3.81 from `R201`'s tap.
   Legible - its text is above the rail, `R201`'s below - but it is the tightest
   dot spacing on the sheet.
+
+---
+
+## Batch 2 - `power_rails` (refdes 3xx)
+
+Six captain points. Point 4 was an authorised design change, so this batch does
+move the netlist: **409 -> 405 components, 253 -> 251 nets**, ERC still 0/0. Every
+node-set change was checked one by one against the intended edit; the list is
+below. Applied by `tools/apply_review_r1_batch2.py`, re-runnable from `HEAD`.
+
+| # | Captain's point | What was done |
+|---|---|---|
+| 1 | "Never ever use a 4-way net connection (junction for R303, TP301, R304 and U301 pin 5). Also, do not place test coverage on PSU feedback nodes." | `TP301` deleted. That is the same edit twice over: it takes the test point off the feedback node **and** leaves the node a plain 3-way tee (R303 down, R304 up, FB in from the left). `TP305` on the `+3V3` feedback node was the identical case one section down and went with it |
+| 2 | "At the output of all regulators, use a dual test point, so that I can hook up an oscilloscope probe." | `TP302` `+5V5`, `TP303` `+5V`, `TP304` `+5VA`, `TP306` `+3V3`, `TP307` `+3V3A` are all `Amodo_Connectors:TestPointDual` now - the probe pad and its ground clip, 2.54 apart. Each hangs on a short stub **below** its rail with its own GND symbol, rather than sitting on the rail: the pads project sideways from the pins, so on the rail itself they would straddle the wire they tap |
+| 3 | "Series output zero ohm links for regulators should be placed horizontally, not vertically." | `R305`, `R306`, `R307`, `R312` rotated 90. Each rail now runs left to right through its link and steps down once, instead of the link being the step |
+| 4 | "For regulators in general, can you tend towards using the same parts as used in this design" | `U301` -> **LMR51610XFDBVR**. `U304` and both LDOs kept, with reasons - see below |
+| 5 | "Ferrite beads used for rail filtering should be placed horizontally ... to keep flow of power in one direction, without un-necessary corners." | `FB301` rotated 90 and moved onto the `+3V3` rail itself, so `+3V3` -> ferrite -> `+3V3A` is one straight run |
+| 6 | "Power LEDs should also ideally be placed vertically." | `D303` rotated 270 - anode up out of `R314`, cathode down into `RAIL_PGOOD` |
+
+### Point 4 - what moved to the reference design's parts, and what did not
+
+`ARIA_EITSYS_CBs_1/Power.kicad_sch` was cloned read-only and read for its
+regulator vocabulary: **LMR51610XFDBVR** bucks (3 off), **ADPL42005** LDOs
+(6 off), a TPS7A39 for the +/-15 V analog pair, and `TestPointDual` on every
+rail. The test-point pattern is adopted wholesale under point 2.
+
+**`U301`, the `+5V5` pre-regulator: swapped to `LMR51610XFDBVR`.** It meets
+every requirement this rail has, and beats the LMR33630 on all of them:
+
+| | LMR33630 (was) | LMR51610XFDBVR (now) |
+|---|---|---|
+| V<sub>IN</sub> | 3.8-36 V | **4-65 V** |
+| I<sub>OUT</sub> | 3 A | 1 A, against this rail's ~0.25 A |
+| f<sub>SW</sub> | set by design at 400 kHz | **fixed 400 kHz** in the "X" variant |
+| Package | HSOIC-8 + PowerPAD | SOT-23-6 |
+| V<sub>FB</sub> | 1.0 V | 0.8 V |
+
+Everything downstream re-derived from `datasheets/LMR51610.pdf` (SLUSEY1B),
+whose own worked example in §8.2.2 is a 24 V -> 5 V, 400 kHz design - our case
+almost exactly:
+
+* **Feedback divider.** R<sub>FBT</sub> = (V<sub>OUT</sub> − V<sub>REF</sub>)/V<sub>REF</sub> × R<sub>FBB</sub>.
+  `R303` stays 100 k 0.1 %; `R304` 22.1 k -> **16.9 k 0.1 %**, giving
+  0.8 × (1 + 100/16.9) = **5.534 V**. R<sub>FBT</sub> = 100 k sits at the top of
+  TI's recommended 10 k-100 k window. With the reference's ±1.5 % the rail spans
+  5.45-5.62 V: still under the TPS7A20's 6.0 V recommended input maximum, and
+  still 0.53 V of dropout headroom over the 5.0 V it has to make.
+* **Inductor.** L<sub>MIN</sub> = ((V<sub>IN</sub>−V<sub>OUT</sub>)/V<sub>IN</sub>) × V<sub>OUT</sub>/(K<sub>IND</sub>·I<sub>OUT</sub>·f) = 35.3 µH at K<sub>IND</sub> = 0.3,
+  so `L301` 15 µH -> **33 µH** (`IND_SMD_33uH`, Bourns SRN6045TA, 1.8 A<sub>rms</sub> /
+  2.5 A<sub>sat</sub>). Ripple works out at 0.32 A, K<sub>IND</sub> = 0.32, inside TI's
+  20-60 % band, and the ratings match what TI asks for its own example
+  (1.5 A<sub>rms</sub>, 2.5 A<sub>sat</sub>).
+  *Not* `IND_SMD_33uH_4.0A`, the other 33 µH house part: its footprint
+  `Amodo:L_Bourns_SRP7050WA` is not in the library, so it fails ERC's
+  footprint-link check, and its symbol is `draft`. Worth an upstream fix.
+* **Enable / UVLO unchanged.** The LMR51610's V<sub>EN(R)</sub> is 1.227 V typ,
+  the same as the LMR33630's, so `R301`/`R302` (100 k / 8.2 k) still give the
+  16.2 V rising UVLO DEC-P9 specified. No change.
+* **Input and output capacitors unchanged.** TI asks for >=2.2 µF rated at twice
+  V<sub>IN</sub>, and >=22 µF out; the sheet already carries 2x10 µF 50 V + 220 nF in
+  and 2x22 µF + 100 nF out.
+* **`C305` 100 nF is now the CB (bootstrap) cap** rather than BOOT - same part,
+  same value, same job, different pin name.
+* **Deleted: `C304` (the LMR33630's V<sub>CC</sub> cap) and `#PWR307`/`#PWR308`.**
+  The LMR51610 has neither a V<sub>CC</sub> pin nor a thermal-pad pin.
+
+**`U304`, the `+3V3` buck: kept as LMR33630.** This rail's budget is
+**1.1 A** - STM32 0.5 A, rotary encoder 0.1 A, other 3V3 ICs 0.5 A
+(`REQUIREMENTS.md` power budget) - against the LMR51610's 1 A rating. There is no
+margin at all, so the reference design's part does not meet this rail's
+requirement. The board now carries two buck part numbers where DEC-P2 wanted
+one; that is the price of the swap, and it is a fair one because the two rails
+are a 4x current apart and the 3 A part was always oversized for the 0.25 A one.
+
+**`U302`/`U303`, the 5 V LDOs: kept as TPS7A20.** The reference design's
+**ADPL42005** is a 20 V, 500 mA, **32 µV<sub>RMS</sub>** low-noise LDO; the
+TPS7A20 is **7 µV<sub>RMS</sub>** with 95 dB PSRR at 1 kHz. `+5VA` carries the
+ADS1235's AVDD and the load-cell excitation chain, and `REQ-FF-04`'s 2.4 µV pk-pk
+input-referred noise budget is the measurement this board exists to make - a
+4.6x noisier supply there is a step backwards, and splitting the two 5 V rails
+across two part numbers to take the reference part on the digital one only would
+cost the BOM commonality DEC-P3 was built on. **Flagged for the captain**: if he
+wants the house part regardless, the fixed-output `ADPL42005ACPZ-5.0-R7` is in
+the library and drops in without a divider.
+
+A second reason to raise rather than swap: **analog.com is unreachable from this
+environment**, so the ADPL42005 datasheet could not be fetched and its passives
+could not be re-derived from a primary source, which is what this batch's brief
+asks for. The 32 µV<sub>RMS</sub> figure above comes from ADI's product
+description, not the datasheet. `datasheets/LMR51610.pdf` is committed;
+that one downloaded cleanly.
+
+### RAIL_PGOOD after the swap
+
+The LMR51610 has no PG pin, so `R315` and the section-A leg of the wired-AND are
+gone. `RAIL_PGOOD` is now the `+3V3` buck's open-drain PG alone, through `R316`,
+still pulled up by `R313` and still driving only `D303` and `TP308`. The `+5V5`
+rail loses its own power-good report; the two 5 V rails never had one (the
+TPS7A20 has no PG pin either), and a failed pre-regulator shows as both 5 V rails
+collapsing. `RAIL_PGOOD` remains OQ-07's open question.
+
+### Netlist changes, checked one by one
+
+| Net | Change | Why |
+|---|---|---|
+| `V24_LOGIC` | `U301` pin 2 -> pin 5 | VIN pin number differs |
+| `Net-(U301-EN)` | pin 3 -> pin 4 | EN pin number differs |
+| `Net-(U301-SW)` | pin 8 -> pin 6 | SW pin number differs |
+| `Net-(U301-BOOT)` -> `Net-(U301-CB)` | pin 7 -> pin 1 | same net, renamed by the pin |
+| `Net-(U301-FB)` | pin 5 -> pin 3, `TP301` gone | point 1 |
+| `Net-(U301-PG)`, `Net-(U301-VCC)` | gone | pins do not exist |
+| `Net-(U304-FB)` | `TP305` gone | point 1 |
+| `RAIL_PGOOD` | `R315` gone | no PG to isolate |
+| `GND` | `U301` pins 1 and TP, `C304`, `R315` gone; `TP302/303/304/306/307` pin 2 added | the five dual test points' ground pads |
+
+Components 409 -> 405: `TP301`, `TP305`, `C304`, `R315` removed (power symbols
+are not BOM components, so the five new GND symbols do not count). Nets 253 ->
+251: `Net-(U301-PG)` and `Net-(U301-VCC)` gone.
+
+### Also fixed while in the sheet
+
+`R314`'s reference and value were right-justified at an anchor left of its body,
+so `330R` sat against `C324`'s `GND` label. **The bundled overlap checker misses
+this class** - it grows every field rightward from the anchor and never checks
+`justify right` - so a render caught it where the checker did not. Fields flipped
+to `justify left` on the right-hand side, which the LED standing up freed. Worth
+carrying into the design-wide text sweep: **anywhere a field is `justify right`,
+the checker's finding, or its silence, means nothing.**
+
+### Overlap-checker residue
+
+One finding left on this sheet: `body-vs-body R314 / D303`, the rotated-symbol
+artefact described at the top of this file - the checker reflects `D303`'s body
+about its origin and lands it on `R314`. The render shows 2.5 mm of clear space
+between them.
