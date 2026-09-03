@@ -2332,6 +2332,26 @@
 			(embedded_fonts no)
 		)
 	)
+	(wire
+		(pts
+			(xy 109.22 91.44) (xy 109.22 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47a12763-3851-5143-8268-355a0dbbc2c4")
+	)
+	(wire
+		(pts
+			(xy 119.38 96.52) (xy 119.38 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "271a2176-e1cc-57c2-8d67-ba063be340d6")
+	)
 	(symbol
 		(lib_id "Amodo_Connectors:1752120")
 		(at 45.72 22.86 0)
@@ -4499,7 +4519,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_10nF_0603_5%_100V")
-		(at 109.22 109.22 0)
+		(at 109.22 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4507,7 +4527,7 @@
 		(dnp no)
 		(uuid "81548364-e34c-50f5-960b-de317b528d0d")
 		(property "Reference" "C704"
-			(at 111.51 108.58 0)
+			(at 111.51 103.5 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4517,7 +4537,7 @@
 			)
 		)
 		(property "Value" "10nF"
-			(at 111.51 110.49 0)
+			(at 111.51 105.41 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4527,7 +4547,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 109.22 109.22 0)
+			(at 109.22 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4538,7 +4558,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/capacitor/ceramic/mlcc/catalog/mlcc_automotive_esd_en.pdf"
-			(at 109.22 109.22 0)
+			(at 109.22 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4549,7 +4569,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 10nF 0603 5% C0G 100V"
-			(at 109.22 109.22 0)
+			(at 109.22 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4560,7 +4580,7 @@
 			)
 		)
 		(property "mpn" "CGA3EAC0G2A103J080AC"
-			(at 109.22 109.22 0)
+			(at 109.22 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4571,7 +4591,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 109.22 109.22 0)
+			(at 109.22 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4598,7 +4618,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 109.22 111.76 0)
+		(at 109.22 106.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -4606,7 +4626,7 @@
 		(dnp no)
 		(uuid "6b0462d3-0742-5eed-87f6-e9d04a737ba9")
 		(property "Reference" "#PWR706"
-			(at 111.76 110.49 0)
+			(at 109.22 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4617,7 +4637,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 109.22 115.57 0)
+			(at 109.22 110.49 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4626,7 +4646,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 109.22 111.76 0)
+			(at 109.22 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4637,7 +4657,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 109.22 111.76 0)
+			(at 109.22 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4648,7 +4668,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 109.22 111.76 0)
+			(at 109.22 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4659,7 +4679,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 109.22 111.76 0)
+			(at 109.22 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4683,7 +4703,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_10nF_0603_5%_100V")
-		(at 119.38 109.22 0)
+		(at 119.38 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4691,7 +4711,7 @@
 		(dnp no)
 		(uuid "b09ee599-43e2-5797-9c60-a27d9ff81557")
 		(property "Reference" "C705"
-			(at 121.67 108.58 0)
+			(at 121.67 103.5 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4701,7 +4721,7 @@
 			)
 		)
 		(property "Value" "10nF"
-			(at 121.67 110.49 0)
+			(at 121.67 105.41 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4711,7 +4731,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 119.38 109.22 0)
+			(at 119.38 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4722,7 +4742,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/capacitor/ceramic/mlcc/catalog/mlcc_automotive_esd_en.pdf"
-			(at 119.38 109.22 0)
+			(at 119.38 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4733,7 +4753,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 10nF 0603 5% C0G 100V"
-			(at 119.38 109.22 0)
+			(at 119.38 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4744,7 +4764,7 @@
 			)
 		)
 		(property "mpn" "CGA3EAC0G2A103J080AC"
-			(at 119.38 109.22 0)
+			(at 119.38 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4755,7 +4775,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 119.38 109.22 0)
+			(at 119.38 104.14 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4782,7 +4802,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 119.38 111.76 0)
+		(at 119.38 106.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -4790,7 +4810,7 @@
 		(dnp no)
 		(uuid "ac604e5b-6be1-5d41-af28-7f41cbeb396e")
 		(property "Reference" "#PWR707"
-			(at 121.92 110.49 0)
+			(at 119.38 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4801,7 +4821,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 121.92 115.57 0)
+			(at 119.38 110.49 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4811,7 +4831,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 111.76 0)
+			(at 119.38 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4822,7 +4842,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 111.76 0)
+			(at 119.38 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4833,7 +4853,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 119.38 111.76 0)
+			(at 119.38 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4844,7 +4864,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 119.38 111.76 0)
+			(at 119.38 106.68 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8398,7 +8418,7 @@
 		(uuid "db27a12c-20a2-52cd-8eb6-0627cc583792")
 	)
 	(text
-		"CHANNEL 2 FILTER AND SHARED REFERENCE"
+		"CHANNEL 2 FILTER + SHARED REF"
 		(exclude_from_sim no)
 		(at 87.63 79.76 0)
 		(effects
@@ -8945,26 +8965,8 @@
 		)
 		(uuid "6427a760-0c7f-56fc-859d-a9df17445a4f")
 	)
-	(wire
-		(pts
-			(xy 109.22 91.44) (xy 109.22 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "59a7bddb-2526-569c-98e1-a3af0bffc97f")
-	)
-	(wire
-		(pts
-			(xy 119.38 96.52) (xy 119.38 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "68d3d590-3a8d-5a59-b0bb-90c733ddaadb")
-	)
+
+
 	(wire
 		(pts
 			(xy 88.9 116.84) (xy 96.52 116.84)

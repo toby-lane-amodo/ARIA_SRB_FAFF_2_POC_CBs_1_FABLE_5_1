@@ -573,3 +573,17 @@ six rotated instances, which is what `AGENTS.md` asks for.
 **Not added, and why**: nothing on `J501`, `J701`/`J702` - diode capacitance and
 leakage on a 2 mV/V bridge and on RTD/NTC inputs is a decision for the AFE owner
 against `REQ-FF-04`, not a sweep. Raised rather than taken.
+
+## Items 4-7 - four per-sheet placement fixes
+
+| # | Sheet | What was wrong | What was done |
+|---|---|---|---|
+| 4 | `linear_encoder` | `U601A`'s GND body ended at y=166.37 and `U601E`'s `+3V3` body began at **exactly** 166.37 - the two flags were touching | the whole `U601E` group (unit, both flags, four wires and the no-connect on its unused output) drops 7.62, leaving 7.6 mm of clear space |
+| 5 | `temp_sense` | `C704`/`C705`'s grounds sat 0.6 mm above the REFP row, with `TP705`'s reference on the row itself; and three verticals at x=137.16/139.70/142.24 ran straight through the block title | the two caps and their grounds move up 5.08, off the REFP row; the title is shortened to "CHANNEL 2 FILTER + SHARED REF", which at size 1.778 ends at x=135.9 and clears the leftmost vertical |
+| 6 | `ui_io` | `R915`'s reference sat on its own body: it is the **horizontal** 0R variant but its fields were still on the vertical pattern | fields moved to the `_H` symbol's own pattern - reference above the body, value below |
+| 7 | `motor_drive` | `#PWR1109`/`#PWR1110` bodies ended exactly on the block border at y=143.51 and their `GND` text was **outside the box** | both grounds move up to y=138.43, so symbol and text sit inside with 0.6 mm to spare |
+
+The `U601E` move is the one that needed care beyond the symbols: a `no_connect`
+caps its unused output, and it does not ride with the symbol - ERC caught that as
+`pin_not_connected` plus a dangling no-connect the first time round. Worth
+remembering: **a no_connect is placed by coordinate, not attached to the pin.**

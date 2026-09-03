@@ -5240,48 +5240,12 @@
 		)
 		(uuid "88d27bc0-64d1-5dab-9b35-d2456688b612")
 	)
-	(wire
-		(pts
-			(xy 160.0200 173.9900) (xy 154.9400 173.9900)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6108cc95-ca35-5e01-9c66-e02ccfb61448")
-	)
-	(wire
-		(pts
-			(xy 154.9400 173.9900) (xy 154.9400 168.9100)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ade799f1-73f3-520e-8f63-eb28415505f6")
-	)
-	(wire
-		(pts
-			(xy 160.0200 176.5300) (xy 157.4800 176.5300)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "01ca3bf6-e786-5ef4-bae9-be6b5b69afe0")
-	)
-	(wire
-		(pts
-			(xy 157.4800 176.5300) (xy 157.4800 184.1500)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "913bad22-aac3-551e-bac8-a88808805fff")
-	)
+
+
+
+
 	(no_connect
-		(at 168.9100 175.2600)
+		(at 168.91 182.88)
 		(uuid "cb795247-0142-58cc-8230-f37b78ab14fc")
 	)
 	(text "Spare 4th receiver: inputs held in a\ndefined state, output unused."
@@ -5316,6 +5280,46 @@
 				(justify left top)
 			)
 		(uuid "aac7dba4-cc08-5a71-b784-171a2ac021ad")
+	)
+	(wire
+		(pts
+			(xy 154.94 176.53) (xy 154.94 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5930886-d7bf-50af-bf5c-bf83c7b3a982")
+	)
+	(wire
+		(pts
+			(xy 154.94 181.61) (xy 160.02 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a65c5cd0-33a3-53f3-b866-1967f3b1776a")
+	)
+	(wire
+		(pts
+			(xy 157.48 184.15) (xy 157.48 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84388aa6-baa5-52a5-8db1-a53670439d8c")
+	)
+	(wire
+		(pts
+			(xy 157.48 184.15) (xy 160.02 184.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46f2ec6b-9bd7-5600-b00d-8f9d37dc9260")
 	)
 	(symbol
 		(lib_id "faff2_periph:FH12-10S-0.5SH(55)")
@@ -8654,7 +8658,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Digital_ICs:AM26LS32Ax")
-		(at 162.5600 172.7200 0)
+		(at 162.56 180.34 0)
 		(unit 5)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8662,7 +8666,7 @@
 		(dnp no)
 		(uuid "dc68a9be-7940-5593-899e-3143d65562e6")
 		(property "Reference" "U601"
-			(at 162.5600 171.8200 0)
+			(at 162.56 179.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8671,7 +8675,7 @@
 			)
 		)
 		(property "Value" "AM26LV32"
-			(at 162.5600 178.4200 0)
+			(at 162.56 186.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8680,7 +8684,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:SOIC-16-N"
-			(at 162.5600 172.7200 0)
+			(at 162.56 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8690,7 +8694,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/am26lv32.pdf"
-			(at 162.5600 172.7200 0)
+			(at 162.56 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8700,7 +8704,7 @@
 			)
 		)
 		(property "Description" "RS-422 Interface IC Quad Diff Line"
-			(at 162.5600 172.7200 0)
+			(at 162.56 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8710,7 +8714,7 @@
 			)
 		)
 		(property "mpn" "AM26LV32CDR"
-			(at 162.5600 172.7200 0)
+			(at 162.56 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8720,7 +8724,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 162.5600 172.7200 0)
+			(at 162.56 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8749,7 +8753,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 154.9400 168.9100 0)
+		(at 154.94 176.53 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8757,7 +8761,7 @@
 		(dnp no)
 		(uuid "7d6402f8-5cd0-510e-9702-ffcf4c83882a")
 		(property "Reference" "#PWR617"
-			(at 154.9400 162.5600 0)
+			(at 154.94 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8767,7 +8771,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 153.67 165.1 0)
+			(at 154.94 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8776,7 +8780,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 154.9400 168.9100 0)
+			(at 154.94 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8786,7 +8790,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 154.9400 168.9100 0)
+			(at 154.94 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8796,7 +8800,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 154.9400 168.9100 0)
+			(at 154.94 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8806,7 +8810,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 154.9400 168.9100 0)
+			(at 154.94 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8829,7 +8833,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 157.4800 184.1500 0)
+		(at 157.48 191.77 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8837,7 +8841,7 @@
 		(dnp no)
 		(uuid "f8f43819-9558-5b99-a86a-ef4ed21e35cb")
 		(property "Reference" "#PWR618"
-			(at 157.4800 190.5000 0)
+			(at 157.48 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8847,7 +8851,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 157.4800 187.9600 0)
+			(at 157.48 195.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8856,7 +8860,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.4800 184.1500 0)
+			(at 157.48 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8866,7 +8870,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 157.4800 184.1500 0)
+			(at 157.48 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8876,7 +8880,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 157.4800 184.1500 0)
+			(at 157.48 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8886,7 +8890,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 157.4800 184.1500 0)
+			(at 157.48 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -10328,7 +10328,7 @@
 		(dnp no)
 		(uuid "e6a5b1dc-5ec4-5938-901d-9ea90b4b91c6")
 		(property "Reference" "R915"
-			(at 192.405 195.58 0)
+			(at 193.04 192.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10337,7 +10337,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 192.405 198.12 0)
+			(at 193.04 196.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
