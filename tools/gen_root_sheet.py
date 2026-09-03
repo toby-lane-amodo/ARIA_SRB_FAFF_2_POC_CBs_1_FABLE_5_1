@@ -3,8 +3,12 @@
 root-level interconnect wiring (docs/decisions/actuator-sch-integrate.md).
 
 Re-runnable and deterministic: every uuid is a uuid5 of a stable string, and the
-ten sheet-symbol uuids are the ones the child sheets' instance paths already
+nine sheet-symbol uuids are the ones the child sheets' instance paths already
 reference, so they must never change.
+
+test_debug was dissolved into mcu (docs/decisions/actuator-rev-testdebug.md), so
+the pages renumber 2..10 with no gap and the reference-designator ranges are no
+longer derived from the page number - 4xx is retired, see AGENTS.md.
 """
 import uuid, os
 
@@ -25,14 +29,13 @@ BUS24 = 45.72                    # +24V_SW corridor, above the mcu block
 SHEETS = {
     "power_entry_24v": ("4ec0bd1c-b43d-5810-bc42-5f18ea0c8497", 2),
     "power_rails":     ("cfac6e86-3b1f-5c4c-b992-5519585fa944", 3),
-    "test_debug":      ("07c1535d-fd75-5e35-93ca-efc2898cf844", 4),
-    "loadcell_afe":    ("94a105e9-fddd-5aae-8f2a-964f0eaa6212", 5),
-    "linear_encoder":  ("7f1522a2-4954-524c-ba63-158dc350920f", 6),
-    "temp_sense":      ("4e1514d5-7414-55f0-9f35-1d20cac21a6b", 7),
-    "nvm_calibration": ("9fddfe18-c15c-5dd7-9f89-62033d73aa2a", 8),
-    "ui_io":           ("3ac83d89-6c2b-5de7-a46b-dbc34c85888b", 9),
-    "mcu":             ("1d7ef20a-ceb5-5848-8c8d-02f7ee5f958f", 10),
-    "motor_drive":     ("25605169-cb1e-52bd-8388-77d0027da969", 11),
+    "loadcell_afe":    ("94a105e9-fddd-5aae-8f2a-964f0eaa6212", 4),
+    "linear_encoder":  ("7f1522a2-4954-524c-ba63-158dc350920f", 5),
+    "temp_sense":      ("4e1514d5-7414-55f0-9f35-1d20cac21a6b", 6),
+    "nvm_calibration": ("9fddfe18-c15c-5dd7-9f89-62033d73aa2a", 7),
+    "ui_io":           ("3ac83d89-6c2b-5de7-a46b-dbc34c85888b", 8),
+    "mcu":             ("1d7ef20a-ceb5-5848-8c8d-02f7ee5f958f", 9),
+    "motor_drive":     ("25605169-cb1e-52bd-8388-77d0027da969", 10),
 }
 
 def col(y0, names, x, side):
@@ -88,9 +91,9 @@ UI = [("LED_1", "input"), ("LED_2", "input"), ("BTN_1", "output"), ("BTN_2", "ou
       ("LIMIT_nBRK", "output")]
 blocks.append(("ui_io", LX, 139.70, 63.5, 27.94, col(144.78, UI, LR, "R")))
 
-DBG = [("SWDIO", "bidirectional"), ("SWCLK", "output"), ("SWO", "input"),
-       ("DBG_TX", "input"), ("DBG_RX", "output"), ("MCU_nRESET", "bidirectional")]
-blocks.append(("test_debug", LX, 175.26, 63.5, 22.86, col(180.34, DBG, LR, "R")))
+# SWD, USART3 and MCU_nRESET no longer cross a block boundary: the debug header
+# moved onto the mcu sheet with the rest of test_debug, so those six nets are
+# sheet-local there and carry no sheet pin.
 
 # --- mcu ---------------------------------------------------------------------
 def flip(t):
@@ -101,12 +104,11 @@ mcu_pins += col(66.04, [(n, flip(t)) for n, t in AFE], MX, "L")
 mcu_pins += col(101.60, [(n, flip(t)) for n, t in ENC], MX, "L")
 mcu_pins += col(124.46, NVM, MX, "L")
 mcu_pins += col(144.78, [(n, flip(t)) for n, t in UI], MX, "L")
-mcu_pins += col(180.34, [(n, flip(t)) for n, t in DBG], MX, "L")
 mcu_pins += col(Y_MOTOR, [(n, MOTOR21_MCU[n]) for n in MOTOR21], MR, "R")
 mcu_pins += col(Y_SPI2, [("CONFIG_SPI_SCK", "output"), ("CONFIG_SPI_MOSI", "output"),
                          ("CONFIG_SPI_MISO", "input")], MR, "R")
 mcu_pins += [("ADS1120_nCS", "output", MR, Y_TSCS, "R")]
-blocks.append(("mcu", MX, 50.80, 68.58, 152.40, mcu_pins))
+blocks.append(("mcu", MX, 50.80, 68.58, 121.92, mcu_pins))
 
 # --- motor_drive -------------------------------------------------------------
 mot_pins = [("+24V_SW", "input", RX, BUS24, "L")]
@@ -161,10 +163,15 @@ w((241.30, 154.94), (RX, 154.94))
 
 # -------------------------------------------------------------- annotations --
 NOTE = (
- "ROOT SHEET - THE BLOCK MAP, NOW WIRED.  DEC-0009 is closed by this pass.\n"
+ "ROOT SHEET - THE BLOCK MAP, WIRED.  DEC-0009 is closed.\n"
  "\n"
- "Every net that crosses a block boundary is drawn: 114 sheet pins, one for each hierarchical\n"
- "label a child sheet declares, each one on a wire.  Nothing on this sheet connects by name.\n"
+ "Every net that crosses a block boundary is drawn: one sheet pin for each hierarchical label a\n"
+ "child sheet declares, each one on a wire.  Nothing on this sheet connects by name.\n"
+ "\n"
+ "NINE BLOCKS, NOT TEN.  test_debug was dissolved into the sheets its circuits serve: the SWD +\n"
+ "USART3 header, the rail probe header and the GND hooks all moved onto mcu, so SWDIO, SWCLK,\n"
+ "SWO, MCU_nRESET, DBG_TX and DBG_RX are sheet-local there and no longer cross a boundary.\n"
+ "Test coverage lives on the circuit page it covers - docs/decisions/actuator-rev-testdebug.md.\n"
  "\n"
  "GLOBAL POWER NETS CARRY NO SHEET PIN.  GND, +5V, +5VA, +3V3 and +3V3A are Amodo power symbols\n"
  "and connect across the hierarchy on their own.  power_rails produces all four and owns their\n"
@@ -177,10 +184,11 @@ NOTE = (
  "shared SPI2 CONFIG bus as the DRV8323 (ARCHITECTURE 5.1); the three bus wires are tapped once\n"
  "each, at the junctions between the two blocks.  Its two probe channels stay inside its own sheet.\n"
  "\n"
- "REFERENCE DESIGNATORS are allocated per sheet, 100 apart, by page number: 2xx power_entry_24v,\n"
- "3xx power_rails, 4xx test_debug, 5xx loadcell_afe, 6xx linear_encoder, 7xx temp_sense,\n"
- "8xx nvm_calibration, 9xx ui_io, 10xx mcu, 11xx motor_drive.  Power symbols follow the same\n"
- "ranges (#PWR5xx, #PWR7xx, ...) so that no two sheets merge into one part at netlist time.\n"
+ "REFERENCE DESIGNATORS are allocated per sheet, 100 apart, from a fixed table - NOT from the\n"
+ "page number, which changed when test_debug went: 2xx power_entry_24v, 3xx power_rails,\n"
+ "5xx loadcell_afe, 6xx linear_encoder, 7xx temp_sense, 8xx nvm_calibration, 9xx ui_io,\n"
+ "10xx mcu, 11xx motor_drive.  4xx is retired.  Power symbols follow the same ranges\n"
+ "(#PWR5xx, #PWR7xx, ...) so that no two sheets merge into one part at netlist time.\n"
  "\n"
  "Requirements docs/REQUIREMENTS.md - architecture docs/ARCHITECTURE.md - decisions\n"
  "docs/DECISIONS.md and docs/decisions/actuator-sch-integrate.md - bring-up docs/TEST_PLAN.md"
@@ -191,7 +199,6 @@ TEXTS = [
     (93.98, 91.44, "TIM5 encoder mode"),
     (93.98, 116.84, "I2C1 calibration EEPROM"),
     (93.98, 135.89, "GPIO / TIM15 / TIM1_BKIN2"),
-    (93.98, 171.45, "SWD + USART3 console"),
     (210.82, 53.34, "TIM1 PWM, ADC1/2 sense, TIM3"),
     (210.82, 116.84, "SPI2 CONFIG bus + ADS1120 nCS"),
 ]

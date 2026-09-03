@@ -61,7 +61,7 @@ calculation's 100:1 sample ratio), host stream decimated to 150 SPS. `REQ-ME-06`
                                                                               ▼
      mcu also carries: USB3320 ULPI PHY ──▶ USB-C (data only)          TIM1 BREAK
                        OCTOSPI1 quad ──▶ force-profile RAM             (motor kill)
-                       SWD + USART3 ──▶ test_debug
+                       SWD + USART3 ──▶ debug header (on the mcu sheet)
 ```
 
 ### 3.1 Block responsibilities
@@ -77,7 +77,12 @@ calculation's 100:1 sample ratio), host stream decimated to 150 SPS. `REQ-ME-06`
 | `temp_sense.kicad_sch` | Temperature | ADS1120 + two RTD/NTC probe channels | REQ-EL-07, REQ-AR-10 |
 | `nvm_calibration.kicad_sch` | NVM | I2C1 EEPROM for calibration and compensation data | REQ-EL-08, REQ-AR-11 |
 | `ui_io.kicad_sch` | User I/O | Buttons, LEDs, SMA SYNC out, limit switch inputs incl. the hardware brake path | REQ-EL-05/06/09, REQ-CC-06, REQ-SF-01/05 |
-| `test_debug.kicad_sch` | Test & debug | SWD + USART3 debug header, consolidated rail probe header, cross-block links | REQ-AR-15, TEST_PLAN |
+
+Nine sheets, not ten. **Test coverage lives on the circuit page it covers**, so there is no
+`test_debug` sheet: the SWD + USART3 debug header (`REQ-AR-15`), the consolidated rail probe
+header and the GND hooks for scope clips are blocks **H**, **J** and **K** on `mcu.kicad_sch`,
+alongside the crystal that gives the USB PHY its own 24 MHz reference (block **C**).
+See `docs/decisions/actuator-rev-testdebug.md`.
 
 ### 3.2 MCU resource allocation
 

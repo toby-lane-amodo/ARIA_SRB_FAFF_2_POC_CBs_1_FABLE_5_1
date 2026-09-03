@@ -333,10 +333,17 @@ a sheet-size gain.
 *Revisit if.* The `mcu` sheet becomes unmanageable in practice. Splitting `usb_phy` out later
 is cheap while the root sheet is still unwired.
 
-### DEC-0020 - A3 sheets throughout
-**Date** 2026-09-02 · **Status** Accepted · **Scope** all sheets
+### DEC-0020 - A3 sheets throughout, except `mcu`
+**Date** 2026-09-02 · **Amended** 2026-09-03 · **Status** Accepted · **Scope** all sheets
 
-Every sheet is A3. Sheet titles use a short `CBs_1 - <block>` form.
+Every sheet is A3 **except `mcu`, which is A2**. Sheet titles use a short
+`CBs_1 - <block>` form.
+
+*Amendment, 2026-09-03.* The captain's review asked for the `mcu` page to stop feeling
+cramped and for the sheet entry / exit flags to be right-justified - which needs the
+longest hierarchical label to sit clear to the left of each port unit, and does not fit
+on A3. `mcu` alone grew to A2; A3 stays the default for every other sheet. Reasoning in
+`docs/decisions/actuator-rev-testdebug.md` D-REV-05.
 
 *Reasoning.* A3 gives the room the `schematic-style` rule "use space generously" asks for,
 while staying printable. The short title form is not cosmetic: the full
@@ -355,9 +362,9 @@ There are therefore **no remaining violations to explain**. This is expected for
 carrying no symbols, no wires and no sheet pins, and it is the baseline every block task must
 preserve — see `AGENTS.md`.
 
-*Still true with the design complete (2026-09-03).* 409 components, 253 nets, 113 sheet pins
-and the root wired, and `--severity-all` still reports 0 errors and 0 warnings with nothing
-suppressed. The three residual classes `AGENTS.md` listed for the parallel block wave -
+*Still true with the design complete, and after the first review pass (2026-09-03).*
+398 components, 251 nets, 101 sheet pins over nine blocks and the root wired, and
+`--severity-all` still reports 0 errors and 0 warnings with nothing suppressed. The three residual classes `AGENTS.md` listed for the parallel block wave -
 `hier_label_mismatch`, `label_dangling`, `pin_not_driven` - all cleared at root wiring, which
 is what that file predicted. This is the end state, not a temporary one.
 
@@ -371,8 +378,10 @@ AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib \
 ### DEC-0022 - The root sheet is wired as an aligned star on the MCU
 **Date** 2026-09-03 · **Status** Accepted · **Scope** `faff2_cbs1.kicad_sch` — closes DEC-0009
 
-All 113 sheet pins are drawn and every cross-block net is a real wire. Nothing on the root
-sheet connects by name.
+All sheet pins are drawn and every cross-block net is a real wire. Nothing on the root sheet
+connects by name. **113 pins over ten blocks as first drawn; 101 over nine** since the captain's
+review dissolved `test_debug` into `mcu` and the six SWD / USART3 nets became sheet-local
+(`docs/decisions/actuator-rev-testdebug.md`).
 
 *Layout.* Left to right as `docs/FAFF-2-Electronics-Full.svg` reads: 24 V in at the top left,
 sensing and user I/O down the left column, the STM32H723VET6 in the middle, motor drive on the
@@ -401,8 +410,9 @@ them as `/<root-uuid>/<sheet-uuid>`, and changing one silently disconnects that 
 `RAIL_PGOOD` was a hierarchical label with nothing anywhere in the project to consume it. It is
 a **sheet-local label** now.
 
-*Reasoning.* `power_rails` exported it for "the `test_debug` rail probe header and a future MCU
-GPIO". `J402` carries `+5V`, `+3V3`, `+3V3A` and three grounds with no seventh way, and OQ-07
+*Reasoning.* `power_rails` exported it for "the rail probe header and a future MCU GPIO". That
+header (`J402`, now `J1004` on the `mcu` sheet) carries `+5V`, `+3V3`, `+3V3A` and three
+grounds with no seventh way, and OQ-07
 has never allocated the GPIO. A sheet pin on a net with one endpoint is an ERC error, and
 inventing a consumer at integration would be exactly the kind of unilateral contract change
 `AGENTS.md` forbids.

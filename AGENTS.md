@@ -13,6 +13,7 @@ Start with [`README.md`](README.md) for the repo map, then the doc set:
 | [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) | Test points, isolation links, current breaks, bring-up order |
 | [`hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md`](hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md) | Client and in-house review points with resolutions — **read before schematic work** |
 | [`docs/decisions/actuator-sch-integrate.md`](docs/decisions/actuator-sch-integrate.md) | The wired root sheet: its layout rule, the interface reconciliations, and the design-wide audit |
+| [`docs/decisions/actuator-rev-testdebug.md`](docs/decisions/actuator-rev-testdebug.md) | The captain's first review pass: why `test_debug` is gone, why `mcu` is A2, the split clocks |
 
 ## Authorities — do not contradict these
 
@@ -36,6 +37,11 @@ no bus power and no barrel jack.
   **before the first edit**.
 - **PCB work** (`.kicad_pcb`, `.kicad_mod`, footprints, routing, stackup, DRC): invoke
   `/pcb-layout-style` **before the first board or footprint edit**.
+
+## Sheet sizes
+
+A3 everywhere **except `mcu`, which is A2** — a right-justified sheet-entry flag column needs
+the room (DEC-0020 as amended). Sheet titles use the short `CBs_1 - <block>` form.
 
 ## KiCad 9 only
 
@@ -61,20 +67,30 @@ reference their 3D models through it. `README.md` has the setup table; DEC-0015 
   `hardware/kicad/faff2_cbs1/faff2_<block>.kicad_sym` (and `faff2.pretty/` for footprints),
   registered in the project `sym-lib-table` / `fp-lib-table` through `${KIPRJMOD}`. Record why
   in the block's decisions file so the captain can fix the house library upstream.
+- **Never instance-rotate a symbol** to make it horizontal — it turns the reference and value
+  text sideways. Pre-rotated variants live in `faff2_passives.kicad_sym` (`RES_TF_*_H` so far);
+  add to it rather than rotating an instance. `schematic-style`; `actuator-rev-testdebug.md`.
 - Some Amodo symbols are **uncommitted local additions** to that working copy — `ADS1235` is
   one. `git checkout --` on a file there deletes them. Do not run git operations in that
   library; it is not ours to manage.
 
 ## One block per file, one owner per file
 
-The schematic is ten hierarchical blocks, each in its own `.kicad_sch` under
-`hardware/kicad/faff2_cbs1/` (DEC-0008). KiCad rewrites a whole sheet file on every save, so
-**two workers in one file is a guaranteed conflict.**
+The schematic is **nine** hierarchical blocks, each in its own `.kicad_sch` under
+`hardware/kicad/faff2_cbs1/` (DEC-0008): `power_entry_24v`, `power_rails`, `loadcell_afe`,
+`linear_encoder`, `temp_sense`, `nvm_calibration`, `ui_io`, `mcu`, `motor_drive`. KiCad
+rewrites a whole sheet file on every save, so **two workers in one file is a guaranteed
+conflict.**
+
+**Test coverage lives on the circuit page it covers, never on a sheet of its own.** Test
+points, probe headers, scope hooks and debug connectors belong to the block whose nets they
+observe — that is the captain's standing ruling, and why `test_debug.kicad_sch` no longer
+exists (`docs/decisions/actuator-rev-testdebug.md`). Do not recreate it, in any form.
 
 - Own exactly one block file. Do not edit another block's sheet.
-- The **root sheet is wired** (DEC-0022, closing DEC-0009): 113 sheet pins, every cross-block
+- The **root sheet is wired** (DEC-0022, closing DEC-0009): 101 sheet pins, every cross-block
   net a real wire. Regenerate it with `tools/gen_root_sheet.py` rather than hand-editing —
-  the ten sheet-symbol uuids are hard-coded there because every child's symbol instances
+  the nine sheet-symbol uuids are hard-coded there because every child's symbol instances
   reference them. A new hierarchical label in a block needs a matching sheet pin added there.
 - The interface list in each sheet's stub note is the **binding contract** between blocks.
   Need an interface that is not listed? Raise it — do not invent it, or two blocks will
@@ -88,7 +104,7 @@ The schematic is ten hierarchical blocks, each in its own `.kicad_sch` under
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
 is the DEC-0021 baseline and the end state.
 
-**The design now meets it in full** — 409 components, 253 nets, 0/0 — so any violation you see
+**The design now meets it in full** — 398 components, 251 nets, 0/0 — so any violation you see
 is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
 `pin_not_driven`) all cleared when the root was wired; do not reintroduce them as "expected".
 
@@ -99,11 +115,12 @@ No other sheet may add one to those nets. A hierarchical label with only one end
 error too — if nothing consumes a net yet, keep it sheet-local (DEC-0023), don't invent a
 consumer.
 
-**Reference designators are allocated per sheet, 100 apart, by the block's page number in the
-root sheet** — `power_entry_24v` 201+, `power_rails` 301+, `test_debug` 401+, `loadcell_afe`
-501+, `linear_encoder` 601+, `temp_sense` 701+, `nvm_calibration` 801+, `ui_io` 901+, `mcu`
-1001+, `motor_drive` 1101+. **Power symbols and PWR_FLAGs follow the same ranges** (`#PWR5xx`,
-`#PWR7xx`, …) — DEC-0024. Designators must be unique across the whole project; two blocks both
+**Reference designators are allocated per sheet, 100 apart, from a fixed table — not from the
+page number**, which shifted when `test_debug` went: `power_entry_24v` 201+, `power_rails`
+301+, `loadcell_afe` 501+, `linear_encoder` 601+, `temp_sense` 701+, `nvm_calibration` 801+,
+`ui_io` 901+, `mcu` 1001+, `motor_drive` 1101+. **4xx is retired** — never reuse it.
+**Power symbols and PWR_FLAGs follow the same ranges** (`#PWR5xx`, `#PWR7xx`, …) — DEC-0024.
+Designators must be unique across the whole project; two blocks both
 starting at `U1`, or both at `#PWR001`, do not raise an ERC error, they silently merge into one
 component in the netlist.
 

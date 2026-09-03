@@ -149,14 +149,13 @@ What each block owns. Block tasks add these while drawing.
 |---|---|
 | `power_entry_24v` | TPs on `+24V_IN`, `+24V_SW`, `PGND`; current break on `+24V_SW`; TP on `V24_MON`; reverse-polarity and fuse behaviour testable without downstream load |
 | `power_rails` | TP + isolation link + current break per rail (§3); TP on each feedback node; PGOOD TPs if fitted |
-| `mcu` | SWD + USART3 to `test_debug`; TPs on `NRST`, `BOOT0`, each supply pin group, HSE clock in, MCO2. **No TPs on ULPI or QSPI** (§2.2). USB-C shield/CC access |
+| `mcu` | The SWD + USART3 debug header (block H), the consolidated rail probe header (J) and the GND hooks for scope clips (K) — test coverage lives on the page it covers, so these are not a sheet of their own. TPs on `NRST`, `BOOT0`, each supply pin group, HSE clock in, MCO2. **No TPs on ULPI or QSPI** (§2.2). USB-C shield/CC access |
 | `motor_drive` | TPs on each gate drive output, each current-sense output, `VBUS_MON`, `nFAULT`; U.FL candidate on one phase node and the DC link; link to isolate the gate driver supply; means to spin the motor with the load cell disconnected |
 | `loadcell_afe` | TPs on excitation +/-, sense +/-, `SIG+`/`SIG-` (U.FL candidate), ADC reference, `nDRDY`; SPI3 hooks; link to configure 4-wire vs 6-wire (DEC-0014); means to substitute a resistive bridge simulator for the load cell |
 | `linear_encoder` | TPs on each RS-422 receiver output (`ENC_A/B/Z`) and on the 5 V read-head supply; termination fitted/removable; header pinout silkscreened; means to inject a quadrature signal without the read head |
 | `temp_sense` | TPs on both probe channels and the ADC reference; SPI2 hooks; means to substitute a fixed resistor for each probe |
 | `nvm_calibration` | I2C1 hooks (`SCL`, `SDA`) plus GND hooks; `nWP` TP; pull-ups on removable links |
 | `ui_io` | TPs on `SYNC_TRIG` (pre- and post- source termination), `LIM_A`, `LIM_B`, `LIMIT_nBRK`, each button and LED net; means to assert each limit switch without the mechanics |
-| `test_debug` | SWD + USART3 debug header (one header, per the block diagram); consolidated rail probe header; GND hooks distributed for scope clips |
 
 ## 5. Bring-up order
 
@@ -172,7 +171,7 @@ switched per block is the bus or supply link the block owns, and each step below
 |---|---|---|
 | 1 | **Bare-board and power entry.** 24 V in, all rail links open. Check protection, inrush, fusing. | `+24V_SW` correct; reverse polarity does not damage; no smoke; `V24_MON` reads correctly by DMM |
 | 2 | **Rails, one at a time.** With `R203` open (motor branch dead), close `R204`, then one rail break at a time - `R305`, `R306`, `R307`, `R312`, `FB301`. | Each rail within tolerance; ripple acceptable; quiescent current per rail measured at its own break and reconciled against `CALC`; `RAIL_PGOOD` LED `D303` lights and `TP308` reads high |
-| 3 | **MCU alive.** `+3V3` and `+3V3A` up. HSE clock present at `TP1003`, reset behaves at `TP1002`, SWD connects on `J401`. | Debugger attaches; MCO2 output present at the expected frequency; blinky on `LED_1` |
+| 3 | **MCU alive.** `+3V3` and `+3V3A` up. HSE clock present at `TP1003`, reset behaves at `TP1002`, SWD connects on `J1003`. | Debugger attaches; MCO2 output present at the expected frequency; blinky on `LED_1` |
 | 4 | **Debug console.** USART3 over the debug header. | Characters out and in at the expected baud |
 | 5 | **NVM.** `R801` / `R802` fitted. | EEPROM reads and writes over I2C1; device ID as expected. Lift either link to prove the bus survives the device being removed |
 | 6 | **Load cell AFE.** `+5VA` and `+3V3A` up (step 2). Use a resistive bridge simulator before a real load cell. | ADS1235 responds over SPI3; `nDRDY` toggles at 4800 SPS; **measured input-referred noise meets `REQ-FF-04`** with a shorted/simulated bridge. This is the single most important electrical result on the board |

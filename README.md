@@ -16,9 +16,9 @@ Two build variants, differing only in maximum force: **V50N** (± 50 N) and **V1
 
 ## Status
 
-**Schematic complete and integrated**, awaiting client review. All ten blocks are drawn, the
-root sheet is wired, and the design is internally consistent: 409 components, 253 nets,
-113 sheet pins, **0 ERC errors and 0 warnings** at `--severity-all` with nothing suppressed.
+**Schematic complete and integrated**, first review pass applied. All nine blocks are drawn,
+the root sheet is wired, and the design is internally consistent: 398 components, 251 nets,
+101 sheet pins, **0 ERC errors and 0 warnings** at `--severity-all` with nothing suppressed.
 Every component has a footprint that resolves.
 
 The review pack is [`docs/review/faff2_cbs1_schematic.pdf`](docs/review/faff2_cbs1_schematic.pdf);
@@ -53,7 +53,7 @@ datasheets/                      collected datasheets (see its README for the sh
 
 | Sheet | Block |
 |---|---|
-| `faff2_cbs1.kicad_sch` | root - the block map, wired: 113 sheet pins (DEC-0022) |
+| `faff2_cbs1.kicad_sch` | root - the block map, wired: 101 sheet pins (DEC-0022) |
 | `power_entry_24v.kicad_sch` | 24 V in on KPJX-4S, protection |
 | `power_rails.kicad_sch` | 24 V → 5 V / 3V3 / analog rails |
 | `mcu.kicad_sch` | STM32H723VET6, USB3320 ULPI PHY, USB-C, QSPI RAM |
@@ -63,7 +63,11 @@ datasheets/                      collected datasheets (see its README for the sh
 | `temp_sense.kicad_sch` | ADS1120, two RTD/NTC probe channels |
 | `nvm_calibration.kicad_sch` | I2C EEPROM for calibration data |
 | `ui_io.kicad_sch` | buttons, LEDs, SMA SYNC out, limit switches |
-| `test_debug.kicad_sch` | SWD + UART debug header, rail probe header |
+
+The `mcu` sheet is **A2**; every other sheet is A3. There is no `test_debug` sheet — test
+coverage lives on the circuit page it covers, so the SWD + USART3 debug header, the rail probe
+header and the GND hooks are blocks H, J and K on `mcu`
+([`docs/decisions/actuator-rev-testdebug.md`](docs/decisions/actuator-rev-testdebug.md)).
 
 **One block per file, one owner per file.** See `AGENTS.md`.
 

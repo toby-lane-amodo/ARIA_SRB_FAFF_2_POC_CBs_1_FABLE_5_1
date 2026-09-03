@@ -315,66 +315,6 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 180.34) (xy 139.7 180.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "52d5898e-a47c-5391-b9cd-43da2edbff1c")
-	)
-	(wire
-		(pts
-			(xy 76.2 182.88) (xy 139.7 182.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "26871b36-38f4-5421-9fa4-d9a6627c42df")
-	)
-	(wire
-		(pts
-			(xy 76.2 185.42) (xy 139.7 185.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3c9e388-6a7a-5350-9516-2980799fe625")
-	)
-	(wire
-		(pts
-			(xy 76.2 187.96) (xy 139.7 187.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b9ed9368-3e7a-590a-a70d-25e5d55bb64c")
-	)
-	(wire
-		(pts
-			(xy 76.2 190.5) (xy 139.7 190.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ab848363-56b8-5936-a384-e1a31f2ef43a")
-	)
-	(wire
-		(pts
-			(xy 76.2 193.04) (xy 139.7 193.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7d14c0a6-74ae-5db2-b949-7ec7c1397ac0")
-	)
-	(wire
-		(pts
 			(xy 208.28 60.96) (xy 254 60.96)
 		)
 		(stroke
@@ -777,17 +717,6 @@
 		)
 		(uuid "281bb5b9-9846-5c3e-81db-24328c9a304d")
 	)
-	(text "SWD + USART3 console"
-		(exclude_from_sim no)
-		(at 93.98 171.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "970e19c0-c386-518b-8f0b-eeee827e7275")
-	)
 	(text "TIM1 PWM, ADC1/2 sense, TIM3"
 		(exclude_from_sim no)
 		(at 210.82 53.34 0)
@@ -810,7 +739,7 @@
 		)
 		(uuid "57a00e39-2158-542d-8e94-64b65bbdd46a")
 	)
-	(text "ROOT SHEET - THE BLOCK MAP, NOW WIRED.  DEC-0009 is closed by this pass.\n\nEvery net that crosses a block boundary is drawn: 114 sheet pins, one for each hierarchical\nlabel a child sheet declares, each one on a wire.  Nothing on this sheet connects by name.\n\nGLOBAL POWER NETS CARRY NO SHEET PIN.  GND, +5V, +5VA, +3V3 and +3V3A are Amodo power symbols\nand connect across the hierarchy on their own.  power_rails produces all four and owns their\nPWR_FLAGs; power_entry_24v owns the flags for GND and +24V_SW.  Only +24V_SW, V24_LOGIC and\nV24_MON leave power_entry_24v as ordinary nets, and they are drawn along the top of the sheet.\n\nLAYOUT follows docs/FAFF-2-Electronics-Full.svg left to right: 24 V in at the top left, sensing\nand user I/O down the left column, the STM32H723VET6 in the middle, motor drive on the right.\ntemp_sense sits under motor_drive rather than in the sensor column because it hangs off the same\nshared SPI2 CONFIG bus as the DRV8323 (ARCHITECTURE 5.1); the three bus wires are tapped once\neach, at the junctions between the two blocks.  Its two probe channels stay inside its own sheet.\n\nREFERENCE DESIGNATORS are allocated per sheet, 100 apart, by page number: 2xx power_entry_24v,\n3xx power_rails, 4xx test_debug, 5xx loadcell_afe, 6xx linear_encoder, 7xx temp_sense,\n8xx nvm_calibration, 9xx ui_io, 10xx mcu, 11xx motor_drive.  Power symbols follow the same\nranges (#PWR5xx, #PWR7xx, ...) so that no two sheets merge into one part at netlist time.\n\nRequirements docs/REQUIREMENTS.md - architecture docs/ARCHITECTURE.md - decisions\ndocs/DECISIONS.md and docs/decisions/actuator-sch-integrate.md - bring-up docs/TEST_PLAN.md"
+	(text "ROOT SHEET - THE BLOCK MAP, WIRED.  DEC-0009 is closed.\n\nEvery net that crosses a block boundary is drawn: one sheet pin for each hierarchical label a\nchild sheet declares, each one on a wire.  Nothing on this sheet connects by name.\n\nNINE BLOCKS, NOT TEN.  test_debug was dissolved into the sheets its circuits serve: the SWD +\nUSART3 header, the rail probe header and the GND hooks all moved onto mcu, so SWDIO, SWCLK,\nSWO, MCU_nRESET, DBG_TX and DBG_RX are sheet-local there and no longer cross a boundary.\nTest coverage lives on the circuit page it covers - docs/decisions/actuator-rev-testdebug.md.\n\nGLOBAL POWER NETS CARRY NO SHEET PIN.  GND, +5V, +5VA, +3V3 and +3V3A are Amodo power symbols\nand connect across the hierarchy on their own.  power_rails produces all four and owns their\nPWR_FLAGs; power_entry_24v owns the flags for GND and +24V_SW.  Only +24V_SW, V24_LOGIC and\nV24_MON leave power_entry_24v as ordinary nets, and they are drawn along the top of the sheet.\n\nLAYOUT follows docs/FAFF-2-Electronics-Full.svg left to right: 24 V in at the top left, sensing\nand user I/O down the left column, the STM32H723VET6 in the middle, motor drive on the right.\ntemp_sense sits under motor_drive rather than in the sensor column because it hangs off the same\nshared SPI2 CONFIG bus as the DRV8323 (ARCHITECTURE 5.1); the three bus wires are tapped once\neach, at the junctions between the two blocks.  Its two probe channels stay inside its own sheet.\n\nREFERENCE DESIGNATORS are allocated per sheet, 100 apart, from a fixed table - NOT from the\npage number, which changed when test_debug went: 2xx power_entry_24v, 3xx power_rails,\n5xx loadcell_afe, 6xx linear_encoder, 7xx temp_sense, 8xx nvm_calibration, 9xx ui_io,\n10xx mcu, 11xx motor_drive.  4xx is retired.  Power symbols follow the same ranges\n(#PWR5xx, #PWR7xx, ...) so that no two sheets merge into one part at netlist time.\n\nRequirements docs/REQUIREMENTS.md - architecture docs/ARCHITECTURE.md - decisions\ndocs/DECISIONS.md and docs/decisions/actuator-sch-integrate.md - bring-up docs/TEST_PLAN.md"
 		(exclude_from_sim no)
 		(at 12.7 209.55 0)
 		(effects
@@ -1062,7 +991,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "5")
+					(page "4")
 				)
 			)
 		)
@@ -1134,7 +1063,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "6")
+					(page "5")
 				)
 			)
 		)
@@ -1196,7 +1125,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "8")
+					(page "7")
 				)
 			)
 		)
@@ -1318,116 +1247,14 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "9")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 12.7 175.26)
-		(size 63.5 22.86)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "07c1535d-fd75-5e35-93ca-efc2898cf844")
-		(property "Sheetname" "test_debug"
-			(at 12.7 174.548 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "test_debug.kicad_sch"
-			(at 12.7 198.832 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "SWDIO" bidirectional
-			(at 76.2 180.34 0)
-			(uuid "add6f8d2-b1e3-526e-b456-e2bbce51a49e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "SWCLK" output
-			(at 76.2 182.88 0)
-			(uuid "9065898d-0980-5085-8080-5892d80f3ee1")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "SWO" input
-			(at 76.2 185.42 0)
-			(uuid "a009fdf7-b8ce-5347-8319-b156fa2bcaed")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "DBG_TX" input
-			(at 76.2 187.96 0)
-			(uuid "8d482ee8-a4be-535c-a1be-9f12a58c365d")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "DBG_RX" output
-			(at 76.2 190.5 0)
-			(uuid "e1a3c579-12b5-5a01-b7c3-49838b0fe3aa")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "MCU_nRESET" bidirectional
-			(at 76.2 193.04 0)
-			(uuid "a20c8fa2-f426-5a51-9781-a25e00d2956a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "4")
+					(page "8")
 				)
 			)
 		)
 	)
 	(sheet
 		(at 139.7 50.8)
-		(size 68.58 152.4)
+		(size 68.58 121.92)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1451,7 +1278,7 @@
 			)
 		)
 		(property "Sheetfile" "mcu.kicad_sch"
-			(at 139.7 203.912 0)
+			(at 139.7 173.432 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1672,66 +1499,6 @@
 		(pin "LIMIT_nBRK" input
 			(at 139.7 162.56 180)
 			(uuid "fde66e1a-e1f2-5fe4-aa91-63e51cc744b0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SWDIO" bidirectional
-			(at 139.7 180.34 180)
-			(uuid "1e3b9ae9-0c37-528a-b8de-7914871e7777")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SWCLK" input
-			(at 139.7 182.88 180)
-			(uuid "7d8a4696-def3-5387-999f-a623bc660351")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SWO" output
-			(at 139.7 185.42 180)
-			(uuid "a4cbd869-7644-5ccc-b1e0-494b8c5d7623")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "DBG_TX" output
-			(at 139.7 187.96 180)
-			(uuid "7d3798a4-398a-5955-81ac-5c6408820746")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "DBG_RX" input
-			(at 139.7 190.5 180)
-			(uuid "92ada4de-7669-5227-ba1f-0a6f46741142")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "MCU_nRESET" bidirectional
-			(at 139.7 193.04 180)
-			(uuid "1a10c5cb-1fb1-5bbd-a462-add3a4d5cf42")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1992,7 +1759,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "10")
+					(page "9")
 				)
 			)
 		)
@@ -2284,7 +2051,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "11")
+					(page "10")
 				)
 			)
 		)
@@ -2366,7 +2133,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546"
-					(page "7")
+					(page "6")
 				)
 			)
 		)
