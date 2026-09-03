@@ -27,7 +27,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "faff2:Texas_RTA0040B_WQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm"
 			(at 0 0 0)
 			(effects
 				(font

@@ -6770,7 +6770,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Amodo:SOIC-16-N"
 			(at 157.4800 31.7500 0)
 			(effects
 				(font
@@ -6865,7 +6865,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Amodo:SOIC-16-N"
 			(at 157.4800 59.6900 0)
 			(effects
 				(font
@@ -6960,7 +6960,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Amodo:SOIC-16-N"
 			(at 157.4800 87.6300 0)
 			(effects
 				(font
@@ -8717,7 +8717,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Amodo:SOIC-16-N"
 			(at 162.5600 152.4000 0)
 			(effects
 				(font
@@ -9237,7 +9237,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Amodo:SOIC-16-N"
 			(at 162.5600 172.7200 0)
 			(effects
 				(font
