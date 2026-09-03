@@ -380,7 +380,7 @@ AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib AMODO_3D=/mnt/c/Amodo/AmodoKiCadLib/3
 | ERC, `--severity-all` | `loadcell_afe` 8 violations, `temp_sense` 4 — **all `hier_label_mismatch`, one per hierarchical label.** No warnings, no other class, nothing suppressed |
 | Netlist vs. an independent connectivity model | **All 47 `loadcell_afe` nets and all 25 `temp_sense` nets identical, node for node** |
 | Designator uniqueness across all sheets | no collisions |
-| Bundled overlap checker | `loadcell_afe` clean; `temp_sense` 5 findings, all false positives (§7) |
+| Bundled overlap checker | 1 + 9 findings, **every one a checker artefact** confirmed against renders (§7) |
 | Render sweep | both sheets swept at 10 px/mm |
 
 The `hier_label_mismatch` errors are the residual `AGENTS.md` describes: no sheet
@@ -418,13 +418,23 @@ nothing else. Already recorded in `AGENTS.md`.
 UUID**, not the child file's own UUID. Get it wrong and the sheet loads, all
 components appear, and almost nothing is connected — a very quiet failure.
 
-The bundled `check_overlaps.py` mis-places the **body** of any mirrored or
-90°-rotated symbol (it appears reflected about the symbol origin), so it reports
-false `body-vs-wire` and `body-vs-blockborder` hits — five of them here, on
-`J701`, `J702` and the rotated 100 Ω resistors — and could equally miss a real
-one. Confirmed against renders at 10 px/mm: the bodies sit where they should.
-Its **text** findings are reliable, since field positions are absolute in the
-file, and all of those were fixed. Worth fixing in the `schematic-style` skill.
+The bundled `check_overlaps.py` disagrees with KiCad on rotated symbols, in two
+ways. Both were resolved against renders at 10 px/mm, and both are worth fixing
+in the `schematic-style` skill:
+
+- It mis-places the **body** of a mirrored or 90°-rotated symbol, reflecting it
+  about the symbol origin. That produces false `body-vs-wire` and
+  `body-vs-blockborder` hits — here on `J701`, `J702` and the rotated 100 Ω
+  resistors — and could equally hide a real one.
+- **KiCad flips field justification for a 180°-rotated symbol**, so `justify
+  left` there renders right-aligned and the text grows *leftward* from its
+  anchor. The checker does not model the flip. These sheets set `justify right`
+  on 180°-rotated symbols so every field grows rightward like all the others,
+  which is what the field offsets are designed around; the checker then reports
+  those fields on the wrong side. All four such findings were checked in a
+  render.
+
+Its findings on unrotated symbols are reliable, and all of those were fixed.
 
 ---
 

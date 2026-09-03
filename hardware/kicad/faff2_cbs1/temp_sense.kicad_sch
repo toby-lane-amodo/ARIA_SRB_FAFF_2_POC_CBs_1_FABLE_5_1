@@ -3202,7 +3202,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:TestPoint")
-		(at 78.74 27.94 180)
+		(at 88.9 27.94 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3210,67 +3210,67 @@
 		(dnp no)
 		(uuid "f1bda8cb-0438-51bd-8763-09b608fa701f")
 		(property "Reference" "TP702"
-			(at 74.93 30.94 0)
+			(at 87.63 25.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 74.93 32.85 0)
+			(at 87.63 27.85 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
-			(at 78.74 27.94 0)
+			(at 88.9 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 78.74 27.94 0)
+			(at 88.9 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "Description" "Test Point"
-			(at 78.74 27.94 0)
+			(at 88.9 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 78.74 27.94 0)
+			(at 88.9 27.94 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -3374,7 +3374,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:TestPoint")
-		(at 78.74 96.52 180)
+		(at 88.9 96.52 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3382,67 +3382,67 @@
 		(dnp no)
 		(uuid "122e071c-9c45-5c45-87c1-99641a7a090a")
 		(property "Reference" "TP704"
-			(at 74.93 99.52 0)
+			(at 87.63 94.52 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 74.93 101.43 0)
+			(at 87.63 96.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
-			(at 78.74 96.52 0)
+			(at 88.9 96.52 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 78.74 96.52 0)
+			(at 88.9 96.52 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "Description" "Test Point"
-			(at 78.74 96.52 0)
+			(at 88.9 96.52 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 78.74 96.52 0)
+			(at 88.9 96.52 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5753,7 +5753,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "TestPoint"
@@ -5763,7 +5763,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5774,7 +5774,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5785,7 +5785,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5796,7 +5796,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5807,7 +5807,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -8694,7 +8694,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 27.94) (xy 78.74 27.94)
+			(xy 66.04 27.94) (xy 88.9 27.94)
 		)
 		(stroke
 			(width 0)
@@ -8704,7 +8704,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 27.94) (xy 96.52 27.94)
+			(xy 88.9 27.94) (xy 96.52 27.94)
 		)
 		(stroke
 			(width 0)
@@ -8744,7 +8744,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 96.52) (xy 78.74 96.52)
+			(xy 66.04 96.52) (xy 88.9 96.52)
 		)
 		(stroke
 			(width 0)
@@ -8754,7 +8754,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 96.52) (xy 96.52 96.52)
+			(xy 88.9 96.52) (xy 96.52 96.52)
 		)
 		(stroke
 			(width 0)
@@ -9753,25 +9753,25 @@
 		(uuid "80acde29-0400-5e86-8e85-126f19606d0d")
 	)
 	(junction
-		(at 78.74 27.94)
+		(at 78.74 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ca33113f-7326-5ccc-b71a-d2058ba0ed80")
 	)
 	(junction
-		(at 78.74 91.44)
+		(at 85.09 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8e97b139-c226-5cf3-915d-fe026e0de338")
 	)
 	(junction
-		(at 78.74 96.52)
+		(at 88.9 27.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d8c14f9b-4660-5e7d-bdea-5f1ed0645e67")
 	)
 	(junction
-		(at 85.09 116.84)
+		(at 88.9 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "731c7eb1-845d-530d-87ef-45637064040f")
