@@ -12,7 +12,7 @@
 		(comment 1 "3-phase inverter, phase-current sense, motor and rotary-encoder interface")
 		(comment 2 "Reasoning: docs/decisions/actuator-sch-motor.md")
 		(comment 3 "Requirements: docs/REQUIREMENTS.md   Tests: docs/TEST_PLAN.md")
-		(comment 4 "Root sheet is unwired by design (DEC-0009)")
+		(comment 4 "Root sheet wired by the integration pass (DEC-0009)")
 	)
 	(lib_symbols
 		(symbol "Amodo_Capacitors:CAP_ALU_100UF_SMD_20%_63V"

@@ -85,33 +85,61 @@ skips. The brief for this build **requires** them, and the brief outranks the st
 
 ### 3.2 Rail inventory
 
-Provisional — the final rail set is **OQ-02**, since the block diagram is signal-only and shows
-no power blocks. Structure, not the list, is what is being committed to here.
+Settled by the block wave; the structure below is what is actually drawn. `power_rails` feeds
+its logic branch from **`V24_LOGIC`**, a second protected branch out of `power_entry_24v`
+independent of the motor branch, so the motor stage can be left dead while logic is brought up.
 
-| Rail | Source block | Feeds | Budget check against `CALC` |
-|---|---|---|---|
-| `+24V_IN` | `power_entry_24v` | (pre-protection) | 25 W peak, 7 W typical |
-| `+24V_SW` | `power_entry_24v` | `power_rails`, `motor_drive` | motor Iq 20 mA quiescent |
-| `+5V` | `power_rails` | bridge excitation, IKP11 read head | 200 mA encoder + 15 mA load cell |
-| `+3V3` | `power_rails` | STM32, USB3320, DRV8323 logic, QSPI, EEPROM | 500 mA STM32 + 500 mA other ICs |
-| analog rail(s) / VREF | `power_rails` | ADS1235, ADS1120 | part of the 5.185 W quiescent total |
+| Rail | Source block | Feeds | Break / link | Budget check against `CALC` |
+|---|---|---|---|---|
+| `+24V_IN` | `power_entry_24v` | (pre-protection) | — | 25 W peak, 7 W typical |
+| `+24V_SW` | `power_entry_24v` | `motor_drive` only | `R203` | motor Iq 20 mA quiescent |
+| `V24_LOGIC` | `power_entry_24v` | `power_rails` | `R204` | logic branch, ~5.8 W in |
+| `+5V5` | `power_rails` | pre-regulator for `+5V` / `+5VA` | `R305` | sheet-local, never leaves `power_rails` |
+| `+5V` | `power_rails` | IKP11 read head | `R306` | ~115 mA |
+| `+5VA` | `power_rails` | ADS1235 AVDD + bridge excitation, ADS1120 AVDD | `R307` | ~30 mA |
+| `+3V3` | `power_rails` | STM32, USB3320, DRV8323 logic, QSPI, EEPROM | `R312` | ~1.1 A |
+| `+3V3A` | `power_rails` | MCU VDDA / VREF+, ADS1235 and ADS1120 DVDD | `FB301` | ~10 mA |
 
 ### 3.3 Block isolation
 
-Between power stages, and between the MCU and **each** peripheral block, provide a link that
-can be opened:
+**What the block wave actually drew**, reconciled at integration. The original plan here asked
+for a rail link from `power_rails` to each consumer block; that is *not* what landed, and the
+reason is sound. Every block takes the same global rail net, so per-consumer links inside
+`power_rails` would need per-block rail names and would have broken the frozen block contracts.
+The rule adopted instead: **`power_rails` owns one break per rail (§3.2), and a block that wants
+its own supply break fits a 0R at its own supply entry, inside its own sheet.**
 
-- `power_entry_24v` → `power_rails`, and `power_entry_24v` → `motor_drive`: independent links,
-  so the motor stage can be left unpowered while logic is brought up. This one matters most —
-  it lets the whole board be exercised with no possibility of the actuator moving.
-- `power_rails` → each of `mcu`, `loadcell_afe`, `linear_encoder`, `temp_sense`,
-  `nvm_calibration`, `ui_io`: per-block rail links.
-- MCU-to-peripheral **signal** isolation on the shared buses, so one peripheral can be removed
-  from a bus that will not enumerate: SPI2 (shared by `motor_drive` and `temp_sense` —
-  see `ARCHITECTURE.md §5`), SPI3, I2C1.
-- The two **TIM1 BREAK** nets (`DRV8323_nFAULT`, `LIMIT_nBRK`) get links so each trip source
-  can be exercised alone. These links are safety-relevant: they must be clearly marked on the
-  silkscreen and must default to **fitted**.
+Thirty-two 0R links are drawn across the project. The ones that matter for bring-up:
+
+| Link | Sheet | Opens |
+|---|---|---|
+| `R203` | `power_entry_24v` | the whole 24 V motor branch — **the one that keeps the actuator dead** |
+| `R204` | `power_entry_24v` | the 24 V logic branch into `power_rails` |
+| `R305` `R306` `R307` `R312` `FB301` | `power_rails` | one rail each, per §3.2 |
+| `R1101` + `R1102` | `motor_drive` | the motor bus at the block, in series with `R203` |
+| `R1114` | `motor_drive` | the DRV8323 gate-driver supply `VM_DRV`, leaving the bus up |
+| `R1106` / `R1107` | `motor_drive` | rotary-encoder supply select, 3V3 or 5 V |
+| `R601` | `linear_encoder` | the 5 V read-head feed — its current break |
+| `R1012` | `mcu` | `+3V3_USB` |
+| `R506`-`R510` | `loadcell_afe` | the 4-wire / 6-wire build (DEC-0014) |
+| `R520` / `R521` | `loadcell_afe` | ADS1235 `CLKIN` source select |
+| `R708`-`R711` | `temp_sense` | the 3-wire RTD build on each probe channel |
+
+Signal isolation on the shared buses, so one peripheral can be taken off a bus that will not
+enumerate:
+
+| Link | Bus | Takes off |
+|---|---|---|
+| `R801` / `R802` | I2C1 | the EEPROM, with the bus left pulled up |
+| `R1116` / `R1117` | SPI2 | the DRV8323's `SCLK` / `SDI` |
+
+SPI3 has no series link: `loadcell_afe` is the only device on it, so opening the bus and
+opening the block's own supply are the same test.
+
+The two **TIM1 BREAK** nets each have their own break — `R1119` on `DRV8323_nFAULT` in
+`motor_drive`, `R915` on `LIMIT_nBRK` in `ui_io` — so each trip source can be exercised alone.
+These links are safety-relevant: they must be clearly marked on the silkscreen and default to
+**fitted**. Both are.
 
 ## 4. Per-block test provisions
 
@@ -132,20 +160,25 @@ What each block owns. Block tasks add these while drawing.
 
 ## 5. Bring-up order
 
-Each step is a gate: do not proceed until it passes. Steps 1-4 run with **every** downstream
-isolation link open and the motor stage unpowered.
+Each step is a gate: do not proceed until it passes. **`R203` stays open until step 9** — the
+motor branch is dead, so nothing can move, for every step up to and including the safety-
+interlock gate.
+
+The logic rails are global (§3.3), so steps 3 onward do not switch blocks on one at a time:
+each rail comes up once at step 2 and every consumer on it is live from then on. What is
+switched per block is the bus or supply link the block owns, and each step below names it.
 
 | # | Step | Pass criterion |
 |---|---|---|
 | 1 | **Bare-board and power entry.** 24 V in, all rail links open. Check protection, inrush, fusing. | `+24V_SW` correct; reverse polarity does not damage; no smoke; `V24_MON` reads correctly by DMM |
-| 2 | **Rails, one at a time.** Close one rail link at a time, no load beyond the rail's own decoupling. | Each rail within tolerance; ripple acceptable; quiescent current per rail measured at its break and reconciled against `CALC` |
-| 3 | **MCU alive.** Power `mcu` only. HSE clock present, reset behaves, SWD connects. | Debugger attaches; MCO2 output present at the expected frequency; blinky on `LED_1` |
+| 2 | **Rails, one at a time.** With `R203` open (motor branch dead), close `R204`, then one rail break at a time - `R305`, `R306`, `R307`, `R312`, `FB301`. | Each rail within tolerance; ripple acceptable; quiescent current per rail measured at its own break and reconciled against `CALC`; `RAIL_PGOOD` LED `D303` lights and `TP308` reads high |
+| 3 | **MCU alive.** `+3V3` and `+3V3A` up. HSE clock present at `TP1003`, reset behaves at `TP1002`, SWD connects on `J401`. | Debugger attaches; MCO2 output present at the expected frequency; blinky on `LED_1` |
 | 4 | **Debug console.** USART3 over the debug header. | Characters out and in at the expected baud |
-| 5 | **NVM.** Close the `nvm_calibration` link. | EEPROM reads and writes over I2C1; device ID as expected |
-| 6 | **Load cell AFE.** Close the link. Use a resistive bridge simulator before a real load cell. | ADS1235 responds over SPI3; `nDRDY` toggles at 4800 SPS; **measured input-referred noise meets `REQ-FF-04`** with a shorted/simulated bridge. This is the single most important electrical result on the board |
-| 7 | **Sensors.** Temperature (§4 substitute resistors), then the linear encoder with an injected quadrature signal, then with the real IKP11. | ADS1120 reads both channels to `REQ-EL-07`; TIM5 counts up and down correctly and the Z index lands where expected |
-| 8 | **Safety interlocks — before any motor power.** With `+24V_SW` to `motor_drive` still **open**, assert each limit switch and each `nFAULT` source in turn and confirm TIM1 outputs go inactive. | Both BREAK paths independently force PWM inactive, verified at the gate-drive test points. **Gate for step 9** |
-| 9 | **Motor drive, no mechanics.** Close the motor stage link with the motor **disconnected from the actuator**. Open loop, low duty. | Gate waveforms clean; phase currents read plausibly on all three channels; `VBUS_MON` correct; DRV8323 configures over SPI2 |
+| 5 | **NVM.** `R801` / `R802` fitted. | EEPROM reads and writes over I2C1; device ID as expected. Lift either link to prove the bus survives the device being removed |
+| 6 | **Load cell AFE.** `+5VA` and `+3V3A` up (step 2). Use a resistive bridge simulator before a real load cell. | ADS1235 responds over SPI3; `nDRDY` toggles at 4800 SPS; **measured input-referred noise meets `REQ-FF-04`** with a shorted/simulated bridge. This is the single most important electrical result on the board |
+| 7 | **Sensors.** Temperature (§4 substitute resistors) - with `R1116` / `R1117` open the ADS1120 has SPI2 to itself. Then the linear encoder with an injected quadrature signal, then with the real IKP11; meter the read head at `R601`. | ADS1120 reads both channels to `REQ-EL-07`; read-head current inside the `CALC` allowance; TIM5 counts up and down correctly and the Z index lands where expected |
+| 8 | **Safety interlocks — before any motor power.** With `R203` still **open**, assert each limit switch and each `nFAULT` source in turn and confirm TIM1 outputs go inactive. Open `R915`, then `R1119`, to exercise each trip source alone. | Both BREAK paths independently force PWM inactive, verified at the gate-drive test points. **Both links refitted before step 9.** Gate for step 9 |
+| 9 | **Motor drive, no mechanics.** Configure the DRV8323 over SPI2 with `R1114` open (gate-driver supply down) before closing `R203`; then unplug `J1103` so the motor is **disconnected from the actuator**. Open loop, low duty. | Gate waveforms clean; phase currents read plausibly on all three channels; `VBUS_MON` correct; DRV8323 configures over SPI2 |
 | 10 | **Motor on the actuator, no load cell in the force path.** Closed-loop position using the linear encoder; homing against the limit switches. | Homing repeatable; position tracks to `REQ-PS-01..03`; travel stops at both limits |
 | 11 | **Full force loop.** Load cell in the path, current limit set per `REQ-SF-03` **before** the first move. | Static force hold within `REQ-FF-03`; current limit trips before 150 % of load cell absolute maximum |
 | 12 | **Streaming and sync.** USB enumeration, 4800 SPS stream, SMA trigger output. | Enumerates as high speed; no dropped samples at 4800 SPS (`REQ-CC-03`); SYNC edge correct into 50 Ω |
@@ -165,7 +198,8 @@ Steps 8 and 11 are the two where a mistake damages the load cell. Neither may be
 
 ## 7. What this plan does not yet cover
 
-- **Rail-level detail** — count, topology and sequencing are OQ-02.
+- **`RAIL_PGOOD` at the MCU.** OQ-07 has still allocated no pin, so power-good is observable
+  only at `D303` and `TP308` inside `power_rails` (DEC-0023). Firmware cannot read it.
 - **EMC pre-compliance.** `REQ-SC-01` says no formal testing and no CE mark. The Design
   Standard's argument still applies: EMC practice is followed to avoid intra-system problems
   ("an IC's reset pin routed too close to a switchmode supply, causing spurious reset"), not to

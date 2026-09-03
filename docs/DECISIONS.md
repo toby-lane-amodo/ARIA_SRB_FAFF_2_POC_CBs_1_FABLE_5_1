@@ -128,7 +128,7 @@ leaves a genuine system-level residue (debug header, rail probe header) that no 
 block owns.
 
 ### DEC-0009 - The root sheet is a block map, deliberately unwired
-**Date** 2026-09-02 · **Status** Accepted · **Scope** `faff2_cbs1.kicad_sch`
+**Date** 2026-09-02 · **Status** Accepted, **closed 2026-09-03 by DEC-0022** · **Scope** `faff2_cbs1.kicad_sch`
 
 The root sheet places all ten sheet symbols with a descriptive note, and draws **no** sheet
 pins and **no** interconnect wiring.
@@ -147,6 +147,10 @@ wiring is the first integration pass **after** the blocks are drawn.
 *Deviation from `schematic-style`.* That skill says "top sheet = the block diagram wired with
 sheet pins". That is the end state; it is not reachable from an empty skeleton. Recorded here
 as a deliberate, temporary deviation to be closed by the integration pass.
+
+*Closed.* The integration pass drew all 113 sheet pins and wired every cross-block net on
+2026-09-03. The deviation from `schematic-style` is over: the top sheet is now the block
+diagram, wired. See DEC-0022 and `docs/decisions/actuator-sch-integrate.md`.
 
 ### DEC-0010 - One AFE design serves both V50N and V10N
 **Date** 2026-09-02 · **Status** Accepted · **Scope** `loadcell_afe`
@@ -351,9 +355,121 @@ There are therefore **no remaining violations to explain**. This is expected for
 carrying no symbols, no wires and no sheet pins, and it is the baseline every block task must
 preserve — see `AGENTS.md`.
 
+*Still true with the design complete (2026-09-03).* 409 components, 253 nets, 113 sheet pins
+and the root wired, and `--severity-all` still reports 0 errors and 0 warnings with nothing
+suppressed. The three residual classes `AGENTS.md` listed for the parallel block wave -
+`hier_label_mismatch`, `label_dangling`, `pin_not_driven` - all cleared at root wiring, which
+is what that file predicted. This is the end state, not a temporary one.
+
 *Re-run it with:*
 ```
 AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib \
   kicad-cli sch erc --severity-all --exit-code-violations \
   -o /tmp/erc.rpt hardware/kicad/faff2_cbs1/faff2_cbs1.kicad_sch
 ```
+
+### DEC-0022 - The root sheet is wired as an aligned star on the MCU
+**Date** 2026-09-03 · **Status** Accepted · **Scope** `faff2_cbs1.kicad_sch` — closes DEC-0009
+
+All 113 sheet pins are drawn and every cross-block net is a real wire. Nothing on the root
+sheet connects by name.
+
+*Layout.* Left to right as `docs/FAFF-2-Electronics-Full.svg` reads: 24 V in at the top left,
+sensing and user I/O down the left column, the STM32H723VET6 in the middle, motor drive on the
+right.
+
+*Reasoning.* The interconnect is very nearly a star — 48 of the 55 net names are point-to-point
+between the `mcu` block and one peer. So each peer's pin rows are **aligned with the mcu rows
+they face**, which makes all 48 single straight horizontal wires: no bends, no crossings, no
+junctions, and any net can be followed across the page without tracing it. The three routes out
+of `power_entry_24v` and the four SPI2 CONFIG-bus routes are the exceptions, and both sets are
+**nested** — outermost route for the outermost pair of endpoints — so those do not cross either.
+Total: 70 wires, 3 junctions, 0 crossings.
+
+*Consequence.* `temp_sense` sits under `motor_drive` on the right, not in the sensor column,
+because it hangs off the same shared SPI2 bus as the DRV8323 (`ARCHITECTURE §5.1`). The bus is
+drawn once with two loads tapped off it. Its two probe channels never leave its own sheet, so
+nothing is lost by the move.
+
+*Generated, not hand-placed.* `tools/gen_root_sheet.py` is re-runnable and deterministic. The
+ten sheet-symbol uuids are hard-coded in it: every child sheet's symbol instances reference
+them as `/<root-uuid>/<sheet-uuid>`, and changing one silently disconnects that whole sheet.
+
+### DEC-0023 - `RAIL_PGOOD` stays inside `power_rails` until OQ-07 closes
+**Date** 2026-09-03 · **Status** Accepted · **Scope** `power_rails`
+
+`RAIL_PGOOD` was a hierarchical label with nothing anywhere in the project to consume it. It is
+a **sheet-local label** now.
+
+*Reasoning.* `power_rails` exported it for "the `test_debug` rail probe header and a future MCU
+GPIO". `J402` carries `+5V`, `+3V3`, `+3V3A` and three grounds with no seventh way, and OQ-07
+has never allocated the GPIO. A sheet pin on a net with one endpoint is an ERC error, and
+inventing a consumer at integration would be exactly the kind of unilateral contract change
+`AGENTS.md` forbids.
+
+*What is kept.* `D303` and `TP308` still observe the net inside `power_rails`, which is where
+`DEC-0007` puts a producer's own test point anyway. No requirement asks for PGOOD at the MCU.
+
+*How to reverse it.* **OQ-07 stays open.** Allocate one of the spare MCU pins in the `.ioc`
+(`SPARE_PA8/PA10/PB4/PB7/PC13/PE3/PE7`), then promote the label back and add the matching label
+in `mcu` — one line in each of two sheets plus a root sheet pin.
+
+### DEC-0024 - Power symbols follow the same per-sheet designator range as everything else
+**Date** 2026-09-03 · **Status** Accepted · **Scope** all sheets
+
+`#PWR` and `#FLG` references are allocated per sheet, 100 apart, by the block's page number,
+exactly like ordinary designators: `#PWR2xx` for `power_entry_24v` through `#PWR11xx` for
+`motor_drive`.
+
+*Reasoning.* `loadcell_afe` and `temp_sense` had both annotated from `#PWR001`, so 19 references
+were shared between two sheets. KiCad raises nothing — `#`-prefixed references never reach the
+netlist — but two sheets' power symbols silently become one component set, which is the same
+trap `AGENTS.md` already documents for ordinary designators, with even less warning.
+
+*State.* All 272 power and flag references across the ten sheets are unique, asserted
+programmatically. The rule is in `AGENTS.md`.
+
+### DEC-0025 - The DRV8323S land pattern is TI RTA0040B, drawn on the RHA0040B equivalence
+**Date** 2026-09-03 · **Status** Accepted · **Scope** `motor_drive`, `faff2.pretty` — closes D-MOT-01
+
+`faff2.pretty/Texas_RTA0040B_WQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm`, `FPLifecycle draft`.
+
+*Why it was owed.* `SLVSDJ3D` ships the `RTV0032E` and `RGZ0048A` package drawings and not
+`RTA0040`'s. TI's own `MPQF134A` drawing for the RTA package is the 2004 single-page style: it
+gives the outline but refers the exposed-pad dimension back to the data sheet that omits it.
+
+*How it was sourced.* TI drawing **4219112/A (07/2018), RTA0040B**, found in the DRV8353 data
+sheet pp. 98-100 and committed as `datasheets/DRV832x_RTA0040B_package_4219112A.pdf`. Set
+beside TI **4219052/A (06/2016), RHA0040B**, the two give an identical outline and an identical
+land pattern — 6.1/5.9 body, 36X 0.5 pitch, 2X 4.5 span, 40X 0.5/0.3 terminals, 4.15 ±0.1
+exposed pad, land 40X (0.6)×(0.22) inside (5.8), stencil 9X (1.17) on (1.37) — and differ only
+in package height, 0.8 mm WQFN against 1.0 mm VQFN. That difference touches the 3D model, not
+the copper.
+
+*What was drawn.* KiCad 9's official `Texas_RHA0040B` footprint is therefore a dimension-verified
+base, which is what `pcb-layout-style` allows, and its perimeter pads, silkscreen, fab outline
+and courtyard are reproduced by `tools/gen_rta0040b_footprint.py`. Two departures: the stencil
+apertures are TI's own 9X (1.17) on (1.37) rather than KiCad's 1.12 on 1.38 (71.5 % coverage
+against TI's stated 71 %), and the perimeter pads stay IPC-nominal — a superset of TI's tighter
+land, matching the house QFN footprints and leaving an inspectable toe outside the body edge.
+
+*Proof.* Geometry asserted after generation: 40 pads, ten a side, 0.5 mm pitch, 4.5 mm span,
+2.9375 row offset, EP 4.15 square. Pin 1 is the top pad of the **left** column, numbering
+anticlockwise — `SLVSDJ3D` figure 6-6, the DRV8323S top view — and the project-local `DRV8323S`
+symbol's 41 pins (pin 41 = `PAD`) match that figure name for name.
+
+*Open.* `FPLifecycle` is `draft`: the PCB wave confirms the land against a real part before the
+first order.
+
+### DEC-0026 - A review PDF is committed under `docs/review/`, deviating from `schematic-style`
+**Date** 2026-09-03 · **Status** Accepted · **Scope** `docs/review/`
+
+`docs/review/faff2_cbs1_schematic.pdf` — all 11 pages, from `kicad-cli sch export pdf`.
+
+*Reasoning.* `schematic-style` says "never produce or commit review PDFs — the client reviews in
+the KiCad GUI". The captain's integration brief asks for exactly that PDF as the deliverable, so
+the more specific and more recent instruction wins. Recorded here so nobody mistakes it for the
+general rule changing: renders remain a self-check, and the GUI remains the review surface.
+
+*Maintenance.* Regenerate it from the schematic; never hand-edit it. The command is in
+`docs/decisions/actuator-sch-integrate.md §8`.

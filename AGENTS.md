@@ -12,6 +12,7 @@ Start with [`README.md`](README.md) for the repo map, then the doc set:
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Every judgement call (`DEC-*`), dated, with reasoning. Add to it; never renumber |
 | [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) | Test points, isolation links, current breaks, bring-up order |
 | [`hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md`](hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md) | Client and in-house review points with resolutions — **read before schematic work** |
+| [`docs/decisions/actuator-sch-integrate.md`](docs/decisions/actuator-sch-integrate.md) | The wired root sheet: its layout rule, the interface reconciliations, and the design-wide audit |
 
 ## Authorities — do not contradict these
 
@@ -71,8 +72,10 @@ The schematic is ten hierarchical blocks, each in its own `.kicad_sch` under
 **two workers in one file is a guaranteed conflict.**
 
 - Own exactly one block file. Do not edit another block's sheet.
-- The **root sheet is unwired on purpose** (DEC-0009). Do not add sheet pins or root wiring;
-  that is a later integration pass, once every child declares its hierarchical labels.
+- The **root sheet is wired** (DEC-0022, closing DEC-0009): 113 sheet pins, every cross-block
+  net a real wire. Regenerate it with `tools/gen_root_sheet.py` rather than hand-editing —
+  the ten sheet-symbol uuids are hard-coded there because every child's symbol instances
+  reference them. A new hierarchical label in a block needs a matching sheet pin added there.
 - The interface list in each sheet's stub note is the **binding contract** between blocks.
   Need an interface that is not listed? Raise it — do not invent it, or two blocks will
   disagree about a shared net.
@@ -85,27 +88,24 @@ The schematic is ten hierarchical blocks, each in its own `.kicad_sch` under
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
 is the DEC-0021 baseline and the end state.
 
-**During the parallel block wave that baseline is temporarily unreachable, and that is
-expected.** Three error classes appear and clear only when the integration pass
-wires the root sheet (DEC-0009) and `power_rails` lands (OQ-02):
+**The design now meets it in full** — 409 components, 253 nets, 0/0 — so any violation you see
+is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
+`pin_not_driven`) all cleared when the root was wired; do not reintroduce them as "expected".
 
-| Class | Cause |
-|---|---|
-| `hier_label_mismatch` | one per hierarchical label — no sheet pin exists on the parent yet |
-| `label_dangling` | the same labels: KiCad 9 errors on a labelled single-pin net |
-| `power_pin_not_driven` | one per shared rail (`+3V3`, `+3V3A`, `+5V`, `GND`) — nothing drives them until `power_rails` exists |
-
-**Do not paper over these.** A PWR_FLAG on a shared rail is a power *output*: one per block
-becomes a power-output conflict at merge. Global labels instead of hierarchical ones would
-break the root-wiring plan. Keep **0 warnings**, keep every other error class at zero, and list
-the block's hierarchical labels under a "Root sheet needs" heading in its decisions file.
+**Never paper over an ERC error with a PWR_FLAG or a global label.** A PWR_FLAG is a power
+*output*, and the flags are already owned: `power_entry_24v` holds the ones for `GND` and
+`+24V_SW`, `power_rails` the ones for `V24_LOGIC`, `+5V5`, `+5V`, `+5VA`, `+3V3` and `+3V3A`.
+No other sheet may add one to those nets. A hierarchical label with only one endpoint is an ERC
+error too — if nothing consumes a net yet, keep it sheet-local (DEC-0023), don't invent a
+consumer.
 
 **Reference designators are allocated per sheet, 100 apart, by the block's page number in the
 root sheet** — `power_entry_24v` 201+, `power_rails` 301+, `test_debug` 401+, `loadcell_afe`
 501+, `linear_encoder` 601+, `temp_sense` 701+, `nvm_calibration` 801+, `ui_io` 901+, `mcu`
-1001+, `motor_drive` 1101+. Designators must be unique across the whole project; two blocks
-both starting at `U1` do not raise an ERC error, they silently merge into one component in the
-netlist. See `docs/decisions/actuator-sch-mcu.md`.
+1001+, `motor_drive` 1101+. **Power symbols and PWR_FLAGs follow the same ranges** (`#PWR5xx`,
+`#PWR7xx`, …) — DEC-0024. Designators must be unique across the whole project; two blocks both
+starting at `U1`, or both at `#PWR001`, do not raise an ERC error, they silently merge into one
+component in the netlist.
 
 ```sh
 AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib \
@@ -114,8 +114,11 @@ AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib \
 ```
 
 Then follow the rest of the `schematic-style` verification list: netlist checks for
-orientation-sensitive parts, the bundled overlap checker, and a render sweep. Renders are a
-self-check — **never commit review PDFs**; the client reviews in the KiCad GUI.
+orientation-sensitive parts, the bundled overlap checker, and a render sweep. Renders stay a
+self-check; the client reviews in the KiCad GUI. The **one** committed PDF is
+`docs/review/faff2_cbs1_schematic.pdf`, the captain's review pack — regenerate it with
+`kicad-cli sch export pdf` after any schematic change, never hand-edit it, and add no others
+(DEC-0026, a deliberate deviation from `schematic-style`).
 
 Log any new review point in `SCHEMATIC_REVIEW_LOG.md` with its resolution, and any judgement
 call in `docs/DECISIONS.md`.
