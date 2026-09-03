@@ -6198,16 +6198,6 @@
 	)
 	(wire
 		(pts
-			(xy 292.1 210.82) (xy 302.26 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f2d03304-b2a0-5479-88bc-1d9725941968")
-	)
-	(wire
-		(pts
 			(xy 297.18 176.53) (xy 297.18 181.61)
 		)
 		(stroke
@@ -6941,17 +6931,6 @@
 		)
 		(uuid "d4e5e8ef-f092-5d3a-a483-20dacdffa136")
 	)
-	(hierarchical_label "RAIL_PGOOD"
-		(shape output)
-		(at 302.26 210.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b28014d8-3418-59bc-bf38-a248c4d52edb")
-	)
 	(text "POWER SOURCE DECLARATIONS\nOne PWR_FLAG per rail produced here;\nno other sheet may add one for these nets."
 		(exclude_from_sim no)
 		(at 334.01 186.69 0)
@@ -6984,7 +6963,7 @@
 		)
 		(uuid "5a382840-9c42-55cf-b86e-8696f47f386f")
 	)
-	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, and a test point on each feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       OUT RAIL_PGOOD, open drain, wired-AND of both converters\n       through R315 / R316.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
+	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, and a test point on each feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain, the wired-AND of both converters\n       through R315 / R316. It stays SHEET-LOCAL: LED D303 and TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
 		(exclude_from_sim no)
 		(at 204.47 240.03 0)
 		(effects
