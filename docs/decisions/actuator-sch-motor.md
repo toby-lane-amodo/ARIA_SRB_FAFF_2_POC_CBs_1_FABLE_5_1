@@ -2,13 +2,13 @@
 
 Block task: **MOTOR DRIVE**, covering exactly one sheet —
 `hardware/kicad/faff2_cbs1/motor_drive.kicad_sch`. Outside that sheet this task
-added only this file, two datasheets (§8), one house-library symbol (§2.1) and
-two lines in `AGENTS.md` (§7.2).
+added only this file, two datasheets (§8), one project-local symbol library (§9),
+its `sym-lib-table` entry, and two sharp edges in `AGENTS.md` (§7.2).
 
 Everything here is subordinate to the authorities named in `AGENTS.md`. The
 `.ioc` is quoted, never changed: **no pin on this board was re-assigned.**
 
-77 components, 100 nets, 24 hierarchical labels.
+77 components, 100 nets, 25 hierarchical labels.
 
 ---
 
@@ -42,7 +42,8 @@ on a board whose headline requirement is 2.4 µV pk-pk load-cell noise
 MSL-1 against the RS's MSL-2/1-year.
 
 *Consequence — one footprint is owed.* No 40-pin 6×6 mm 0.5 mm-pitch QFN exists
-in `Amodo.pretty`, so the symbol ships with an **empty Footprint field** and a
+in the house footprint library, so the symbol ships with an **empty Footprint
+field** and a
 `ki_fp_filters` of `*WQFN*40*6x6mm*P0.5mm*`. It is deliberately empty rather than
 pointing at a footprint that does not exist. Drawing it is PCB-wave work
 (`pcb-layout-style`), and it needs a land pattern this task could not obtain:
@@ -293,15 +294,16 @@ bridge rail even with `R1201` out (SLVSDJ3D §11.1).
 
 | Class | Count | Why, and what clears it |
 |---|---|---|
-| `hier_label_mismatch` | 24 | One per hierarchical label — no sheet pin exists on the parent yet (DEC-0009). Clears at the root-wiring integration pass. |
-| `label_dangling` | 24 | The same 24 labels: KiCad 9 errors on a labelled single-pin net. Same fix. |
+| `hier_label_mismatch` | 25 | One per hierarchical label — no sheet pin exists on the parent yet (DEC-0009). Clears at the root-wiring integration pass. |
+| `label_dangling` | 25 | The same 25 labels: KiCad 9 errors on a labelled single-pin net. Same fix. |
 | `pin_not_driven` | 7 | `INHA`–`INLC` and `CAL` on U1101 are inputs whose drivers (TIM1 and PD5) live on the `mcu` sheet. Clears with the same root wiring. |
-| `power_pin_not_driven` | 1 | `+24V_SW`, driven once `power_entry_24v` lands. |
+
 
 **Nothing else.** No `pin_not_connected`, no `wire_dangling`, no
-`unconnected_wire_endpoint`, no `multiple_net_names`, no `lib_symbol_issues`, no
-`endpoint_off_grid`, no warnings, and nothing suppressed — `faff2_cbs1.kicad_pro`
-still carries no ERC severity overrides.
+`unconnected_wire_endpoint`, no `multiple_net_names`, no `power_pin_not_driven`,
+no `lib_symbol_issues`, no `endpoint_off_grid`, no warnings, and nothing
+suppressed — `faff2_cbs1.kicad_pro` still carries no ERC severity overrides.
+The bundled `schematic-style` overlap checker also reports this sheet **clean**.
 
 The one **PWR_FLAG** on the sheet (`#FLG1101`, on `VM_DRV`) is deliberate and
 permanent. `AGENTS.md` forbids flags on *shared* rails because one per block
@@ -335,10 +337,18 @@ Every hierarchical label this sheet exposes. Direction is given from
 | `MOTOR_ENCODER_A` / `_B` / `_I` | in | PC6 / PC7 / PC8 | TIM3 CH1 / CH2 / CH3 |
 | `HALL1` / `HALL2` / `HALL3` | in | PE14 / PD14 / PD15 | GPIO in |
 
-Power nets consumed, as global power symbols rather than hierarchical labels:
-**`+24V_SW`** (from `power_entry_24v`), **`+3V3`**, **`+5V`** (the DNP encoder
-supply option only) and **`GND`**. Sheet-local nets that the root must *not* try
-to wire: `V24_MOT`, `VM_DRV`, `VENC`, `MOTOR_U` / `_V` / `_W`.
+| `+24V_SW` | in | — | motor bus from `power_entry_24v` (**hierarchical label**, see below) |
+
+`+24V_SW` is consumed as a **hierarchical label**, not as a global power symbol,
+because `power_entry_24v` exports it as a sheet pin
+(`docs/decisions/actuator-sch-power.md`). Getting this wrong is silent: a global
+`+24V_SW` power symbol here would have made a *separate* net that never touches
+the power block's, and the only symptom was one `power_pin_not_driven`.
+
+Power nets consumed as global Amodo power symbols, which need no sheet pin:
+**`+3V3`**, **`+5V`** (the DNP encoder-supply option only) and **`GND`**.
+Sheet-local nets the root must *not* try to wire: `V24_MOT`, `VM_DRV`, `VENC`,
+`MOTOR_U` / `_V` / `_W`.
 
 ---
 
@@ -391,7 +401,15 @@ the load cell out of the force path.
 
 ## 9. Library part added
 
-`DRV8323S` in `/mnt/c/Amodo/AmodoKiCadLib/Amodo_Motor_ICs.kicad_sym`
-(`SymLifecycle = draft`, `mpn = DRV8323SRTAR`). Pin numbers, names and electrical
+`DRV8323S` lives in **`hardware/kicad/faff2_cbs1/faff2_motor.kicad_sym`**, a
+project-local library, with a `sym-lib-table` entry bound through `${KIPRJMOD}`.
+`SymLifecycle = draft`, `mpn = DRV8323SRTAR`. Pin numbers, names and electrical
 types are transcribed from SLVSDJ3D Table 6-3, DRV8323S column — the only 40-pin
-SPI variant. No other Amodo category file was touched.
+SPI variant.
+
+The **Amodo house library is read-only** and is left byte-identical: the symbol
+was first added there and then migrated out, and
+`/mnt/c/Amodo/AmodoKiCadLib/Amodo_Motor_ICs.kicad_sym` was reverted with a
+targeted `git checkout --` on that one file. No footprint was added anywhere, so
+this block needs no `fp-lib-table` entry — see D-MOT-01 for the footprint that is
+owed to the PCB wave.

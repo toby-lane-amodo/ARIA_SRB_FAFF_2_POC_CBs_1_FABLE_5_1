@@ -144,6 +144,14 @@ call in `docs/DECISIONS.md`.
   sub-symbols keep the **bare** library name (`RES_TF_10k_0603_1_1`, not
   `Amodo_Resistors:RES_TF_10k_0603_1_1`). Prefixing them gives "Failed to load schematic".
 - A child sheet's own `(uuid …)` must **not** equal the uuid of its sheet symbol in the root.
+- A symbol instance's `(instances (project … (path "…")))` must start at the **root** sheet
+  uuid: `/<root-uuid>/<sheet-uuid>`, not `/<sheet-uuid>`. With the short form KiCad still
+  shows the right references, but the pins drop out of hierarchical connectivity and ERC
+  invents `wire_dangling` / `label_dangling` / `pin_not_driven` on wiring that is correct.
+  It only shows up when ERC is run from the root, never on the sheet standalone.
+- `kicad-cli sch erc` prints **"Found 0 violations" when the sheet failed to load** — the
+  "Failed to load schematic" line goes to stderr. Never read a clean ERC without also
+  checking stderr, or the component count from a netlist export.
 - The `schematic-style` overlap checker reports a false `body-vs-wire` on **multi-unit**
   symbols: it merges every unit's graphics into each instance's body box, so one unit's body
   appears at another unit's position. Confirm against the single unit's own extents before
