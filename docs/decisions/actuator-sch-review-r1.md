@@ -855,3 +855,15 @@ DEC-P1 now carries the note.
 
 Net count 262 -> 264: the two unused PG pins each become an `unconnected-(...)`
 net. Components unchanged at 408. ERC 0/0.
+
+## Item 5 - ESD stays off the AFE inputs: closed
+
+The captain confirmed the round-2 audit's answer, so this is no longer an open
+question. **`DEC-0027`** records it design-wide: the reasoning (clamp capacitance
+and leakage land straight on the `REQ-FF-04` measurement, and the bridge is
+ratiometric so an asymmetric load becomes a differential error), the policy it is
+an instance of rather than an exception to, and the condition that would reopen
+it - either connector reaching a panel, or the probes becoming field-swappable.
+
+No schematic change. The audit table in round 2 item 3 stays the working
+reference for every other interface.

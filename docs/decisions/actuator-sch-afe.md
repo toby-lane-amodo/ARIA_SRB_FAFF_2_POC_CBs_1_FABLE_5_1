@@ -266,6 +266,15 @@ adopts the house standard's per-net test-point selection. Project artefacts
 outrank general practice (`DEC-0018` precedence), so hooks are used; the
 system-level debug header stays `test_debug`'s.
 
+### DEC-A13 — No ESD protection on `J501`, `J701` or `J702` (closed, `DEC-0027`)
+
+Confirmed by the captain in review round 3. A clamp's capacitance and reverse leakage land
+directly on the paths `REQ-FF-04` is written about, and on the ratiometric bridge an asymmetric
+load becomes a differential error. Both connectors are internal and not hot-plugged in service.
+`DEC-0027` carries the full reasoning and the condition that reopens it; the design-wide,
+exposure-based protection policy this follows is audited interface by interface in
+`docs/decisions/actuator-sch-review-r1.md`, round 2 item 3.
+
 ### DEC-A11 — One ground, and no PWR_FLAGs on these sheets
 
 `GND` is a single net across both sheets; there is no separate AGND. Analog and

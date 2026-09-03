@@ -483,3 +483,29 @@ general rule changing: renders remain a self-check, and the GUI remains the revi
 
 *Maintenance.* Regenerate it from the schematic; never hand-edit it. The command is in
 `docs/decisions/actuator-sch-integrate.md §8`.
+
+### DEC-0027 - No ESD protection on the AFE analog inputs, and the policy that puts it elsewhere
+**Date** 2026-09-03 · **Status** Accepted, closed by the captain · **Scope** `loadcell_afe`, `temp_sense`
+
+`J501` (load cell) and `J701`/`J702` (the two RTD probe channels) carry **no clamp, no TVS and no
+series-RC**. The captain confirmed this in review round 3 after the round-2 ESD audit put the
+question to them, so it is closed, not deferred.
+
+*Reasoning.* A diode's capacitance and its reverse leakage land directly on the measurement. These
+are the paths `REQ-FF-04` is written about - 2.4 µV pk-pk input-referred noise at the ADC - and a
+few pA of temperature-dependent leakage through a clamp into a 1 kΩ-ish source impedance is a
+drift term nothing downstream can remove. The bridge path is also ratiometric, so anything that
+loads one leg and not the other becomes a differential error. Neither connector leaves the
+enclosure, neither is hot-plugged in service, and `REQ-SC-01` scopes the board as a prototype with
+no formal EMC testing and no CE mark.
+
+*The policy this is an instance of, not an exception to.* Protection on this board is
+**exposure-based, not per-connector**: it goes where a pin is exposed outside the enclosure or gets
+hot-plugged, and everywhere else the current is bounded by a series resistor and an RC into a
+device that can absorb it. The full interface-by-interface audit, including the one gap it found
+(`J1101`/`J1102`, closed with `R1128`-`R1133`), is the table in
+`docs/decisions/actuator-sch-review-r1.md`, round 2 item 3.
+
+*What this does not license.* If either connector is ever brought to a panel, or the probes become
+field-swappable, this decision has to be reopened - the reasoning above is entirely about them
+being internal.
