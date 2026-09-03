@@ -270,3 +270,84 @@ One finding left on this sheet: `body-vs-body R314 / D303`, the rotated-symbol
 artefact described at the top of this file - the checker reflects `D303`'s body
 about its origin and lands it on `R314`. The render shows 2.5 mm of clear space
 between them.
+
+---
+
+## Batch 3 - `motor_drive` (refdes 11xx)
+
+Four captain points. Point 4 is an authorised design change and adds six parts:
+**398 -> 404 components, 251 nets unchanged**, ERC 0/0. The only nets that move
+are `V24_MOT` and `GND`, each gaining the six new capacitor pins; every other net's
+node set is identical to `main`. Applied by `tools/apply_review_r1_motor.py`.
+
+| # | Captain's point | What was done |
+|---|---|---|
+| 1 | "R1101 and R1102 are in series, so I think the comment is wrong about fitting one vs the other. Also, the comment says R101 and R102, which I think is a mistake?" | The refdes were wrong - **the captain is right, they should read R1101/R1102** - and the note was written so it *could* be read as alternatives. The circuit is genuinely two 0R in series, both fitted (`actuator-sch-motor.md` D-MOT-14 says so explicitly), so this is a wording fix, not a rewire. The note now leads with "in SERIES and both fitted ... not alternatives to each other" and gives each link its own job |
+| 2 | "Text overlap around C1101" | Real: at the old 8.89 pitch, `C1101`'s reference ran 0.33 mm into `C1102`'s body, and the same for the next two. The bulk column is respaced to 57.15 / 68.58 / 80.01 / 90.17, and `TP1103` moved 5.08 right - its pad sat in the row the capacitor values occupy, so widening the column pushed `C1104`'s value onto it |
+| 3 | "Same as other sheet review for sheet entry / exit labels justification. This text should not overlap the wires." | **Eight labels fixed.** Seven had their wire arriving from the *left* while the label was `rot 180` + `justify right`, so the text grew back along the wire and the wire ran straight through it - `MOTOR_FETTEMP`, `MOTOR_ENCODER_A/B/I`, `HALL1/2/3`. All are now `rot 0` + `justify left`: flag at the wire's end, text to the right in clear space, in one aligned column at x=91.44 (moved in from 99.06 so the longest name fits inside the block). The eighth, `+24V_SW`, was `rot 90`, and its vertical text ran up into the block title; it is horizontal now. The other seventeen labels on the sheet already had their wire on the right and were left alone |
+| 4 | "Should there be some bulk decoupling on this sheet? Also, decoupling per FET, or is this not usually done?" | Answered below, and six capacitors added |
+
+### Point 4 - the answer, and what was added
+
+**Bulk decoupling was already there; what was missing was decoupling at the
+bridge.** Three separate jobs, and the sheet only did two of them:
+
+| Job | Where | Was it there? |
+|---|---|---|
+| DC-link bulk store | `C1101`-`C1104`, 210 µF at the bus entry | yes |
+| Gate-driver VM bypass | `C1109` 100 nF + `C1110` 10 µF at U1101 | yes - exactly TI's "0.1 µF ceramic and >= 10 µF local capacitance between VM and PGND" |
+| **Half-bridge commutation loop** | at each leg | **no - nothing at all in the power-stage block** |
+
+TI asks for the third one in as many words (SLVSDJ3D §10): *"Additional bulk
+capacitance is required to bypass the external half-bridge MOSFETs"*, and §11.1:
+*"placed such that it minimizes the length of any high current paths through the
+external MOSFETs."* The house standard makes the same argument from the other end
+- return current follows the lowest-impedance path, and a large loop is what
+radiates. The 210 µF sits at the sheet's bus entry, the far side of `R1101`,
+`R1102` and the whole `V24_MOT` run; it cannot be in the commutation loop.
+
+**Added: one 2.2 µF 1206 100 V X7R + one 100 nF 0805 100 V per half-bridge** -
+`C1119`/`C1120` phase U, `C1121`/`C1122` phase V, `C1123`/`C1124` phase W, each
+from `V24_MOT` to `GND`, drawn beside its own leg. Sizing: the loop has to supply
+the phase-current step at each edge; at the sheet's own operating point (1.9 A,
+20 kHz - the figure the DC-link ripple note already uses) and a ~100 ns edge, that
+is ~190 nC, so 0.4 V of sag needs ~0.5 µF. 2.2 µF at 100 V derates very little at
+24 V and leaves 4x margin. The 100 nF in the smaller 0805 has the lower ESL and
+takes the fast edge - the same two-part pattern the sheet already uses at the bus
+entry and at VM.
+
+**"Decoupling per FET" is not a thing, and that is the useful half of the answer.**
+A capacitor across a single MOSFET is a *snubber*, not decoupling: it damps
+ringing, costs switching loss, and needs a series resistor sized against the
+measured ringing frequency. It is a bring-up decision taken with a scope on the
+switch node, not a default. The right granularity for decoupling is the
+half-bridge - one pair per leg, which is what was added.
+
+### Where the caps could and could not go
+
+The first placement shorted two gate nets to ground and had to be redone. The
+DRV8323's gate and SHx fan-out leaves U1101 as a **diagonal staircase** - five
+horizontals per phase group, each turning down a vertical at x = 260.35, 265.43,
+270.51, 275.59, 280.67, 285.75, 290.83, 295.91, 300.99, 306.07, 311.15, 316.23,
+321.31, 326.39. Two of the first cap columns landed exactly on x=270.51 and
+x=280.67, and a vertical stub **collinear with an existing wire merges into it** -
+so each capacitor bridged a gate net to `GND`. ERC caught it as
+`pin_to_pin` between `GHC` and a `PWR_FLAG` two sheets away.
+
+The lesson is the general one: **do not infer free space from a partial wire
+dump.** The three bands finally used were checked against every wire in the block
+for overlap *and* crossing, and none of the new geometry does either:
+
+| Leg | Cap pair | Band, and why it is clear |
+|---|---|---|
+| U | `C1119`/`C1120` at x=275.59 / 285.75, y=73.66 | between the phase-A fan-out (ends y=72.39) and the phase-B one (starts y=87.63); the verticals at those x start at y>=97.79 |
+| V | `C1121`/`C1122` at x=311.15 / 321.31, y=102.87 | right of the fan-out; x=311.15's vertical ends at y=100.33, x=316.23's at 91.44 |
+| W | `C1123`/`C1124` at x=292.10 / 302.26, y=153.67 | below the phase-B verticals (all end by y=151.13) and above phase C's gates (y=167.64) |
+
+### Noted, not changed
+
+`MOTOR_ENCODER_A/B/I` and `HALL1/2/3` are declared `input` on this sheet, but
+`J1101`/`J1102` are the connectors those signals *come from* - they read like
+outputs of `motor_drive`. ERC is clean and the root agrees, so the shapes are at
+least self-consistent; raising it rather than changing an interface contract
+mid-review.
