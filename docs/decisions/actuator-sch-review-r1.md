@@ -456,3 +456,28 @@ rely on this and all of them render correctly. The rule now permits rotation wit
 that condition and the requirement to prove it in a render, and still points at
 `faff2_passives.kicad_sym` as the lower-effort path. Ruled by firstmate on the
 captain's behalf; the 11 instances from batches 1 and 2 stand.
+
+---
+
+# Round 2 - the captain's second pass
+
+## Item 1 - `U301` back to the LMR33630
+
+The captain overruled the reference-design part swap, for `U301` only. Reverted:
+the buck, `R304` (16.9k back to 22.1k), `L301` (33 µH back to 15 µH), and the
+three parts the LMR51610 had no pins for - `C304` on V<sub>CC</sub>, the
+thermal-pad ground, and `R315` in the PG leg. `RAIL_PGOOD` is the wired-AND of
+both converters again.
+
+Restoration is **verbatim from 48a5f4f**, the last tree with the LMR33630, so the
+seven symbols come back with their original uuids rather than as look-alikes, and
+the sheet notes revert with them.
+
+Everything else round 1 did to this sheet stands, because none of it depended on
+which buck was fitted: the five dual test points, the horizontal 0R links and
+ferrite, the vertical power LED, and - the point worth stating - **no test point
+on either feedback node**. `TP301` stays deleted.
+
+406 components, 253 nets (`Net-(U301-VCC)` and `Net-(U301-PG)` are back), ERC 0/0.
+`datasheets/LMR51610.pdf` stays committed; it is the record of why the swap was
+evaluated and what it would have cost.
