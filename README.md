@@ -16,10 +16,15 @@ Two build variants, differing only in maximum force: **V50N** (± 50 N) and **V1
 
 ## Status
 
-Foundation only. The repository holds the requirements, the architecture, the decision log, the
-test plan, and a **KiCad 9 schematic skeleton**: a root block map plus ten empty hierarchical
-block sheets. **No circuit design has been done inside the blocks yet** — that is the next wave
-of work, one task per block sheet.
+**Schematic complete and integrated**, awaiting client review. All ten blocks are drawn, the
+root sheet is wired, and the design is internally consistent: 409 components, 253 nets,
+113 sheet pins, **0 ERC errors and 0 warnings** at `--severity-all` with nothing suppressed.
+Every component has a footprint that resolves.
+
+The review pack is [`docs/review/faff2_cbs1_schematic.pdf`](docs/review/faff2_cbs1_schematic.pdf);
+the open points the captain is asked to rule on are in
+[`hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md`](hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md),
+round 1. **PCB layout is the next wave**; no board file exists yet.
 
 ## Repository map
 
@@ -33,9 +38,12 @@ docs/
   TEST_PLAN.md                   test points, isolation, current breaks, bring-up order
   FAFF-2-Electronics-Full.svg    THE block diagram (authoritative architecture)
   HardwareDesignStandard_DRAFT/  captain's in-house EEE design standard (verbatim draft)
+  decisions/                     one record per schematic task, incl. actuator-sch-integrate.md
+  review/                        the schematic review pack PDF (regenerate, never hand-edit)
 hardware/
   kicad/faff2_cbs1/              the KiCad 9 project - see below
   cubemx/                        the STM32CubeMX .ioc - THE MCU pin-map authority
+tools/                           re-runnable generators for the root sheet and the DRV8323S land
 datasheets/                      collected datasheets (see its README for the shopping list)
 ```
 
@@ -45,7 +53,7 @@ datasheets/                      collected datasheets (see its README for the sh
 
 | Sheet | Block |
 |---|---|
-| `faff2_cbs1.kicad_sch` | root — block map, deliberately unwired (DEC-0009) |
+| `faff2_cbs1.kicad_sch` | root - the block map, wired: 113 sheet pins (DEC-0022) |
 | `power_entry_24v.kicad_sch` | 24 V in on KPJX-4S, protection |
 | `power_rails.kicad_sch` | 24 V → 5 V / 3V3 / analog rails |
 | `mcu.kicad_sch` | STM32H723VET6, USB3320 ULPI PHY, USB-C, QSPI RAM |
