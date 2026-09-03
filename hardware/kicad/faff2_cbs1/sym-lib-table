@@ -30,5 +30,6 @@
   (lib (name "Amodo_Transformers")(type "KiCad")(uri "${AMODO_KICAD_LIB}/Amodo_Transformers.kicad_sym")(options "")(descr "Amodo house library - Transformers"))
   (lib (name "Amodo_Transistors")(type "KiCad")(uri "${AMODO_KICAD_LIB}/Amodo_Transistors.kicad_sym")(options "")(descr "Amodo house library - Transistors"))
   (lib (name "faff2_afe")(type "KiCad")(uri "${KIPRJMOD}/faff2_afe.kicad_sym")(options "")(descr "FAFF 2 CBs_1 project-local parts - analog front end"))
+  (lib (name "faff2_motor")(type "KiCad")(uri "${KIPRJMOD}/faff2_motor.kicad_sym")(options "")(descr "FAFF 2 CBs_1 project-local parts - motor_drive block"))
   (lib (name "faff2_periph")(type "KiCad")(uri "${KIPRJMOD}/faff2_periph.kicad_sym")(options "")(descr "FAFF 2 CBs_1 project-local parts - peripheral blocks"))
 )
