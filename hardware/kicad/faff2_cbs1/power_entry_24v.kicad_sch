@@ -7,22 +7,8769 @@
 	(title_block
 		(title "CBs_1 - Power Entry 24 V")
 		(date "2026-09-02")
-		(rev "0.1")
+		(rev "0.2")
 		(company "Amodo Design")
-		(comment 1 "Stub sheet - no circuitry drawn yet")
-		(comment 2 "Owned by one follow-up block task; see AGENTS.md")
-		(comment 3 "Requirements: docs/REQUIREMENTS.md")
-		(comment 4 "Test strategy: docs/TEST_PLAN.md")
+		(comment 1 "24 V in on KPJX-4S: fuse, CM choke, reverse polarity, TVS")
+		(comment 2 "Independent motor / logic branch links (TEST_PLAN 3.3)")
+		(comment 3 "Requirements: REQ-EL-01..04 - docs/REQUIREMENTS.md")
+		(comment 4 "Design reasoning: docs/decisions/actuator-sch-power.md")
 	)
-	(lib_symbols)
-	(text "BLOCK: power_entry_24v\n\nSCOPE\n  24 V DC input via KPJX-4S latching circular connector (REQ-EL-04).\n  Reverse-polarity protection, inrush limiting, input fusing, TVS clamp,\n  input bulk capacitance and common-mode filtering for the 24 V rail.\n  Owns the +24V master isolation link and its current-measurement break.\n  Provides the V24_MON divider into the STM32 internal ADC (PC1/ADC1_INP11).\n\nINTERFACES - the binding contract between blocks.\nReconciled against docs/FAFF-2-Electronics-Full.svg (block diagram) and\nhardware/cubemx/ARIA_SRB_FAFF_2_POC_CBs_1.ioc (MCU pin-map authority).\nNeed something not listed here? Raise it - do not invent it.\n  IN   J-PWR : 24 V DC, 25 W peak / 7 W typical (REQ-EL-02/03)\n  OUT  +24V_SW, PGND -> power_rails, motor_drive\n  OUT  V24_MON (scaled, filtered) -> mcu PC1\n  TEST TP +24V_IN, TP +24V_SW, TP PGND; LK current break on +24V_SW\n\nSTATUS: stub. No circuitry drawn yet - this sheet is reserved for the\nfollow-up block task that owns this file. Invoke /schematic-style before\nthe first edit, and delete this note once the block is drawn."
+	(lib_symbols
+		(symbol "Amodo_Connectors:KYCON_KPJX_4S"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "KPJX-4S"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:KPJX-4S"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.kycon.com/Catalog_PDF/KPJX.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "KYCON Circular Power Connector, Right Angle, Through Hole, Un-Shielded, 4-Contact, Snap Lock"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "KPJX-4S"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Drawing" "https://anacapa.kycon.com/Pub_Eng_Draw/KPJX-4S.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "KYCON_KPJX_4S_1_1"
+				(rectangle
+					(start 0 0)
+					(end 3.81 -12.7)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -3.81 -1.27 0)
+					(length 3.81)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -3.81 -3.81 0)
+					(length 3.81)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -3.81 -6.35 0)
+					(length 3.81)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -3.81 -8.89 0)
+					(length 3.81)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -3.81 -11.43 0)
+					(length 3.81)
+					(name "SH"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Resistors:RES_TF_0R_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 1.27 -0.635 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "0R"
+				(at 1.27 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "RC0603FR-070RL"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_0R_0603_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Symbols:GND"
+			(power)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(hide yes)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Fuses:FUSE_2A_T_125V_SMT_REPLACEABLE"
+			(pin_numbers
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "F"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "2A T"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:FUSE_157T_LittelFuse"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.littelfuse.com/media?resourcetype=datasheets&itemid=0da7cbeb-7930-4e88-8811-a4d412083c1d&filename=littelfuse-fuse-157-datasheet"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Littelfuse 157 Fuse/Clip assembly. Replacable.  Time-lag."
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "0157002.DRT"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "FUSEmpn" "0452002.MRL"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "FUSE_2A_T_125V_SMT_REPLACEABLE_0_1"
+				(rectangle
+					(start -1.27 0.508)
+					(end 1.27 -0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "FUSE_2A_T_125V_SMT_REPLACEABLE_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Inductors:PLT10HH1026R0PN#"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "L"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "20 uH"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:PLT10HH101150PN#"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.murata.com/products/productdata/8796754935838/QFLB9101.pdf?1715571029000"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Common mode choke, 1000R@10MHz, 6A, 100V,"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "PLT10HH1026R0PN#"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PLT10HH1026R0PN#_0_1"
+				(polyline
+					(pts
+						(xy 1.27 -1.524) (xy 6.35 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.286) (xy 6.35 -2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 2.54 0)
+					(mid 1.905 -0.6323)
+					(end 1.27 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 -3.81)
+					(mid 1.905 -3.1777)
+					(end 2.54 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 3.81 0)
+					(mid 3.175 -0.6323)
+					(end 2.54 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 2.54 -3.81)
+					(mid 3.175 -3.1777)
+					(end 3.81 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 5.08 0)
+					(mid 4.445 -0.6323)
+					(end 3.81 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 3.81 -3.81)
+					(mid 4.445 -3.1777)
+					(end 5.08 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 6.35 0)
+					(mid 5.715 -0.6323)
+					(end 5.08 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 5.08 -3.81)
+					(mid 5.715 -3.1777)
+					(end 6.35 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "PLT10HH1026R0PN#_1_1"
+				(circle
+					(center 0.635 -0.635)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0.635 -3.175)
+					(radius 0.0001)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 0)
+					(length 1.27)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 0)
+					(length 1.27)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 0 180)
+					(length 1.27)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -3.81 180)
+					(length 1.27)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Symbols:PWR_FLAG"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board no)
+			(property "Reference" "#FLG"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "pwr"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Capacitors:CAP_MLCC_1uF_0805_10%_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 1.905 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "1uF"
+				(at 1.905 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Amodo:C_0805_2012Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRJ21BC72A105KE11-02A.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD MLCC Capacitor 1uF 0805 10% X7S 100V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "GRJ21BC72A105KE11L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Voltage" "100V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CAP_MLCC_1uF_0805_10%_100V_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CAP_MLCC_1uF_0805_10%_100V_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Capacitors:CAP_MLCC_100nF_0805_10%_100V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 1.905 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "100nF"
+				(at 1.905 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Amodo:C_0805_2012Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Multilayer Ceramic Capacitor, 0.1 µF, 100 V, 0805 [2012 Metric], ± 10%, X7R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "08051C104K4T4A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPC0402104-50-X7R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "draft"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Voltage" "100V"
+				(at 4.572 -3.302 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "CAP_MLCC_100nF_0805_10%_100V_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CAP_MLCC_100nF_0805_10%_100V_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Connectors:TestPointHook"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Test Point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "5002"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPointHook_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPointHook_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Power_Transistors:DMP6023LFG-7"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 2.032 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "DMP6023LFG-7"
+				(at 2.032 -0.508 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "Amodo:DMP4013LFG7"
+				(at 21.59 -94.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.diodes.com//assets/Datasheets/DMP6023LFG.pdf"
+				(at 21.59 -194.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "MOSFET P-Ch 60V Enh Mode 20Vgs 53.1nC 2569pF"
+				(at 0 16.764 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "DMP6023LFG-7"
+				(at 21.59 -794.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 14.986 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "DMP6023LFG-7_0_1"
+				(polyline
+					(pts
+						(xy -2.286 1.905) (xy -2.286 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.286 0) (xy -3.81 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 2.286) (xy -1.778 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 0.508) (xy -1.778 -0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -1.27) (xy -1.778 -2.286)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -1.778) (xy 0.762 -1.778) (xy 0.762 1.778) (xy -1.778 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy -1.016 0.381) (xy -1.016 -0.381) (xy 0 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 0 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 0) (xy -1.778 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -0.127) (xy 1.143 0.508) (xy 0.381 0.508) (xy 0.762 -0.127)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -0.254) (xy 1.143 -0.127) (xy 0.381 -0.127) (xy 0.254 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "DMP6023LFG-7_1_1"
+				(pin input line
+					(at -6.35 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Resistors:RES_TF_100k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "100k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 100k 0603 1% 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERJ-3EKF1003V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPR0603100K"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_100k_0603_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Capacitors:CAP_MLCC_100nF_0603_20%_50V"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 1.905 1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "100nF"
+				(at 1.905 -1.27 0)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Amodo:C_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/KEM_C1023_X7R_AUTO_SMD-3316698.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD MLCC Capacitor 100nF 0603 20% X7R 50V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "C0603C104M5RACAUTO"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPC0603104-50-X7R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CAP_MLCC_100nF_0603_20%_50V_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CAP_MLCC_100nF_0603_20%_50V_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Resistors:RES_TF_47k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "47k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 47k 0603 1% 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERJ-3EKF4702V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPR060347k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_47k_0603_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Diodes:5.0SMDJ26A"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0.254 2.794 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "5.0SMDJ26A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:DO-214AB"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.littelfuse.com/assetdocs/tvs-diodes-5-0smdj-datasheet?assetguid=2B2F4A8C-2E81-4894-8D41-3D748BB79E68"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "ESD Protection Diodes / TVS Diodes 5kW 26V 5% Uni-Directional"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "5.0SMDJ26A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "5.0SMDJ26A_0_1"
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy 3.81 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "5.0SMDJ26A_1_1"
+				(polyline
+					(pts
+						(xy 3.556 -1.27) (xy 3.81 -1.016) (xy 3.81 1.016) (xy 4.064 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 0)
+					(length 1.27)
+					(name "A1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 1.27)
+					(name "A2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Capacitors:CAP_ALU_100UF_SMD_20%_63V"
+			(pin_numbers
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "100uF"
+				(at 4.318 2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:C_ALU_D10_L10.2_SMT_ANTI-VIBE"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1181.pdf"
+				(at -0.254 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Electrolytic Capacitor, 100 µF, 63 V, ± 20%, SMD, 2000 hours @ 105°C, Polar, Anti-Vibration Can"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "EEE-FK1J101V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Voltage" "63V"
+				(at 4.318 -0.508 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "CAP_ALU_100UF_SMD_20%_63V_0_1"
+				(polyline
+					(pts
+						(xy -1.524 1.778) (xy -0.508 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.016 1.27) (xy -1.016 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CAP_ALU_100UF_SMD_20%_63V_1_1"
+				(arc
+					(start -1.524 -0.7619)
+					(mid 0 -0.4137)
+					(end 1.524 -0.7619)
+					(stroke
+						(width 0.33)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Resistors:RES_TF_22k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "22k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 22k 0603 1% 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERJ-3EKF2202V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPR060322k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_22k_0603_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_LEDs:LED_SMD_0805_GREEN"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0.508 3.048 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SM0805UGC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:LED 0805 SM0805"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/50/SM0805UGC-3001967.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Ultra Green 525 nm Water Clear 0805 2.2mcd 2V 5mA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "SM0805UGC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "draft"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_SMD_0805_GREEN_0_1"
+				(polyline
+					(pts
+						(xy 5.08 1.27) (xy 5.08 -1.27)
+					)
+					(stroke
+						(width 0.25)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.715 0.635) (xy 6.985 1.905) (xy 6.985 1.27) (xy 6.985 1.905) (xy 6.35 1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.985 0.635) (xy 8.255 1.905) (xy 8.255 1.27) (xy 8.255 1.905) (xy 7.62 1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_SMD_0805_GREEN_1_1"
+				(polyline
+					(pts
+						(xy 2.54 1.27) (xy 2.54 -1.27) (xy 5.08 0) (xy 2.54 1.27)
+					)
+					(stroke
+						(width 0.25)
+						(type default)
+					)
+					(fill
+						(type color)
+						(color 0 255 0 1)
+					)
+				)
+				(pin input line
+					(at 0 0 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Resistors:RES_TF_0R_1206_10A"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "0R"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_1206_3216Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/PYu_PT_Group_521_RoHS_L_2-3003082.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 0R 1206 5% 0.25W 10A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "PT1206-R-070RL"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "draft"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Imax" "10A"
+				(at 2.54 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_0R_1206_10A_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Resistors:RES_TF_10k_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "10k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERJ-3EKF1002V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" "GPR060310K"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RES_TF_10k_0603_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Amodo_Connectors:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Test Point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "tested"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 21.59 49.53) (xy 21.59 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "edb8890e-40de-5731-a07c-a84525455153")
+	)
+	(wire
+		(pts
+			(xy 21.59 49.53) (xy 33.02 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e262592-daa1-54ff-8769-13301db4cbc3")
+	)
+	(wire
+		(pts
+			(xy 21.59 52.07) (xy 21.59 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "821adbd9-6eb7-5dd6-9b8c-71a9c664461e")
+	)
+	(wire
+		(pts
+			(xy 21.59 52.07) (xy 33.02 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50d5eb58-b4e5-5bd3-bd63-1447e0c62462")
+	)
+	(wire
+		(pts
+			(xy 21.59 82.55) (xy 24.13 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff27311f-80bc-5572-b282-49581e8d446d")
+	)
+	(wire
+		(pts
+			(xy 24.13 82.55) (xy 57.15 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "842b24f0-c405-5636-9cff-f8d6dae17bc6")
+	)
+	(wire
+		(pts
+			(xy 26.67 54.61) (xy 26.67 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5a0e788-d2a0-5e37-8ec0-c5fa3808e339")
+	)
+	(wire
+		(pts
+			(xy 26.67 54.61) (xy 33.02 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88e24ff2-b8d5-5f5e-b0ee-95a2a1799edb")
+	)
+	(wire
+		(pts
+			(xy 26.67 62.23) (xy 26.67 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be7f69fa-c464-5cdb-a2fe-8379a793b98e")
+	)
+	(wire
+		(pts
+			(xy 27.94 38.1) (xy 27.94 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24fead8e-9875-54a1-b067-e61d955bb2fc")
+	)
+	(wire
+		(pts
+			(xy 27.94 38.1) (xy 29.21 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f559b41-4573-509a-8d20-544c1404686d")
+	)
+	(wire
+		(pts
+			(xy 27.94 44.45) (xy 27.94 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5724914f-8bcb-5bb5-b6c9-6d65a6d265eb")
+	)
+	(wire
+		(pts
+			(xy 27.94 44.45) (xy 33.02 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b82b6006-f68c-57c4-9a99-52858035d41d")
+	)
+	(wire
+		(pts
+			(xy 27.94 46.99) (xy 33.02 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50b9622d-4455-56c5-a8dc-a735834e0560")
+	)
+	(wire
+		(pts
+			(xy 29.21 38.1) (xy 38.1 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0a8ac56a-1924-5784-af6e-af1bc481143f")
+	)
+	(wire
+		(pts
+			(xy 38.1 31.75) (xy 38.1 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f396046f-3003-5017-b319-11abfd9176d9")
+	)
+	(wire
+		(pts
+			(xy 38.1 38.1) (xy 44.45 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81bdbddd-b94e-5b3c-8e88-e7f836c60c28")
+	)
+	(wire
+		(pts
+			(xy 44.45 38.1) (xy 46.99 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14baab69-69e6-5c4b-a685-9a040b1b986c")
+	)
+	(wire
+		(pts
+			(xy 52.07 38.1) (xy 54.61 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1121dee9-7a21-53dc-9549-6e101ab39e62")
+	)
+	(wire
+		(pts
+			(xy 54.61 38.1) (xy 63.5 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0bcc6df1-2ab1-5597-a92a-ecdcdaf80b4d")
+	)
+	(wire
+		(pts
+			(xy 57.15 41.91) (xy 57.15 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57499cdb-4ccb-5146-833a-893a260734eb")
+	)
+	(wire
+		(pts
+			(xy 57.15 41.91) (xy 63.5 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b949cbf4-831e-522c-9cff-628c2f95e924")
+	)
+	(wire
+		(pts
+			(xy 71.12 38.1) (xy 86.36 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d993e102-b695-5627-a944-ddf7ab71172a")
+	)
+	(wire
+		(pts
+			(xy 71.12 41.91) (xy 71.12 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0406db55-32f6-54c3-908e-003fbcefe88e")
+	)
+	(wire
+		(pts
+			(xy 71.12 45.72) (xy 71.12 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "385f4af0-f4a7-53ab-aa9d-c824c2cb6804")
+	)
+	(wire
+		(pts
+			(xy 71.12 45.72) (xy 81.28 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f0554f7-0fa8-5ce3-9632-3fb8ab26845f")
+	)
+	(wire
+		(pts
+			(xy 86.36 38.1) (xy 86.36 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "55514194-98e0-5fe3-aa68-ef584daf5d71")
+	)
+	(wire
+		(pts
+			(xy 86.36 38.1) (xy 96.52 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99c36064-b38d-5884-bd40-602559f9cef3")
+	)
+	(wire
+		(pts
+			(xy 86.36 45.72) (xy 86.36 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa9814f9-9542-5404-b658-412660d47971")
+	)
+	(wire
+		(pts
+			(xy 92.71 66.04) (xy 92.71 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e579603b-3cad-5660-abb3-1c66c1ca38d6")
+	)
+	(wire
+		(pts
+			(xy 92.71 66.04) (xy 97.79 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03056616-8f04-5577-89be-63e037a0e03b")
+	)
+	(wire
+		(pts
+			(xy 92.71 104.14) (xy 111.76 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "55ec15cc-2736-5b7d-8288-bd90d05e026d")
+	)
+	(wire
+		(pts
+			(xy 96.52 38.1) (xy 96.52 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7063946-1a6d-5083-825d-cf23221465db")
+	)
+	(wire
+		(pts
+			(xy 96.52 38.1) (xy 104.14 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "086c554e-59a3-52f9-952b-8aed98841dc9")
+	)
+	(wire
+		(pts
+			(xy 96.52 45.72) (xy 96.52 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c1d9bef-e98c-5d97-a58b-a13d14eea8ce")
+	)
+	(wire
+		(pts
+			(xy 104.14 38.1) (xy 104.14 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24baf2d0-b230-5e8a-91c0-f9d2e7d97a97")
+	)
+	(wire
+		(pts
+			(xy 104.14 71.12) (xy 106.68 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27bbfae9-fd7b-5f0c-b628-d6f0584b4f70")
+	)
+	(wire
+		(pts
+			(xy 106.68 71.12) (xy 111.76 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a39ca244-b723-5ae5-b2e7-2a214574b13a")
+	)
+	(wire
+		(pts
+			(xy 111.76 71.12) (xy 111.76 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1ef725e6-eb4c-5870-9a2e-f0bb392e4068")
+	)
+	(wire
+		(pts
+			(xy 111.76 71.12) (xy 121.92 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f31daac5-dccc-534c-b2cd-c84790cfe805")
+	)
+	(wire
+		(pts
+			(xy 111.76 90.17) (xy 111.76 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5514a2de-fc20-5dc4-b43d-c5725f6b50d3")
+	)
+	(wire
+		(pts
+			(xy 111.76 104.14) (xy 121.92 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e95a85a6-d365-5221-b052-fdeacaf02fb0")
+	)
+	(wire
+		(pts
+			(xy 121.92 71.12) (xy 121.92 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d4096a4-28e6-54fa-8d07-3d73faf7bdb8")
+	)
+	(wire
+		(pts
+			(xy 121.92 71.12) (xy 133.35 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "378ad840-ee41-5863-bbe0-3203ccb772c2")
+	)
+	(wire
+		(pts
+			(xy 121.92 90.17) (xy 121.92 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa0ae9df-d80d-5772-a066-bc96a35fd769")
+	)
+	(wire
+		(pts
+			(xy 121.92 104.14) (xy 137.16 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41a4379c-73c6-5773-8ea8-c107efa647a4")
+	)
+	(wire
+		(pts
+			(xy 133.35 64.77) (xy 133.35 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b03464f-b295-5e23-b76d-310677834469")
+	)
+	(wire
+		(pts
+			(xy 133.35 71.12) (xy 147.32 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7819b831-279b-55b9-877d-29b91f78eac2")
+	)
+	(wire
+		(pts
+			(xy 137.16 104.14) (xy 137.16 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba94c930-3db5-5b23-b994-7b607472567c")
+	)
+	(wire
+		(pts
+			(xy 137.16 111.76) (xy 137.16 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "880400ff-6681-50d2-9670-87cb95329f0e")
+	)
+	(wire
+		(pts
+			(xy 142.24 83.82) (xy 142.24 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c874407f-3373-5ea7-8431-344a76cdd7bb")
+	)
+	(wire
+		(pts
+			(xy 147.32 71.12) (xy 147.32 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47da6072-011b-5617-bafe-fa6217943972")
+	)
+	(wire
+		(pts
+			(xy 147.32 71.12) (xy 160.02 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58b63d51-7e4e-5e6c-81ea-e7842af1b177")
+	)
+	(wire
+		(pts
+			(xy 157.48 111.76) (xy 157.48 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65876b81-0f12-5eef-adb0-b1dcd5e8e1cf")
+	)
+	(wire
+		(pts
+			(xy 160.02 71.12) (xy 160.02 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb84b1a9-f602-5818-b743-e22b7784455c")
+	)
+	(wire
+		(pts
+			(xy 160.02 71.12) (xy 170.18 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ecea7a0e-c58b-5b50-9c9c-b974c2976856")
+	)
+	(wire
+		(pts
+			(xy 160.02 78.74) (xy 160.02 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d29a70ea-a98c-5e20-91aa-d67f862ee9b0")
+	)
+	(wire
+		(pts
+			(xy 167.64 111.76) (xy 167.64 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2567d9d7-3ed6-5389-8dc1-b62892c3aca7")
+	)
+	(wire
+		(pts
+			(xy 170.18 71.12) (xy 170.18 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5855c464-4aa8-5be5-9efb-07015fce42dc")
+	)
+	(wire
+		(pts
+			(xy 170.18 71.12) (xy 180.34 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "412e190f-81c0-53ce-94c2-d6cfc1f3290b")
+	)
+	(wire
+		(pts
+			(xy 170.18 78.74) (xy 170.18 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf75ebd5-3d59-5f30-b886-74b5f04a8e78")
+	)
+	(wire
+		(pts
+			(xy 180.34 71.12) (xy 180.34 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "154c83bc-5de6-504b-a0f3-f25b1b529038")
+	)
+	(wire
+		(pts
+			(xy 180.34 71.12) (xy 190.5 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a197efe-83c5-5a03-be1f-1ec0d886fb22")
+	)
+	(wire
+		(pts
+			(xy 180.34 78.74) (xy 180.34 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5286285-c022-506e-b2d6-0776bf1ad92e")
+	)
+	(wire
+		(pts
+			(xy 190.5 71.12) (xy 190.5 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d30cd34-d7b9-5f5c-bb1a-7c001cadd810")
+	)
+	(wire
+		(pts
+			(xy 190.5 71.12) (xy 228.6 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f28b9e58-ff8d-5eb4-8a5f-b8cf53ccdaca")
+	)
+	(wire
+		(pts
+			(xy 190.5 80.01) (xy 190.5 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "559d887f-6e1e-5ef1-aae1-59e9eac17d41")
+	)
+	(wire
+		(pts
+			(xy 190.5 83.82) (xy 198.12 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29e1138a-2fab-5dec-b2b1-894398a38a8b")
+	)
+	(wire
+		(pts
+			(xy 205.74 83.82) (xy 205.74 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a806dd8-486a-53a8-91e7-3ee2f0a2e5cb")
+	)
+	(wire
+		(pts
+			(xy 228.6 71.12) (xy 228.6 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0cfb37ed-723e-525e-8a58-97489681cc93")
+	)
+	(wire
+		(pts
+			(xy 228.6 71.12) (xy 266.7 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fdea2c3-8339-5725-b604-06a715265b5f")
+	)
+	(wire
+		(pts
+			(xy 228.6 102.87) (xy 228.6 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7198b9a7-5dba-587f-a5a1-e0f898d42dd7")
+	)
+	(wire
+		(pts
+			(xy 228.6 129.54) (xy 231.14 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92fe2477-70e1-5159-80b0-36b83866221e")
+	)
+	(wire
+		(pts
+			(xy 231.14 129.54) (xy 254 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5dacf1a-ebd2-517f-8e52-17706c6829a2")
+	)
+	(wire
+		(pts
+			(xy 254 124.46) (xy 254 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c6bd132-3ced-5828-b167-283f0d6922b0")
+	)
+	(wire
+		(pts
+			(xy 254 129.54) (xy 297.18 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfda5a85-440c-5fb8-a0a9-83992fa3d63d")
+	)
+	(wire
+		(pts
+			(xy 266.7 71.12) (xy 266.7 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ce55654-6f4f-5b8b-bdc8-d8f787bc4544")
+	)
+	(wire
+		(pts
+			(xy 266.7 71.12) (xy 325.12 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ecfcf62-338f-573f-8169-9475553be2a4")
+	)
+	(wire
+		(pts
+			(xy 266.7 90.17) (xy 266.7 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5964393a-0173-50e1-9bbd-b70a5d168dcb")
+	)
+	(wire
+		(pts
+			(xy 266.7 104.14) (xy 269.24 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89ab88b0-110b-570a-a773-7f1134993056")
+	)
+	(wire
+		(pts
+			(xy 269.24 104.14) (xy 278.13 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e109493-5a3c-5f0b-9553-4cff1137b4ec")
+	)
+	(wire
+		(pts
+			(xy 278.13 99.06) (xy 278.13 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ffcbfb9-9829-58d6-9a6a-af4d7ec09381")
+	)
+	(wire
+		(pts
+			(xy 278.13 104.14) (xy 289.56 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16b0316b-5c80-5018-b760-9b9d50b2c7ef")
+	)
+	(wire
+		(pts
+			(xy 289.56 104.14) (xy 297.18 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88e75a09-55f2-5e6b-80e7-6b454f78e902")
+	)
+	(wire
+		(pts
+			(xy 325.12 71.12) (xy 325.12 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "706cf21f-cb77-5f0d-887d-fd6bd36e7186")
+	)
+	(wire
+		(pts
+			(xy 325.12 80.01) (xy 325.12 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a153ec7-b848-56cf-b04b-dbd108400474")
+	)
+	(wire
+		(pts
+			(xy 325.12 83.82) (xy 325.12 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4489abe2-52dd-5a90-bc3d-c192c1719b56")
+	)
+	(wire
+		(pts
+			(xy 325.12 83.82) (xy 336.55 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0acabe91-15ce-510c-81c4-f19dfd535694")
+	)
+	(wire
+		(pts
+			(xy 325.12 92.71) (xy 325.12 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b85eb71b-00e1-54ac-ba16-6882033672c0")
+	)
+	(wire
+		(pts
+			(xy 336.55 83.82) (xy 336.55 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "960007ce-74af-5bc0-b8c7-5b6e53ce29ea")
+	)
+	(wire
+		(pts
+			(xy 336.55 83.82) (xy 344.17 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9a45be7-a7bc-5561-9989-730e342a5a52")
+	)
+	(wire
+		(pts
+			(xy 336.55 91.44) (xy 336.55 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d900b803-4a9f-5e6b-bdd1-10ba442435d0")
+	)
+	(wire
+		(pts
+			(xy 344.17 78.74) (xy 344.17 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b424745-115f-5644-af2b-f62518d2f480")
+	)
+	(wire
+		(pts
+			(xy 344.17 83.82) (xy 349.25 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9db35b1a-ab15-5db8-9bc7-cb722aae0266")
+	)
+	(junction
+		(at 21.59 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "86b53005-7056-52fa-bc9d-3505b42a7f0d")
+	)
+	(junction
+		(at 27.94 44.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7c67b7b2-97de-53dc-b82e-0b1ab6ffa752")
+	)
+	(junction
+		(at 38.1 38.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "08ada235-f4f1-5d95-80fc-f7b15dfff5f0")
+	)
+	(junction
+		(at 71.12 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cf6897c3-0963-5224-a2fb-95c5a353e93c")
+	)
+	(junction
+		(at 86.36 38.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c9c1197f-9f1f-594c-8d50-eca56ba3aaac")
+	)
+	(junction
+		(at 96.52 38.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9ff1d8b7-0e52-58e5-b779-c9f299c76497")
+	)
+	(junction
+		(at 111.76 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "296fa223-670e-5d6a-a154-95346ea8ea1f")
+	)
+	(junction
+		(at 111.76 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "abee5e00-ceb5-5335-bb09-0a650b1e0289")
+	)
+	(junction
+		(at 121.92 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7b430ab8-1eae-5a10-bccd-1065aadff9d6")
+	)
+	(junction
+		(at 121.92 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11e3afcf-14ac-5498-82f3-d980055ce270")
+	)
+	(junction
+		(at 133.35 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fbd5f669-c9e6-5766-b089-919660b410a7")
+	)
+	(junction
+		(at 147.32 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d529133a-6fc7-50df-8282-744d9788eea2")
+	)
+	(junction
+		(at 160.02 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9dd7678a-7439-5f55-8224-61c9660bda94")
+	)
+	(junction
+		(at 170.18 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a7e7c5ef-9953-56f0-9d68-023541629e87")
+	)
+	(junction
+		(at 180.34 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4dec9986-4944-52d5-8133-0482166b5a7f")
+	)
+	(junction
+		(at 190.5 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1d7cf0c9-8e33-5318-bd03-55788edb9177")
+	)
+	(junction
+		(at 228.6 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "742e72cf-e909-54be-bb7d-c0b9e4f4a903")
+	)
+	(junction
+		(at 254 129.54)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "03d7fde2-19b9-5d41-bfa6-36b794a4a381")
+	)
+	(junction
+		(at 266.7 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "58d122af-f49c-59a9-b399-6e69d840dbb6")
+	)
+	(junction
+		(at 278.13 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ff303128-5224-5335-99ae-e2a774ad70ed")
+	)
+	(junction
+		(at 325.12 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "35fd0f7e-809d-5dca-872e-c1da56076cbe")
+	)
+	(junction
+		(at 336.55 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4d5fa309-2798-581b-8286-e449c0facc94")
+	)
+	(junction
+		(at 344.17 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "23f0b94d-966b-51d7-ad5b-1fdd8b87051d")
+	)
+	(rectangle
+		(start 17.78 26.67)
+		(end 212.09 125.73)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "09bfaf6b-62e2-539c-8c3f-9739e1322482")
+	)
+	(text "A.  24 V INPUT, FUSING, CM FILTER AND REVERSE-POLARITY PROTECTION"
 		(exclude_from_sim no)
-		(at 15.2400 25.4000 0)
+		(at 20.32 24.67 0)
 		(effects
-			(font (size 1.27 1.27))
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "20fdcb7d-bdc7-5d84-b802-e8e9517cb914")
+	)
+	(rectangle
+		(start 214.63 26.67)
+		(end 377.83 140.97)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "79b4cf38-4337-5a23-969f-3fc00febdc49")
+	)
+	(text "B.  BRANCH ISOLATION LINKS / CURRENT BREAKS, RAIL MONITOR AND TEST POINTS"
+		(exclude_from_sim no)
+		(at 217.17 24.67 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "ac15abd4-cb61-5fd4-a32d-0024e5a8ffdd")
+	)
+	(label "V24_IN"
+		(at 29.21 38.1 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "78b43281-d358-5619-81d7-0fd9532323f5")
+	)
+	(label "V0_IN"
+		(at 24.13 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "51444ce2-5ec1-5728-822e-7f8e2ddb1eeb")
+	)
+	(text "Vgs = -Vin x R202/(R201+R202) = -7.7 V at 24 V.\nC103 sits gate-to-SOURCE, not gate-to-ground, so Vgs\nstarts at 0 and ramps down over ~3 ms: soft start\nthat never exceeds the +/-20 V Vgs rating."
+		(exclude_from_sim no)
+		(at 20.32 110.49 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
 			(justify left top)
 		)
-		(uuid "126000ca-0b01-5bfb-9640-593fd8c4c7f4")
+		(uuid "08fe7074-60eb-5582-b009-044ad0935926")
+	)
+	(label "V24_PROT"
+		(at 106.68 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0444abc2-b19e-5141-9039-d3fc82741f19")
+	)
+	(label "V24_LOGIC"
+		(at 231.14 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4a6932d7-7bca-599f-a0df-57b74890ed7c")
+	)
+	(hierarchical_label "V24_LOGIC"
+		(shape output)
+		(at 297.18 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d44ad3b2-ae8b-5b23-b7c3-ba64456612cd")
+	)
+	(label "+24V_SW"
+		(at 269.24 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "02189121-a6cf-5e22-8205-89941e4ed60a")
+	)
+	(hierarchical_label "+24V_SW"
+		(shape output)
+		(at 297.18 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0a924dc4-7d5b-5ed7-acfc-fe022c93a9d6")
+	)
+	(hierarchical_label "V24_MON"
+		(shape output)
+		(at 349.25 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1f0d8b1f-348a-540e-9348-dc1d17ec4556")
+	)
+	(text "V24_MON = V24_PROT x 10k/110k = 2.18 V at 24 V.\nFull scale 3.3 V -> 36.3 V. R205/R206 also set\nthe ADC source impedance (9.1 k) - C207 buffers it."
+		(exclude_from_sim no)
+		(at 219.71 34.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "782fcb65-aef5-5c01-b7e9-cb88c371c082")
+	)
+	(text "BLOCK: power_entry_24v   -   24 V DC input and protection (REQ-EL-01..04)\n\nCHAIN   J201 KPJX-4S (contacts doubled: 1,2 = +24 V, 3,4 = 0 V, 5 = shell)\n        -> F201 2 A time-lag (25 W peak = 1.04 A at 24 V; 2 A T holds 1.5 A)\n        -> L201 common-mode choke, both lines; board GND is defined on its load side\n        -> Q201 P-channel reverse-polarity series switch (drain = supply, source = load,\n           so the body diode blocks a reversed supply and nothing downstream conducts)\n        -> D201 TVS + C204..C206 bulk/HF  ->  V24_PROT, the protected 24 V bus.\n\nBRANCHES (docs/TEST_PLAN.md 3.3 - each an isolation link AND a current break)\n        R203 -> +24V_SW  : motor_drive only. Open R203 and the whole board can be\n                          exercised with no possibility of the actuator moving.\n        R204 -> V24_LOGIC: power_rails only. Independent of R203.\n        One 0R link per branch serves as both the isolation link and the current\n        break; a second series part would add joints and no capability.\n\nGROUND  One GND net board-wide. AGND / DGND / PGND in the block stub notes are\n        layout partitions of it, not separate nets - see the decisions file.\n        This sheet owns the single GND PWR_FLAG; no other sheet may add one.\n\nINTERFACES exported (hierarchical labels; root sheet pins are a later pass, DEC-0009)\n        OUT  +24V_SW   -> motor_drive          OUT  V24_LOGIC -> power_rails\n        OUT  V24_MON   -> mcu PC1 / ADC1_INP11\n        Global power nets used here: GND.\n\nReasoning, part sizing and residual ERC: docs/decisions/actuator-sch-power.md"
+		(exclude_from_sim no)
+		(at 17.78 151.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "777820ae-573f-569e-9e6c-5395f2ca3119")
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:KYCON_KPJX_4S")
+		(at 36.83 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "627030fb-02db-5de1-9a5b-62158e38abee")
+		(property "Reference" "J201"
+			(at 41.28 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "KPJX-4S"
+			(at 41.28 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KPJX-4S"
+			(at 36.83 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.kycon.com/Catalog_PDF/KPJX.pdf"
+			(at 36.83 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "KYCON Circular Power Connector, Right Angle, Through Hole, Un-Shielded, 4-Contact, Snap Lock"
+			(at 36.83 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "KPJX-4S"
+			(at 36.83 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Drawing" "https://anacapa.kycon.com/Pub_Eng_Draw/KPJX-4S.pdf"
+			(at 36.83 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 36.83 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7137ae9c-086a-5861-ba4e-c6b3c2d685cf")
+		)
+		(pin "2"
+			(uuid "7f789e53-45ac-531b-8c5c-98777735ac95")
+		)
+		(pin "3"
+			(uuid "0c30e6cd-35c4-501e-9e9e-856e1d4ae861")
+		)
+		(pin "4"
+			(uuid "0245c0ed-6f1b-5362-88aa-64ca4e021067")
+		)
+		(pin "5"
+			(uuid "5afb941e-d127-580e-8932-ab075f83e2e6")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "J201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
+		(at 26.67 57.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "a102e292-24a1-5a8a-a7d8-1afc3b99f234")
+		(property "Reference" "R208"
+			(at 28.7 58.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0R"
+			(at 28.7 60.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 26.67 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 26.67 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
+			(at 26.67 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "RC0603FR-070RL"
+			(at 26.67 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 26.67 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cf379d98-e5fb-5541-8d11-33b21cde60fd")
+		)
+		(pin "2"
+			(uuid "59a5d269-993b-5e3a-8d52-a48a0fe4902c")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R208")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 26.67 64.77 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "0eabe1d2-24c7-5b07-8962-0190420d9f49")
+		(property "Reference" "#PWR201"
+			(at 29.21 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 26.67 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 26.67 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 26.67 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 26.67 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 26.67 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 26.67 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4cfa7dee-7021-5d15-b9c6-699070002957")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Fuses:FUSE_2A_T_125V_SMT_REPLACEABLE")
+		(at 49.53 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "dd5da43b-18f2-5a1e-88aa-f3807eb61a2d")
+		(property "Reference" "F201"
+			(at 46.99 32.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2A T"
+			(at 46.99 34.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:FUSE_157T_LittelFuse"
+			(at 49.53 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.littelfuse.com/media?resourcetype=datasheets&itemid=0da7cbeb-7930-4e88-8811-a4d412083c1d&filename=littelfuse-fuse-157-datasheet"
+			(at 49.53 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Littelfuse 157 Fuse/Clip assembly. Replacable.  Time-lag."
+			(at 49.53 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 49.53 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "0157002.DRT"
+			(at 49.53 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "FUSEmpn" "0452002.MRL"
+			(at 49.53 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "107bf79e-472f-5061-8727-b2cfa2c7bdd5")
+		)
+		(pin "2"
+			(uuid "2a4839b6-24fe-5685-96bf-358d5ddf4146")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "F201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Inductors:PLT10HH1026R0PN#")
+		(at 63.5 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "78b0b2ea-1ea1-52a8-a986-1444e8c5ab87")
+		(property "Reference" "L201"
+			(at 63.5 31.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "20 uH"
+			(at 63.5 33.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:PLT10HH101150PN#"
+			(at 63.5 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.murata.com/products/productdata/8796754935838/QFLB9101.pdf?1715571029000"
+			(at 63.5 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Common mode choke, 1000R@10MHz, 6A, 100V,"
+			(at 63.5 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "PLT10HH1026R0PN#"
+			(at 63.5 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 63.5 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3402576f-882d-5fb4-94fb-82d4000f25e1")
+		)
+		(pin "2"
+			(uuid "b3bca731-3d9c-5b95-b00a-4794f0c3ac4f")
+		)
+		(pin "3"
+			(uuid "2dfcaf44-a22c-50c7-8b92-0bddaeed9e17")
+		)
+		(pin "4"
+			(uuid "15376837-7416-55e9-85da-883aa8ebabca")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "L201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 71.12 49.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "9392354b-a043-503b-bc9c-9c47b1a09eaa")
+		(property "Reference" "#PWR202"
+			(at 73.66 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 71.12 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 71.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 71.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 71.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 71.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 71.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "547a1ae0-e3ef-5566-bc59-36df972fe057")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:PWR_FLAG")
+		(at 81.28 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "0ae17bc0-3749-5810-9b76-b987588d1975")
+		(property "Reference" "#FLG203"
+			(at 83.82 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 81.28 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 81.28 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 81.28 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 81.28 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "flag power"
+			(at 81.28 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5fcb690f-a171-5541-b7dc-f72a90dba321")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#FLG203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_MLCC_1uF_0805_10%_100V")
+		(at 86.36 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "1cb4e7e3-3b18-541e-9e55-00e7c2e4c69d")
+		(property "Reference" "C201"
+			(at 88.39 44.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uF"
+			(at 88.39 46.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_0805_2012Metric"
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRJ21BC72A105KE11-02A.pdf"
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD MLCC Capacitor 1uF 0805 10% X7S 100V"
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "GRJ21BC72A105KE11L"
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" ""
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
+			(at 86.36 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "534a06b6-7eb8-579e-81ed-958fbc6be6ec")
+		)
+		(pin "2"
+			(uuid "0f5efa1c-3379-5c01-93f5-a5ff4f0fee48")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 86.36 48.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "cd3eda3b-12cb-5c39-af9f-99c1b9ee681a")
+		(property "Reference" "#PWR204"
+			(at 88.9 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 86.36 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 86.36 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 86.36 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 86.36 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 86.36 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 86.36 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c810c790-102a-55e0-9c88-55132486b9b5")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0805_10%_100V")
+		(at 96.52 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "be043aa3-dcf1-5f6a-9fff-f63f9fd681ef")
+		(property "Reference" "C202"
+			(at 98.55 44.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 98.55 46.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_0805_2012Metric"
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Multilayer Ceramic Capacitor, 0.1 µF, 100 V, 0805 [2012 Metric], ± 10%, X7R"
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "08051C104K4T4A"
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPC0402104-50-X7R"
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
+			(at 96.52 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a3e502f9-c05c-5efd-b251-c1d38942f02c")
+		)
+		(pin "2"
+			(uuid "262a5965-2dc3-569a-9d45-7589ee398798")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 96.52 48.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "d1608951-4220-566c-8860-644fddf44c37")
+		(property "Reference" "#PWR205"
+			(at 99.06 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 96.52 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 96.52 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 96.52 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 96.52 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 96.52 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 96.52 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1f64a636-e713-5161-aeb2-0a46ebefee89")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR205")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 38.1 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "286adbd2-a736-5df1-8d10-91079e4f8e8f")
+		(property "Reference" "TP201"
+			(at 40.13 28.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "V24_IN"
+			(at 40.13 31.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4ee41e7b-7fab-5ab4-9799-b55b9bd537ec")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Power_Transistors:DMP6023LFG-7")
+		(at 104.14 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "4e7992ea-cd52-5086-9968-d2a776b96573")
+		(property "Reference" "Q201"
+			(at 107.19 62.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "DMP6023LFG-7"
+			(at 107.19 65.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:DMP4013LFG7"
+			(at 104.14 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.diodes.com//assets/Datasheets/DMP6023LFG.pdf"
+			(at 104.14 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "MOSFET P-Ch 60V Enh Mode 20Vgs 53.1nC 2569pF"
+			(at 104.14 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "DMP6023LFG-7"
+			(at 104.14 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 104.14 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9252dfe3-d65a-5602-87cb-44819580e7fc")
+		)
+		(pin "4"
+			(uuid "b715ef14-e3c3-5c08-97d7-e94c8a318033")
+		)
+		(pin "5"
+			(uuid "34d5c16f-27f4-512f-b62c-f0ac37708e7c")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "Q201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_100k_0603")
+		(at 111.76 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "6ea16ffe-c86f-5b2c-92a0-bee26d59327a")
+		(property "Reference" "R201"
+			(at 113.79 86.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100k"
+			(at 113.79 88.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 111.76 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 111.76 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100k 0603 1% 100mW"
+			(at 111.76 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1003V"
+			(at 111.76 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100K"
+			(at 111.76 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 111.76 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7865f9e9-b393-55b8-8138-80f32308371b")
+		)
+		(pin "2"
+			(uuid "5850fdf5-5d40-5826-9f8a-effd26b97450")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0603_20%_50V")
+		(at 121.92 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "a42e518d-5183-5abe-80ff-e7bd9c4f25a2")
+		(property "Reference" "C203"
+			(at 123.95 88.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 123.95 91.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_0603_1608Metric"
+			(at 121.92 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/KEM_C1023_X7R_AUTO_SMD-3316698.pdf"
+			(at 121.92 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD MLCC Capacitor 100nF 0603 20% X7R 50V"
+			(at 121.92 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "C0603C104M5RACAUTO"
+			(at 121.92 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPC0603104-50-X7R"
+			(at 121.92 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 121.92 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "449fbf5f-55ad-5d6c-9198-fee31de8d50b")
+		)
+		(pin "2"
+			(uuid "56f87593-09d0-5762-adc4-7d34e32ea2f1")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_47k_0603")
+		(at 137.16 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "63b329cc-2a20-5737-8963-19c8087ee9e0")
+		(property "Reference" "R202"
+			(at 139.19 107.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 139.19 110.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 137.16 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 137.16 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 47k 0603 1% 100mW"
+			(at 137.16 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF4702V"
+			(at 137.16 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR060347k"
+			(at 137.16 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 137.16 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "18f2f7bb-2d3a-5e02-a308-24a1bb27d06f")
+		)
+		(pin "2"
+			(uuid "6aac676d-c8f5-5df6-a32f-e7696cf8fcc0")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 137.16 114.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "c50f19ac-e352-5382-a5a7-4d595ff98e5d")
+		(property "Reference" "#PWR206"
+			(at 139.7 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 137.16 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a4f2c74a-11eb-5c48-8344-4af54aaa73c7")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Diodes:5.0SMDJ26A")
+		(at 142.24 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "b8f07060-18e6-5cd6-8f47-c375337d7ac2")
+		(property "Reference" "D201"
+			(at 133.35 79.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5.0SMDJ26A"
+			(at 133.35 81.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:DO-214AB"
+			(at 142.24 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.littelfuse.com/assetdocs/tvs-diodes-5-0smdj-datasheet?assetguid=2B2F4A8C-2E81-4894-8D41-3D748BB79E68"
+			(at 142.24 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "ESD Protection Diodes / TVS Diodes 5kW 26V 5% Uni-Directional"
+			(at 142.24 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5.0SMDJ26A"
+			(at 142.24 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 142.24 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d6a4b34-d8a6-5b5a-abf3-d869b7d70320")
+		)
+		(pin "2"
+			(uuid "cf7855e4-b35e-5b98-9b06-4cd829d4dc88")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "D201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 142.24 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "6b9a13e5-a066-538f-8cf0-182e78a801d5")
+		(property "Reference" "#PWR207"
+			(at 144.78 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 142.24 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 142.24 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 142.24 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 142.24 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2412c7ce-fbdc-5038-83bd-3722472e37e2")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR207")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_ALU_100UF_SMD_20%_63V")
+		(at 160.02 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "7a753089-97c5-56ad-ab99-2bc1aa5f015c")
+		(property "Reference" "C204"
+			(at 162.05 77.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100uF"
+			(at 162.05 79.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_ALU_D10_L10.2_SMT_ANTI-VIBE"
+			(at 160.02 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1181.pdf"
+			(at 160.02 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Electrolytic Capacitor, 100 µF, 63 V, ± 20%, SMD, 2000 hours @ 105°C, Polar, Anti-Vibration Can"
+			(at 160.02 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "EEE-FK1J101V"
+			(at 160.02 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 160.02 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "63V"
+			(at 160.02 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3cb38f8c-7195-5db3-b389-a323b70634f5")
+		)
+		(pin "2"
+			(uuid "32b382c5-549d-5d6d-ba31-6d982c0e9e10")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 160.02 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "e4933476-6ba3-5dc5-b51d-d51b258466ac")
+		(property "Reference" "#PWR208"
+			(at 162.56 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 160.02 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.02 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.02 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 160.02 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 160.02 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 160.02 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c5fca069-52e9-50c4-a2f0-7d95aaf125b0")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR208")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_MLCC_1uF_0805_10%_100V")
+		(at 170.18 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "f3515fa8-2052-5410-8246-0bea3af29620")
+		(property "Reference" "C205"
+			(at 172.21 77.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uF"
+			(at 172.21 79.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_0805_2012Metric"
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRJ21BC72A105KE11-02A.pdf"
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD MLCC Capacitor 1uF 0805 10% X7S 100V"
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "GRJ21BC72A105KE11L"
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" ""
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
+			(at 170.18 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "82103f65-b58b-570e-827b-1f70c71769c0")
+		)
+		(pin "2"
+			(uuid "bec3c134-81c3-5b65-838a-7816503a7a76")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C205")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 170.18 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "c7fd6642-1920-5c77-9fcd-eced46fd46d1")
+		(property "Reference" "#PWR209"
+			(at 172.72 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 170.18 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 170.18 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 170.18 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 170.18 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 170.18 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 170.18 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5150b91f-044f-5ef8-9a8a-09bc2c40cdb3")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR209")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0805_10%_100V")
+		(at 180.34 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "cf042275-bbce-500e-b287-2142e41b2ef1")
+		(property "Reference" "C206"
+			(at 182.37 77.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 182.37 79.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_0805_2012Metric"
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Multilayer Ceramic Capacitor, 0.1 µF, 100 V, 0805 [2012 Metric], ± 10%, X7R"
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "08051C104K4T4A"
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPC0402104-50-X7R"
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
+			(at 180.34 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c1d54b8d-fc40-5d96-96d3-64af46b83797")
+		)
+		(pin "2"
+			(uuid "85c95f83-c2c5-5298-88a2-6951d5be0486")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 180.34 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "a1273db9-e10e-5537-90ef-f7c9bdc2e1b0")
+		(property "Reference" "#PWR210"
+			(at 182.88 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 180.34 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 180.34 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 180.34 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 180.34 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 180.34 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 180.34 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a73980d6-22e6-5cba-a75e-64acf36d6d0a")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR210")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 133.35 64.77 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "9eae3aa7-3269-53ab-a5ab-adfc1c087a87")
+		(property "Reference" "TP202"
+			(at 135.38 61.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "V24_PROT"
+			(at 135.38 64.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 133.35 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0f8fa6e3-737c-5c3c-947b-b0e637a41313")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_22k_0603")
+		(at 190.5 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "340f6bcc-5f69-5959-a704-02b27a97871b")
+		(property "Reference" "R207"
+			(at 192.53 75.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22k"
+			(at 192.53 78.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 190.5 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 190.5 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 22k 0603 1% 100mW"
+			(at 190.5 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF2202V"
+			(at 190.5 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR060322k"
+			(at 190.5 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 190.5 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "68211f18-883c-5fcd-80e7-b3f9ad074d66")
+		)
+		(pin "2"
+			(uuid "3adf08f1-f758-563e-bf70-ec463807c0ac")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R207")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_LEDs:LED_SMD_0805_GREEN")
+		(at 198.12 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "315ea7fb-e2e9-572c-a615-ddc19655d02d")
+		(property "Reference" "D202"
+			(at 198.12 76.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SM0805UGC"
+			(at 198.12 79.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:LED 0805 SM0805"
+			(at 198.12 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/50/SM0805UGC-3001967.pdf"
+			(at 198.12 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Ultra Green 525 nm Water Clear 0805 2.2mcd 2V 5mA"
+			(at 198.12 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "SM0805UGC"
+			(at 198.12 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 198.12 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c7ff3f6f-3641-566f-ad2f-0998a3108a04")
+		)
+		(pin "2"
+			(uuid "af07d5d7-eae1-5d1b-bc46-7099bead47ca")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "D202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 205.74 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "98caac85-ff1d-5182-bcac-7c6d7ede5ac6")
+		(property "Reference" "#PWR211"
+			(at 208.28 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 205.74 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 205.74 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 205.74 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 205.74 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 205.74 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 205.74 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6ee4217d-5578-5e00-8a91-35dc6846030f")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR211")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 157.48 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "a4e61d53-9cd1-57b7-88eb-8025fa7a4066")
+		(property "Reference" "TP206"
+			(at 159.26 108.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GND"
+			(at 159.26 111.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 157.48 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6871eb05-6295-5494-b336-c4c17186c1b6")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 157.48 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "c4d174f3-a8c5-5d7f-8c41-7347cd520edc")
+		(property "Reference" "#PWR212"
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 157.48 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 157.48 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 157.48 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 157.48 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 157.48 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 157.48 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "477c9d12-22a7-5b41-85f2-6b7344c8f4bd")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR212")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 167.64 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "3a2b392b-0021-56be-9b47-f13cef68de64")
+		(property "Reference" "TP207"
+			(at 169.42 108.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GND"
+			(at 169.42 111.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 167.64 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a1a17001-4421-56a6-a168-98258e5a10cc")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP207")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 167.64 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "e0840e7d-5314-592c-a72a-0dd6ca0976ee")
+		(property "Reference" "#PWR213"
+			(at 170.18 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 167.64 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 167.64 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 167.64 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 167.64 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 167.64 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 167.64 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8db268b4-acc6-5d4a-a7e7-4516ded232ee")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR213")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_0R_1206_10A")
+		(at 228.6 97.79 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "5a82c440-d600-5202-a832-0e6e2ffcafdd")
+		(property "Reference" "R204"
+			(at 230.63 98.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0R"
+			(at 230.63 101.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_1206_3216Metric"
+			(at 228.6 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/PYu_PT_Group_521_RoHS_L_2-3003082.pdf"
+			(at 228.6 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 0R 1206 5% 0.25W 10A"
+			(at 228.6 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "PT1206-R-070RL"
+			(at 228.6 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 228.6 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Imax" "10A"
+			(at 228.6 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b819a91f-7a38-5a38-b230-77f11aaa6815")
+		)
+		(pin "2"
+			(uuid "1f39add7-041c-5581-ab01-fb1730a09a65")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 254 124.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "4dd54609-ed94-57d3-8f6f-00b14d6c3eff")
+		(property "Reference" "TP204"
+			(at 256.03 121.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "V24_LOGIC"
+			(at 256.03 123.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 254 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f389915b-e92f-58e3-93ff-d3fa8ab8c1bb")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_0R_1206_10A")
+		(at 266.7 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "53aa55a0-3e7b-57f0-8957-37640754146c")
+		(property "Reference" "R203"
+			(at 268.73 86.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0R"
+			(at 268.73 88.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_1206_3216Metric"
+			(at 266.7 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/PYu_PT_Group_521_RoHS_L_2-3003082.pdf"
+			(at 266.7 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 0R 1206 5% 0.25W 10A"
+			(at 266.7 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "PT1206-R-070RL"
+			(at 266.7 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 266.7 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Imax" "10A"
+			(at 266.7 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a66c24e7-7db9-5a97-b51f-9a086a8bb3e6")
+		)
+		(pin "2"
+			(uuid "61938787-7993-5706-90bb-7763110e6963")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 278.13 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "113e97d0-f913-5876-aff7-f3aef936288e")
+		(property "Reference" "TP203"
+			(at 280.16 96.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "+24V_SW"
+			(at 280.16 98.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "Keystone miniature through hole hook test point - white"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 278.13 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d715ce2-b9c5-5cdc-a0fd-f035c3c42005")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:PWR_FLAG")
+		(at 289.56 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "e2b2100c-8703-5439-a294-6718ea10e6d9")
+		(property "Reference" "#FLG214"
+			(at 292.1 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 289.56 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 289.56 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 289.56 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 289.56 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 289.56 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "flag power"
+			(at 289.56 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "aaa97bec-0bd5-5dda-948e-ee876ee8395e")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#FLG214")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_100k_0603")
+		(at 325.12 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "88257401-1ace-55b4-9380-e6c10bfa7499")
+		(property "Reference" "R205"
+			(at 327.15 75.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100k"
+			(at 327.15 78.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 325.12 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 325.12 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 100k 0603 1% 100mW"
+			(at 325.12 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1003V"
+			(at 325.12 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR0603100K"
+			(at 325.12 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 325.12 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3affe7f8-6c90-579c-a11f-d6e50c2e89d7")
+		)
+		(pin "2"
+			(uuid "490bd2e6-5672-55f5-a513-ecbd454e79a3")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R205")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
+		(at 325.12 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "06221806-d92e-5259-8970-a9d54181a193")
+		(property "Reference" "R206"
+			(at 327.15 88.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 327.15 91.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 325.12 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 325.12 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
+			(at 325.12 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1002V"
+			(at 325.12 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR060310K"
+			(at 325.12 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 325.12 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fad52ff7-aa28-5988-87bd-a37e29ea24e1")
+		)
+		(pin "2"
+			(uuid "efafe580-79bc-5468-aa1e-86c6525900e7")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "R206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 325.12 96.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "1b442c4e-3ced-5118-8d7a-695ff5860512")
+		(property "Reference" "#PWR215"
+			(at 327.66 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 325.12 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 325.12 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 325.12 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 325.12 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 325.12 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5b7e8502-151a-5823-9218-6dc402b17bb5")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR215")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0603_20%_50V")
+		(at 336.55 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "733ba855-2dd6-575d-971c-bbc4aa5fd929")
+		(property "Reference" "C207"
+			(at 338.58 89.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 338.58 92.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:C_0603_1608Metric"
+			(at 336.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/KEM_C1023_X7R_AUTO_SMD-3316698.pdf"
+			(at 336.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD MLCC Capacitor 100nF 0603 20% X7R 50V"
+			(at 336.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "C0603C104M5RACAUTO"
+			(at 336.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPC0603104-50-X7R"
+			(at 336.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 336.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9b6883c8-fcd3-54f4-b737-cfd8119338e0")
+		)
+		(pin "2"
+			(uuid "ac203cfa-2b92-5f01-a0f1-3400fc4c5c0b")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "C207")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 336.55 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "52e9d6d8-9d49-5864-a8e3-26346967498d")
+		(property "Reference" "#PWR216"
+			(at 339.09 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 336.55 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 336.55 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 336.55 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 336.55 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 336.55 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 336.55 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0e08a4b5-953d-54aa-9743-b57f0e27297c")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "#PWR216")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPoint")
+		(at 344.17 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "9bd35049-f83b-5100-bc18-d8e774e797bd")
+		(property "Reference" "TP205"
+			(at 346.2 75.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "V24_MON"
+			(at 346.2 78.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
+			(at 344.17 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 344.17 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 344.17 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 344.17 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "test point tp"
+			(at 344.17 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 344.17 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e7db6aa4-47e2-57a3-b6b7-204bfb3b5ba2")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/4ec0bd1c-b43d-5810-bc42-5f18ea0c8497"
+					(reference "TP205")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(embedded_fonts no)
 )
