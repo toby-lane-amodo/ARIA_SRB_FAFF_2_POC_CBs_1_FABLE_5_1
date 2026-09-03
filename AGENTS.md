@@ -156,8 +156,8 @@ The mirror for ground is deliberate: "above" a GND symbol is where its wire
 arrives. `tools/apply_review_r2_labels.py` applies the rule and re-solves the
 placement around it; re-run it after any power-symbol move.
 
-Thirteen labels still graze a wire, body or note on the two densest sheets — they
-need local placement rework, and they are listed in `actuator-sch-review-r1.md`.
+Some labels still graze a wire, body or note; `tools/check_text_clearance.py --margin 0.35`
+lists them and `actuator-sch-review-r1.md` explains what each class is.
 
 ## The bundled overlap checker is not the last word
 
@@ -172,8 +172,14 @@ spots, each measured against renders and written up in `docs/decisions/actuator-
 - It reflects a **rotated or mirrored symbol's body** about the origin, so `body-vs-*` findings
   on those are noise.
 
-`tools/sch_geom.py` models all three correctly; run it as the cross-check before believing
-either tool. The design is clean under it design-wide.
+`tools/sch_geom.py` models all three correctly. **Run `tools/check_text_clearance.py`** (margin
+0.35) rather than either — it is the recorded successor, and it also fixed a blind spot of its
+own that a render caught: net labels and symbol bodies used to be obstacles only, never
+subjects, so a label drawn through a GND arrow scored zero findings. Text needs *clearance*;
+a body box is the bounding box of a triangle, so it counts only when genuinely penetrated.
+`tools/dump_region.py` prints everything a sheet draws inside a rectangle — use it before
+placing anything, never a partial wire dump. `tools/netlist_nodes.py` is the node-set
+invariance proof for any geometry rework.
 
 ## Sharp edges
 

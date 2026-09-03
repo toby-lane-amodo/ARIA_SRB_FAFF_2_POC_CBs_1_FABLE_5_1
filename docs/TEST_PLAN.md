@@ -153,7 +153,7 @@ What each block owns. Block tasks add these while drawing.
 | `motor_drive` | TPs on each gate drive output, each current-sense output, `VBUS_MON`, `nFAULT`; U.FL candidate on one phase node and the DC link; link to isolate the gate driver supply; means to spin the motor with the load cell disconnected |
 | `loadcell_afe` | TPs on excitation +/-, sense +/-, `SIG+`/`SIG-` (U.FL candidate), ADC reference, `nDRDY`; SPI3 hooks; link to configure 4-wire vs 6-wire (DEC-0014); means to substitute a resistive bridge simulator for the load cell |
 | `linear_encoder` | TPs on each RS-422 receiver output (`ENC_A/B/Z`) and on the 5 V read-head supply; termination fitted/removable; header pinout silkscreened; means to inject a quadrature signal without the read head |
-| `temp_sense` | TPs on both probe channels and the ADC reference; SPI2 hooks; means to substitute a fixed resistor for each probe |
+| `temp_sense` | TPs on both probe channels and the ADC reference; `J703` carries the whole SPI2 interface on one keyed logic-analyser plug; means to substitute a fixed resistor for each probe |
 | `nvm_calibration` | I2C1 hooks (`SCL`, `SDA`) plus GND hooks; `nWP` TP; pull-ups on removable links |
 | `ui_io` | TPs on `SYNC_TRIG` (pre- and post- source termination), `LIM_A`, `LIM_B`, `LIMIT_nBRK`, each button and LED net; means to assert each limit switch without the mechanics |
 

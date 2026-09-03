@@ -136,6 +136,7 @@ class Sheet:
         self.text = text
         self.sch = parse(text)
         self._libgraphics = {}
+        self._libpins = {}
         for s in kids(kid(self.sch, "lib_symbols") or ["lib_symbols"], "symbol"):
             pts = {}
             for u in kids(s, "symbol"):
@@ -158,6 +159,14 @@ class Sheet:
                         for p in kids(kid(g, "pts"), "xy"):
                             acc.append((float(a(p, 1)), float(a(p, 2))))
             self._libgraphics[a(s, 1)] = pts
+            pins = {}
+            for u in kids(s, "symbol"):
+                m = re.match(r".*_(\d+)_(\d+)$", a(u, 1) or "")
+                unit = int(m.group(1)) if m else 0
+                for pn in kids(u, "pin"):
+                    q = at(pn)
+                    pins.setdefault(unit, []).append((q[0], q[1]))
+            self._libpins[a(s, 1)] = pins
 
     def wires(self):
         out = []
@@ -194,6 +203,25 @@ class Sheet:
 
     def symbols(self):
         return kids(self.sch, "symbol")
+
+    def pin_points(self, sym):
+        """{(x, y)} where this instance's pins connect, in sheet coordinates.
+
+        A pin's `(at)` IS its connection point; `length` runs inward toward the
+        body. Needed to tell a wire that legitimately lands on a symbol from one
+        that runs across it - a GND arrow's outline starts at its own pin, so
+        every grounded wire touches a body box without overlapping anything.
+        """
+        lid = a(kid(sym, "lib_id"), 1)
+        p = at(sym)
+        mir = bool(kid(sym, "mirror"))
+        unit = int(a(kid(sym, "unit"), 1) or 1)
+        pins = self._libpins.get(lid, {})
+        out = set()
+        for (px, py) in pins.get(0, []) + pins.get(unit, []):
+            dx, dy = xform(px, py, p[2], mir)
+            out.add((round(p[0] + dx, 3), round(p[1] + dy, 3)))
+        return out
 
     def visible_fields(self, skip_refs=()):
         """[(ref, propname, box, skip)] for every field that renders.
@@ -240,24 +268,49 @@ class Sheet:
             out.append((x0, y0, x0 + w, y0 + h))
         return out
 
-    def label_boxes(self):
+    def label_details(self):
+        """[(box, tag, anchor)] for every net label that renders.
+
+        Measured off renders rather than guessed: a label anchored `bottom`
+        (the house wire-end form) puts its glyphs entirely ABOVE the anchor, so
+        the box is one line high on that side only - not the 2.54 mm band
+        centred on the wire that an earlier version used, which made every
+        label look as if it overlapped its own wire. A label takes no 180 deg
+        text flip, so the growth direction is justify-driven alone. Only
+        hierarchical and global labels draw the flag glyph.
+        """
         out = []
         for tag in ("label", "hierarchical_label", "global_label"):
             for l in kids(self.sch, tag):
                 p = at(l)
                 eff = kid(l, "effects")
-                j = [a(x, 1) for x in kids(eff, "justify")] if eff else []
-                just = j[0] if j and j[0] in ("left", "right") else None
+                j = [a(x, i) for x in kids(eff, "justify")
+                     for i in range(1, len(x))] if eff else []
+                just = next((v for v in j if v in ("left", "right")), None)
                 txt = a(l, 1)
-                w = len(txt) * CHAR_W + 2.0      # allow for the flag glyph
-                if int(p[2]) in (90, 270):
-                    out.append((p[0] - LINE_H, min(p[1], p[1] - w),
-                                p[0] + LINE_H, max(p[1], p[1] + w)))
-                elif just == "right":
-                    out.append((p[0] - w, p[1] - LINE_H, p[0], p[1] + LINE_H))
+                w = len(txt) * CHAR_W + (0.0 if tag == "label" else 2.2)
+                if "bottom" in j:
+                    y0, y1 = p[1] - LINE_H, p[1]
+                elif "top" in j:
+                    y0, y1 = p[1], p[1] + LINE_H
                 else:
-                    out.append((p[0], p[1] - LINE_H, p[0] + w, p[1] + LINE_H))
+                    y0, y1 = p[1] - LINE_H / 2, p[1] + LINE_H / 2
+                if int(p[2]) in (90, 270):
+                    # runs vertically; the justify axis rotates with it
+                    d = -w if just == "right" else w
+                    out.append(((min(p[0] - LINE_H, p[0]),
+                                 min(p[1], p[1] - d),
+                                 max(p[0] + LINE_H, p[0]),
+                                 max(p[1], p[1] - d)), tag, (p[0], p[1])))
+                elif grows_left(just, 0, False):
+                    out.append(((p[0] - w, y0, p[0], y1), tag, (p[0], p[1])))
+                else:
+                    out.append(((p[0], y0, p[0] + w, y1), tag, (p[0], p[1])))
         return out
+
+    def label_boxes(self):
+        """Just the boxes - the older apply_review_* scripts take these."""
+        return [b for (b, _t, _a) in self.label_details()]
 
     def visible_fields_by_instance(self):
         """[(uuid, ref, propname, box, meta)] - one entry per field per unit."""

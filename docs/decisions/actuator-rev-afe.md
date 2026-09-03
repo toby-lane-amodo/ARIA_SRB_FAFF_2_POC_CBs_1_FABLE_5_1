@@ -397,6 +397,10 @@ digital-interface test points:
   GND hooks. That is 5 signals into 8 channels with 2 grounds — a clean fit, and
   the SPI2 bus is shared with `motor_drive`, so watching it on one plug is worth
   more here than anywhere. **Recommended.**
+
+  **Applied** in the round-3 schematic review: `J703`, an `8510-4500PL` like
+  `J502` and `J603`, with `TP707`…`TP711` removed. Channel map and placement
+  reasoning in `actuator-sch-review-r1.md`; `TP712`/`TP713` stay.
 * **`test_debug`** — already a system-level debug connector block; a
   logic-analyser socket there would want a deliberate channel allocation across
   blocks rather than a per-sheet copy of this pattern.

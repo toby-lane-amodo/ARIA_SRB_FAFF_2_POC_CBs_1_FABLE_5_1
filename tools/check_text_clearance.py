@@ -17,6 +17,14 @@ edge. Four separate reasons it could not see them, all fixed here:
   4  it only reports strict overlap. Text and a wire 0.3 mm apart read as
      touching once both stroke widths are drawn, which is the `C312` case.
 
+A fifth, found the same way - by a render, after this checker had already
+passed the sheet: **net labels and symbol bodies were only ever obstacles, never
+subjects.** A label running through a GND arrow, or an arrow grazing a wire it
+does not connect to, scored zero findings. Both are subjects now. A body is
+excused from a wire that lands on one of its own pins (`Sheet.pin_points`),
+which is what every grounded wire does, and a label from whichever wire passes
+through its own anchor - the wire it labels.
+
 So this one uses the transforms and text model in `sch_geom.py` (each settled
 against a render, not the file format), compares against every symbol outline
 including the field's own, and requires a real **clearance**, not just absence of
@@ -30,6 +38,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sch_geom as G
 
 DEFAULT_MARGIN = 0.4        # mm of white space text must keep from anything
+BODY_MIN = 0.25             # mm a body must be penetrated by before it counts
+ALONG_MIN = 0.635           # mm a wire must run inside a body before it counts
+
+# Text and an outline need different rules, and conflating them is what made
+# the first version of this unusable. A text box is inked edge to edge, so it
+# must keep real *clearance*. A symbol body is a bounding box around a triangle
+# or a polyline, so its corners are mostly empty: requiring clearance there
+# reports every wire that happens to start at a GND arrow's empty corner. A
+# body therefore has to be genuinely *penetrated* - or, for a wire, run inside
+# it for a real distance - before it is a finding.
 
 
 def gap(a, b):
@@ -42,7 +60,7 @@ def gap(a, b):
 
 
 def obstacles(sheet):
-    """[(key, label, box)] for everything text has to stay clear of.
+    """[(key, label, box)] for everything a subject has to stay clear of.
 
     Bodies are keyed by the symbol's uuid, not its refdes: a multi-unit part has
     one body per unit under one refdes, and keying by refdes conflates them.
@@ -53,8 +71,8 @@ def obstacles(sheet):
             for n, e in enumerate(sheet.rect_edges())]
     out += [(("note", n), "note", b)
             for n, b in enumerate(sheet.free_text_boxes())]
-    out += [(("netlabel", n), "netlabel", b)
-            for n, b in enumerate(sheet.label_boxes())]
+    out += [(("netlabel", n), "netlabel:" + t, b)
+            for n, (b, t, _a) in enumerate(sheet.label_details())]
     for s in sheet.symbols():
         ref = next((G.a(pr, 2) for pr in G.kids(s, "property")
                     if G.a(pr, 1) == "Reference"), "")
@@ -65,22 +83,109 @@ def obstacles(sheet):
     return out
 
 
+def on_segment(p, seg, tol=0.01):
+    (x1, y1), (x2, y2) = seg
+    return (min(x1, x2) - tol <= p[0] <= max(x1, x2) + tol and
+            min(y1, y2) - tol <= p[1] <= max(y1, y2) + tol and
+            abs((x2 - x1) * (p[1] - y1) - (y2 - y1) * (p[0] - x1)) < tol * 10)
+
+
+def reportable(kind, box, obs_key, ob, margin):
+    """Does this pair clear the bar for its subject kind? -> (yes, distance)."""
+    d = gap(box, ob)
+    if kind != "body":
+        return d < margin, d
+    if obs_key[0] == "wire":
+        horiz = ob[1] == ob[3]
+        lo, hi = (max(box[0], ob[0]), min(box[2], ob[2])) if horiz else \
+                 (max(box[1], ob[1]), min(box[3], ob[3]))
+        if hi - lo < ALONG_MIN:
+            return False, d          # a corner touch, not a wire through it
+        thru = ob[1] if horiz else ob[0]
+        edge = (box[1], box[3]) if horiz else (box[0], box[2])
+        if not edge[0] - 0.01 <= thru <= edge[1] + 0.01:
+            return False, d
+        return True, -min(thru - edge[0], edge[1] - thru)
+    return d < -BODY_MIN, d
+
+
+def excused(sheet, subj_key, obs_key, wires, pins, anchors):
+    """True where a subject and an obstacle are meant to be in contact.
+
+    Two cases, and only two. A symbol body touches every wire that lands on one
+    of its own pins - a GND arrow's outline starts at its pin, so all 283 power
+    symbols would otherwise report. And a net label sits on the wire it names.
+    """
+    if subj_key[0] == "body" and obs_key[0] == "wire":
+        w = wires[obs_key[1]]
+        return any(on_segment(pt, w) for pt in pins.get(subj_key[1], ()))
+    if subj_key[0] == "body" and obs_key[0] == "body":
+        return subj_key[1] == obs_key[1]
+    if subj_key[0] == "netlabel":
+        if obs_key[0] == "wire":
+            return on_segment(anchors[subj_key[1]], wires[obs_key[1]])
+        if obs_key[0] == "netlabel":
+            return subj_key[1] == obs_key[1]
+    if subj_key[0] == "note" and obs_key[0] == "note":
+        return subj_key[1] == obs_key[1]
+    return False
+
+
+def subjects(sheet):
+    """[(key, name, kind, box)] - everything that must keep its clearance.
+
+    Fields are movable and `--fix` moves them. Labels, notes and bodies are
+    reported only: moving a label is forbidden by the round-2 power-label rule
+    and moving a body is a design decision, not a tidy-up.
+    """
+    out = []
+    for (su, ref, prop, box, _m) in sheet.visible_fields_by_instance():
+        out.append((("field", su, prop), "%s.%s" % (ref, prop), "field", box))
+    for n, (b, t, _a) in enumerate(sheet.label_details()):
+        out.append((("netlabel", n), t, "netlabel", b))
+    for n, b in enumerate(sheet.free_text_boxes()):
+        out.append((("note", n), "note", "note", b))
+    for s in sheet.symbols():
+        ref = next((G.a(pr, 2) for pr in G.kids(s, "property")
+                    if G.a(pr, 1) == "Reference"), "")
+        b = sheet.body_box(s)
+        if b:
+            out.append((("body", G.a(G.kid(s, "uuid"), 1)),
+                        "body:" + ref, "body", b))
+    return out
+
+
 def findings(path, margin):
     sheet = G.Sheet(open(path, encoding="utf-8").read())
     obs = obstacles(sheet)
-    flds = sheet.visible_fields_by_instance()
+    subs = subjects(sheet)
+    wires = sheet.wires()
+    anchors = [a_ for (_b, _t, a_) in sheet.label_details()]
+    pins = {G.a(G.kid(s, "uuid"), 1): sheet.pin_points(s)
+            for s in sheet.symbols()}
     out = []
-    for i, (su, ref, prop, box, _m) in enumerate(flds):
-        for key, label, ob in obs:
-            d = gap(box, ob)
-            if d < margin:
-                out.append((d, ref, prop, label))
-        for (su2, r2, p2, b2, _m2) in flds[i + 1:]:
-            d = gap(box, b2)
-            if d < margin:
-                out.append((d, ref, prop, "field:%s.%s" % (r2, p2)))
-    out.sort()
-    return out
+    for (skey, name, kind, box) in subs:
+        for okey, olabel, ob in obs:
+            if kind == "field" and okey[0] == "body":
+                pass                      # a field vs its OWN body still counts
+            elif skey[:2] == okey[:2] or (kind, skey[1]) == (okey[0], okey[1]):
+                continue
+            if excused(sheet, (kind, skey[1]) if kind != "field" else skey,
+                       okey, wires, pins, anchors):
+                continue
+            hit, d = reportable(kind, box, okey, ob, margin)
+            if hit:
+                # one line per pair, not two: a body vs a label is the same
+                # finding read from either end
+                out.append((d, name, kind, olabel, box, ob))
+    seen, uniq = set(), []
+    for f in sorted(out):
+        pair = (round(f[0], 3), frozenset((f[1], f[3])))
+        if pair in seen:
+            continue
+        seen.add(pair)
+        uniq.append(f)
+    return uniq
 
 
 def block_end(t, i):
@@ -185,14 +290,18 @@ def fix_sheet(path, margin):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("dir", nargs="?", default="hardware/kicad/faff2_cbs1")
+    ap.add_argument("dir", nargs="?", default="hardware/kicad/faff2_cbs1",
+                    help="a schematic directory or a single .kicad_sch")
     ap.add_argument("--margin", type=float, default=DEFAULT_MARGIN)
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument("--fix", action="store_true",
                     help="move movable fields until they have the margin")
     a = ap.parse_args()
     total = 0
-    for path in sorted(glob.glob(os.path.join(a.dir, "*.kicad_sch"))):
+    paths = ([a.dir] if a.dir.endswith(".kicad_sch")
+             else sorted(glob.glob(os.path.join(a.dir, "*.kicad_sch"))))
+    assert paths, "no schematics at %s" % a.dir
+    for path in paths:
         if a.fix:
             new = fix_sheet(path, a.margin)
             if new != open(path, encoding="utf-8").read():
@@ -205,10 +314,11 @@ def main():
             continue
         print("=== %s: %d finding(s)" % (name, len(f)))
         if not a.quiet:
-            for (d, ref, prop, kind) in f:
+            for (d, name, kind, olabel, box, ob) in f:
                 word = "overlaps by" if d < 0 else "clears by only"
-                print("   %-9s %-10s %s %6.2f mm  vs %s"
-                      % (ref, prop, word, abs(d), kind))
+                print("   %-22s %-9s %s %5.2f mm  vs %-18s @ (%.2f,%.2f)"
+                      % (name, kind, word, abs(d), olabel,
+                         (ob[0] + ob[2]) / 2, (ob[1] + ob[3]) / 2))
         total += len(f)
     print("TOTAL: %d (margin %.2f mm)" % (total, a.margin))
     return 1 if total else 0

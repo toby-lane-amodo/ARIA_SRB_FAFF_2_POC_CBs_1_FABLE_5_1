@@ -688,3 +688,91 @@ checker reported it immediately as `field:U601.Reference` overlapping itself by
 exactly one line height, which is what a coincident pair looks like.
 `sch_geom.visible_fields_by_instance()` now keys by symbol uuid, and anything
 that walks fields on a sheet with a multi-unit part must do the same.
+
+## Item 1, continued - a fifth blind spot, found the same way
+
+The checker above passed `temp_sense` clean. The render did not: the label I had
+just placed on the `ADS1120_nDRDY` stub ran straight through `TP712`'s GND
+arrow. **Net labels and symbol bodies were only ever obstacles in that checker,
+never subjects** - nothing was ever measured *from* them - so a label through a
+body, or a body grazing a wire it does not connect to, scored zero. Both are
+subjects now.
+
+Two exemptions keep that honest, and without them it is unusable:
+
+* A symbol body touches every wire that lands on one of its own pins - a GND
+  arrow's outline *starts* at its pin - so all 283 power symbols would report.
+  `Sheet.pin_points()` gives each instance's connection points and those pairs
+  are excused.
+* A net label sits on the wire it names, by design. Whichever wire passes
+  through the label's own anchor is excused; every other wire still counts.
+
+**Text and outlines need different rules.** A text box is inked edge to edge, so
+it must keep real clearance (0.35 mm). A body box is the bounding box of a
+triangle or a polyline and its corners are mostly empty - requiring clearance
+there reported every wire that merely started at a GND arrow's empty corner, six
+of them on `power_rails` alone. So a body counts only when it is genuinely
+*penetrated*, and for a wire, only when the wire runs inside it for at least
+0.635 mm. That one test separates "wire through the arrow's tip" (2.54 mm of
+overlap along the wire - real, and what I had just drawn) from "wire starts at
+the arrow's bounding-box corner" (a single point - nothing there at all).
+
+`label_details()` also replaced the label box model: a label anchored `bottom`
+puts its glyphs entirely **above** the anchor, one line high, not in a 2.54 mm
+band straddling the wire, and a label takes no 180 deg text flip - so growth is
+justify-driven alone. Only hierarchical and global labels draw the flag glyph.
+`label_boxes()` stays as a thin wrapper because the round-1 and round-2 apply
+scripts take bare boxes.
+
+Design-wide this leaves **53 findings**, all pre-existing: power-symbol Values
+overlapped by a neighbouring bundle wire, notes and hierarchical labels crossing
+block borders, and a handful of body grazes. They are item 4's worklist, which
+is therefore larger than the 13 that round 2 recorded.
+
+## Item 2 - temp_sense: TP707..TP711 become one keyed header, J703
+
+`tools/apply_review_r3_j703.py`. Five hooks on the SPI2 nets meant five probe
+leads and five chances to slip a clip off a 47R terminator.
+`docs/decisions/actuator-rev-afe.md` §7 had already recommended exactly this
+part for exactly this sheet, so this applies a standing recommendation rather
+than deciding anything new; `J502` and `J603` are the two existing instances.
+
+**Channel map**, copied from J603 pin for pin:
+
+| Pin | Channel | Net | Pin | Channel | Net |
+|---|---|---|---|---|---|
+| 1 | CH0 | `ADS1120_nDRDY` | 2 | CH1 | `ADS1120_nCS` |
+| 3 | CH2 | `CONFIG_SPI_SCK` | 4 | CH3 | `CONFIG_SPI_MOSI` |
+| 5 | CH4 | `CONFIG_SPI_MISO` | 6, 7, 8 | CH5..CH7 | no-connect |
+| 9 | GND | ground lead | 10 | GND | ground lead |
+
+Tapped MCU-side of `R712`..`R715`, so the bus is still visible with an isolation
+link out - the same choice `J502` records. `TP712`/`TP713` stay: they are the
+GND hooks the analyser's leads clip to, and `linear_encoder` kept `TP601` for
+the same reason.
+
+**It reaches its nets by local labels, not by wires.** The five nets arrive at
+7.62 mm pitch and the header's pins are at 2.54, so wiring them directly is five
+doglegs. `J502` solved that with local labels matching the sheet's hierarchical
+label names, and the netlist proves the idiom: `loadcell_afe`'s SPI3 nets are
+already `/loadcell_afe/ADS1235_*` because of it. `temp_sense`'s four bus nets
+move from `/mcu/...` to `/temp_sense/...` for the same reason - a rename, with
+identical membership, and there is no board yet to disturb.
+
+**Why the block box grew.** A label has to sit entirely over its wire, so each
+side of the header needs ~19 mm of run: 66 mm of cluster against a 58 mm box
+whose left third already carries U701's descending bundle. The clean space was
+the empty band under the box, so `ADS1120 SUPPLIES AND SPI2` extends from
+y=154.94 to y=181.61 and the header sits at (209.55, 165.10).
+
+**`TP712`'s GND cluster moved up 5.08 mm**, and needed to regardless: its arrow
+tip sat exactly on the `ADS1120_nDRDY` wire at y=106.68. No connection - but it
+draws as one, and it was why the label had nowhere to go. This is the defect
+that exposed the fifth blind spot above.
+
+`ADS1120_nDRDY` is the name `actuator-sch-afe.md` already used for the net;
+it stays sheet-local (DEC-0023) because the `.ioc` still has no DRDY pin.
+
+Net count 259 -> 262: the three no-connect channels each become an
+`unconnected-(J703-CHn-Padn)` net, exactly as J603's three do. Components
+412 -> 408: five hooks out, one connector in. ERC 0/0.

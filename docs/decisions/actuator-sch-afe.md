@@ -342,7 +342,8 @@ one wire, each only while its own chip select is low. If `motor_drive` declared
 it `output`, the root sheet would have two outputs on one net. Worth reconciling
 at integration.
 
-**`ADS1120_nDRDY` has no `.ioc` pin.** It is brought out to `TP707` and nothing
+**`ADS1120_nDRDY` has no `.ioc` pin.** It is brought out to `J703` CH0 (it was
+`TP707` until the round-3 review put the whole interface on one plug) and nothing
 else; firmware polls the dual-function DOUT/DRDY line instead, which is what the
 datasheet expects when the dedicated pin is unused, and at a few readings per
 second it costs nothing. If an interrupt is ever wanted, allocate a spare GPIO in

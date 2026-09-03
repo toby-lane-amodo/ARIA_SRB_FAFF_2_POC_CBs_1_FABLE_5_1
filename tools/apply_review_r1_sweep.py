@@ -39,8 +39,9 @@ TP_NAMES = {
     "TP601": "5VENC",
     # temp_sense - two probes, then the ADC's reference and its SPI
     "TP701": "PRB1A", "TP702": "PRB1B", "TP703": "PRB2A", "TP704": "PRB2B",
-    "TP705": "REFP", "TP706": "REFN", "TP707": "DRDY",
-    "TP708": "nCS", "TP709": "SCK", "TP710": "MOSI", "TP711": "MISO",
+    "TP705": "REFP", "TP706": "REFN",
+    # TP707..TP711 were the SPI2 hooks; round 3 replaced all five with J703,
+    # the keyed logic-analyser socket, so their names went with them.
     "TP712": "GND", "TP713": "GND",
     # nvm_calibration
     "TP801": "SCL", "TP802": "SDA", "TP803": "WP", "TP804": "GND", "TP805": "GND",
