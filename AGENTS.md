@@ -108,7 +108,7 @@ exists (`docs/decisions/actuator-rev-testdebug.md`). Do not recreate it, in any 
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
 is the DEC-0021 baseline and the end state.
 
-**The design now meets it in full** — 404 components, 251 nets, 0/0 — so any violation you see
+**The design now meets it in full** — 412 components, 259 nets, 0/0 — so any violation you see
 is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
 `pin_not_driven`) all cleared when the root was wired; do not reintroduce them as "expected".
 
@@ -143,6 +143,21 @@ self-check; the client reviews in the KiCad GUI. The **one** committed PDF is
 
 Log any new review point in `SCHEMATIC_REVIEW_LOG.md` with its resolution, and any judgement
 call in `docs/DECISIONS.md`.
+
+## Power symbol net names
+
+**One placement, everywhere: no sideways offset, centred, 3.81 mm away** — above a
+rail arrow, below a ground. That is the captain's round-2 ruling, and all 283
+power symbols now follow it. The label is **pinned**: where it collides, move the
+*symbol* along its own stub, move the note or the neighbouring part, or grow the
+block box — never nudge the label sideways to dodge.
+
+The mirror for ground is deliberate: "above" a GND symbol is where its wire
+arrives. `tools/apply_review_r2_labels.py` applies the rule and re-solves the
+placement around it; re-run it after any power-symbol move.
+
+Thirteen labels still graze a wire, body or note on the two densest sheets — they
+need local placement rework, and they are listed in `actuator-sch-review-r1.md`.
 
 ## The bundled overlap checker is not the last word
 

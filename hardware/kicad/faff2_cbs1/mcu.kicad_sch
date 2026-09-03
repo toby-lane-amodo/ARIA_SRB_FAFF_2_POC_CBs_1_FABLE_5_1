@@ -8424,7 +8424,7 @@
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Value" "GND"
-			(at 83.82 63.5 0)
+			(at 83.82 60.96 0)
 			(effects (font (size 1.27 1.27)))
 		)
 		(property "Footprint" ""
@@ -9533,7 +9533,7 @@
 	)
 	(text "BOOT0: 10k pull-down fitted = boot from internal flash.\nFit the DNP 1k to boot the system bootloader (DFU)."
 		(exclude_from_sim no)
-		(at 24.13 59.69 0)
+		(at 24.13 62.23 0)
 		(effects (font (size 1.27 1.27)) (justify left top))
 		(uuid "25bda65c-6a77-5a15-bbb9-449816af930a")
 	)

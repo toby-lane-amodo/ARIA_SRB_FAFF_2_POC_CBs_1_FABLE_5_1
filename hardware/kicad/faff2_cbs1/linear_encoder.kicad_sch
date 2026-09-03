@@ -5474,7 +5474,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 44.4500 63.5000 0)
+			(at 44.45 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5554,7 +5554,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 21.5900 64.7700 0)
+			(at 21.59 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5751,7 +5751,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 58.4200 104.1400 0)
+			(at 58.42 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6353,7 +6353,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 91.4400 100.3300 0)
+			(at 91.44 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6637,7 +6637,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 91.4400 125.7300 0)
+			(at 91.44 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6819,7 +6819,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 104.1400 127.0000 0)
+			(at 104.14 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7184,7 +7184,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 25.4000 143.5100 0)
+			(at 25.4 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7620,7 +7620,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 55.8800 181.6100 0)
+			(at 55.88 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7802,7 +7802,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 68.5800 181.6100 0)
+			(at 68.58 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8076,7 +8076,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 101.6000 163.8300 0)
+			(at 101.6 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8254,7 +8254,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 154.9400 144.7800 0)
+			(at 154.94 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8334,7 +8334,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 157.4800 167.6400 0)
+			(at 157.48 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8414,7 +8414,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 187.9600 144.7800 0)
+			(at 187.96 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8596,7 +8596,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 187.9600 163.8300 0)
+			(at 187.96 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9564,7 +9564,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 213.3600 119.3800 0)
+			(at 213.36 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9654,7 +9654,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 228.6000 119.3800 0)
+			(at 228.6 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)

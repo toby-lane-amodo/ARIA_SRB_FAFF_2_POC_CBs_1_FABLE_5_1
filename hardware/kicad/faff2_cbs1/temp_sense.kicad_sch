@@ -2882,7 +2882,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 71.12 48.26 0)
+			(at 71.12 46.99 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -3066,7 +3066,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 71.12 116.84 0)
+			(at 71.12 115.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -4827,7 +4827,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5303,7 +5302,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 109.22 143.51 0)
+			(at 109.22 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5487,7 +5486,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 143.51 0)
+			(at 119.38 138.43 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -5982,13 +5981,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 149.86 96.52 0)
+			(at 147.32 96.52 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -6336,7 +6334,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 215.65 44.45 0)
+			(at 216.92 45.72 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6521,13 +6519,12 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 223.52 44.45 0)
+			(at 215.9 44.45 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -6975,13 +6972,12 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 177.8 93.98 0)
+			(at 182.88 93.98 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -8332,7 +8328,7 @@
 	)
 	(rectangle
 		(start 17.78 11.43)
-		(end 84.46 46.99)
+		(end 84.46 49.53)
 		(stroke
 			(width 0.1524)
 			(type dash)
@@ -8357,7 +8353,7 @@
 	)
 	(rectangle
 		(start 17.78 78.74)
-		(end 84.46 115.57)
+		(end 84.46 118.11)
 		(stroke
 			(width 0.1524)
 			(type dash)
@@ -8407,7 +8403,7 @@
 	)
 	(rectangle
 		(start 86.36 78.74)
-		(end 146.05 146.05)
+		(end 149.86 146.05)
 		(stroke
 			(width 0.1524)
 			(type dash)
@@ -8433,7 +8429,7 @@
 	(text
 		"R707 is the shared reference resistor -\nboth return leads meet here, so both\nchannels are ratiometric."
 		(exclude_from_sim no)
-		(at 96.52 137.16 0)
+		(at 96.52 139.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8457,7 +8453,7 @@
 	(text
 		"ADS1120 SUPPLIES AND SPI2"
 		(exclude_from_sim no)
-		(at 181.61 32.77 0)
+		(at 181.61 28.96 0)
 		(effects
 			(font
 				(size 1.778 1.778)

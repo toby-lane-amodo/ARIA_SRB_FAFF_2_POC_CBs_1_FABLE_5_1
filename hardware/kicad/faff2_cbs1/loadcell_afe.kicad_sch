@@ -5676,7 +5676,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 162.56 80.01 0)
+			(at 162.56 78.74 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7746,7 +7746,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 223.52 34.29 0)
+			(at 223.52 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -7930,7 +7930,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 233.68 34.29 0)
+			(at 233.68 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11316,7 +11316,7 @@
 	)
 	(rectangle
 		(start 95.25 40.64)
-		(end 166.37 78.74)
+		(end 166.37 81.28)
 		(stroke
 			(width 0.1524)
 			(type dash)
@@ -11366,7 +11366,7 @@
 	)
 	(rectangle
 		(start 196.85 13.97)
-		(end 245.11 33.02)
+		(end 245.11 35.56)
 		(stroke
 			(width 0.1524)
 			(type dash)

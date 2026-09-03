@@ -587,3 +587,63 @@ The `U601E` move is the one that needed care beyond the symbols: a `no_connect`
 caps its unused output, and it does not ride with the symbol - ERC caught that as
 `pin_not_connected` plus a dangling no-connect the first time round. Worth
 remembering: **a no_connect is placed by coordinate, not attached to the pin.**
+
+## Item 8 - one placement rule for every power symbol's net name
+
+> "When a power rail symbol is placed, it should always have its text for the net
+> located directly above it, centre justified, and close. Go through the whole
+> schematic and check this."
+
+Applied as **no sideways offset, centred, 3.81 mm away** - above a rail arrow,
+**below a ground**. All 283 power symbols now carry it; 103 did not before, most
+of them left-anchored rather than centred, and a handful offset by up to 7.6 mm
+sideways by round 1's auto-placer.
+
+**The ground mirror is an interpretation, and it is the one thing here worth
+challenging.** "Above" a GND symbol is where its wire arrives, so a name there
+would sit on the wire; 137 instances and every schematic convention put GND's
+name under the triangle. If the captain meant it literally for grounds too, it is
+a one-line change in `tools/apply_review_r2_labels.py`.
+
+### The label is pinned, so everything else moves
+
+That is what makes this rule different from round 1's sweep, where the label was
+free to dodge. Here, in order:
+
+1. the **symbol** slides along its own stub (never sideways), if that clears it;
+2. a **note** that a name lands on is relocated to the nearest clear position;
+3. a **block box** gives way - six names sat on a border, and each had 2.5 mm or
+   more of clear space beyond it, so five rectangles grew;
+4. two `PWR_FLAG`s are **placed by hand**: their names are 9.5 mm wide and the
+   rail runs they tap are only 10 mm, so the automatic pass kept shuffling them
+   into `+5V` / `+5VA`.
+
+### Thirteen exceptions, listed rather than hidden
+
+These still graze something. Each needs local placement rework on a crowded
+sheet - moving the parts around them, not the label - which is more than a label
+sweep should do unasked:
+
+| Sheet | Name | Grazes |
+|---|---|---|
+| `motor_drive` | `#PWR1111`, `#PWR1112` | the "MOTOR ROTARY ENCODER AND HALL SENSORS" title |
+| `motor_drive` | `#PWR1130` | the TIM1 note - which has **nowhere to go**: a 47.6 x 8.7 mm box has no clear position anywhere in that block |
+| `motor_drive` | `#PWR1113` | a vertical wire |
+| `power_entry_24v` | `#FLG203` | `C201`'s body |
+| `power_rails` | `#PWR304`, `#PWR325`, `#FLG345`, `#FLG347` | a wire |
+| `power_rails` | `#PWR327` | `C318`'s body |
+| `temp_sense` | `#PWR714`, `#PWR717` | `C711`'s value and body, and a wire |
+
+Thirteen of 283 is 95.4 % on the rule with clear space. The gate-driver block on
+`motor_drive` and the ADS1120 supply corner on `temp_sense` are where the density
+bites; both would need their parts respaced to take the rule fully.
+
+### A measurement bug worth remembering
+
+My own severity metric scored these at **zero** for a while. A wire or a block
+border is a *zero-thickness* segment, so "overlap depth" between it and a text box
+is always 0 - even when the line runs straight through the middle of the glyphs.
+Ranking by that number hid every wire-through-text case behind a wall of
+harmless-looking zeros. **For a zero-thickness obstacle the severity is how far
+inside the box the line sits, not the box intersection.** A render caught it; the
+number did not.

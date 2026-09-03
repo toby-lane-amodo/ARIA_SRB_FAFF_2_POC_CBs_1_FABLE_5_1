@@ -5607,7 +5607,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 69.85) (xy 68.58 73.66)
+			(xy 68.58 69.85) (xy 68.58 78.74)
 		)
 		(stroke
 			(width 0)
@@ -5637,7 +5637,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 69.85) (xy 80.01 73.66)
+			(xy 80.01 69.85) (xy 80.01 77.47)
 		)
 		(stroke
 			(width 0)
@@ -5667,7 +5667,7 @@
 	)
 	(wire
 		(pts
-			(xy 90.17 69.85) (xy 90.17 73.66)
+			(xy 90.17 69.85) (xy 90.17 72.39)
 		)
 		(stroke
 			(width 0)
@@ -5743,7 +5743,7 @@
 	)
 	(wire
 		(pts
-			(xy 275.59 81.28) (xy 275.59 83.82)
+			(xy 275.59 81.28) (xy 275.59 85.09)
 		)
 		(stroke
 			(width 0)
@@ -5763,7 +5763,7 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 81.28) (xy 285.75 83.82)
+			(xy 285.75 81.28) (xy 285.75 85.09)
 		)
 		(stroke
 			(width 0)
@@ -5803,7 +5803,7 @@
 	)
 	(wire
 		(pts
-			(xy 311.15 110.49) (xy 311.15 113.03)
+			(xy 311.15 110.49) (xy 311.15 114.3)
 		)
 		(stroke
 			(width 0)
@@ -5823,7 +5823,7 @@
 	)
 	(wire
 		(pts
-			(xy 321.31 110.49) (xy 321.31 113.03)
+			(xy 321.31 110.49) (xy 321.31 114.3)
 		)
 		(stroke
 			(width 0)
@@ -5863,7 +5863,7 @@
 	)
 	(wire
 		(pts
-			(xy 292.1 161.29) (xy 292.1 163.83)
+			(xy 292.1 161.29) (xy 292.1 165.1)
 		)
 		(stroke
 			(width 0)
@@ -5883,7 +5883,7 @@
 	)
 	(wire
 		(pts
-			(xy 302.26 161.29) (xy 302.26 163.83)
+			(xy 302.26 161.29) (xy 302.26 165.1)
 		)
 		(stroke
 			(width 0)
@@ -7304,7 +7304,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 275.59 83.82 0)
+		(at 275.59 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7312,7 +7312,7 @@
 		(dnp no)
 		(uuid "b2d40b85-77c2-538f-8336-9eef849ec80f")
 		(property "Reference" "#PWR1143"
-			(at 275.59 77.47 0)
+			(at 275.59 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7329,7 +7329,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 275.59 83.82 0)
+			(at 275.59 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7338,7 +7338,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 275.59 83.82 0)
+			(at 275.59 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7347,7 +7347,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 275.59 83.82 0)
+			(at 275.59 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7368,7 +7368,7 @@
 		)
 	)	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 285.75 83.82 0)
+		(at 285.75 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7376,7 +7376,7 @@
 		(dnp no)
 		(uuid "0e5ff16a-1f6e-575d-a0e1-fe97d7c867ba")
 		(property "Reference" "#PWR1144"
-			(at 285.75 77.47 0)
+			(at 285.75 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7393,7 +7393,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 285.75 83.82 0)
+			(at 285.75 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7402,7 +7402,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 285.75 83.82 0)
+			(at 285.75 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7411,7 +7411,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 285.75 83.82 0)
+			(at 285.75 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7432,7 +7432,7 @@
 		)
 	)	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 311.15 113.03 0)
+		(at 311.15 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7440,7 +7440,7 @@
 		(dnp no)
 		(uuid "8943ec77-2f3d-52c7-9374-3fb733beb530")
 		(property "Reference" "#PWR1145"
-			(at 311.15 106.68 0)
+			(at 311.15 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7457,7 +7457,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 311.15 113.03 0)
+			(at 311.15 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7466,7 +7466,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 311.15 113.03 0)
+			(at 311.15 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7475,7 +7475,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 311.15 113.03 0)
+			(at 311.15 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7496,7 +7496,7 @@
 		)
 	)	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 321.31 113.03 0)
+		(at 321.31 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7504,7 +7504,7 @@
 		(dnp no)
 		(uuid "dfc87953-0d7f-598f-bc7a-4335e8abadd9")
 		(property "Reference" "#PWR1146"
-			(at 321.31 106.68 0)
+			(at 321.31 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7521,7 +7521,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 321.31 113.03 0)
+			(at 321.31 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7530,7 +7530,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 321.31 113.03 0)
+			(at 321.31 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7539,7 +7539,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 321.31 113.03 0)
+			(at 321.31 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7560,7 +7560,7 @@
 		)
 	)	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 292.1 163.83 0)
+		(at 292.1 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7568,7 +7568,7 @@
 		(dnp no)
 		(uuid "af88235e-cfce-5c21-a483-15af417f3060")
 		(property "Reference" "#PWR1147"
-			(at 292.1 157.48 0)
+			(at 292.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7585,7 +7585,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 292.1 163.83 0)
+			(at 292.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7594,7 +7594,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 292.1 163.83 0)
+			(at 292.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7603,7 +7603,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 292.1 163.83 0)
+			(at 292.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7624,7 +7624,7 @@
 		)
 	)	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 302.26 163.83 0)
+		(at 302.26 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7632,7 +7632,7 @@
 		(dnp no)
 		(uuid "66d3aba7-ae51-5c46-93dd-77b6f4848053")
 		(property "Reference" "#PWR1148"
-			(at 302.26 157.48 0)
+			(at 302.26 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7649,7 +7649,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 302.26 163.83 0)
+			(at 302.26 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7658,7 +7658,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 302.26 163.83 0)
+			(at 302.26 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7667,7 +7667,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 302.26 163.83 0)
+			(at 302.26 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8250,7 +8250,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 68.58 73.66 0)
+		(at 68.58 78.74 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8258,7 +8258,7 @@
 		(dnp no)
 		(uuid "e6337803-dcbb-551e-855e-7867c0255ee1")
 		(property "Reference" "#PWR1103"
-			(at 68.58 73.66 0)
+			(at 68.58 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8267,16 +8267,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 66.04 77.47 0)
+			(at 68.58 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
-			(at 68.58 73.66 0)
+			(at 68.58 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8285,7 +8284,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 68.58 73.66 0)
+			(at 68.58 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8294,7 +8293,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 68.58 73.66 0)
+			(at 68.58 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8385,7 +8384,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 80.01 73.66 0)
+		(at 80.01 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8393,7 +8392,7 @@
 		(dnp no)
 		(uuid "90ebd861-d988-52fc-b53a-e34ffe0adcfe")
 		(property "Reference" "#PWR1104"
-			(at 80.01 73.66 0)
+			(at 80.01 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8402,16 +8401,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 82.55 78.74 0)
+			(at 80.01 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 80.01 73.66 0)
+			(at 80.01 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8420,7 +8418,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 80.01 73.66 0)
+			(at 80.01 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8429,7 +8427,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 80.01 73.66 0)
+			(at 80.01 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8520,7 +8518,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 90.17 73.66 0)
+		(at 90.17 72.39 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8528,7 +8526,7 @@
 		(dnp no)
 		(uuid "404d4af3-8982-5e04-8208-7ba9c681c839")
 		(property "Reference" "#PWR1105"
-			(at 90.17 73.66 0)
+			(at 90.17 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8537,16 +8535,15 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 92.71 78.74 0)
+			(at 90.17 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 90.17 73.66 0)
+			(at 90.17 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8555,7 +8552,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 90.17 73.66 0)
+			(at 90.17 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8564,7 +8561,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 90.17 73.66 0)
+			(at 90.17 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8952,12 +8949,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 91.44 93.98 0)
+			(at 88.9 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -9001,7 +8997,7 @@
 	)
 	(text "Bulk store 210 uF; DC-link ripple < 0.15 V at 1.9 A, 20 kHz.\nVBUS_MON 100k/12k: 3.30 V full scale = 30.8 V bus; 24.0 V\nreads 2.571 V. PC5 / ADC2_INP8 (DEC-0011, OQ-01)."
 		(exclude_from_sim no)
-		(at 17.78 93.98 0)
+		(at 17.78 95.25 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9519,12 +9515,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 12.7 152.4 0)
+			(at 20.32 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -9654,7 +9649,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 38.1 148.59 0)
+			(at 38.1 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9867,12 +9862,11 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 41.91 189.23 0)
+			(at 44.45 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -9924,7 +9918,7 @@
 		(dnp no)
 		(uuid "09fc6cd8-8641-556b-a406-1f9cf0a8115b")
 		(property "Reference" "C1108"
-			(at 53.975 177.165 0)
+			(at 53.975 178.435 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10315,12 +10309,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 64.77 176.53 0)
+			(at 62.23 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -10444,7 +10437,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 69.85 194.31 0)
+		(at 69.85 193.04 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10452,7 +10445,7 @@
 		(dnp no)
 		(uuid "552c5a42-e4e2-5d16-81ec-11d77ef4adc5")
 		(property "Reference" "#PWR1116"
-			(at 69.85 187.96 0)
+			(at 69.85 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10469,7 +10462,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 194.31 0)
+			(at 69.85 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10478,7 +10471,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 194.31 0)
+			(at 69.85 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10487,7 +10480,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 69.85 194.31 0)
+			(at 69.85 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10537,7 +10530,7 @@
 			)
 		)
 		(property "Value" "2k2"
-			(at 79.375 215.265 0)
+			(at 79.375 213.995 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10589,7 +10582,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 77.47 208.28 0)
+		(at 77.47 207.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10597,7 +10590,7 @@
 		(dnp no)
 		(uuid "745b4820-471e-580e-beda-8e91f95576d8")
 		(property "Reference" "#PWR1117"
-			(at 77.47 201.93 0)
+			(at 77.47 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10614,7 +10607,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 77.47 208.28 0)
+			(at 77.47 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10623,7 +10616,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 77.47 208.28 0)
+			(at 77.47 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10632,7 +10625,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 77.47 208.28 0)
+			(at 77.47 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11035,7 +11028,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 69.85 240.03 0)
+		(at 69.85 238.76 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11043,7 +11036,7 @@
 		(dnp no)
 		(uuid "41be4e9a-fd5d-5853-82d5-2fdd5ba8f079")
 		(property "Reference" "#PWR1120"
-			(at 69.85 233.68 0)
+			(at 69.85 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11060,7 +11053,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 240.03 0)
+			(at 69.85 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11069,7 +11062,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 240.03 0)
+			(at 69.85 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11078,7 +11071,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 69.85 240.03 0)
+			(at 69.85 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11128,7 +11121,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 79.375 260.985 0)
+			(at 79.375 259.715 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11180,7 +11173,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 77.47 254 0)
+		(at 77.47 255.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11188,7 +11181,7 @@
 		(dnp no)
 		(uuid "f04106a7-2143-5b6b-8c80-098470592ed1")
 		(property "Reference" "#PWR1121"
-			(at 77.47 247.65 0)
+			(at 77.47 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11197,7 +11190,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 77.47 248.92 0)
+			(at 77.47 251.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11205,7 +11198,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 77.47 254 0)
+			(at 77.47 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11214,7 +11207,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 77.47 254 0)
+			(at 77.47 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11223,7 +11216,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 77.47 254 0)
+			(at 77.47 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11525,7 +11518,7 @@
 		(dnp no)
 		(uuid "bf7c055b-c289-584a-ab8b-4efa1477e98a")
 		(property "Reference" "R1114"
-			(at 150.495 34.925 0)
+			(at 150.495 33.655 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11613,12 +11606,11 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 143.51 35.56 0)
+			(at 146.05 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -12939,12 +12931,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 190.5 144.78 0)
+			(at 187.96 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -13245,12 +13236,11 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 138.43 144.78 0)
+			(at 140.97 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -17082,7 +17072,7 @@
 
 	(wire
 		(pts
-			(xy 69.85 194.31) (xy 69.85 196.85)
+			(xy 69.85 193.04) (xy 69.85 196.85)
 		)
 		(stroke
 			(width 0)
@@ -17103,7 +17093,7 @@
 
 	(wire
 		(pts
-			(xy 69.85 240.03) (xy 69.85 242.57)
+			(xy 69.85 238.76) (xy 69.85 242.57)
 		)
 		(stroke
 			(width 0)
@@ -17127,7 +17117,7 @@
 
 	(wire
 		(pts
-			(xy 77.47 208.28) (xy 77.47 210.82)
+			(xy 77.47 207.01) (xy 77.47 210.82)
 		)
 		(stroke
 			(width 0)
@@ -17148,7 +17138,7 @@
 
 	(wire
 		(pts
-			(xy 77.47 254) (xy 77.47 256.54)
+			(xy 77.47 255.27) (xy 77.47 256.54)
 		)
 		(stroke
 			(width 0)
