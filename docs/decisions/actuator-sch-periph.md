@@ -3,8 +3,10 @@
 Block task: **PERIPHERALS**, covering exactly three sheets —
 `hardware/kicad/faff2_cbs1/linear_encoder.kicad_sch`,
 `hardware/kicad/faff2_cbs1/nvm_calibration.kicad_sch` and
-`hardware/kicad/faff2_cbs1/ui_io.kicad_sch`. Nothing else in the repo was edited
-except this file and the five datasheets listed in §8.
+`hardware/kicad/faff2_cbs1/ui_io.kicad_sch`. Also added: this file, the five
+datasheets of §8, and the project-local libraries of §7 with their two
+`*-lib-table` entries. No other block's sheet, the root sheet, the `.kicad_pro`
+or any shared doc was touched.
 
 Everything here is subordinate to the authorities named in `AGENTS.md`. The `.ioc`
 is quoted, never changed: **no pin on this board was re-assigned.**
@@ -383,21 +385,29 @@ before they were removed, and it is the same conclusion `AGENTS.md` now records.
 
 ---
 
-## 7. Amodo library — one new part
+## 7. One new part — project-local, not in the house library
 
-Announced on the status file for serialisation before the edit, and no
-countermanding instruction arrived.
+**`AmodoKiCadLib` is read-only** (captain rule). New and modified parts live in
+project-local libraries:
+
+| Library | Path | Table entry |
+|---|---|---|
+| symbols | `hardware/kicad/faff2_cbs1/faff2_periph.kicad_sym` | `faff2_periph` → `${KIPRJMOD}/faff2_periph.kicad_sym` |
+| footprints | `hardware/kicad/faff2_cbs1/faff2.pretty/` | `faff2` → `${KIPRJMOD}/faff2.pretty` |
+
+The `faff2.pretty` footprint library is shared with the `motor_drive` block;
+distinct `.kicad_mod` filenames never collide.
 
 ### `FH12-10S-0.5SH(55)` — symbol + footprint
 
 Hirose 10-way 0.5 mm FPC/FFC receptacle, bottom contact, ZIF. **JLC `C506791`**
 (verified live), so it is orderable on the same board as everything else.
 
-* **Symbol** appended to `Amodo_Connectors.kicad_sym`, modelled exactly on the
-  existing `FH12-20S-0.5SH(55)`: ten contacts in numeric order on one side, no
-  pin names, two shell tabs on the other — the `schematic-style` rule that a
-  catalogue connector's symbol must stay generic. `SymLifecycle draft`.
-* **Footprint** `Amodo.pretty/FH12-10S-0.5SH(55).kicad_mod`, derived from the
+* **Symbol** in `faff2_periph.kicad_sym`, modelled exactly on the house
+  `FH12-20S-0.5SH(55)`: ten contacts in numeric order on one side, no pin names,
+  two shell tabs on the other — the `schematic-style` rule that a catalogue
+  connector's symbol must stay generic. `SymLifecycle draft`.
+* **Footprint** `faff2.pretty/FH12-10S-0.5SH(55).kicad_mod`, derived from the
   in-house `FH12-20S-0.5SH(55)` land pattern: ten contacts removed and every
   other feature moved 2.5 mm inward per side. `FPLifecycle draft`.
 
@@ -411,11 +421,14 @@ the transform assumes. Two of those dimensions are independently confirmed in th
 derived footprint: the contact span measures 4.5 mm and the silk/fab body edges
 land at ±4.05 mm = `B`/2.
 
-The `pcb-layout-style` skill was invoked before the footprint was touched, per
-`AGENTS.md`. The new part should be reviewed and promoted out of `draft` by the
-library owner before fabrication.
+The `pcb-layout-style` skill was invoked before the footprint was drawn, per
+`AGENTS.md`. The part should be reviewed and promoted out of `draft` before
+fabrication.
 
-**Nothing else in the Amodo library was modified.**
+**`AmodoKiCadLib` is unmodified.** An earlier revision of this work added the
+part to `Amodo_Connectors.kicad_sym` and `Amodo.pretty`; both were reverted with
+targeted commands once the read-only rule landed, and verified — the symbol is
+gone from the house file and `git status` on it is clean.
 
 ---
 
