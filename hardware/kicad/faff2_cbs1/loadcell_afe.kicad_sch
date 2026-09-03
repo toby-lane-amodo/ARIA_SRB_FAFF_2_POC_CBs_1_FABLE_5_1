@@ -1601,6 +1601,287 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Amodo_Connectors:Header_Female_10-way_2-row_Straight_2.54mm_THT__KEYED_LOGIC_TEST"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 8.382 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "8510-4500PL"
+				(at 0 18.542 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Footprint" "Amodo:8510-4500PL_LOGIC_TEST"
+				(at 0 16.51 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/167/1/ts0413.pdf"
+				(at 0 20.574 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "10-way 0.1\" keyed PCB THT socket, for connecting 8-channel Hobby Electronics Logic Analyser"
+				(at 0 12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 10.668 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "8510-4500PL "
+				(at 0 14.478 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Use With" "logic analyser"
+				(at 0 6.35 0)
+				(show_name)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Header_Female_10-way_2-row_Straight_2.54mm_THT__KEYED_LOGIC_TEST_1_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 5.08 -10.16)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -5.08 -1.27)
+					(end -4.445 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "CH0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "CH2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "CH4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -5.08 0)
+					(length 2.54)
+					(name "CH6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -7.62 -7.62 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 2.54 180)
+					(length 2.54)
+					(name "CH1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "CH3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "CH5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -5.08 180)
+					(length 2.54)
+					(name "CH7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 7.62 -7.62 180)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Amodo_Connectors:TestPoint"
 			(pin_numbers
 				(hide yes)
@@ -9345,103 +9626,6 @@
 		(uuid "8e85412c-4552-5451-8478-3700b7d6dc84")
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 162.56 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "97838ee5-8b79-5550-a0e4-14c866593076")
-		(property "Reference" "TP506"
-			(at 102.87 158.37 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 160.28 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 162.56 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 162.56 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 162.56 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 162.56 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 162.56 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b278792a-5ac2-5780-835c-2fa72c014be3")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP506")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_47R_0603")
 		(at 121.92 170.18 90)
 		(unit 1)
@@ -9552,103 +9736,6 @@
 			(justify right)
 		)
 		(uuid "f07f2623-1631-55f7-81bf-a192d47c2c8e")
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 170.18 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6f414239-a39a-5c2a-a5ac-61c95ae1d561")
-		(property "Reference" "TP507"
-			(at 102.87 165.99 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 167.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 170.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 170.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 170.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 170.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 170.18 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e2458c1c-9bdf-537c-8b2e-951dcc6e6eff")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP507")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_47R_0603")
@@ -9763,103 +9850,6 @@
 		(uuid "1860a37c-3985-5e63-b096-dbfc4aa2a0a2")
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 185.42 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b2351901-9ed2-5a70-83dc-46bc61e04b31")
-		(property "Reference" "TP508"
-			(at 102.87 181.23 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 183.14 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 185.42 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 185.42 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 185.42 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 185.42 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 185.42 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c58eb769-9a99-5e73-b508-920c81c24445")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP508")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_47R_0603")
 		(at 121.92 193.04 90)
 		(unit 1)
@@ -9970,103 +9960,6 @@
 			(justify right)
 		)
 		(uuid "d75b4bd3-7a15-5b56-8fa8-2f013a80f4fb")
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 193.04 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "174a9008-acee-557f-99e1-e33bd2300c90")
-		(property "Reference" "TP509"
-			(at 102.87 188.85 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 190.76 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 193.04 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 193.04 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 193.04 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 193.04 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 193.04 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "dcdf3fb1-7f8f-5874-8afe-d249da78edf9")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP509")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_47R_0603")
@@ -10181,103 +10074,6 @@
 		(uuid "a96f7c03-3c23-59a1-ac41-328be0e650aa")
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 200.66 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "af43da5d-23a8-5c51-a049-6479da4253c0")
-		(property "Reference" "TP510"
-			(at 102.87 196.47 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 198.38 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 200.66 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 200.66 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 200.66 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 200.66 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 200.66 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f0f76504-1266-5e31-b44a-0d29f64f97dc")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP510")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_47R_0603")
 		(at 121.92 208.28 90)
 		(unit 1)
@@ -10390,103 +10186,6 @@
 		(uuid "3409a759-e35c-5872-b67e-787575cb46be")
 	)
 	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 208.28 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "79b8b66a-e08c-5c56-9215-3bf3faf460ce")
-		(property "Reference" "TP511"
-			(at 102.87 204.09 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 206 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 208.28 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 208.28 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 208.28 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 208.28 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 208.28 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5694fc1a-6182-5e7f-bff5-426b3be569b9")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP511")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_47R_0603")
 		(at 121.92 215.9 90)
 		(unit 1)
@@ -10597,103 +10296,6 @@
 			(justify right)
 		)
 		(uuid "9f860d7c-c812-5dc2-8aa5-f1458f3fec40")
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 215.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0cac7a73-43f8-5110-a9bb-cda9ca2550b0")
-		(property "Reference" "TP512"
-			(at 102.87 211.71 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 213.62 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 215.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 215.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 215.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 215.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 215.9 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e06eee86-f758-5ec8-bcdf-9d7a6dba9b68")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP512")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
@@ -10990,103 +10592,6 @@
 			(justify right)
 		)
 		(uuid "489ae0a7-43c5-5cc1-a786-1967b356c630")
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 111.76 223.52 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ebd22d47-c1ce-592c-b1d6-e101a30c8304")
-		(property "Reference" "TP514"
-			(at 102.87 219.33 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 102.87 221.24 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 111.76 223.52 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 111.76 223.52 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 111.76 223.52 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 111.76 223.52 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 111.76 223.52 0)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b4daf381-e554-5a4b-b7e5-565423af4c88")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
-					(reference "TP514")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
@@ -12002,7 +11507,7 @@
 		(uuid "b27db4af-da56-511c-8606-e35be80a256c")
 	)
 	(text
-		"TEST AND ISOLATION PROVISIONS (TEST_PLAN.md section 4)\n  TP501 excitation+   TP502/TP503 sense+/-   TP504/TP505 ADC reference\n  FL501/FL502 U.FL on the ADC-side SIG+/SIG- nodes - the noise-floor\n    measurement that decides REQ-FF-04. Placed symmetrically so the\n    differential pair stays balanced (TEST_PLAN section 2.3).\n  TP506..TP514 hooks on every MCU-facing net; TP515/TP516 GND hooks\n    sit in the same column for the scope ground clip.\n  R508 excitation feed link and R509 excitation return link: open\n    either to isolate the bridge, or replace one with a meter to\n    measure excitation current (isolation link and current break in\n    one part - see docs/decisions/actuator-sch-afe.md).\n  R510 ties the cable screen to GND at the connector; lift it to test\n    a floating screen.\n  R511..R518 (47R) are the ADS1235 data sheet series terminators AND\n    the SPI3 isolation links: remove one to take the ADC off the bus."
+		"TEST AND ISOLATION PROVISIONS (TEST_PLAN.md section 4)\n  TP501 excitation+   TP502/TP503 sense+/-   TP504/TP505 ADC reference\n  FL501/FL502 U.FL on the ADC-side SIG+/SIG- nodes - the noise-floor\n    measurement that decides REQ-FF-04. Placed symmetrically so the\n    differential pair stays balanced (TEST_PLAN section 2.3).\n  J502 logic-analyser header (Amodo keyed 0.1in socket, 8510-4500PL)\n    carries the whole digital interface on one plug: CH0..CH7 = SCLK,\n    MOSI, MISO, nCS, nDRDY, START, nRESET, CLKIN; GND on 9 and 10.\n    Tapped MCU-side of R511..R518, so it still sees the bus with a\n    link lifted. TP513 (PWRDN) and TP515/TP516 GND hooks stay.\n  R508 excitation feed link and R509 excitation return link: open\n    either to isolate the bridge, or replace one with a meter to\n    measure excitation current (isolation link and current break in\n    one part - see docs/decisions/actuator-sch-afe.md).\n  R510 ties the cable screen to GND at the connector; lift it to test\n    a floating screen.\n  R511..R518 (47R) are the ADS1235 data sheet series terminators AND\n    the SPI3 isolation links: remove one to take the ADC off the bus."
 		(exclude_from_sim no)
 		(at 250.19 174.62 0)
 		(effects
@@ -12016,7 +11521,7 @@
 	(text
 		"CLOCK - ADS1235_CLKIN COMES FROM STM32 MCO2 (REQ-AR-09)\n  R520 fitted = MCO2 drives CLKIN. R521 (DNP) instead grounds CLKIN,\n  selecting the ADC internal 7.3728 MHz oscillator - a bring-up\n  fallback if the MCO2 clock tree is not ready. Fit one, never both.\n  FOR THE MCU / FIRMWARE TASK: the .ioc leaves MCO2PinFreq_Value at\n  the CubeMX default 64 MHz, outside the ADS1235 1..8 MHz CLKIN\n  range. The clock tree must deliver 7.3728 MHz nominal on PC9."
 		(exclude_from_sim no)
-		(at 250.19 219.71 0)
+		(at 250.19 222.25 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13067,23 +12572,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 162.56) (xy 111.76 162.56)
+			(xy 88.9 162.56) (xy 121.92 162.56)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "217ec51d-1358-508a-b5ae-399cec9bc072")
-	)
-	(wire
-		(pts
-			(xy 111.76 162.56) (xy 121.92 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "84bff3a0-b4e1-53f3-938b-d8fcaf33247e")
 	)
 	(wire
 		(pts
@@ -13117,23 +12612,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 170.18) (xy 111.76 170.18)
+			(xy 88.9 170.18) (xy 121.92 170.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "e81645b9-7d49-5269-b683-ff8ffd2bb3ab")
-	)
-	(wire
-		(pts
-			(xy 111.76 170.18) (xy 121.92 170.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dc282479-cf6d-5d04-978f-6b7ad78350c0")
 	)
 	(wire
 		(pts
@@ -13167,23 +12652,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 185.42) (xy 111.76 185.42)
+			(xy 88.9 185.42) (xy 121.92 185.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "db59a687-0a74-582c-a4a5-f475d0955a07")
-	)
-	(wire
-		(pts
-			(xy 111.76 185.42) (xy 121.92 185.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4984edc3-94aa-51f9-b926-edc0fb6ee6fe")
 	)
 	(wire
 		(pts
@@ -13197,23 +12672,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 193.04) (xy 111.76 193.04)
+			(xy 88.9 193.04) (xy 121.92 193.04)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "76c9c95a-7d33-5b1a-aab9-8712247bb972")
-	)
-	(wire
-		(pts
-			(xy 111.76 193.04) (xy 121.92 193.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4eb36132-a645-5b83-b7c9-ad6bf82a4922")
 	)
 	(wire
 		(pts
@@ -13247,23 +12712,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 200.66) (xy 111.76 200.66)
+			(xy 88.9 200.66) (xy 121.92 200.66)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "00c81ec1-98a2-5860-bb94-f02ca7bfc7cd")
-	)
-	(wire
-		(pts
-			(xy 111.76 200.66) (xy 121.92 200.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2d242b3-52ea-55be-ac0d-bd213877db89")
 	)
 	(wire
 		(pts
@@ -13297,23 +12752,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 208.28) (xy 111.76 208.28)
+			(xy 88.9 208.28) (xy 121.92 208.28)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "33a12ad8-95da-5b3f-a33a-40b264ae9cfc")
-	)
-	(wire
-		(pts
-			(xy 111.76 208.28) (xy 121.92 208.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "92ee00d2-ca8b-5ef9-818a-a29ee0d312ae")
 	)
 	(wire
 		(pts
@@ -13347,23 +12792,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 215.9) (xy 111.76 215.9)
+			(xy 88.9 215.9) (xy 121.92 215.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "c79bdfbf-7bab-5403-918a-0946c94d2c2b")
-	)
-	(wire
-		(pts
-			(xy 111.76 215.9) (xy 121.92 215.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ef0cc18a-f800-5ba0-a192-bc4fc93e5e5d")
 	)
 	(wire
 		(pts
@@ -13417,23 +12852,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 223.52) (xy 111.76 223.52)
+			(xy 88.9 223.52) (xy 121.92 223.52)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "2df36fb6-6f00-546d-bb8a-f726afd55992")
-	)
-	(wire
-		(pts
-			(xy 111.76 223.52) (xy 121.92 223.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5e249711-00bb-5922-ba6d-9cf17417c299")
 	)
 	(wire
 		(pts
@@ -13566,58 +12991,10 @@
 		(uuid "d566e44b-7892-52e3-a302-04139b97cc4d")
 	)
 	(junction
-		(at 111.76 162.56)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f89878e5-320f-58bc-833a-a57789964701")
-	)
-	(junction
-		(at 111.76 170.18)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "00caae46-4d71-5fe2-8f65-3ab7fe44e0af")
-	)
-	(junction
 		(at 111.76 177.8)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a4a7112a-82d6-5009-849a-32044c7d9e3c")
-	)
-	(junction
-		(at 111.76 185.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "491748c3-011c-54d3-bc31-19561c9aeec8")
-	)
-	(junction
-		(at 111.76 193.04)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "254d55c0-adae-5765-adcc-c3199246e0c4")
-	)
-	(junction
-		(at 111.76 200.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5cdaf17f-86fb-554d-bfc9-fb9e2b922234")
-	)
-	(junction
-		(at 111.76 208.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "adc815da-88ad-5dc9-bce6-87021fc7f50f")
-	)
-	(junction
-		(at 111.76 215.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f35490cf-613a-5def-8951-ac6a61f679cf")
-	)
-	(junction
-		(at 111.76 223.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6997fe67-e48d-51f3-914f-3ad363b1a899")
 	)
 	(junction
 		(at 114.3 54.61)
@@ -13762,6 +13139,492 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6f3d2306-f11c-57cb-9b58-1afffc7ced1e")
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:Header_Female_10-way_2-row_Straight_2.54mm_THT__KEYED_LOGIC_TEST")
+		(at 116.84 133.35 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eff8b5ac-75c3-567b-9179-57f6b76cf687")
+			(property "Reference" "J502"
+				(at 116.84 127 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "8510-4500PL"
+				(at 116.84 145.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Footprint" "Amodo:8510-4500PL_LOGIC_TEST"
+				(at 116.84 145.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/167/1/ts0413.pdf"
+				(at 116.84 145.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "10-way 0.1\" keyed PCB THT socket, for connecting 8-channel Hobby Electronics Logic Analyser"
+				(at 116.84 145.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 116.84 145.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "8510-4500PL "
+				(at 116.84 145.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Use With" "logic analyser"
+				(at 116.84 145.42 0)
+				(show_name)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(pin "1"
+				(uuid "d11ee820-461b-5fe5-a3e5-ced0c004ab01")
+			)
+			(pin "2"
+				(uuid "8630ed9a-9ace-5176-a126-90ea1850f465")
+			)
+			(pin "3"
+				(uuid "eca73b98-0443-5557-a0e6-a7e7104d7b4b")
+			)
+			(pin "4"
+				(uuid "32ec1fe1-617b-5f4c-8a37-683fb7069c6a")
+			)
+			(pin "5"
+				(uuid "26ecf95d-c389-5be1-8ef6-a0f9286432ed")
+			)
+			(pin "6"
+				(uuid "af2c6f99-1bba-5e25-85d3-e8b6533a5399")
+			)
+			(pin "7"
+				(uuid "98be8c93-ddcc-5c9e-836b-b48350d4934f")
+			)
+			(pin "8"
+				(uuid "31fddd1b-ead9-5e3f-9a81-86ebcc47915a")
+			)
+			(pin "9"
+				(uuid "bcd13ff3-0afc-529d-8aaa-df5d48df5d5b")
+			)
+			(pin "10"
+				(uuid "f46f5cb4-c5d0-53b4-b300-083e88cec10d")
+			)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
+					(reference "J502")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 109.22 130.81) (xy 88.9 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef52ff76-e4bb-5cb1-8a62-0f81b9314b8c")
+	)
+	(label "ADS1235_SCLK"
+		(at 88.9 130.81 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8703d8f4-4d85-5ba4-87c8-487c414bea04")
+	)
+	(wire
+		(pts
+			(xy 124.46 130.81) (xy 142.24 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1d9a0ddb-80da-5f27-b4ee-4958055df2d0")
+	)
+	(label "ADS1235_MOSI"
+		(at 142.24 130.81 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1ad45dd7-86c2-53ff-a818-7472a8fd1f03")
+	)
+	(wire
+		(pts
+			(xy 109.22 133.35) (xy 88.9 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6eff9566-3e10-5bbc-b783-d09cccabddfb")
+	)
+	(label "ADS1235_MISO"
+		(at 88.9 133.35 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "78085a33-42ec-5a8b-bcd0-b1742a9b6e92")
+	)
+	(wire
+		(pts
+			(xy 124.46 133.35) (xy 142.24 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0de1df86-06d7-59a4-8cbd-f4a2fa83047a")
+	)
+	(label "ADS1235_nCS"
+		(at 142.24 133.35 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "89ee5290-bb6a-5226-822b-c72ab8af35f2")
+	)
+	(wire
+		(pts
+			(xy 109.22 135.89) (xy 88.9 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "28fcd117-4568-573f-a2c4-0a8282f54f32")
+	)
+	(label "ADS1235_nDRDY"
+		(at 88.9 135.89 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b6923a98-9ec1-5aea-946a-8dd04326a186")
+	)
+	(wire
+		(pts
+			(xy 124.46 135.89) (xy 142.24 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e446e5ca-4732-5ede-bb40-05afd73de837")
+	)
+	(label "ADS1235_START"
+		(at 142.24 135.89 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "19722cf8-2293-5a1d-a069-414409ec3179")
+	)
+	(wire
+		(pts
+			(xy 109.22 138.43) (xy 88.9 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bc649c2-704d-5716-85bc-92418120dc77")
+	)
+	(label "ADS1235_nRESET"
+		(at 88.9 138.43 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c4a57141-b5f7-5475-9f7a-608ccabc3653")
+	)
+	(wire
+		(pts
+			(xy 124.46 138.43) (xy 142.24 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0fc45728-e1e4-5198-940f-38bda61f47de")
+	)
+	(label "ADS1235_CLKIN"
+		(at 142.24 138.43 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cf08855e-30b0-506d-8cff-cc32d33821b3")
+	)
+	(wire
+		(pts
+			(xy 109.22 140.97) (xy 109.22 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f87b10ea-621e-5880-bca8-659f790e4e9b")
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 109.22 143.51 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "da99e358-3b14-5ec4-87f8-a9156a1f829a")
+		(property "Reference" "#PWR525"
+			(at 111.76 142.24 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 111.76 144.78 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.22 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 109.22 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 109.22 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "244bb928-1b7d-56f1-acf5-1112f172df15")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
+					(reference "#PWR525")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 124.46 140.97) (xy 124.46 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc349097-d3a9-5e1f-b8c6-01c0a9ec2da5")
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 124.46 143.51 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "45de3e85-e08a-5565-841e-437a4ca89148")
+		(property "Reference" "#PWR526"
+			(at 127 142.24 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 127 144.78 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 124.46 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 124.46 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 124.46 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 124.46 143.51 0)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5e8c951e-1422-5144-bcff-c837d5cd6c3e")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/94a105e9-fddd-5aae-8f2a-964f0eaa6212"
+					(reference "#PWR526")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text
+		"REFERENCE - U501 RECEIVES IT, IT DOES NOT PROVIDE IT\n  Review point: is the intention that U501 outputs the reference?\n  No. The ADS1235 has no internal reference and no reference\n  output pin: REFP0 (32) and REFN0 (31) are reference INPUTS\n  (SBAS824 pin table; feature list: 'Two Reference Inputs').\n  What U501 measures against is the load cell's OWN excitation,\n  sensed at the bridge: J501-4 SENSE+ / J501-5 SENSE- reach\n  REFP0/REFN0 through the R503/R504 + C504/C505/C506 filter, so\n  VREF is the volt drop across the bridge, not a fixed voltage.\n  Excitation: +5VA -> R508 -> J501-3 EXC+, return J501-6 EXC- ->\n  R509 -> GND. Signal and reference share that one source, so\n  drift and noise divide out - ratiometric, and why +5VA need\n  not be a precision reference (SBAS824 8.3.4.2, DEC-A5).\n  R505 (100k) collapses VREF with the cell unplugged: REFL_ALM\n  turns a disconnected cable into a reported fault."
+		(exclude_from_sim no)
+		(at 172.72 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "11bc1afd-6497-55dc-a04e-66bb3dfcb52e")
 	)
 	(embedded_fonts no)
 )

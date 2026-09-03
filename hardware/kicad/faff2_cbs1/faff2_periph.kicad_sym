@@ -3,9 +3,6 @@
 	(generator "kicad_symbol_editor")
 	(generator_version "9.0")
 	(symbol "FH12-10S-0.5SH(55)"
-		(pin_numbers
-			(hide yes)
-		)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -101,7 +98,7 @@
 			(pin passive line
 				(at 6.35 11.43 180)
 				(length 2.54)
-				(name "~"
+				(name "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -119,7 +116,7 @@
 			(pin passive line
 				(at 6.35 8.89 180)
 				(length 2.54)
-				(name "~"
+				(name "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -137,7 +134,7 @@
 			(pin passive line
 				(at 6.35 6.35 180)
 				(length 2.54)
-				(name "~"
+				(name "3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -155,7 +152,7 @@
 			(pin passive line
 				(at 6.35 3.81 180)
 				(length 2.54)
-				(name "~"
+				(name "4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -173,7 +170,7 @@
 			(pin passive line
 				(at 6.35 1.27 180)
 				(length 2.54)
-				(name "~"
+				(name "5"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -191,7 +188,7 @@
 			(pin passive line
 				(at 6.35 -1.27 180)
 				(length 2.54)
-				(name "~"
+				(name "6"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -209,7 +206,7 @@
 			(pin passive line
 				(at 6.35 -3.81 180)
 				(length 2.54)
-				(name "~"
+				(name "7"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -227,7 +224,7 @@
 			(pin passive line
 				(at 6.35 -6.35 180)
 				(length 2.54)
-				(name "~"
+				(name "8"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -245,7 +242,7 @@
 			(pin passive line
 				(at 6.35 -8.89 180)
 				(length 2.54)
-				(name "~"
+				(name "9"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -263,7 +260,7 @@
 			(pin passive line
 				(at 6.35 -11.43 180)
 				(length 2.54)
-				(name "~"
+				(name "10"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -281,7 +278,7 @@
 			(pin passive line
 				(at -6.35 13.97 0)
 				(length 2.54)
-				(name "~"
+				(name "MP1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -299,7 +296,7 @@
 			(pin passive line
 				(at -6.35 -13.97 0)
 				(length 2.54)
-				(name "~"
+				(name "MP2"
 					(effects
 						(font
 							(size 1.27 1.27)
