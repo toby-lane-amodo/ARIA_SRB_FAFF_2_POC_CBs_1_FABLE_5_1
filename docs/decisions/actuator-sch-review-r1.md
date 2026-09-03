@@ -481,3 +481,34 @@ on either feedback node**. `TP301` stays deleted.
 406 components, 253 nets (`Net-(U301-VCC)` and `Net-(U301-PG)` are back), ERC 0/0.
 `datasheets/LMR51610.pdf` stays committed; it is the record of why the swap was
 evaluated and what it would have cost.
+
+## Item 2 - PWR_FLAGs moved to their regulators
+
+They were a column of their own in block D, each flag hung off a **duplicate**
+power symbol that existed only to give it a net. Each flag now taps the rail it
+declares, on the **load side of that rail's 0R link** - before the link is a
+different net, so a flag there would declare the wrong thing:
+
+| Flag | Rail | Now taps |
+|---|---|---|
+| `#FLG344` | `+5V5` | the run out of `R305`, at x=186.69 |
+| `#FLG345` | `+5V` | `U302`'s output run, beside `#PWR317` |
+| `#FLG347` | `+5VA` | `U303`'s output run, beside `#PWR322` |
+| `#FLG349` | `+3V3` | the run out of `R312`, at x=186.69 |
+| `#FLG351` | `+3V3A` | the `+3V3A` run past `FB301` |
+
+`#PWR346`, `#PWR348`, `#PWR350` and `#PWR352` went with the column. Each of those
+rails already carries a power symbol at its output (`#PWR317`, `#PWR322`,
+`#PWR334`, `#PWR337`), so the duplicates declared nothing the sheet did not
+already say - node sets are identical across the change, which is the proof.
+`#FLG301` stays where it is: `V24_LOGIC` arrives at the sheet rather than being
+made on it, and the flag already sits on that input beside `U301`.
+
+### Caught while checking the render: five fields were rendering sideways
+
+`TP302`/`TP303`/`TP304`/`TP306`/`TP307` are `TestPointDual` at 270°, and round
+1's placement pass rewrote their Value with **angle 0** instead of keeping the 90
+that compensates the rotation - so the silkscreen names read vertically. Fixed,
+and `tools/apply_review_r1_sweep.py` now preserves a field's angle when it moves
+it. Neither the overlap checker nor the netlist can see this class; only a render
+can.

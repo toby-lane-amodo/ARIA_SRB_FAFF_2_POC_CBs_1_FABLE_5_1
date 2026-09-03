@@ -406,7 +406,10 @@ def main():
                 new = sym
                 for (cref, cpn), (cx, cy, cj) in chosen.items():
                     if cref == r:
-                        new = set_prop(new, cpn, at=(cx, cy, 0), justify=cj)
+                        # keep the field's own angle: on a rotated symbol it is
+                        # what compensates the rotation and keeps text level
+                        pa = prop_at(new, cpn)
+                        new = set_prop(new, cpn, at=(cx, cy, pa[2]), justify=cj)
                 out.append(t[pos:i]); out.append(new); pos = e
             out.append(t[pos:])
             t = "".join(out)
