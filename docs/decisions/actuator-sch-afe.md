@@ -253,7 +253,8 @@ untouched CubeMX default — but it must be resolved before firmware enables MCO
 Per `TEST_PLAN.md §4`, `loadcell_afe` has test points on the excitation, both
 sense lines, the ADC reference and every MCU-facing net; `temp_sense` has them
 on all four probe leads, the reference and the SPI2 nets; both have GND hooks in
-the same column for the scope ground clip. `FL501`/`FL502` are U.FL connectors
+the same column for the scope ground clip. `J503`/`J504` (`FL501`/`FL502` until
+round 4 - see below) are U.FL connectors
 on the ADC-side SIG+/SIG− nodes — `TEST_PLAN.md §2.3` names that net as the U.FL
 candidate because its noise floor decides `REQ-FF-04`. They are placed
 **symmetrically** (same stub length either side) so the differential pair stays
@@ -265,6 +266,17 @@ populate-if-needed connectors rather than bare test points. This project's own
 adopts the house standard's per-net test-point selection. Project artefacts
 outrank general practice (`DEC-0018` precedence), so hooks are used; the
 system-level debug header stays `test_debug`'s.
+
+### DEC-A14 — The U.FL noise-floor connectors are `J503`/`J504`, not `FL5xx`
+
+Re-designated in review round 4 at the captain's instruction. They are
+`Amodo_Connectors:CONUFL001-SMD` — U.FL coaxial **connectors**, with connector
+footprints, and the library symbol's own default reference prefix is `J`. The
+`FL` prefix was an instance-level override that contradicted the part, and in
+IEEE-315 `FL` designates a *filter*; these sit in a filter chain, which is the
+only reading that makes sense of it, but they are not filters. `J503`/`J504` are
+the next free in this sheet's 5xx range. Nothing else changed — same nets, same
+footprints, same position.
 
 ### DEC-A13 — No ESD protection on `J501`, `J701` or `J702` (closed, `DEC-0027`)
 

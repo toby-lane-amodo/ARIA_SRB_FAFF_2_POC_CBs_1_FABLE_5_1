@@ -8128,7 +8128,7 @@
 		)
 	)
 	(rectangle
-		(start 17.78 11.43)
+		(start 17.78 12.7)
 		(end 84.46 49.53)
 		(stroke
 			(width 0.1524)
@@ -8142,7 +8142,7 @@
 	(text
 		"PROBE 1 - LOAD CELL (J701)"
 		(exclude_from_sim no)
-		(at 19.05 12.45 0)
+		(at 19.05 13.34 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -8178,7 +8178,7 @@
 		(uuid "505b5ad9-1d46-5bc3-9218-eec3fd6bf1e6")
 	)
 	(rectangle
-		(start 86.36 11.43)
+		(start 86.36 12.7)
 		(end 146.05 46.99)
 		(stroke
 			(width 0.1524)
@@ -8192,7 +8192,7 @@
 	(text
 		"CHANNEL 1 FILTER"
 		(exclude_from_sim no)
-		(at 87.63 12.45 0)
+		(at 87.63 13.34 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -8267,7 +8267,7 @@
 	(text
 		"OQ-04 RESOLVED: RTD, NOT NTC - Pt1000, 3-wire, class A (IEC 60751)\n  Chosen over an NTC because the ADS1120 exists to do exactly this:\n  two matched IDACs give ratiometric excitation with automatic lead\n  compensation, and a class-A RTD is accurate to +/-(0.15 + 0.002|t|)\n  degC interchangeably - no per-part beta calibration, which an NTC\n  would need to reach REQ-EL-07 1 degC. Pt1000 rather than Pt100\n  because every ohm of error in the signal path costs 10x less in\n  degC; the house-stocked RTD_PT100_3W_D6X50_3M probe is a Pt100 and\n  still works here - see the build options below.\n  A 2-wire probe (Pt1000, Pt100 or an NTC) is accommodated by fitting\n  R708 / R709, which tie the sense lead to the return at the connector.\n  Lead compensation is then lost; that is the lower-accuracy option."
 		(exclude_from_sim no)
-		(at 266.7 11.43 0)
+		(at 266.7 12.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)

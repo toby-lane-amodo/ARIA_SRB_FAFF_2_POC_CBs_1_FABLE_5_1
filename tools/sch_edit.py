@@ -249,3 +249,37 @@ def set_label_justify(text, name, occurrence, justify):
                 return text[:s] + new + text[s + len(blk):]
             seen += 1
     raise AssertionError((name, occurrence))
+
+
+def uid5(*parts):
+    """A stable uuid for generated content, from the parts that identify it."""
+    import uuid
+    return str(uuid.uuid5(uuid.UUID("5edb00fd-45c9-5fe7-8d71-adbf38f38546"),
+                          "|".join(str(p) for p in parts)))
+
+
+def rename_symbol(text, old, new):
+    """Re-designate a part: its Reference field and its instance path entry.
+
+    Both must change together. The Reference property is what the sheet draws;
+    the `(instances ... (reference ...))` entry is what the netlist reads, and a
+    sheet with the two disagreeing loads without complaint and exports the old
+    name.
+    """
+    s, e = sym_span(text, old)
+    blk = text[s:e]
+    n = blk.count('"%s"' % old)
+    assert n >= 2, (old, n)
+    return text[:s] + blk.replace('"%s"' % old, '"%s"' % new) + text[e:]
+
+
+def note_block(body, x, y, uid, size=1.27, justify="left top"):
+    """A free-text note. Multi-line content uses \\n escapes, never a literal
+    newline - a real newline inside a quoted s-expression makes KiCad fail to
+    load the sheet with nothing but "Failed to load schematic"."""
+    assert "\n" not in body, "use \\n escapes"
+    return (f'\t(text\n\t\t"{body}"\n\t\t(exclude_from_sim no)\n'
+            f"\t\t(at {fmt(x)} {fmt(y)} 0)\n\t\t(effects\n\t\t\t(font\n"
+            f"\t\t\t\t(size {size} {size})\n\t\t\t)\n"
+            f"\t\t\t(justify {justify})\n\t\t)\n"
+            f'\t\t(uuid "{uid}")\n\t)\n')

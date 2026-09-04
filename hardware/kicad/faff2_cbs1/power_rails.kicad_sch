@@ -5191,7 +5191,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 158.75) (xy 55.88 165.1)
+			(xy 55.88 158.75) (xy 55.88 160.02)
 		)
 		(stroke
 			(width 0)
@@ -14071,7 +14071,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 55.88 165.1 0)
+		(at 55.88 160.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14080,7 +14080,7 @@
 		(fields_autoplaced no)
 		(uuid "86aafcb4-49b5-5145-ab99-12c646f45f69")
 		(property "Reference" "#PWR327"
-			(at 55.88 165.1 0)
+			(at 55.88 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14090,7 +14090,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 55.88 168.91 0)
+			(at 55.88 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14098,7 +14098,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 55.88 165.1 0)
+			(at 55.88 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14108,7 +14108,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 165.1 0)
+			(at 55.88 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14118,7 +14118,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 55.88 165.1 0)
+			(at 55.88 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14128,7 +14128,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 55.88 165.1 0)
+			(at 55.88 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14138,7 +14138,7 @@
 			)
 		)
 		(property "ki_keywords" "global power"
-			(at 55.88 165.1 0)
+			(at 55.88 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)

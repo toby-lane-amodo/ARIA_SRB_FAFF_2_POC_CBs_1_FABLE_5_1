@@ -7669,14 +7669,14 @@
 		(embedded_fonts no)
 	)
 	)
-	(rectangle (start 22.86 11.43) (end 198.12 78.74)
+	(rectangle (start 22.86 12.7) (end 198.12 78.74)
 		(stroke (width 0.2) (type solid))
 		(fill (type none))
 		(uuid "bd6c9091-c0de-51d8-a7f4-410bd73bd11a")
 	)
 	(text "A  MCU CORE - SUPPLIES, RESET, BOOT, HSE CLOCK IN"
 		(exclude_from_sim no)
-		(at 24.13 12.7 0)
+		(at 24.13 13.34 0)
 		(effects (font (size 1.6 1.6) (bold yes)) (justify left top))
 		(uuid "3e4f7de9-9198-59b4-b783-f182fe446e5e")
 	)
@@ -10406,14 +10406,14 @@
 		(effects (font (size 1.27 1.27)) (justify left top))
 		(uuid "355bf054-d4ef-5bbd-a8e9-560194fd18ce")
 	)
-	(rectangle (start 202.31 11.43) (end 295.91 139.7)
+	(rectangle (start 202.31 12.7) (end 295.91 139.7)
 		(stroke (width 0.2) (type solid))
 		(fill (type none))
 		(uuid "0fa913c8-e248-5e2d-ac00-f5bd968c71eb")
 	)
 	(text "F  USB3320C Hi-SPEED ULPI PHY  (REQ-AR-13)"
 		(exclude_from_sim no)
-		(at 203.58 12.7 0)
+		(at 203.58 13.34 0)
 		(effects (font (size 1.6 1.6) (bold yes)) (justify left top))
 		(uuid "49e0d8bf-4576-56bb-95ee-feb012e46483")
 	)
@@ -11248,14 +11248,14 @@
 		(effects (font (size 1.27 1.27)) (justify left top))
 		(uuid "482d4309-721b-5ff9-a112-6ea5867396ac")
 	)
-	(rectangle (start 297.18 11.43) (end 407.67 80.01)
+	(rectangle (start 297.18 12.7) (end 407.67 80.01)
 		(stroke (width 0.2) (type solid))
 		(fill (type none))
 		(uuid "92645082-b287-5287-821c-a230a729885a")
 	)
 	(text "G  USB-C RECEPTACLE - DATA ONLY, NO BUS POWER, NO PD"
 		(exclude_from_sim no)
-		(at 298.45 12.7 0)
+		(at 298.45 13.34 0)
 		(effects (font (size 1.6 1.6) (bold yes)) (justify left top))
 		(uuid "d70fbf18-5cd5-5572-bddf-e4857e250f10")
 	)
@@ -14640,7 +14640,7 @@
 		(uuid "8e360d07-68f5-5c17-97da-011790479611")
 	)
 	(rectangle
-		(start 411.48 11.43)
+		(start 411.48 12.7)
 		(end 581.66 88.9)
 		(stroke
 			(width 0.2)
@@ -14653,7 +14653,7 @@
 	)
 	(text "C  USB3320 24 MHz CRYSTAL  (ITS OWN REFERENCE)"
 		(exclude_from_sim no)
-		(at 412.75 12.7 0)
+		(at 412.75 13.34 0)
 		(effects
 			(font
 				(size 1.6 1.6)
