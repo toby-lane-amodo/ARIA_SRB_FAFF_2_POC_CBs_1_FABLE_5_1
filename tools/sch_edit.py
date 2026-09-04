@@ -283,3 +283,54 @@ def note_block(body, x, y, uid, size=1.27, justify="left top"):
             f"\t\t\t\t(size {size} {size})\n\t\t\t)\n"
             f"\t\t\t(justify {justify})\n\t\t)\n"
             f'\t\t(uuid "{uid}")\n\t)\n')
+
+
+def del_symbol(text, ref):
+    s, e = sym_span(text, ref)
+    return text[:s - 1] + text[e + 1:]
+
+
+def set_rotation(text, ref, angle, field_angle):
+    """Rotate an instance and compensate its field angles.
+
+    A property's `(at x y angle)` angle is RELATIVE to the symbol, so a field
+    left at 0 on a symbol rotated to 90 renders sideways. 270 on a 90 symbol
+    sums to 360 and comes out horizontal. Prove it in a render, every time.
+    """
+    s, e = sym_span(text, ref)
+    blk = text[s:e]
+    # the symbol's own (at) is the first one in the block
+    m = re.search(r"\(at ([-\d.]+) ([-\d.]+) ([-\d.]+)\)", blk)
+    assert m, ref
+    blk = blk[:m.start()] + "(at %s %s %d)" % (m.group(1), m.group(2), angle) \
+        + blk[m.end():]
+    out, pos = [], 0
+    while True:
+        i = blk.find('(property "', pos)
+        if i < 0:
+            break
+        pb = block(blk, i)
+        nb = re.sub(r"\(at ([-\d.]+) ([-\d.]+) [-\d.]+\)",
+                    lambda mm: "(at %s %s %d)" % (mm.group(1), mm.group(2),
+                                                  field_angle), pb, count=1)
+        out.append(blk[pos:i]); out.append(nb)
+        pos = i + len(pb)
+    out.append(blk[pos:])
+    return text[:s] + "".join(out) + text[e:]
+
+
+def set_lib_id(text, ref, lib_id):
+    s, e = sym_span(text, ref)
+    blk = re.sub(r'\(lib_id "[^"]*"\)', '(lib_id "%s")' % lib_id,
+                 text[s:e], count=1)
+    return text[:s] + blk + text[e:]
+
+
+def del_lib_symbol(text, name):
+    """Drop an embedded library symbol that no instance uses any more."""
+    marker = '\t\t(symbol "%s"\n' % name
+    assert text.count(marker) == 1, name
+    i = text.index(marker) + 2
+    blk = block(text, i)
+    assert '(lib_id "%s")' % name not in text, "%s still instantiated" % name
+    return text[:i - 2] + text[i + len(blk) + 1:]

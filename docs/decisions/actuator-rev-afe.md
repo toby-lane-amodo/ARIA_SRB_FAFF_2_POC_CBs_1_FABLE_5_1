@@ -21,7 +21,7 @@ left alone — §8 lists what should be folded into them.
 | R3 | "J601 has text overlapping component body" | J601's reference moved above the body. DEC-R4 |
 | R4 | "No pin numbers or labels on J601 library part either" | `faff2_periph:FH12-10S-0.5SH(55)` corrected: pin numbers shown, every pin named. DEC-R5 |
 | R5 | "Good job on adding J602, but can you instead use the logic analyser test header instead?" | Raised as a decision (it would have dropped `REQ-PS-09`), ruled option (a) and captain-ratified: **J602 kept, J603 added**, TP602–TP607 removed. DEC-R3 |
-| R6 | "5 V readhead supply needs parallel parts for R601, FB601, and D601." | **R608, R609, D602** added, all DNP. DEC-R6 |
+| R6 | "5 V readhead supply needs parallel parts for R601, FB601, and D601." | **R608, R609, D602** added, all DNP. DEC-R6. **Two of the three reversed in review round 4** — see below |
 | R7 | "C701 and C702 GND connections are upside down. You must never ever do this." | Both capacitors moved below their signal wires, grounds pointing down. DEC-R7 |
 | R8 | "wire obscured by a graphical line" (`nvm_calibration`) | The SCL jog ran along a block border; moved 2.54 mm clear. DEC-R8 |
 
@@ -217,9 +217,9 @@ So: **a second footprint in parallel with each, DNP by default.**
 
 | New | Parallels | Purpose |
 |---|---|---|
-| `R608` 0 Ω 0603, DNP | `R601` | `R601` is the block's current break (`TEST_PLAN §3.1`). Fit a low-value shunt at `R608` and lift `R601`, and the head current can be metered **in circuit** against the 200 mA budget instead of with a meter in series. Fitting both simply halves the link resistance |
-| `R609` 0 Ω 0603, DNP | `FB601` | Bypasses the ferrite. `FB601` is a lossy 600 Ω bead feeding 10 µF; if its DC drop or its resonance with `C601` upsets the head supply, or the EMC benefit needs an A/B measurement, `R609` takes the bead out of circuit with no other change |
-| `D602` PESD5V0U1UB, DNP | `D601` | A second SC-79 clamp position at the connector. Populate both for more peak-pulse capability, or fit a different clamp voltage / bidirectional part here without reworking `D601`'s pads. The FFC is the one thing on this sheet that gets hot-plugged |
+| ~~`R608` 0 Ω 0603, DNP~~ | `R601` | **Removed, round 4.** `R601` is the block's current break (`TEST_PLAN §3.1`). Fit a low-value shunt at `R608` and lift `R601`, and the head current can be metered **in circuit**. *The captain's ruling: `R601` and `R608` are the same 0603 package, so one of them is redundant — to meter the current you simply replace `R601` with the shunt.* |
+| ~~`R609` 0 Ω 0603, DNP~~ | `FB601` | **Removed, round 4.** Bypasses the ferrite. `FB601` is a lossy 600 Ω bead feeding 10 µF; if its DC drop or its resonance with `C601` upsets the head supply, `R609` takes the bead out of circuit. *The captain's ruling: `FB601` can be lifted and bridged if a bypass is ever needed.* |
+| `D602` PESD5V0U1UB, DNP (**kept**) | `D601` | A second SC-79 clamp position at the connector. Populate both for more peak-pulse capability, or fit a different clamp voltage / bidirectional part here without reworking `D601`'s pads. The FFC is the one thing on this sheet that gets hot-plugged |
 
 **None is fitted by default**, so the default build is electrically identical to
 what the captain reviewed.

@@ -67,9 +67,11 @@ reference their 3D models through it. `README.md` has the setup table; DEC-0015 
   `hardware/kicad/faff2_cbs1/faff2_<block>.kicad_sym` (and `faff2.pretty/` for footprints),
   registered in the project `sym-lib-table` / `fp-lib-table` through `${KIPRJMOD}`. Record why
   in the block's decisions file so the captain can fix the house library upstream.
-- **A pre-rotated variant is the low-effort way to lay a part horizontally** — they live in
-  `faff2_passives.kicad_sym` (`RES_TF_*_H` so far); add to it rather than rotating an instance.
-  Instance-rotation is *permitted* but carries a condition: a symbol property's `(at x y angle)`
+- **A pre-rotated variant is one way to lay a part horizontally** — they live in
+  `faff2_passives.kicad_sym` (`RES_TF_39R_0603_H`, `RES_TF_0R_0603_H`). **Prefer the house
+  symbol** and rotate the instance: round 4's ruling is that a project-local variant of a part
+  the house library already has is a divergence, and `RES_TF_100R_0603_H` was deleted for it.
+  Instance-rotation carries a condition: a symbol property's `(at x y angle)`
   angle is **relative to the symbol**, so the field angles must be compensated (270 on a symbol
   at 90, 90 on one at 270) or the reference and value come out sideways. **Prove it in a render,
   every time** — 38 instances across the design do this correctly. `schematic-style`;
