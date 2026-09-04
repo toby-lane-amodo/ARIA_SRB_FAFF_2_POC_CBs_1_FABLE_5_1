@@ -9,7 +9,7 @@
 		(date "2026-09-02")
 		(rev "0.2")
 		(company "Amodo Design")
-		(comment 1 "24 V -> 5V5 pre-reg -> +5V and +5VA; 24 V -> +3V3 -> +3V3A")
+		(comment 1 "24 V -> 6V0 pre-reg -> +5V and +5VA; 24 V -> +3V3 -> +3V3A")
 		(comment 2 "Per-rail isolation link / current break and test point")
 		(comment 3 "Rail set and topology answer OQ-02 / OQ-07")
 		(comment 4 "Design reasoning: docs/decisions/actuator-sch-power.md")
@@ -5205,7 +5205,7 @@
 		(uuid 1ecda205-fa90-52a3-8cc7-1832b962b9eb)
 	)
 	(rectangle
-		(start 13.97 134.62)
+		(start 12.7 134.62)
 		(end 205.74 236.22)
 		(stroke
 			(width 0.254)
@@ -5217,7 +5217,7 @@
 		(uuid 348defe6-03e5-5cc8-977d-b28dc4e8a689)
 	)
 	(rectangle
-		(start 13.97 26.67)
+		(start 12.7 26.67)
 		(end 205.74 128.27)
 		(stroke
 			(width 0.254)
@@ -5320,7 +5320,7 @@
 		)
 		(uuid "597adaee-ee67-5889-b6f7-2441e85e51dc")
 	)
-	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +6V0   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    ADPL42005 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   ADPL42005 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 6.0 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
+	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +6V0   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    ADPL42005 LDO from +6V0. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   ADPL42005 LDO from +6V0. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 6.0 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
 		(exclude_from_sim no)
 		(at 15.24 240.03 0)
 		(effects
@@ -5331,7 +5331,7 @@
 		)
 		(uuid "5a382840-9c42-55cf-b86e-8696f47f386f")
 	)
-	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, on a dual pad so a scope ground clips beside\n       the probe. No test point sits on a feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain, the wired-AND of all four regulators\n       through R315 / R316 / R317 / R318. SHEET-LOCAL: LED D303, TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
+	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, on a dual pad so a scope ground clips beside\n       the probe. No test point sits on a feedback node:\n       R305 +6V0, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +6V0 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain, the wired-AND of all four regulators\n       through R315 / R316 / R317 / R318. SHEET-LOCAL: LED D303, TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
 		(exclude_from_sim no)
 		(at 204.47 240.03 0)
 		(effects

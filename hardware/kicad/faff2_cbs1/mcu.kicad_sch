@@ -22064,7 +22064,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "be2fc58f-535c-579e-9cfb-cbb91a089531")
-		(property "Reference" "J?"
+		(property "Reference" "J1003"
 			(at 445.77 104.14 0)
 			(effects
 				(font
@@ -22170,7 +22170,7 @@
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/1d7ef20a-ceb5-5848-8c8d-02f7ee5f958f"
-					(reference "J?")
+					(reference "J1003")
 					(unit 1)
 				)
 			)

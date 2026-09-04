@@ -10619,7 +10619,7 @@
 		(dnp no)
 		(uuid "8025c851-9379-5530-8c94-6795046a37b5")
 		(property "Reference" "R522"
-			(at 167 32.89 270)
+			(at 167 34.16 270)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10629,7 +10629,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 167 34.8 270)
+			(at 167 36.07 270)
 			(do_not_autoplace yes)
 			(effects
 				(font
