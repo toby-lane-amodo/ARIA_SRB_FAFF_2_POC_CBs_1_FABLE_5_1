@@ -15,6 +15,310 @@
 		(comment 4 "Design reasoning: docs/decisions/actuator-sch-power.md")
 	)
 	(lib_symbols
+		(symbol "Amodo_Resistors:RES_TNF_12.7k_0603_0.1%"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "12.7k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thin Film Resistor 12.7k 0603 0.1% 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERA-3AEB1272V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerane" "0.1%"
+				(at 3.556 -3.302 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "RES_TNF_12.7k_0603_0.1%_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Amodo_Resistors:RES_TNF_64.9k_0603_0.1%"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "64.9k"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "SMD Thin Film Resistor 64.9k 0603 0.1% 25ppm 100mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "ERA-3AEB6492V "
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "gpn" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerane" "0.1%"
+				(at 3.556 -3.302 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "RES_TNF_64.9k_0603_0.1%_1_1"
+				(polyline
+					(pts
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 0 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Amodo_Symbols:PWR_FLAG"
 			(power)
 			(pin_numbers
@@ -4670,154 +4974,6 @@
 				)
 			)
 		)
-		(symbol "Amodo_Resistors:RES_TNF_22.1k_0603_0.1%"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R"
-				(at 1.27 -0.635 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "22.1k"
-				(at 1.27 -2.54 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Amodo:R_0603_1608Metric"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "SMD Thin Film Resistor 22.1k 0603 0.1% 100mW"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "mpn" "RT0603BRD0722K1L"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "0.1%"
-				(at 1.27 -4.445 0)
-				(do_not_autoplace)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "SymLifecycle" "reviewed"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "RES_TNF_22.1k_0603_0.1%_1_1"
-				(polyline
-					(pts
-						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 0 0 270)
-					(length 1.016)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 1.016)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 	)
 	(wire
 		(pts
@@ -6565,6 +6721,292 @@
 		)
 		(uuid "b5cc13e2-4cbd-53a3-854f-672b54217d44")
 	)
+		(symbol
+		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
+		(at 247.65 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "ac2cec4e-030a-5c94-ac86-9cea5cad3932")
+		(property "Reference" "R317"
+			(at 249.68 94.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 249.68 97.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 247.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/cr_a-1858337.pdf"
+			(at 247.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 1k 0603 1% 100mW"
+			(at 247.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "CR0603AFX-1001ELF"
+			(at 247.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR06031K"
+			(at 247.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 247.65 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "89f54818-fe41-5a3a-98f7-101958a9eb9a")
+		)
+		(pin "2"
+			(uuid "369402ee-fd6f-58b4-8719-7cee6b6acf20")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "R317")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 247.65 91.44) (xy 247.65 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b79fc6e-7ef9-5f47-8f5e-c83b54936011")
+	)
+	(wire
+		(pts
+			(xy 247.65 99.06) (xy 247.65 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "281cfd6e-84a4-5960-b770-6fb23ec00637")
+	)
+	(wire
+		(pts
+			(xy 247.65 101.6) (xy 260.35 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d3134c8-80b3-5e62-a07b-a35f53bb6a22")
+	)
+	(label "RAIL_PGOOD"
+		(at 260.35 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a409657b-f910-57f5-bbe6-7cfe8f686710")
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
+		(at 349.25 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced no)
+		(uuid "83567846-3215-5ab4-9a6b-f327ba9bb4d9")
+		(property "Reference" "R318"
+			(at 351.28 94.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 351.28 97.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 349.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/54/cr_a-1858337.pdf"
+			(at 349.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 1k 0603 1% 100mW"
+			(at 349.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mpn" "CR0603AFX-1001ELF"
+			(at 349.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR06031K"
+			(at 349.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 349.25 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d6557095-80e3-58da-bbb3-eb94a520555a")
+		)
+		(pin "2"
+			(uuid "054c8e24-9e35-572d-b099-6aadaf53fde6")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "R318")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 349.25 91.44) (xy 349.25 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e93aaea0-6de1-5cee-80e1-46960b46540a")
+	)
+	(wire
+		(pts
+			(xy 349.25 99.06) (xy 349.25 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e97ceea6-a2e5-51ae-b67b-7839b49ac445")
+	)
+	(wire
+		(pts
+			(xy 349.25 101.6) (xy 361.95 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71e8c1b1-2721-5366-bd18-a417c5321a10")
+	)
+	(label "RAIL_PGOOD"
+		(at 361.95 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "18682ab3-e75d-5c1a-8ccf-f949ab51ad87")
+	)
 	(junction
 		(at 383.54 86.36)
 		(diameter 0)
@@ -6654,10 +7096,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e6904940-f53f-5384-91d1-9e4a9f1a57e7")
-	)
-	(no_connect
-		(at 247.65 91.44)
-		(uuid "467f6f23-450a-595b-ba30-a0f14def8c3c")
 	)
 	(symbol
 		(lib_id "Amodo_Power_ICs:ADPL42005ACPZ-5.0-R7")
@@ -6870,10 +7308,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a520a463-3845-5f5f-85de-d53c28b92b6c")
-	)
-	(no_connect
-		(at 349.25 91.44)
-		(uuid "87adb242-b0aa-544d-963e-5c1b4cefb3dc")
 	)
 	(junction
 		(at 25.4 63.5)
@@ -7116,7 +7550,7 @@
 		)
 		(uuid "650f2b9c-a135-5199-abff-b66cf77b626c")
 	)
-	(text "A.  PRE-REGULATOR  V24_LOGIC -> 5.5 V  (LMR33630, 400 kHz)"
+	(text "A.  PRE-REGULATOR  V24_LOGIC -> 6.0 V  (LMR33630, 400 kHz)"
 		(exclude_from_sim no)
 		(at 17.78 24.67 0)
 		(effects
@@ -7150,7 +7584,7 @@
 		)
 		(uuid "40c82ab7-b711-55f9-b2c2-7faf97b83728")
 	)
-	(text "5.5 V, not 5.0 V: it gives both ADPL42005 LDOs\ntheir dropout headroom. 500 mV covers the 325 mV\nworst-case dropout at 300 mA (Table 1); the part\ntakes up to 20 V in, so 6.0 V no longer caps it."
+	(text "6.0 V, not 5.0 V: it is the ADPL42005's own\ncharacterised VIN = VOUT + 1 V point, so the LDOs\nmeet their noise and PSRR numbers on +5VA, which\ncarries REQ-FF-04.  R303/R304 are sized so the\nworst-case floor clears 6.0 V, not just the nominal:\n6.009 / 6.110 / 6.212 V.  Was 5.5 V while the\nTPS7A20's 6.0 V input maximum capped it."
 		(exclude_from_sim no)
 		(at 20.32 105.41 0)
 		(effects
@@ -7318,7 +7752,7 @@
 		(uuid "3886bb96-d0fe-51bd-9ea0-12a83c67e156")
 	)
 
-	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +5V5   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    ADPL42005 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   ADPL42005 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 5.5 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
+	(text "BLOCK: power_rails  -  rail set and topology; answers OQ-02 and OQ-07\n\nRAILS  +6V0   LMR33630 buck from V24_LOGIC. Pre-regulator only,\n              local to this sheet.\n       +5V    ADPL42005 LDO from +5V5. IKP11 read head (<65 mA plus\n              RS-422 drive) and spare.\n       +5VA   ADPL42005 LDO from +5V5. ADS1235 / ADS1120 AVDD and the\n              AFE 5 V excitation and reference chain, which lives in\n              loadcell_afe - take it from +5VA, not +5V.\n       +3V3   LMR33630 buck from V24_LOGIC. STM32, USB3320, DRV8323\n              logic, QSPI, EEPROM, RS-422 receiver, rotary encoder.\n              ~1.1 A worst case against a 3 A part.\n       +3V3A  ferrite-isolated from +3V3 for the ADC digital supplies.\n\nWHY A PRE-REGULATOR   The analog 5 V must be regulated separately from\n       the digital 5 V or the read head switching current lands on the\n       ADC supply, and an LDO needs headroom above 5 V to do it. One\n       buck at 6.0 V feeding two LDOs costs one converter and post-\n       regulates both 5 V rails. 400 kHz on both bucks: 3.3 V at\n       1.4 MHz would need a ~98 ns on-time, too close to the minimum."
 		(exclude_from_sim no)
 		(at 15.24 240.03 0)
 		(effects
@@ -7329,7 +7763,7 @@
 		)
 		(uuid "5a382840-9c42-55cf-b86e-8696f47f386f")
 	)
-	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, on a dual pad so a scope ground clips beside\n       the probe. No test point sits on a feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain, the wired-AND of both converters\n       through R315 / R316. It stays SHEET-LOCAL: LED D303 and TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
+	(text "PER RAIL (docs/TEST_PLAN.md 3.1)   one 0R link that is BOTH the\n       isolation link and the current-measurement break, a test point\n       downstream of it, on a dual pad so a scope ground clips beside\n       the probe. No test point sits on a feedback node:\n       R305 +5V5, R306 +5V, R307 +5VA, R312 +3V3, FB301 +3V3A.\n       Per-CONSUMER links are not here: every block takes the same\n       global rail net, so per-block breaks would need per-block rail\n       names and would break the frozen block contracts. A block that\n       wants one fits a 0R at its own supply entry, inside its sheet.\n\nSEQUENCING   None required. The shared EN divider (16.2 V rising) holds\n       both converters off until the 24 V input is real; the LDOs follow\n       +5V5 and +3V3A follows +3V3.\n\nINTERFACES   IN  V24_LOGIC <- power_entry_24v (owns its PWR_FLAG).\n       RAIL_PGOOD is open drain, the wired-AND of all four regulators\n       through R315 / R316 / R317 / R318. SHEET-LOCAL: LED D303, TP308\n       are its only consumers until OQ-07 allocates an MCU GPIO.\n       Global power nets produced here: +5V, +5VA, +3V3, +3V3A.\n       GND is board-wide, one net; power_entry_24v owns its PWR_FLAG.\n\nReasoning, part sizing and residual ERC:\n       docs/decisions/actuator-sch-power.md"
 		(exclude_from_sim no)
 		(at 204.47 240.03 0)
 		(effects
@@ -8345,7 +8779,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TNF_22.1k_0603_0.1%")
+		(lib_id "Amodo_Resistors:RES_TNF_12.7k_0603_0.1%")
 		(at 132.08 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8363,7 +8797,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22k1"
+		(property "Value" "12k7"
 			(at 134.11 71.98 0)
 			(effects
 				(font
@@ -8382,7 +8816,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -8392,7 +8826,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thin Film Resistor 22.1k 0603 0.1% 100mW"
+		(property "Description" "SMD Thin Film Resistor 12.7k 0603 0.1% 100mW"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -8402,7 +8836,7 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "RT0603BRD0722K1L"
+		(property "mpn" "ERA-3AEB1272V"
 			(at 132.08 68.58 0)
 			(effects
 				(font
@@ -10755,7 +11189,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TNF_100k_0603_0.1%")
+		(lib_id "Amodo_Resistors:RES_TNF_64.9k_0603_0.1%")
 		(at 132.08 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10773,7 +11207,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "64k9"
 			(at 134.11 60.55 0)
 			(effects
 				(font
@@ -10792,7 +11226,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/RDM0000C331.pdf"
+		(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf"
 			(at 132.08 57.15 0)
 			(effects
 				(font
@@ -10802,7 +11236,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thin Film Resistor 100k 0603 0.1% 125mW"
+		(property "Description" "SMD Thin Film Resistor 64.9k 0603 0.1% 25ppm 100mW"
 			(at 132.08 57.15 0)
 			(effects
 				(font
@@ -10812,7 +11246,7 @@
 				(hide yes)
 			)
 		)
-		(property "mpn" "ERA-3VEB1003V"
+		(property "mpn" "ERA-3AEB6492V "
 			(at 132.08 57.15 0)
 			(effects
 				(font
@@ -10822,7 +11256,7 @@
 				(hide yes)
 			)
 		)
-		(property "gpn" "667-ERA-3VEB1003V"
+		(property "gpn" ""
 			(at 132.08 57.15 0)
 			(effects
 				(font

@@ -820,6 +820,9 @@ came out. The datasheet's own specifications are given for "SENSE connected to
 VOUT" (p.3), so this is the characterised configuration; what it costs is IR-drop
 correction across a 0 Ω link, which is nothing.
 
+> **Answered in round 4: yes, wire it.** `R317`/`R318` now take both PG pins into
+> `RAIL_PGOOD`. `DEC-P9`.
+
 **PG is a no-connect, and that is worth a decision.** DEC-P9 makes `RAIL_PGOOD`
 a wired-AND of each converter's PG through 1 k, and the only reason the 5 V rails
 are absent from it is that the TPS7A20 had no PG pin. Both LDOs now have one. Two
@@ -841,6 +844,9 @@ loses most of its capacitance - the wrong way to satisfy a "match COUT"
 requirement. `loadcell_afe` already uses this exact part for a 10 µF on a
 5 V-class rail. The wider 0805 body moved the library's Value offset 0.44 mm
 into the EN feed wire; the Value anchor now lines up with the Reference above it.
+
+> **Answered in round 4: raise it.** `+5V5` is 6.110 V nominal, floor 6.009 V.
+> `DEC-P10` has the tolerance stack.
 
 **Headroom, and a question for the captain.** 5.5 V in, 5.0 V out is 500 mV.
 Worst-case dropout is 325 mV at 300 mA and 600 mV at 500 mA (Table 1), so the

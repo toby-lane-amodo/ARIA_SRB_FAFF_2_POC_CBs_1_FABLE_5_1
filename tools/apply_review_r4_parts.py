@@ -17,6 +17,14 @@
     their field angles compensated to 270, which AGENTS.md permits on that
     exact condition. The local variant then has no users and is deleted.
 
+12. `motor_drive`: `VBUS_MON` was the only hierarchical label on the sheet with
+    `justify left bottom` at 180 deg - round 3 turned it round to dodge a
+    ground stub, and all fifteen of its siblings use `justify right`, reading
+    back over the wire. With the capacitor grounds now levelled at 71.12 the
+    stub is gone, so it goes back to the house form, at the far end of its run
+    where the text has clear wire under it. The 6.35 mm tail that existed only
+    to hold the label goes with it, and so does the junction it made.
+
 A3. `motor_drive`: `R1120` and its `+3V3` flag drag 7.62 mm down into the clear
     space below, which is the captain's answer to the arrow the gate-drive bus
     was crossing - no bus reroute needed.
@@ -61,6 +69,10 @@ MOTOR_MOVE = [("R1120", 0, 7.62), ("#PWR1131", 0, 7.62)]
 # dropping R1120 put its reference 0.02 mm off R1117's body; the gap between
 # the two bodies is 6.85 mm for 5.95 mm of text, so it centres in it
 MOTOR_FIELDS = [("R1120", "Reference", 164.90, 187.32)]
+MOTOR_DEL_WIRES = [((82.55, 77.47), (88.90, 77.47))]
+MOTOR_DEL_JUNCTIONS = [(88.90, 77.47)]
+MOTOR_LABELS = [("VBUS_MON", 0, 19.05, 0)]      # 82.55 -> 101.60
+MOTOR_JUSTIFY = [("VBUS_MON", 0, "right")]
 
 MOTOR_WIRES = [((166.37, 175.26), (166.37, 179.07),
                 (166.37, 182.88), (166.37, 186.69)),
@@ -97,6 +109,14 @@ def main():
         text = E.move_wire(text, p, q, np_, nq)
     for ref, prop, x, y in MOTOR_FIELDS:
         text = E.set_field(text, ref, prop, x, y)
+    for p, q in MOTOR_DEL_WIRES:
+        text = E.del_wire(text, p, q)
+    for p in MOTOR_DEL_JUNCTIONS:
+        text = E.del_point(text, "junction", p)
+    for name, occ, dx, dy in MOTOR_LABELS:
+        text = E.move_label(text, name, occ, dx, dy)
+    for name, occ, just in MOTOR_JUSTIFY:
+        text = E.set_label_justify(text, name, occ, just)
     # the pre-rotated local variant now has no users on this sheet
     text = E.del_lib_symbol(text, "faff2_passives:RES_TF_100R_0603_H")
     open(path, "w", encoding="utf-8", newline="\n").write(text)

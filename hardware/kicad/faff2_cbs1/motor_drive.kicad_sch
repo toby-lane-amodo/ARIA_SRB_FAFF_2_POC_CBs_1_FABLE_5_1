@@ -8660,12 +8660,12 @@
 	)
 	(hierarchical_label "VBUS_MON"
 		(shape output)
-		(at 82.55 77.47 180)
+		(at 101.6 77.47 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right)
 		)
 		(uuid "49c518b0-fb41-5947-a31c-84939bc5433a")
 	)
@@ -17031,16 +17031,6 @@
 		(uuid "5b4ff628-22f3-5a4e-a3ef-2cbb727c387a")
 	)
 
-	(wire
-		(pts
-			(xy 82.55 77.47) (xy 88.9 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cea427dc-7315-59c1-b326-3cc95ad152aa")
-	)
 
 
 
@@ -19322,12 +19312,6 @@
 		(uuid "1163ef83-a749-5928-ade6-eb592956d21e")
 	)
 
-	(junction
-		(at 88.9 77.47)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c150e83f-ea49-57be-b6bc-ef3d60c6b0be")
-	)
 
 	(junction
 		(at 110.49 77.47)

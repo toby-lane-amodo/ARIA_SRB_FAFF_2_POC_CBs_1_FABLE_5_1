@@ -334,3 +334,56 @@ def del_lib_symbol(text, name):
     blk = block(text, i)
     assert '(lib_id "%s")' % name not in text, "%s still instantiated" % name
     return text[:i - 2] + text[i + len(blk) + 1:]
+
+
+def label_block(name, x, y, rot, justify, uid):
+    return (f'\t(label "{name}"\n\t\t(at {fmt(x)} {fmt(y)} {rot:g})\n'
+            "\t\t(effects\n\t\t\t(font\n\t\t\t\t(size 1.27 1.27)\n\t\t\t)\n"
+            f"\t\t\t(justify {justify})\n\t\t)\n"
+            f'\t\t(uuid "{uid}")\n\t)\n')
+
+
+def embed_lib_symbol(text, src, lib_id):
+    """Copy a symbol from a library file into the sheet's lib_symbols."""
+    if '(symbol "%s"' % lib_id in text:
+        return text
+    bare = lib_id.split(":", 1)[1]
+    i = src.index('\t(symbol "%s"\n' % bare) + 1
+    sym = block(src, i)
+    sym = re.sub(r'^\(symbol "', '(symbol "%s:' % lib_id.split(":", 1)[0],
+                 sym, count=1)
+    sym = "\n".join("\t" + l if l else l for l in sym.split("\n"))
+    anchor = "\t\t(symbol \""
+    j = text.index(anchor)
+    return text[:j] + "\t\t" + sym.lstrip("\t") + "\n" + text[j:]
+
+
+def sync_properties(text, ref, src, bare, keep=("Reference",), value=None):
+    """Refresh an instance's cached property values from its library symbol.
+
+    `set_lib_id` alone leaves the instance carrying the OLD part's mpn,
+    datasheet and description - a swap that looks right on the sheet and ships
+    the wrong part number to the BOM. Positions and visibility stay as they
+    are; only the strings change.
+    """
+    i = src.index('\t(symbol "%s"\n' % bare) + 1
+    lib = block(src, i)
+    want = {m.group(1): m.group(2) for m in
+            re.finditer(r'\(property "([^"]*)" "((?:[^"\\]|\\.)*)"', lib)}
+    if value is not None:
+        want["Value"] = value
+    s, e = sym_span(text, ref)
+    blk, out, pos = text[s:e], [], 0
+    while True:
+        k = blk.find('(property "', pos)
+        if k < 0:
+            break
+        pb = block(blk, k)
+        m = re.match(r'\(property "([^"]*)" "((?:[^"\\]|\\.)*)"', pb)
+        name = m.group(1)
+        if name in want and name not in keep:
+            pb = pb[:m.start(2)] + want[name] + pb[m.end(2):]
+        out.append(blk[pos:k]); out.append(pb)
+        pos = k + len(block(blk, k))
+    out.append(blk[pos:])
+    return text[:s] + "".join(out) + text[e:]

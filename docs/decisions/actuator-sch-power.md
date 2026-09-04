@@ -25,14 +25,14 @@ KPJX-4S ─ F201 ─ L201 ─ Q201 ─┬─ D201 TVS + C204..C206 ── V24_PR
                                └─ R205/R206 divider ─▶ V24_MON → mcu PC1
 
 V24_LOGIC ─┬─ U301 LMR33630 buck ─▶ +5V5 ─┬─ U302 ADPL42005 ─▶ +5V   (5.0 V)
-           │   400 kHz, 5.525 V           └─ U303 ADPL42005 ─▶ +5VA  (5.0 V)
+           │   400 kHz, 6.110 V           └─ U303 ADPL42005 ─▶ +5VA  (5.0 V)
            └─ U304 LMR33630 buck ─▶ +3V3 ──── FB301 ferrite ─▶ +3V3A
                400 kHz, 3.326 V
 ```
 
 Every rail leaves through one 0R link that is both its isolation link and its
 current-measurement break, with a test point downstream. `RAIL_PGOOD` is the
-wired-AND of both converters' open-drain PG flags.
+wired-AND of all four regulators' open-drain PG flags.
 
 ## 2. Decisions
 
@@ -54,13 +54,11 @@ gets ripple rejection for free.
 and its dropout is 140 mV max at the full 300 mA, so 5.5 V ± 3 % sits inside the
 recommended range with about half a volt of dropout headroom.
 
-> **The 6.0 V ceiling is gone** with the round-3 move to the ADPL42005, whose
-> input range is 4 V to 20 V (data sheet Rev. 0, Specifications). 5.5 V still
-> works — 500 mV covers the 325 mV worst-case dropout at 300 mA — but it is now
-> the *floor* of what makes sense rather than a ceiling-constrained compromise.
-> **Worth a decision:** the ADPL42005's regulation, noise and PSRR figures are
-> specified at V<sub>IN</sub> = V<sub>OUT</sub> + 1 V, which 5.5 V does not
-> give. Raising `+5V5` (U301's divider, `R303`/`R304`) would recover them.
+> **Raised to 6.0 V nominal in review round 4** — see `DEC-P10` below. The
+> 6.0 V ceiling that set 5.5 V was the TPS7A20's; the ADPL42005 takes 4 V to
+> 20 V, and its regulation, noise and PSRR figures are specified at
+> V<sub>IN</sub> = V<sub>OUT</sub> + 1 V, which 5.5 V did not give on the rail
+> carrying `REQ-FF-04`.
 
 *Alternative rejected.* One 5 V buck feeding everything, with a ferrite to the
 analog side. A ferrite does not reject the read head's low-frequency current
@@ -240,7 +238,44 @@ convention rather than two.
 Verified after rebasing onto the `mcu` / `test_debug` landing: 148 components
 across the project, no duplicate references.
 
+### DEC-P10 — `+5V5` is 6.110 V nominal, so its worst-case floor clears 6.0 V
+
+**Date** 2026-09-04 · **Status** Accepted, captain-instructed · **Scope** `power_rails`
+
+`R303` 100 kΩ → **64.9 kΩ**, `R304` 22.1 kΩ → **12.7 kΩ**. Both 0.1 % thin film, as before.
+
+*Why 6.0 V at all.* The ADPL42005's regulation, noise and PSRR figures are specified at
+V<sub>IN</sub> = V<sub>OUT</sub> + 1 V. `+5VA` carries `REQ-FF-04`, so the rail should reach
+that point rather than sit 0.5 V short of it. 5.5 V was chosen against the TPS7A20's 6.0 V
+input maximum, a constraint that left with the part (`DEC-P3`).
+
+*Why not exactly 6.0 V.* The captain asked for 6.0 V, or slightly above **only if the
+tolerance stack needs it to guarantee a 6.0 V minimum**. It does. `V`<sub>OUT</sub>` =
+V`<sub>FB</sub>` × (1 + R303/R304)`, and the LMR33630's feedback reference is **0.985 / 1.000 /
+1.015 V** — ±1.5 %, over the full operating range (SNVSAN3F, Electrical Characteristics).
+
+| Divider | min | nom | max | |
+|---|---|---|---|---|
+| 100 k / 20 k | 5.900 V | **6.000 V** | 6.100 V | nominal is exactly 6.0, but the floor is 100 mV short |
+| **64.9 k / 12.7 k** | **6.009 V** | **6.110 V** | 6.212 V | the floor clears 6.0 V |
+
+Worst case combines V<sub>FB</sub> at its limit with both resistors at the 0.1 % corner that
+makes the ratio worst: `0.985 × (1 + 64.9×0.999 / 12.7×1.001) = 6.009 V`, and
+`1.015 × (1 + 64.9×1.001 / 12.7×0.999) = 6.212 V`.
+
+*What else the change touches.* Divider impedance falls from 122.1 kΩ to 77.6 kΩ, so the
+50 nA max FB bias current costs 3.2 mV — 0.05 %, against 5 mV before. Duty cycle at 24 V in
+is 0.255, an on-time of 637 ns at 400 kHz against the 80 ns minimum. `C306`/`C307` are 16 V
+1206 and `C308` 50 V, so 6.21 V worst case keeps better than 2.5× derating; `C309`/`C312`,
+the LDO inputs, are 25 V. LDO dissipation at the worst-case input rises to 139 mW on `+5V`
+(115 mA) and 36 mW on `+5VA` (30 mA), a few °C in an 8-LFCSP.
+
 ### DEC-P9 — `RAIL_PGOOD` is a wired-AND, isolated by 1 k per converter (answers OQ-07)
+
+> **Extended in review round 4 to all four regulators.** The two 5 V LDOs were absent only
+> because the TPS7A20 had no PG pin; the ADPL42005 has one. `R317` and `R318`, 1 kΩ each like
+> `R315`/`R316`, take `U302.PG` and `U303.PG` into the same node. A dead 5 V rail is now
+> visible at `D303` and `TP308`, where before it was not — which was the gap round 3 raised.
 
 > **Partly superseded, review round 1 batch 2.** The LMR51610 has no PG pin,
 > so `RAIL_PGOOD` is now the `+3V3` buck's PG alone, through `R316`; `R315`
