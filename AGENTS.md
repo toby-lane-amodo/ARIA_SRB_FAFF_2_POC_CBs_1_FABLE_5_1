@@ -178,7 +178,9 @@ spots, each measured against renders and written up in `docs/decisions/actuator-
 spots that a render caught after it had already passed a sheet clean: a field was never
 compared against its own symbol's outline; labels and bodies were obstacles but never
 subjects; block titles are bold **1.778**, 40% wider per character than the 1.27 the model
-assumed; and field-against-field comparison had been dropped. Text needs *clearance*; a body
+assumed; field-against-field comparison had been dropped; and every field was centred
+vertically, ignoring `top`/`bottom` justify — which turned `J902`'s reference printed through
+its own value into 0.5 mm of clearance. Text needs *clearance*; a body
 box is the bounding box of a triangle, so it counts only when genuinely penetrated; and text
 over its **own** electrical node is not an overlap at all (`wire_nodes()`).
 
@@ -188,6 +190,14 @@ way). **`netlist_nodes.py`** is the node-set invariance proof for any geometry r
 before and after, and "ERC is still clean" is not a substitute. **`sch_edit.py`** holds edit
 primitives that assert they changed something, because `str.replace` says nothing when it
 matches nothing.
+
+**Still run the bundled checker as a cross-check.** On the finished sheets it reports 38 to
+this one's 3 — 34 are its documented blind spots, but one was real and this one had passed
+it. Neither tool is the last word; the render is.
+
+**An `apply_review_*.py` script rebuilds its sheets from a pinned base commit, not `HEAD`.**
+Rebuilding from `HEAD` works exactly once: after the script's own commit lands, `HEAD` already
+contains its edits and a re-run double-applies them.
 
 ## Sharp edges
 

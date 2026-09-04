@@ -22,6 +22,11 @@ import uuid
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
 import sch_edit as E
 
+# Rebuilt from a PINNED base, not HEAD: once this script's own commit lands,
+# HEAD already contains its edits and a re-run would double-apply them or
+# assert. Item 5, the last commit before this one.
+BASE = "c978b96"
+
 D = "hardware/kicad/faff2_cbs1/"
 NS = uuid.UUID("5edb00fd-45c9-5fe7-8d71-adbf38f38546")
 
@@ -238,6 +243,12 @@ EDITS = {
         "ESD part; the high-speed pair has the USBLC6-2P6.")]),
     # 0.60 mm past its block's right border
     "nvm_calibration": dict(notes=[("R801/R802 are the removable", 16.51, 66.04)]),
+    # J902's reference printed straight through its "SMA Jack" value, and the
+    # value sat above the reference besides. The bundled checker had this one
+    # right and this one wrong - see the decisions file. Reference on top,
+    # value under it, 0.64 mm apart.
+    "ui_io": dict(fields=[("J902", "Reference", 218.48, 19.19),
+                          ("J902", "Value", 218.48, 19.83)]),
 }
 
 
@@ -261,7 +272,7 @@ def relocate_flag(text, ref, old_x, new_x, tp_x):
 def main():
     for sheet, ed in EDITS.items():
         path = D + sheet + ".kicad_sch"
-        text = subprocess.run(["git", "show", "HEAD:" + path], check=True,
+        text = subprocess.run(["git", "show", BASE + ":" + path], check=True,
                               capture_output=True, text=True).stdout
         text = E.normalise(text)
         for old, new in ed.get("text", []):

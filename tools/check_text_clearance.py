@@ -311,9 +311,9 @@ def fix_sheet(path, margin):
                 continue
             if clear(key, boxes[key]):
                 continue
-            x0, y0, txt, just, rot, mir, fang, fk = m
+            x0, y0, txt, just, rot, mir, fang, fk, vj = m
             for (dx, dy) in CANDIDATES:
-                nb = G.text_box(x0 + dx, y0 + dy, txt, just, rot, mir, fk)
+                nb = G.text_box(x0 + dx, y0 + dy, txt, just, rot, mir, fk, vj)
                 if clear(key, nb):
                     pick = (key[0], key[1], x0 + dx, y0 + dy, fang)
                     break

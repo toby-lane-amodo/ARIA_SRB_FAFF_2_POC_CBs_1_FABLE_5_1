@@ -120,7 +120,15 @@ def grows_left(justify, rot, mirror):
     return bool((justify == "right") ^ (int(rot) == 180) ^ bool(mirror))
 
 
-def text_box(x, y, text, justify, rot, mirror, scale=1.0):
+def text_box(x, y, text, justify, rot, mirror, scale=1.0, vjust=None):
+    """A field's rendered extent.
+
+    `vjust` matters and was missed for a long time: a field justified `bottom`
+    puts its glyphs ABOVE the anchor and one justified `top` puts them below,
+    exactly as a label does. Centring everything hid `J902`'s reference printed
+    straight through its "SMA Jack" value - 0.73 mm of overlap that came back
+    as 0.53 mm of clearance.
+    """
     lines = text.split("\\n")
     w = max(len(l) for l in lines) * CHAR_W * scale
     h = len(lines) * LINE_H * scale
@@ -130,7 +138,13 @@ def text_box(x, y, text, justify, rot, mirror, scale=1.0):
         x0, x1 = x, x + w
     else:
         x0, x1 = x - w / 2, x + w / 2
-    return (x0, y - h / 2, x1, y + h / 2)
+    if vjust == "bottom":
+        y0, y1 = y - h, y
+    elif vjust == "top":
+        y0, y1 = y, y + h
+    else:
+        y0, y1 = y - h / 2, y + h / 2
+    return (x0, y0, x1, y1)
 
 
 def seg_box(p, q, pad=0.0):
@@ -254,12 +268,14 @@ class Sheet:
                 h = kid(eff, "hide") if eff else None
                 if h and a(h, 1) == "yes":
                     continue
-                j = [a(x, 1) for x in kids(eff, "justify")] if eff else []
-                just = j[0] if j and j[0] in ("left", "right") else None
+                j = [a(x, i) for x in kids(eff, "justify")
+                     for i in range(1, len(x))] if eff else []
+                just = next((v for v in j if v in ("left", "right")), None)
+                vj = next((v for v in j if v in ("top", "bottom")), None)
                 pa = at(pr)
                 out.append((ref, a(pr, 1),
                             text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir,
-                                     font_scale(eff)),
+                                     font_scale(eff), vj),
                             (ref, a(pr, 1)) in skip_refs))
         return out
 
@@ -342,11 +358,15 @@ class Sheet:
                 h = kid(eff, "hide") if eff else None
                 if h and a(h, 1) == "yes":
                     continue
-                j = [a(x, 1) for x in kids(eff, "justify")] if eff else []
-                just = j[0] if j and j[0] in ("left", "right") else None
+                j = [a(x, i) for x in kids(eff, "justify")
+                     for i in range(1, len(x))] if eff else []
+                just = next((v for v in j if v in ("left", "right")), None)
+                vj = next((v for v in j if v in ("top", "bottom")), None)
                 pa = at(pr)
                 k = font_scale(eff)
                 out.append((su, ref, a(pr, 1),
-                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir, k),
-                            (pa[0], pa[1], a(pr, 2), just, p[2], mir, pa[2], k)))
+                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir,
+                                     k, vj),
+                            (pa[0], pa[1], a(pr, 2), just, p[2], mir, pa[2],
+                             k, vj)))
         return out

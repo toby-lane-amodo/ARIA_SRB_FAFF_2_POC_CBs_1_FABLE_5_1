@@ -55,6 +55,11 @@ import re
 import subprocess
 import uuid
 
+# Rebuilt from a PINNED base, not HEAD: once this script's own commit lands,
+# HEAD already contains its edits and a re-run would double-apply them or
+# assert. Item 2, the j703 header.
+BASE = "75c6df9"
+
 SHEET = "hardware/kicad/faff2_cbs1/power_rails.kicad_sch"
 LIBSRC = "/mnt/c/Amodo/AmodoKiCadLib/Amodo_Power_ICs.kicad_sym"
 CAPSRC = "/mnt/c/Amodo/AmodoKiCadLib/Amodo_Capacitors.kicad_sym"
@@ -272,7 +277,7 @@ def cluster(ref, gnd_ref, x0):
 
 
 def main():
-    text = subprocess.run(["git", "show", "HEAD:" + SHEET], check=True,
+    text = subprocess.run(["git", "show", BASE + ":" + SHEET], check=True,
                           capture_output=True, text=True).stdout
 
     add = []

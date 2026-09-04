@@ -24,6 +24,11 @@ import re
 import subprocess
 import uuid
 
+# Rebuilt from a PINNED base, not HEAD: once this script's own commit lands,
+# HEAD already contains its edits and a re-run would double-apply them or
+# assert. Item 1, the checker sweep.
+BASE = "310469b"
+
 SHEET = "hardware/kicad/faff2_cbs1/temp_sense.kicad_sch"
 SRC = "hardware/kicad/faff2_cbs1/linear_encoder.kicad_sch"
 NS = uuid.UUID("4e1514d5-7414-55f0-9f35-1d20cac21a6b")     # temp_sense's own uuid
@@ -243,7 +248,7 @@ def header(src_text):
 
 
 def main():
-    text = subprocess.run(["git", "show", "HEAD:" + SHEET], check=True,
+    text = subprocess.run(["git", "show", BASE + ":" + SHEET], check=True,
                           capture_output=True, text=True).stdout
 
     for ref in DROP_SYMS:

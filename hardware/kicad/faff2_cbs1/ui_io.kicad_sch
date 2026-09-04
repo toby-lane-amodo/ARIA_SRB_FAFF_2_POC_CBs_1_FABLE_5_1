@@ -7706,7 +7706,7 @@
 		(dnp no)
 		(uuid "8b1f7fe4-eb3a-57db-830d-c085fee742ab")
 		(property "Reference" "J902"
-			(at 218.48 21 0)
+			(at 218.48 19.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7715,7 +7715,7 @@
 			)
 		)
 		(property "Value" "SMA Jack"
-			(at 218.48 19.19 0)
+			(at 218.48 19.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)

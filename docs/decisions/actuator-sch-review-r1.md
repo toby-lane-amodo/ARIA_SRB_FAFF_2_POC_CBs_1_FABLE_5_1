@@ -932,3 +932,37 @@ newline between them - `\n\t)\t(symbol` - written that way by a round-1 script.
 KiCad does not care, which is why ERC and the netlist never noticed, but it
 hides a block from anything anchored on line starts, and it silently defeated
 this pass's first run. `sch_edit.normalise()` puts them back.
+
+## The cross-check that earned its keep
+
+`schematic-style` asks for the bundled `check_overlaps.py` as well, and on the
+finished sheets it reports 38 findings against my 3. Every one was checked
+rather than waved away, and the split is worth recording because it is the
+argument for running both:
+
+**34 are its known blind spots, confirmed against renders.** `TP702`/`TP704`/
+`TP706`'s fields are `justify right` on symbols at 180 deg, which cancel - the
+text renders *rightward*, and the render shows it starting exactly where
+`sch_geom` puts it and clear of the border the bundled checker says it crosses.
+`J701`/`J702`'s bodies and `R705`'s are reflected about the origin because they
+are mirrored or rotated. All noise.
+
+**One was real, and mine had passed it.** `J902`'s reference printed straight
+through its "SMA Jack" value - 0.73 mm of overlap, plainly wrong in a render -
+because `text_box()` centred every field vertically and ignored `top`/`bottom`
+justify. A field justified `bottom` puts its glyphs *above* the anchor and one
+justified `top` puts them below, exactly as a label does; centring both turned a
+0.73 mm overlap into 0.53 mm of clearance. Fixed, and J902 now reads reference
+over value, 0.64 mm apart.
+
+That is the fourth blind spot this round found in a checker that had already
+passed a sheet clean, and all four were found the same way: by looking at a
+render. The rule stands - **a checker miss that a render reveals is a checker
+bug**, and the tool is only as good as the last render that disagreed with it.
+
+### One more property, learned the hard way
+
+The apply scripts rebuild each sheet from a **pinned base commit**, not `HEAD`.
+Rebuilding from `HEAD` works exactly once: after the script's own commit lands,
+`HEAD` already contains its edits, and a re-run either double-applies them or
+trips an assertion. All three round-3 scripts now name their base.
