@@ -116,7 +116,7 @@ is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
 
 **Never paper over an ERC error with a PWR_FLAG or a global label.** A PWR_FLAG is a power
 *output*, and the flags are already owned: `power_entry_24v` holds the ones for `GND` and
-`+24V_SW`, `power_rails` the ones for `V24_LOGIC`, `+5V5`, `+5V`, `+5VA`, `+3V3` and `+3V3A`.
+`+24V_SW`, `power_rails` the ones for `V24_LOGIC`, `+6V0`, `+5V`, `+5VA`, `+3V3` and `+3V3A`.
 No other sheet may add one to those nets. A hierarchical label with only one endpoint is an ERC
 error too — if nothing consumes a net yet, keep it sheet-local (DEC-0023), don't invent a
 consumer.

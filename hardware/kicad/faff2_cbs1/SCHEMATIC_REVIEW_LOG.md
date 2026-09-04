@@ -156,6 +156,7 @@ batch, not by arrival. Reasoning for every judgement call is in
 |---|---|---|
 | A1 | PG into `RAIL_PGOOD`: **yes** | `R317`/`R318`, 1 k each. A dead 5 V rail is now visible at `D303`/`TP308` |
 | A2 | Raise `+5V5`: **yes, 6.0 V or slightly above** | 6.110 V nominal, worst-case floor 6.009 V. `DEC-P10` shows the stack |
+| A2b | "You did not update the other documentation on the power_rails sheet for the 6V change! Test point and net label are all still wrong." | **Done.** The rail is `+6V0` everywhere: net label, `TP302`'s silkscreen name, the title-block topology line, every sheet note, and the rail lists in `AGENTS.md`, `TEST_PLAN.md` and `actuator-sch-power.md`. Net membership unchanged — only the name. The decisions log keeps the history |
 | A3 | `#PWR1131`: drag `R1120` and its flag down, no bus reroute | Done, 7.62 mm |
 
 ### What the bundled overlap checker cannot see

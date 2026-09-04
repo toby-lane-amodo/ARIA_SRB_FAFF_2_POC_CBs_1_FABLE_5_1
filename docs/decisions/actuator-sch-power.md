@@ -24,7 +24,7 @@ KPJX-4S ─ F201 ─ L201 ─ Q201 ─┬─ D201 TVS + C204..C206 ── V24_PR
                                ├─ R204 (0R link) ─▶ V24_LOGIC  → power_rails
                                └─ R205/R206 divider ─▶ V24_MON → mcu PC1
 
-V24_LOGIC ─┬─ U301 LMR33630 buck ─▶ +5V5 ─┬─ U302 ADPL42005 ─▶ +5V   (5.0 V)
+V24_LOGIC ─┬─ U301 LMR33630 buck ─▶ +6V0 ─┬─ U302 ADPL42005 ─▶ +5V   (5.0 V)
            │   400 kHz, 6.110 V           └─ U303 ADPL42005 ─▶ +5VA  (5.0 V)
            └─ U304 LMR33630 buck ─▶ +3V3 ──── FB301 ferrite ─▶ +3V3A
                400 kHz, 3.326 V
@@ -36,7 +36,11 @@ wired-AND of all four regulators' open-drain PG flags.
 
 ## 2. Decisions
 
-### DEC-P1 — Rail set: `+5V5` pre-regulator, `+5V`, `+5VA`, `+3V3`, `+3V3A` (answers OQ-02)
+### DEC-P1 — Rail set: `+6V0` pre-regulator, `+5V`, `+5VA`, `+3V3`, `+3V3A` (answers OQ-02)
+
+> The pre-regulator is **`+6V0`**, 6.110 V, since review round 4 (`DEC-P10`). It was `+5V5` at
+> 5.5 V, and the reasoning below is written in those terms — that history is deliberate, but
+> the rail's name and voltage on the schematic are the ones above.
 
 Two buck converters from the protected 24 V, and the 5 V rails post-regulated
 by LDOs from a 5.5 V pre-regulator.
@@ -92,7 +96,7 @@ things bring-up has to think about.
 Values follow the TI datasheet procedure (§9.2.2) with K = 0.3 of the *device*
 rating, which is what TI specifies when the load is much smaller than the part:
 
-| | `+5V5` (U301) | `+3V3` (U304) |
+| | `+6V0` (U301) | `+3V3` (U304) |
 |---|---|---|
 | R<sub>FBT</sub> / R<sub>FBB</sub> | 100 k 0.1 % / 22.1 k 0.1 % | 100 k 0.1 % / 43 k 1 % |
 | V<sub>OUT</sub> (V<sub>FB</sub> = 1.000 V) | 5.525 V | 3.326 V |
@@ -238,11 +242,18 @@ convention rather than two.
 Verified after rebasing onto the `mcu` / `test_debug` landing: 148 components
 across the project, no duplicate references.
 
-### DEC-P10 — `+5V5` is 6.110 V nominal, so its worst-case floor clears 6.0 V
+### DEC-P10 — the pre-regulator is `+6V0`, 6.110 V nominal, floor above 6.0 V
 
 **Date** 2026-09-04 · **Status** Accepted, captain-instructed · **Scope** `power_rails`
 
 `R303` 100 kΩ → **64.9 kΩ**, `R304` 22.1 kΩ → **12.7 kΩ**. Both 0.1 % thin film, as before.
+
+**The rail is renamed with the voltage.** `+5V5` → **`+6V0`**, on the captain's round-4 ruling:
+a net whose name disagrees with its voltage is a trap, and leaving the label, the test point's
+silkscreen name and half the sheet's text saying 5V5 made the change incomplete rather than
+open. It is a local label, so the rename touched `power_rails` alone — no library symbol, no
+root-sheet pin, no other sheet. Net membership is unchanged; only the name moved, from
+`/power_rails/+5V5` to `/power_rails/+6V0`. `TP302`'s silkscreen name goes with it.
 
 *Why 6.0 V at all.* The ADPL42005's regulation, noise and PSRR figures are specified at
 V<sub>IN</sub> = V<sub>OUT</sub> + 1 V. `+5VA` carries `REQ-FF-04`, so the rail should reach
@@ -367,7 +378,7 @@ wires it, these two sheets need the following **sheet pins**, and nothing else.
 
 `GND`, `+5V`, `+5VA`, `+3V3`, `+3V3A` are Amodo power symbols, i.e. global
 labels. They connect across the whole hierarchy without root wiring, which is
-why they are not in the tables above. `+5V5` is a sheet-local label inside
+why they are not in the tables above. `+6V0` is a sheet-local label inside
 `power_rails` and never leaves it.
 
 ### Contract changes other block owners must know about
@@ -379,13 +390,13 @@ why they are not in the tables above. `+5V5` is a sheet-local label inside
 2. **`loadcell_afe` should take its excitation and AVDD from `+5VA`, not `+5V`.**
    Its stub note says `+5V` because the analog rail had not been decided yet.
    Both rails exist and are 5.0 V; `+5VA` is the post-regulated analog one and is
-   the reason `+5V5` exists at all. `temp_sense` likewise: `+5VA` for AVDD,
+   the reason `+6V0` exists at all. `temp_sense` likewise: `+5VA` for AVDD,
    `+3V3A` for DVDD.
 3. **`AGND` / `DGND` / `PGND` are one net, `GND`** — DEC-P7.
 4. **PWR_FLAG ownership.** ERC needs exactly one power-output source per power
    net, and two flags on one net is itself an ERC error. `power_entry_24v` owns
    the single flag for **`GND`** and for **`+24V_SW`**; `power_rails` owns the
-   flags for **`V24_LOGIC`**, **`+5V5`**, **`+5V`**, **`+5VA`**, **`+3V3`** and
+   flags for **`V24_LOGIC`**, **`+6V0`**, **`+5V`**, **`+5VA`**, **`+3V3`** and
    **`+3V3A`** (the column at the bottom right of that sheet). **No other sheet
    may add a PWR_FLAG to any of these nets.**
 5. **Designator ranges** — DEC-P8.

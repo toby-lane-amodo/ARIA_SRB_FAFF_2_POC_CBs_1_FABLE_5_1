@@ -94,7 +94,7 @@ independent of the motor branch, so the motor stage can be left dead while logic
 | `+24V_IN` | `power_entry_24v` | (pre-protection) | — | 25 W peak, 7 W typical |
 | `+24V_SW` | `power_entry_24v` | `motor_drive` only | `R203` | motor Iq 20 mA quiescent |
 | `V24_LOGIC` | `power_entry_24v` | `power_rails` | `R204` | logic branch, ~5.8 W in |
-| `+5V5` | `power_rails` | pre-regulator for `+5V` / `+5VA` | `R305` | sheet-local, never leaves `power_rails`. **6.110 V since review round 4** — the name is historical (`DEC-P10`) |
+| `+6V0` | `power_rails` | pre-regulator for `+5V` / `+5VA` | `R305` | 6.110 V nominal, sheet-local, never leaves `power_rails` (`DEC-P10`) |
 | `+5V` | `power_rails` | IKP11 read head | `R306` | ~115 mA |
 | `+5VA` | `power_rails` | ADS1235 AVDD + bridge excitation, ADS1120 AVDD | `R307` | ~30 mA |
 | `+3V3` | `power_rails` | STM32, USB3320, DRV8323 logic, QSPI, EEPROM | `R312` | ~1.1 A |
