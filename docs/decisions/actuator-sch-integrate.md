@@ -240,6 +240,10 @@ Fixing the checker is a `schematic-style` job, not a project one.
 
 ## 8. Review pack - and a deviation from `schematic-style`
 
+> **Reversed on 2026-09-04 (`DEC-0028`).** The design is reviewed in the KiCad files; no
+> PDF is generated and none is committed. The section below is kept as history - do not
+> follow the command in it.
+
 `docs/review/faff2_cbs1_schematic.pdf` is the full 11-page schematic, exported
 with `kicad-cli sch export pdf`.
 

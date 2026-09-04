@@ -12,12 +12,25 @@ are deliberately excluded — they live in `docs/DECISIONS.md` and the per-block
 Each item gives:
 
 * **Rule** — the text as it would appear in the skill: terse, imperative, checkable.
-* **Origin** — the captain comment or ruling that created it, quoted where the wording survives.
+* **Origin** — where it came from. *Reference only: origins are not pushed to the skill.*
 * **Status** — against the *current* skill text: **NEW**, **REFINES** (naming the rule),
   or **CONTRADICTS** (naming the rule and showing both).
+* **Disposition** — the ruling, and what to do with the item.
 
-A short **Possibly controversial** section at the end flags the items I would not globalise
-without the captain thinking about them first.
+## How to apply this document
+
+This is the spec for the skill update. Four rules govern it:
+
+1. **Only the Rule text goes into the skill.** Origins do not: where a rule came from is not
+   relevant to someone reading the skill.
+2. **A refinement is folded into the existing skill line as added detail — not added as a new
+   line or a new attribute.** Where an item's Status names an existing rule, extend that rule;
+   do not create a second bullet saying something adjacent.
+3. **Plain designer-to-designer style throughout.** No process narration, no roles, no review
+   rounds, no project names. A rule reads as an instruction to the next engineer.
+4. **Anything not commented on is approved as written.**
+
+Items marked **HELD** are not to be applied until the outstanding question is answered.
 
 ---
 
@@ -35,6 +48,8 @@ coincide with each junction.
 The prohibition is already there; what is missing is that the automated check is off by default,
 which is how one survives a 0/0 ERC.
 
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
+
 ### 2. Series elements lie along the flow
 
 **Rule.** Place series elements — 0 Ω links, ferrite beads, series terminators, current-sense
@@ -49,6 +64,8 @@ flow of power in one direction, without un-necessary corners."*
 run straight."* The existing rule is about wires; this one says which way the *part* goes, and
 names the classes that are always in-line.
 
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
+
 ### 3. Parallel elements stand vertically, matching their neighbours
 
 **Rule.** A part in parallel with a column of others is drawn like them — same orientation, same
@@ -60,6 +77,8 @@ vertically like C204 etc. Same for D202."*
 **Status.** **REFINES** *"Paired elements align (e.g. two I2C pull-ups side by side at the same
 height, supply flags level)."* Extends alignment from *pairs of the same part* to *anything in
 parallel across the same net*, including mixed part types.
+
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
 
 ### 4. Parallel parts share one ground-flag height
 
@@ -77,7 +96,10 @@ bad one.
 **Status.** **REFINES** the same *"Paired elements align … supply flags level"* clause. What is new
 is that it is a **design-wide sweep**, not a local nicety, and that it overrides local collision
 fixes. Worth pairing with a detector: group two-terminal parts by upper net and body y, split into
-visual runs (parts more than ~25 mm apart are not one row), and report any run whose flags disagree.
+visual runs, and report any run whose flags disagree. Keep the thresholds in the tool rather than
+in prose — what counts as "one row" is a judgement the tool encodes, not a number to memorise.
+
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet. The row-detection thresholds stay in the tool, not in the skill text.
 
 ### 5. Potential dividers stack vertically
 
@@ -89,6 +111,8 @@ ground, all on the same x.
 **Status.** **NEW.** The skill covers even spacing and alignment of two-terminal parts but says
 nothing about the divider as a shape.
 
+**Disposition.** **APPROVED** — as written.
+
 ### 6. Power LEDs are vertical
 
 **Rule.** Power-indicator LEDs and their series resistors are drawn vertically, in a column from
@@ -97,6 +121,8 @@ the rail to ground.
 **Origin.** *"Power LEDs should also ideally be placed vertically."*
 
 **Status.** **NEW.**
+
+**Disposition.** **APPROVED** — as written.
 
 ### 7. Connectors face their wiring
 
@@ -111,6 +137,8 @@ trap that comes with it: on a `(mirror y)` symbol, `(justify left)` renders text
 mirrored connector's reference and value can run off the page while the file still reads as
 left-justified.
 
+**Disposition.** **APPROVED** — as written.
+
 ### 8. GND symbols always point down, and are never mirrored
 
 **Rule.** A ground symbol points down. Never rotate one, never mirror one, and never make a
@@ -123,6 +151,8 @@ downward GND below the block; split the rail at every stub so each landing is a 
 **Status.** **REFINES** *"GND symbols always face down — never rotate a ground, and never make a
 pre-rotated ground variant."* The addition is the explicit word **mirrored**: a mirrored ground
 draws identically to an unmirrored one in some orientations, so "never rotate" does not cover it.
+
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
 
 ### 9. A body never straddles a wire, and a power symbol's arrow never grazes one
 
@@ -139,6 +169,8 @@ then found design-wide by the same test.
 stated for component bodies; the failure in practice is power-symbol arrows, whose bounding boxes
 are mostly empty triangle, so an area test finds nothing and a clearance test finds false hits
 everywhere.
+
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
 
 ---
 
@@ -159,6 +191,8 @@ ruling fixing the placement.
 is in the skill; the placement discipline, and above all the "the label does not move, the world
 moves" rule, are not.
 
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
+
 ### 11. Sheet entry and exit flags read back over their own wire, in clean columns
 
 **Rule.** Hierarchical labels at a sheet or block boundary are right-justified and read back over
@@ -178,12 +212,16 @@ over its own **node** — the wire it labels and every branch of that node — i
 any other conductor is a defect. A checker needs the node, not just the one segment under the
 anchor, or every branch dropping off a labelled wire reports as an overlap.
 
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
+
 ### 12. Text clearance is measured against wires, borders, bodies and other text
 
 **Rule.** Sweep text against **every** neighbour class: wires, block-box borders, symbol outlines
-including the field's own symbol, notes, net labels, and other fields. Require real **clearance**
-(≈0.35 mm), not merely the absence of overlap — once both stroke widths are drawn, text 0.3 mm off
-a wire reads as touching.
+including the field's own symbol, notes, net labels, and other fields. Require real **clearance**,
+not merely the absence of overlap — once both stroke widths are drawn, text a few tenths of a
+millimetre off a wire reads as touching. Calibrate the margin to the library in use rather than
+fixing a number: sweep at increasing margins, find where the finding count jumps because the
+library's own default field offsets have started reporting, and set the margin just below that.
 
 **Origin.** *"Text overlap around C1101"*, *"J601 has text overlapping component body. Check all
 the schematic for instance of this and fix if required."*, and round 3: *"This all needs fixing
@@ -194,11 +232,14 @@ The rule exists; what is missing is that it must be *measured*, that "no overlap
 than "clearance", and that a field must be compared against its **own** symbol's outline — the
 commonest single miss.
 
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet. The clearance margin is left as a calibration method rather than a number: a fixed figure is only right for the library it was measured against, and a library that places its fields tighter would see normal house placement reported everywhere. The method — sweep upwards, find where the count jumps, sit just below it — transfers; the number does not.
+
 ### 13. Character advance and text box geometry
 
-**Rule.** At text size 1.27 the real character advance is **≈1.19 mm**, not 1.06. Block titles are
-usually bold **1.778**, 40 % wider per character — scale the box by the font size or every title
-comes back a third too narrow. A field or label justified `bottom` puts its glyphs **above** the
+**Rule.** Do not trust a remembered figure for character width — measure it on a render before
+relying on it. Whatever the figure, scale it by the field's own font size: block titles are
+typically bold and half again the default size, so a box computed at the default size comes back a
+third too narrow. A field or label justified `bottom` puts its glyphs **above** the
 anchor and one justified `top` puts them below; centring everything vertically hides
 reference-over-value collisions completely. Text grows leftward when `justify right` **XOR** symbol
 at 180° **XOR** mirrored — but a *label* takes no 180° flip, so its growth is justify-driven alone.
@@ -212,6 +253,8 @@ Current skill: `~1.06 mm per character`.
 Proposed: `~1.19 mm per character at size 1.27, scaled by the field's own font size`.
 On a 15-character label that is 1.95 mm of difference — enough to pass a real collision.
 
+**Disposition.** **APPROVED in the safer form.** The rule now says to measure the character advance on a render rather than quoting a figure, so the skill carries no second number to go stale. The font-size scaling and the justify/growth geometry are exact and stay as written. Fold into the named rule as added detail; do not add a new bullet.
+
 ### 14. A graphical line must never be confusable with a wire
 
 **Rule.** Keep block-box borders, notes' leader lines and any other graphic clear of the paths
@@ -223,12 +266,13 @@ must be moved: the reader cannot tell them apart at review zoom.
 **Status.** **NEW.** The skill governs bounding boxes' appearance ("outline only — never colour or
 fill") but not their collision with wiring.
 
+**Disposition.** **APPROVED** — as written.
+
 ### 15. Block boxes cross nothing
 
 **Rule.** A block bounding box must not cross a component body, a sheet boundary, or another block
-box. Its top edge must be inside the drawing area — on a KiCad A3/A2 frame the drawing area starts
-about 1.9 mm inside the outer border, below the ruler band, not at the border itself. If a box must
-grow to enclose the part it names, grow it past the part, not into it.
+box. Its top edge must be inside the drawing area — on a KiCad frame the drawing area starts inside the
+outer border, below the ruler band, not at the border itself.
 
 **Origin.** *"`temp_sense` content crosses the top sheet boundary"*, *"The `+5VA` bridge-excitation
 label/wiring falls outside the sheet boundary at the top"*, and the verification round, where a
@@ -236,6 +280,8 @@ hand-dragged border stopped in the middle of the IC the block is named after.
 
 **Status.** **REFINES** *"Size the box to the block's real extent, then re-check the title still
 fits inside it."* Sizing is covered; crossing a body or the frame is not.
+
+**Disposition.** **APPROVED — checkable half only.** The rule keeps *a box crosses nothing*; the sentence about growing a box past the part it names is removed, because inferring a box's intent is a judgement, not a check. Fold into the named rule as added detail; do not add a new bullet.
 
 ---
 
@@ -261,6 +307,8 @@ house library already has is a divergence to be avoided.
 Note the two are reconcilable if "in the library" means *the house library*: making the variant
 **upstream** satisfies both. It is only the **project-local** variant the captain rejected.
 
+**Disposition.** **HELD.** Not to be applied until the outstanding question is answered: whether a rotated copy of a symbol is acceptable when it is made in the shared house library, or whether the standard part should always be turned on the schematic instead.
+
 ### 17. Reference-designator prefixes follow the part's function
 
 **Rule.** The prefix says what the part is, not where it sits in the circuit. A coaxial or board
@@ -271,16 +319,22 @@ library symbol's own default prefix — overriding it on the instance is how the
 
 **Status.** **NEW.**
 
+**Disposition.** **APPROVED** — as written.
+
 ### 18. Designators are unique across the whole project, and per-sheet ranges keep them so
 
-**Rule.** Allocate reference designators per sheet from a fixed table, spaced (100 apart works),
-including power symbols and PWR_FLAGs. Two sheets both starting at `U1` do **not** raise an ERC
-error — they silently merge into one component at netlist time.
+**Rule.** Fix a designator scheme for the project and hold to it — sequential through the
+schematic, or per-sheet ranges from the page number — and apply it to power symbols and power
+flags as well as parts. Whichever scheme is used, designators must be unique across the whole
+project: two sheets both starting at `U1` do **not** raise an ERC error, they silently merge into
+one component at netlist time.
 
 **Origin.** Established during integration on this project; the failure mode was then demonstrated
 for real in the verification round (item 26).
 
 **Status.** **NEW.**
+
+**Disposition.** **APPROVED as designer discretion.** Either scheme is fine — sequential through the schematic, or page number × 100 — and which one suits depends on the project's setup defaults. The rule now says *fix a scheme and hold to it*. What is not discretionary is uniqueness across the project, and that the ERC will not catch a clash.
 
 ---
 
@@ -289,13 +343,15 @@ for real in the verification round (item 26).
 ### 19. Test coverage lives on the page it covers
 
 **Rule.** Test points, probe headers, scope hooks and debug connectors belong to the block whose
-nets they observe. Do not create a test-and-debug sheet; if one exists, dissolve it onto the
-circuit pages.
+nets they observe. Do not create a test-and-debug sheet. If you find a sheet that already contains
+test coverage, do not collapse it without asking the designer first.
 
 **Origin.** *"Can all of the test_debug page be implemented on the relevant circuits page?"*
 
 **Status.** **NEW.** The skill has a related but different rule about *what form* debug access
 takes; it says nothing about *which sheet* it lives on.
+
+**Disposition.** **APPROVED**, with the addition now carried in the rule: if a sheet already contains test coverage, do not collapse it without asking the designer first. The reservation I raised about large designs is withdrawn — the rule globalises as written.
 
 ### 20. One keyed header beats a row of digital test points
 
@@ -311,6 +367,8 @@ amodokicadlib header for the logic analyser?"*
 by default), not bare test points."* Same direction; this names the specific case, the house part
 and the "tap which side of the terminator" detail.
 
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
+
 ### 21. Dual scope points at regulator outputs
 
 **Rule.** Every regulator output gets a **dual** test point — signal pad and ground pad adjacent —
@@ -320,6 +378,8 @@ so a scope probe and its ground clip land together.
 oscilloscope probe."*
 
 **Status.** **NEW.**
+
+**Disposition.** **APPROVED** — as written.
 
 ### 22. No test coverage on feedback nodes or high-speed signals
 
@@ -332,15 +392,20 @@ advisable to place test coverage on very high speed interfaces or signals"*.
 
 **Status.** **NEW.**
 
+**Disposition.** **APPROVED** — as written.
+
 ### 23. Test-point silkscreen names
 
 **Rule.** Every test point carries a short name saying what it measures, taken from the net it
-actually lands on, **under 6 characters**.
+actually lands on, **under 6 characters**. In the rare case where shortening a net's name that far
+would hide its meaning, a longer name is acceptable.
 
 **Origin.** *"Across the schematic, can you label all of the TPs with some text for what they
 measure … keep them as short as possible (< 6 characters)"*.
 
 **Status.** **NEW.**
+
+**Disposition.** **APPROVED**, with the exception now carried in the rule: where shortening a net's name below six characters would hide its meaning, a longer name is acceptable.
 
 ---
 
@@ -364,6 +429,8 @@ components behind a "clean" render.
 
 **Status.** **NEW** as a group. The skill's verification list assumes ERC output is trustworthy.
 
+**Disposition.** **APPROVED** — as written.
+
 ### 25. Node-set invariance is the proof for geometry work
 
 **Rule.** For any pure-geometry rework, compare the **multiset** of per-net node sets — each net as
@@ -377,6 +444,8 @@ real disconnection (two resistors moved without their ground flag) that ERC alon
 before/after netlists (names may change; membership may not)."* Already present and correct; the
 addition is **multiset** — comparing name-keyed dictionaries reports every renamed net as a
 difference and buries the real one.
+
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
 
 ### 26. Annotation is not checked by ERC — check it at the netlist
 
@@ -393,6 +462,8 @@ manual editing and merged into one 17-node component.
 **Status.** **NEW**, and the sharpest of these: it is a defect class that every automated check in
 the current skill's list passes.
 
+**Disposition.** **APPROVED** — as written.
+
 ### 27. A reference designator lives in two places
 
 **Rule.** A symbol's designator is stored both in its `Reference` property and in its
@@ -402,6 +473,8 @@ exports the **instance** value. Change both together.
 **Origin.** Found while repairing item 26.
 
 **Status.** **NEW.**
+
+**Disposition.** **APPROVED** — as written.
 
 ### 28. Renaming a net is a sweep, not an edit
 
@@ -415,6 +488,8 @@ Test point and net label are all still wrong."*
 
 **Status.** **NEW.**
 
+**Disposition.** **APPROVED** — as written.
+
 ### 29. The render is the last word, and a checker miss is a checker bug
 
 **Rule.** After every automated sweep, render the changed areas and look. When a render disagrees
@@ -427,6 +502,8 @@ class rather than an instance.
 **Status.** **REFINES** *"treat a checker miss that a render reveals as a checker bug to fix."*
 The addition is the second half: **re-sweep design-wide after fixing the checker.** Each of the five
 blind spots found this round turned single-figure finding counts into double-figure ones.
+
+**Disposition.** **APPROVED** — as written. Fold into the named rule as added detail; do not add a new bullet.
 
 ---
 
@@ -443,6 +520,8 @@ gate verticals and shorted them; ERC reported the short two sheets away.
 
 **Status.** **NEW.**
 
+**Disposition.** **APPROVED** — as written.
+
 ### 31. A re-runnable edit script pins its base commit
 
 **Rule.** A script that rebuilds sheets from git must name an explicit **base commit**, not `HEAD`.
@@ -454,6 +533,8 @@ not be re-run until its base is re-pinned — it would overwrite the manual work
 
 **Status.** **NEW.**
 
+**Disposition.** **APPROVED** — as written.
+
 ### 32. Edit primitives assert that they changed something
 
 **Rule.** Every programmatic edit asserts it matched. `str.replace` says nothing when it matches
@@ -462,6 +543,8 @@ nothing, so a "successful" run can have done none of its edits.
 **Origin.** Round 3, where five of six edits silently did nothing behind a success message.
 
 **Status.** **NEW.**
+
+**Disposition.** **APPROVED** — as written.
 
 ### 33. Multi-unit parts are keyed by symbol uuid, not by refdes
 
@@ -472,40 +555,57 @@ fields must key them by the symbol's **uuid**; keying by refdes collapses every 
 
 **Status.** **NEW.**
 
+**Disposition.** **APPROVED** — as written.
+
 ---
 
-## Possibly controversial
+## G. Review surface
 
-These are the items I would not globalise without the captain deciding, with my reason:
+### 34. The design is reviewed in the KiCad files, never in an export
 
-1. **Item 16 (instance rotation).** It reverses a rule the skill states flatly. My reading is that
-   the captain objected to a *project-local* variant duplicating a house part, not to pre-rotated
-   variants as such — so the reconciliation may be "pre-rotate **upstream**, never project-locally",
-   which keeps the existing rule intact. Worth settling explicitly, because the two readings give
-   opposite instructions to the next agent.
+**Rule.** Never produce, commit or hand over a review PDF. An engineer reviews the KiCad files
+themselves. An export is a snapshot: it goes stale the moment anyone saves, it cannot be probed,
+cross-probed or netlist-checked, and reviewing it invites comments against a drawing that no longer
+matches the design. Renders are your own self-check — export them to a scratchpad, look at them,
+and leave them there; they are not a deliverable and they do not enter the repository.
 
-2. **Item 13 (1.19 mm per character).** Measured on one renderer at one font. It is certainly closer
-   than 1.06 for KiCad 9's default stroke font, but it is a measurement, not a specification, and
-   hard-coding a second number invites the same staleness. A safer skill text might be "measure it
-   on a render before trusting any figure".
+**Origin.** *"The engineer should always review the KiCad files, and not a pdf. Do not generate
+one."*
 
-3. **Item 12's 0.35 mm clearance margin.** Calibrated against one library's field offsets, which
-   cluster at 0.38 mm. On a library that places fields tighter, 0.35 would flag normal house
-   placement everywhere.
+**Status.** **REFINES** *"Never produce or commit review PDFs — the client reviews in the KiCad
+GUI."* The stance is already the skill's; what is added is the reason, which is what makes it
+stick, and the explicit permission for scratchpad renders so the rule is not read as forbidding
+looking at your own work.
 
-4. **Item 19 (test coverage lives on the page it covers).** Strong on a nine-block board. On a very
-   large design, a consolidated bring-up sheet is a legitimate choice, and this rule would forbid it.
+**Disposition.** **APPROVED** — as written, and the stance stays **absolute**: no per-project
+deviation. Fold into the named rule as added detail; do not add a new bullet.
 
-5. **Item 15's "grow the box past the part, not into it".** In the verification round I inferred
-   intent from the box's title in order to complete a half-finished manual drag. Encoding
-   intent-inference as a rule may be a step too far; the checkable half — "a box never crosses a
-   body" — is the safe part.
+---
 
-6. **Committed review PDFs.** Not proposed above, but noted: the skill says *"Never produce or
-   commit review PDFs — the client reviews in the KiCad GUI"*, and this project's client asked for
-   exactly one committed PDF as the review deliverable (`DEC-0026`). The rule survived as a default
-   with a documented per-project deviation, which may be the right shape, but the skill's wording is
-   absolute and a future agent may read it as forbidding what the client asked for.
+## Rulings on the flagged items
 
-7. **Item 4's detector thresholds** (25 mm run gap, "same body y"). Useful defaults, but they are
-   the kind of number that belongs in a tool rather than in prose.
+I flagged seven items as ones I would not globalise without a decision. All seven are now ruled on;
+the rulings are carried in the items themselves, and repeated here so the reasoning is in one
+place.
+
+| # | Item | Ruling |
+|---|---|---|
+| 1 | 16 — instance rotation vs pre-rotated variants | **HELD.** An explanation has been given and an answer is awaited: is a rotated copy acceptable when it lives in the *shared house library*, or should the standard part always be turned on the schematic? The item is not to be applied until this is settled, because the two readings give opposite instructions. |
+| 2 | 13 — character advance | **Use the safer version.** The rule now says to measure it on a render rather than quoting a number. |
+| 3 | 12 — the clearance margin | **Left to my judgement; decided: no fixed number.** The rule gives a calibration method instead — sweep at increasing margins, find where the finding count jumps because the library's own field offsets have started reporting, sit just below that. A number measured against one library is wrong for the next one; the method is not. |
+| 4 | 19 — test coverage on its own sheet | **Disagreed with my reservation: test coverage goes on the sheet.** The rule globalises as written and my large-design caveat is withdrawn. The one addition is that an existing sheet carrying test coverage is not collapsed without asking the designer first. |
+| 5 | 15 — block boxes | **As proposed: the checkable half only.** "A box crosses nothing" stays; inferring what a box was meant to enclose does not. |
+| 6 | Review PDFs | **Ruled: no PDF, ever.** The skill's never-commit stance stays absolute, and gains the principle above as item 34. In this repository the committed PDF has been deleted and the decision that authorised it is superseded. |
+| 7 | 4 — row-detection thresholds | **Approved as proposed.** The numbers live in the tool; the skill states the rule. |
+
+---
+
+## Summary for the skill update
+
+* **34 items.** 33 approved as written or as amended above; **1 held** (item 16).
+* **Refinements are folded into the named existing rule as added detail** — they do not become new
+  bullets. Items 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 15, 16, 20, 25, 29, 34 name the rule they
+  extend.
+* **Origins are not pushed.** They exist in this document only.
+* **The Rule text is the only text that transfers**, and it is already written in plain
+  designer-to-designer style: no process narration, no roles, no review rounds, no project names.

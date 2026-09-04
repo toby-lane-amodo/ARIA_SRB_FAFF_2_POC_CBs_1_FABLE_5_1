@@ -213,8 +213,8 @@ The library is read-only to us, so they are project-local for now.
 | `schematic-style` overlap checker | `mcu` clean, `ui_io` clean, root clean. Every remaining finding is in a sheet this branch did not touch — the confirmed checker artefacts of `actuator-sch-integrate.md §7`, plus whatever the other two review branches left |
 | Render sweep | all 10 pages |
 
-`docs/review/faff2_cbs1_schematic.pdf` was **deliberately not regenerated** — a later
-integration pass rebuilds it once, after every parallel review branch has landed.
+The review PDF was **deliberately not regenerated** by this pass. Overtaken by
+`DEC-0028`: no review PDF exists and none is to be generated.
 
 ## 6. Left for the captain
 

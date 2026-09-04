@@ -473,7 +473,10 @@ symbol's 41 pins (pin 41 = `PAD`) match that figure name for name.
 first order.
 
 ### DEC-0026 - A review PDF is committed under `docs/review/`, deviating from `schematic-style`
-**Date** 2026-09-03 · **Status** Accepted · **Scope** `docs/review/`
+**Date** 2026-09-03 · **Status** ~~Accepted~~ **SUPERSEDED by `DEC-0028`** · **Scope** `docs/review/`
+
+> Reversed on 2026-09-04: the design is reviewed in the KiCad files, and no PDF is generated.
+> The record below is kept as history.
 
 `docs/review/faff2_cbs1_schematic.pdf` — all 10 pages (nine blocks and the root; it said 11 while `test_debug` existed), from `kicad-cli sch export pdf`.
 
@@ -510,3 +513,20 @@ device that can absorb it. The full interface-by-interface audit, including the 
 *What this does not license.* If either connector is ever brought to a panel, or the probes become
 field-swappable, this decision has to be reopened - the reasoning above is entirely about them
 being internal.
+
+### DEC-0028 - The design is reviewed in the KiCad files. No review PDF is generated
+**Date** 2026-09-04 · **Status** Accepted, captain-instructed · **Scope** whole project
+
+**Never produce, commit or regenerate a review PDF.** `docs/review/faff2_cbs1_schematic.pdf` has
+been deleted and no replacement is to be made. Supersedes `DEC-0026`, which had committed one on
+the strength of the integration brief.
+
+*Reasoning, in the captain's terms.* An engineer should always review the KiCad files, not a PDF.
+An export is a snapshot: it goes stale the moment anyone saves, it cannot be probed, cross-probed
+or netlist-checked, and reviewing it invites comments against a drawing that no longer matches the
+design. The files are the design.
+
+*What this does not change.* Renders remain the agent's own self-check — export SVG or PNG into a
+scratchpad, look at it, and leave it there. They are not a deliverable and they do not enter the
+repository. This restores `schematic-style`'s own position ("never produce or commit review
+PDFs — the client reviews in the KiCad GUI") after `DEC-0026` had deviated from it.

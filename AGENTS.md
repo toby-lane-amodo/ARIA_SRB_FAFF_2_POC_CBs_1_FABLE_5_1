@@ -138,10 +138,11 @@ AMODO_KICAD_LIB=/mnt/c/Amodo/AmodoKiCadLib \
 
 Then follow the rest of the `schematic-style` verification list: netlist checks for
 orientation-sensitive parts, the bundled overlap checker, and a render sweep. Renders stay a
-self-check; the client reviews in the KiCad GUI. The **one** committed PDF is
-`docs/review/faff2_cbs1_schematic.pdf`, the captain's review pack — regenerate it with
-`kicad-cli sch export pdf` after any schematic change, never hand-edit it, and add no others
-(DEC-0026, a deliberate deviation from `schematic-style`).
+self-check.
+
+**Never generate or commit a review PDF.** The design is reviewed in the KiCad files themselves,
+never in an export — `DEC-0028`, which supersedes `DEC-0026`. Renders are yours, for checking your
+own work in a scratchpad; they are not a deliverable and they do not go in the repo.
 
 Log any new review point in `SCHEMATIC_REVIEW_LOG.md` with its resolution, and any judgement
 call in `docs/DECISIONS.md`.

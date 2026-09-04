@@ -48,7 +48,7 @@ submitted in, and the points the captain is asked to rule on.
 | Footprints | all 409 components assigned; all 51 distinct footprints resolve to a library file |
 | `schematic-style` overlap checker | root sheet clean; 11 findings elsewhere, every one a confirmed checker artefact (`docs/decisions/actuator-sch-integrate.md §7`) |
 | Render sweep | all 11 pages at 10 px/mm |
-| Review pack | `docs/review/faff2_cbs1_schematic.pdf` |
+| Review surface | the KiCad files themselves - no PDF is generated (`DEC-0028`) |
 
 ### Open points for the captain
 

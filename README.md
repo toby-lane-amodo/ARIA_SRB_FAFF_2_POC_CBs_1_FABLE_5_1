@@ -21,8 +21,8 @@ the root sheet is wired, and the design is internally consistent: 398 components
 101 sheet pins, **0 ERC errors and 0 warnings** at `--severity-all` with nothing suppressed.
 Every component has a footprint that resolves.
 
-The review pack is [`docs/review/faff2_cbs1_schematic.pdf`](docs/review/faff2_cbs1_schematic.pdf);
-the open points the captain is asked to rule on are in
+Review the KiCad files themselves — there is no PDF and none is generated (`DEC-0028`).
+The open points to be ruled on are in
 [`hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md`](hardware/kicad/faff2_cbs1/SCHEMATIC_REVIEW_LOG.md),
 round 1. **PCB layout is the next wave**; no board file exists yet.
 
