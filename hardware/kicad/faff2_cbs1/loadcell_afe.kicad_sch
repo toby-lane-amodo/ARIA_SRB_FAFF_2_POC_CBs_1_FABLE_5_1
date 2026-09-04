@@ -3956,8 +3956,8 @@
 		(uuid 7a9b9014-a44b-5ea1-9636-a1410bf529b0)
 	)
 	(rectangle
-		(start 196.85 22.86)
-		(end 254 41.91)
+		(start 203.2 13.97)
+		(end 260.35 39.37)
 		(stroke
 			(width 0.1524)
 			(type dash)
@@ -4106,7 +4106,7 @@
 	)
 	(text "5 V BRIDGE EXCITATION"
 		(exclude_from_sim no)
-		(at 216.51 23.5 0)
+		(at 224.79 19.05 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -4117,10 +4117,10 @@
 		(uuid "f8ba8c90-e74f-5556-bbab-ef577b4d6449")
 	)
 	(junction
-		(at 215.9 30.48)
+		(at 220.98 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "1ee4e1e2-b1ab-5849-bb52-b4d417a012cd")
+		(uuid "036d3623-b747-4b4a-9ed0-c887f24b561a")
 	)
 	(junction
 		(at 137.16 101.6)
@@ -4189,7 +4189,7 @@
 		(uuid "66cdf30f-d739-5793-905f-d7412289f40b")
 	)
 	(junction
-		(at 223.52 30.48)
+		(at 210.82 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6f3d2306-f11c-57cb-9b58-1afffc7ced1e")
@@ -4217,12 +4217,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "87164fd5-827e-5292-ac36-98d450b59ccb")
-	)
-	(junction
-		(at 99.06 24.13)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8bea1912-0aaf-573d-bf46-e4c43b0a3af0")
 	)
 	(junction
 		(at 157.48 59.69)
@@ -4265,6 +4259,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "af099946-fd98-54d9-bc24-c79a2631cf7e")
+	)
+	(junction
+		(at 60.96 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b3008940-ec3b-4972-b2d1-00a6f287def9")
 	)
 	(junction
 		(at 114.3 54.61)
@@ -4460,16 +4460,6 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 24.13) (xy 208.28 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ca7adae-7ae5-5632-93f6-8b32d9959f92")
-	)
-	(wire
-		(pts
 			(xy 175.26 74.93) (xy 180.34 74.93)
 		)
 		(stroke
@@ -4530,7 +4520,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 30.48) (xy 172.72 34.29)
+			(xy 172.72 33.02) (xy 172.72 34.29)
 		)
 		(stroke
 			(width 0)
@@ -4637,6 +4627,16 @@
 			(type default)
 		)
 		(uuid "28fcd117-4568-573f-a2c4-0a8282f54f32")
+	)
+	(wire
+		(pts
+			(xy 220.98 26.67) (xy 220.98 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a098c79-9d64-4ef4-925f-52ebb0b4f6a0")
 	)
 	(wire
 		(pts
@@ -4750,16 +4750,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 24.13) (xy 208.28 24.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3e51a761-4c3e-5b7e-af39-a52d35d85a31")
-	)
-	(wire
-		(pts
 			(xy 172.72 44.45) (xy 175.26 44.45)
 		)
 		(stroke
@@ -4870,6 +4860,16 @@
 	)
 	(wire
 		(pts
+			(xy 220.98 31.75) (xy 220.98 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c5fa319-21a6-4968-8ed2-16ad4e710a86")
+	)
+	(wire
+		(pts
 			(xy 53.34 54.61) (xy 101.6 54.61)
 		)
 		(stroke
@@ -4890,7 +4890,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 21.59) (xy 215.9 25.4)
+			(xy 220.98 19.05) (xy 220.98 20.32)
 		)
 		(stroke
 			(width 0)
@@ -4970,7 +4970,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 29.21) (xy 86.36 24.13)
+			(xy 86.36 25.4) (xy 86.36 29.21)
 		)
 		(stroke
 			(width 0)
@@ -5007,6 +5007,16 @@
 			(type default)
 		)
 		(uuid "6ada7a55-1c96-52ea-8f79-ac13c5677136")
+	)
+	(wire
+		(pts
+			(xy 210.82 31.75) (xy 210.82 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c02260f-5ba2-4bed-83ac-f22bcdedc264")
 	)
 	(wire
 		(pts
@@ -5060,6 +5070,16 @@
 	)
 	(wire
 		(pts
+			(xy 73.66 29.21) (xy 86.36 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "776541fc-2793-4c82-885a-0a670c39ede0")
+	)
+	(wire
+		(pts
 			(xy 104.14 101.6) (xy 109.22 101.6)
 		)
 		(stroke
@@ -5107,16 +5127,6 @@
 			(type default)
 		)
 		(uuid "7a0044c7-fbae-5ccb-b51d-53b7206edcd5")
-	)
-	(wire
-		(pts
-			(xy 86.36 24.13) (xy 99.06 24.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7c4df5f3-9e8e-55fb-bc4d-f2a5028f8728")
 	)
 	(wire
 		(pts
@@ -5180,6 +5190,26 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 29.21) (xy 73.66 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87544885-dadd-44f4-b7df-83d8070ff76e")
+	)
+	(wire
+		(pts
+			(xy 210.82 26.67) (xy 210.82 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8832d86c-4ec4-45da-a81e-69716dea5ffc")
+	)
+	(wire
+		(pts
 			(xy 134.62 54.61) (xy 144.78 54.61)
 		)
 		(stroke
@@ -5227,16 +5257,6 @@
 			(type default)
 		)
 		(uuid "905d7798-92c5-51b8-9d0f-e81fc1915500")
-	)
-	(wire
-		(pts
-			(xy 73.66 29.21) (xy 86.36 29.21)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "94eaf260-9bb3-545e-8773-0aafb1c30aff")
 	)
 	(wire
 		(pts
@@ -5380,7 +5400,7 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 30.48) (xy 233.68 30.48)
+			(xy 210.82 25.4) (xy 220.98 25.4)
 		)
 		(stroke
 			(width 0)
@@ -5420,7 +5440,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 29.21) (xy 73.66 29.21)
+			(xy 48.26 29.21) (xy 60.96 29.21)
 		)
 		(stroke
 			(width 0)
@@ -5530,6 +5550,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 25.4) (xy 210.82 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1645fdc-384b-42d0-a135-a61918dccb72")
+	)
+	(wire
+		(pts
 			(xy 50.8 34.29) (xy 73.66 34.29)
 		)
 		(stroke
@@ -5547,16 +5577,6 @@
 			(type default)
 		)
 		(uuid "d3b326b7-a802-51c1-b5c1-2874bdcc3997")
-	)
-	(wire
-		(pts
-			(xy 215.9 30.48) (xy 223.52 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d460a744-1675-5859-ba61-e61c975fc13c")
 	)
 	(wire
 		(pts
@@ -5787,16 +5807,6 @@
 			(type default)
 		)
 		(uuid "f536679d-055e-5e70-b004-e9789c7dff89")
-	)
-	(wire
-		(pts
-			(xy 208.28 30.48) (xy 215.9 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f556633b-6559-5859-825a-be4292fbfdfb")
 	)
 	(wire
 		(pts
@@ -6202,7 +6212,8 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 215.9 25.4 0)
+		(at 220.98 20.32 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6210,7 +6221,7 @@
 		(dnp no)
 		(uuid "0ba19cc1-8a38-59e3-a7e9-4c157c174339")
 		(property "Reference" "R508"
-			(at 217.68 26.67 0)
+			(at 219.2 21.59 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6220,7 +6231,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 217.68 28.58 0)
+			(at 219.2 23.5 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6230,7 +6241,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 215.9 25.4 0)
+			(at 220.98 20.32 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6241,7 +6252,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 25.4 0)
+			(at 220.98 20.32 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6252,7 +6263,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 215.9 25.4 0)
+			(at 220.98 20.32 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6263,7 +6274,7 @@
 			)
 		)
 		(property "mpn" "RC0603FR-070RL"
-			(at 215.9 25.4 0)
+			(at 220.98 20.32 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6274,7 +6285,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 215.9 25.4 0)
+			(at 220.98 20.32 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6754,7 +6765,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 223.52 35.56 0)
+		(at 210.82 33.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -6762,7 +6773,7 @@
 		(dnp no)
 		(uuid "1b03f750-0bbe-57a1-b53d-df28342423c0")
 		(property "Reference" "#PWR511"
-			(at 226.06 34.29 0)
+			(at 213.36 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6773,7 +6784,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 223.52 39.37 0)
+			(at 210.82 36.83 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6782,7 +6793,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 223.52 35.56 0)
+			(at 210.82 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6793,7 +6804,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 223.52 35.56 0)
+			(at 210.82 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6804,7 +6815,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 223.52 35.56 0)
+			(at 210.82 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -6815,7 +6826,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 223.52 35.56 0)
+			(at 210.82 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8206,7 +8217,7 @@
 			)
 		)
 		(property "Value" "REFN"
-			(at 173.99 76.48 0)
+			(at 177.8 78.74 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8649,7 +8660,7 @@
 		(dnp no)
 		(uuid "49251232-e2d8-5ae1-b3fc-cdff0e2d484e")
 		(property "Reference" "U501"
-			(at 182.88 27.94 0)
+			(at 182.88 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8659,7 +8670,7 @@
 			)
 		)
 		(property "Value" "ADS1235"
-			(at 182.88 29.84 0)
+			(at 182.88 31.11 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8833,7 +8844,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+5VA")
-		(at 215.9 21.59 0)
+		(at 220.98 19.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -8841,7 +8852,7 @@
 		(dnp no)
 		(uuid "4a9b068e-a6b8-5ff5-9aa2-7971ecaf615f")
 		(property "Reference" "#PWR510"
-			(at 218.44 20.32 0)
+			(at 223.52 17.78 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8852,7 +8863,7 @@
 			)
 		)
 		(property "Value" "+5VA"
-			(at 215.9 17.78 0)
+			(at 220.98 15.24 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8861,7 +8872,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 215.9 21.59 0)
+			(at 220.98 19.05 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8872,7 +8883,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 21.59 0)
+			(at 220.98 19.05 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8883,7 +8894,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 215.9 21.59 0)
+			(at 220.98 19.05 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -8894,7 +8905,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 215.9 21.59 0)
+			(at 220.98 19.05 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9768,7 +9779,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 99.06 24.13 0)
+		(at 60.96 29.21 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9776,7 +9787,7 @@
 		(dnp no)
 		(uuid "6e4da711-e05a-5b48-82ca-d73a1336ef0c")
 		(property "Reference" "TP501"
-			(at 94.61 18.665 0)
+			(at 56.51 23.745 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9786,17 +9797,17 @@
 			)
 		)
 		(property "Value" "EXC+"
-			(at 92.07 21.7 0)
+			(at 63.5 25.4 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 99.06 24.13 0)
+			(at 60.96 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9807,7 +9818,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 99.06 24.13 0)
+			(at 60.96 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9818,7 +9829,7 @@
 			)
 		)
 		(property "Description" "Test Point"
-			(at 99.06 24.13 0)
+			(at 60.96 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9829,7 +9840,7 @@
 			)
 		)
 		(property "mpn" "5002"
-			(at 99.06 24.13 0)
+			(at 60.96 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -9840,7 +9851,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 99.06 24.13 0)
+			(at 60.96 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10133,7 +10144,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+5VA")
-		(at 172.72 30.48 0)
+		(at 172.72 33.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -10141,7 +10152,7 @@
 		(dnp no)
 		(uuid "77222d1f-c32d-5137-8565-485a2aa69727")
 		(property "Reference" "#PWR509"
-			(at 175.26 29.21 0)
+			(at 175.26 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10152,7 +10163,7 @@
 			)
 		)
 		(property "Value" "+5VA"
-			(at 172.72 26.67 0)
+			(at 172.72 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10161,7 +10172,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 172.72 30.48 0)
+			(at 172.72 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10172,7 +10183,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 172.72 30.48 0)
+			(at 172.72 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10183,7 +10194,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 172.72 30.48 0)
+			(at 172.72 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10194,7 +10205,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 172.72 30.48 0)
+			(at 172.72 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10501,7 +10512,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_10uF_0805_20%_25V")
-		(at 223.52 33.02 0)
+		(at 210.82 29.21 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10509,7 +10520,7 @@
 		(dnp no)
 		(uuid "7e805ea2-65f8-520f-800c-7c8712633f1d")
 		(property "Reference" "C507"
-			(at 225.81 32.38 0)
+			(at 213.11 28.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10519,7 +10530,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 225.81 34.29 0)
+			(at 213.11 30.48 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10529,7 +10540,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0805_2012Metric"
-			(at 223.52 33.02 0)
+			(at 210.82 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10540,7 +10551,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/76/2/GRM21BR61E106MA73_01A.pdf"
-			(at 223.52 33.02 0)
+			(at 210.82 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10551,7 +10562,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 10uF 0805 20% X5R 25V"
-			(at 223.52 33.02 0)
+			(at 210.82 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10562,7 +10573,7 @@
 			)
 		)
 		(property "mpn" "GRM21BR61E106MA73L"
-			(at 223.52 33.02 0)
+			(at 210.82 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -10573,7 +10584,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 223.52 33.02 0)
+			(at 210.82 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11814,7 +11825,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 233.68 35.56 0)
+		(at 220.98 33.02 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -11822,7 +11833,7 @@
 		(dnp no)
 		(uuid "a5b85c25-bfdd-51be-9ceb-e2271242e4db")
 		(property "Reference" "#PWR512"
-			(at 236.22 34.29 0)
+			(at 223.52 31.75 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11833,7 +11844,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 233.68 39.37 0)
+			(at 220.98 36.83 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11842,7 +11853,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 233.68 35.56 0)
+			(at 220.98 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11853,7 +11864,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 233.68 35.56 0)
+			(at 220.98 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11864,7 +11875,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 233.68 35.56 0)
+			(at 220.98 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -11875,7 +11886,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 233.68 35.56 0)
+			(at 220.98 33.02 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12374,7 +12385,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 233.68 33.02 0)
+		(at 220.98 29.21 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12382,7 +12393,7 @@
 		(dnp no)
 		(uuid "c271fe95-8391-5b23-a9b8-fe25dd6305f2")
 		(property "Reference" "C508"
-			(at 235.97 32.38 0)
+			(at 223.27 28.57 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12392,7 +12403,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 235.97 34.29 0)
+			(at 223.27 30.48 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12402,7 +12413,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 233.68 33.02 0)
+			(at 220.98 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12413,7 +12424,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 233.68 33.02 0)
+			(at 220.98 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12424,7 +12435,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 233.68 33.02 0)
+			(at 220.98 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12435,7 +12446,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 233.68 33.02 0)
+			(at 220.98 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font
@@ -12446,7 +12457,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 233.68 33.02 0)
+			(at 220.98 29.21 0)
 			(do_not_autoplace yes)
 			(effects
 				(font

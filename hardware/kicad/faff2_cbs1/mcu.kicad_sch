@@ -7910,18 +7910,6 @@
 		(uuid 525af21e-7c8b-593b-81f2-f84f23e77a7a)
 	)
 	(rectangle
-		(start 411.48 12.7)
-		(end 581.66 88.9)
-		(stroke
-			(width 0.2)
-			(type solid)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 56d171c8-984b-5839-9c3a-98a5df197a01)
-	)
-	(rectangle
 		(start 104.14 82.55)
 		(end 198.12 139.7)
 		(stroke
@@ -8041,7 +8029,7 @@
 	)
 	(text "USB3320C-EZK-TR, ULPI OUTPUT CLOCK mode: the PHY generates the 60 MHz\nULPI clock on CLKOUT -> STM32 ULPI_CK (PA5).  Its 24 MHz reference is\nits OWN crystal on REFCLK / XO (block C) - no clock is shared with the\nSTM32.  REFSEL[2:0]=111 still selects 24 MHz (DS Table 5-10).  RBIAS\n8.06k 1% and RVBUS 10k (device-only) are datasheet-mandated values\n(DS 2.1, Table 5-7).  ID tied to VDD33 = device-only operation\n(DS 5.6.1).  CPEN / SPK_L / SPK_R / N-C are unused: no OTG VBUS\nswitch, no audio.  RESETB has no internal pull-down - the 10k holds\nthe PHY in reset while the STM32 pins are hi-Z, which also covers the\nVDD18-before-VDDIO sequence note.\nNO TEST POINTS ON THE ULPI BUS - DEC-0018 ruling 1."
 		(exclude_from_sim no)
-		(at 204.47 92.71 0)
+		(at 204.47 116.84 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8109,18 +8097,6 @@
 		)
 		(uuid "78c9aaf0-39d2-5195-8005-a67e197b934f")
 	)
-	(text "C  USB3320 24 MHz CRYSTAL  (ITS OWN REFERENCE)"
-		(exclude_from_sim no)
-		(at 412.75 13.34 0)
-		(effects
-			(font
-				(size 1.6 1.6)
-				(bold yes)
-			)
-			(justify left top)
-		)
-		(uuid "877a47e8-2cb9-571f-8429-03fd37b26db5")
-	)
 	(text "K  GND HOOKS FOR SCOPE CLIPS"
 		(exclude_from_sim no)
 		(at 156.21 290.83 0)
@@ -8155,17 +8131,6 @@
 			(justify left top)
 		)
 		(uuid "8b9d8b0c-6ac7-54dd-a1dc-024cc568781d")
-	)
-	(text "The USB3320 has its own 24 MHz reference: an ECS-240-12-23G-JGN-TR crystal on\nthe PHY's internal oscillator between REFCLK and XO (DS Figure 5-4). It shares\nnothing with the STM32 HSE oscillator in block B. REFSEL[2:0] = 111 still\nselects a 24 MHz reference (DS Table 5-10), so no configuration changes.\n\nCrystal: fundamental, parallel resonant, CL 18 pF, -40 to +85 C. DS Table 4-11\nasks for CL 20 pF typ, ESR <= 30 ohm and a +/-500 ppm total budget - CONFIRM\nthe ECS-23G ESR against 30 ohm before the first order.\nLoad caps: C = 2 x (CL - Cstray) = 2 x (18 - 5) = 26 pF -> 27 pF C0G 2%, with\nCstray = 3 pF pin capacitance (DS Table 4-11) + ~2 pF PCB per side.\n\nLAYOUT: crystal and both load caps within a few mm of pins 25 / 26, ground\nguard under the part, no other traces beneath it."
-		(exclude_from_sim no)
-		(at 414.02 52.07 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "97504546-d7ef-5f56-9ebb-1d46dad392f4")
 	)
 	(text "PINOUT - the STM32 14-way 1.27 mm IDC order, copied pin for pin\nfrom ARIA_EITSYS_CBs_1 (Microcontroller.kicad_sch, J11) so one\ndebug cable serves both boards:\n  1  NC       2  NC       3  VDD (+3V3 via R1015 100R)\n  4  SWDIO    5  GND      6  SWCLK    7  GND\n  8  NC       9  NC      10  SWO     11  GND\n 12  nRESET  13  DBG_RX  14  DBG_TX\n\nSWO on pin 10 is this board's ONE addition: pin 10 is NC on the\nreference board, this design has SWO (REQ-AR-15), and a cable\nwired for that board just leaves it open.\nUSART3 shares the header, as REQ-AR-15 and the block diagram both\nask. It is SWD-safe: a probe drives 4, 6 and 12 and reads 10, and\nthe .ioc sets Trace_Asynchronous_SW so PB4 / PB3 are not JTAG.\nR1013 / R1014 / R1015, 100R each, make a mis-plugged probe or a\nshorted console pin a nuisance rather than damage.\n\nDBG_TX / DBG_RX keep the .ioc net names: DBG_TX is the STM32\nOUTPUT (USART3_TX, PD8), DBG_RX the STM32 INPUT (USART3_RX, PD9).\nMCU_nRESET comes from block A, which owns its 100 nF, its push\nbutton and its test point. All six debug nets are sheet-local now\nthat the header sits on the page it serves."
 		(exclude_from_sim no)
@@ -8305,7 +8270,7 @@
 		(uuid "11f2c7f7-34b1-5d41-a3e7-1fa9bae3bfb4")
 	)
 	(junction
-		(at 36.83 20.32)
+		(at 36.83 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "18136d3b-dc42-5092-9fbb-484334fcbcda")
@@ -8329,7 +8294,7 @@
 		(uuid "372548b7-4659-5a46-8eac-7ee4d7d64678")
 	)
 	(junction
-		(at 435.61 27.94)
+		(at 226.06 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3ac70243-a36a-57e4-bdd8-3ac16df0b42e")
@@ -8377,7 +8342,7 @@
 		(uuid "60e111cb-5859-502a-b081-2147999ac9cc")
 	)
 	(junction
-		(at 83.82 46.99)
+		(at 82.55 46.99)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "61acc0c5-c6ce-5373-aa41-4bb7d5c1eeae")
@@ -8407,7 +8372,7 @@
 		(uuid "82cdadfa-4fb3-53a2-a61d-ab05ca00c9cb")
 	)
 	(junction
-		(at 87.63 20.32)
+		(at 87.63 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "87ed5060-54e8-5b1e-b7d4-4e286bc10fa0")
@@ -8419,7 +8384,7 @@
 		(uuid "8e360d07-68f5-5c17-97da-011790479611")
 	)
 	(junction
-		(at 77.47 20.32)
+		(at 77.47 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9d3eb0c2-f133-58db-948a-416df3d64622")
@@ -8437,13 +8402,13 @@
 		(uuid "b1391718-3753-5c0d-b6df-30eab942dcdf")
 	)
 	(junction
-		(at 57.15 20.32)
+		(at 57.15 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b21350aa-6fa6-5cef-802f-74d99e8ab772")
 	)
 	(junction
-		(at 46.99 20.32)
+		(at 46.99 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b5cbbcfa-808e-592e-a1e2-5e64e9750466")
@@ -8467,13 +8432,13 @@
 		(uuid "be85f22d-9d22-5f71-a5c1-1454debe43cd")
 	)
 	(junction
-		(at 453.39 27.94)
+		(at 243.84 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c69ff616-838d-512b-9a8d-c2368895cd01")
 	)
 	(junction
-		(at 67.31 20.32)
+		(at 67.31 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c77e0137-c932-5c99-920a-a40c2a50c0bd")
@@ -8592,7 +8557,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 27.94) (xy 46.99 30.48)
+			(xy 46.99 29.21) (xy 46.99 30.48)
 		)
 		(stroke
 			(width 0)
@@ -8662,7 +8627,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 20.32) (xy 46.99 20.32)
+			(xy 36.83 21.59) (xy 46.99 21.59)
 		)
 		(stroke
 			(width 0)
@@ -8692,7 +8657,7 @@
 	)
 	(wire
 		(pts
-			(xy 453.39 38.1) (xy 453.39 43.18)
+			(xy 243.84 104.14) (xy 243.84 105.41)
 		)
 		(stroke
 			(width 0)
@@ -8709,16 +8674,6 @@
 			(type default)
 		)
 		(uuid "08307f82-6c42-56c8-a6aa-4654696551e3")
-	)
-	(wire
-		(pts
-			(xy 435.61 27.94) (xy 435.61 33.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0847b41b-35a6-5462-b2a0-a4776ce5bb76")
 	)
 	(wire
 		(pts
@@ -9012,7 +8967,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 27.94) (xy 67.31 30.48)
+			(xy 67.31 29.21) (xy 67.31 30.48)
 		)
 		(stroke
 			(width 0)
@@ -9052,7 +9007,7 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 27.94) (xy 77.47 30.48)
+			(xy 77.47 29.21) (xy 77.47 30.48)
 		)
 		(stroke
 			(width 0)
@@ -9292,7 +9247,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 20.32) (xy 46.99 22.86)
+			(xy 46.99 21.59) (xy 46.99 24.13)
 		)
 		(stroke
 			(width 0)
@@ -9322,7 +9277,7 @@
 	)
 	(wire
 		(pts
-			(xy 448.31 27.94) (xy 453.39 27.94)
+			(xy 238.76 97.79) (xy 243.84 97.79)
 		)
 		(stroke
 			(width 0)
@@ -9382,7 +9337,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 20.32) (xy 57.15 22.86)
+			(xy 57.15 21.59) (xy 57.15 24.13)
 		)
 		(stroke
 			(width 0)
@@ -9412,7 +9367,7 @@
 	)
 	(wire
 		(pts
-			(xy 435.61 27.94) (xy 440.69 27.94)
+			(xy 226.06 97.79) (xy 231.14 97.79)
 		)
 		(stroke
 			(width 0)
@@ -9752,7 +9707,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 46.99) (xy 111.76 46.99)
+			(xy 82.55 46.99) (xy 111.76 46.99)
 		)
 		(stroke
 			(width 0)
@@ -9772,7 +9727,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 54.61) (xy 83.82 57.15)
+			(xy 82.55 54.61) (xy 82.55 57.15)
 		)
 		(stroke
 			(width 0)
@@ -9812,7 +9767,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 20.32) (xy 36.83 22.86)
+			(xy 36.83 21.59) (xy 36.83 24.13)
 		)
 		(stroke
 			(width 0)
@@ -9882,7 +9837,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 20.32) (xy 57.15 20.32)
+			(xy 46.99 21.59) (xy 57.15 21.59)
 		)
 		(stroke
 			(width 0)
@@ -9972,7 +9927,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 27.94) (xy 87.63 30.48)
+			(xy 87.63 29.21) (xy 87.63 30.48)
 		)
 		(stroke
 			(width 0)
@@ -10052,7 +10007,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 20.32) (xy 67.31 22.86)
+			(xy 67.31 21.59) (xy 67.31 24.13)
 		)
 		(stroke
 			(width 0)
@@ -10099,16 +10054,6 @@
 			(type default)
 		)
 		(uuid "793dd62c-770f-5da1-ab85-8ea4f7c21d19")
-	)
-	(wire
-		(pts
-			(xy 26.67 20.32) (xy 36.83 20.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7a751b68-de4f-541e-9b6d-76456288f91f")
 	)
 	(wire
 		(pts
@@ -10192,7 +10137,7 @@
 	)
 	(wire
 		(pts
-			(xy 318.77 111.76) (xy 323.85 111.76)
+			(xy 309.88 111.76) (xy 323.85 111.76)
 		)
 		(stroke
 			(width 0)
@@ -10312,7 +10257,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 41.91) (xy 83.82 46.99)
+			(xy 82.55 44.45) (xy 82.55 46.99)
 		)
 		(stroke
 			(width 0)
@@ -10342,7 +10287,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 27.94) (xy 57.15 30.48)
+			(xy 57.15 29.21) (xy 57.15 30.48)
 		)
 		(stroke
 			(width 0)
@@ -10532,7 +10477,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 49.53) (xy 111.76 49.53)
+			(xy 93.98 49.53) (xy 111.76 49.53)
 		)
 		(stroke
 			(width 0)
@@ -10592,7 +10537,7 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 20.32) (xy 87.63 20.32)
+			(xy 77.47 21.59) (xy 87.63 21.59)
 		)
 		(stroke
 			(width 0)
@@ -10632,7 +10577,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 27.94) (xy 36.83 30.48)
+			(xy 36.83 29.21) (xy 36.83 30.48)
 		)
 		(stroke
 			(width 0)
@@ -10662,7 +10607,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 20.32) (xy 77.47 20.32)
+			(xy 67.31 21.59) (xy 77.47 21.59)
 		)
 		(stroke
 			(width 0)
@@ -10762,6 +10707,16 @@
 	)
 	(wire
 		(pts
+			(xy 226.06 99.06) (xy 226.06 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8fc4597-c5ff-49df-b687-0b00d5b93ef3")
+	)
+	(wire
+		(pts
 			(xy 153.67 116.84) (xy 153.67 121.92)
 		)
 		(stroke
@@ -10772,7 +10727,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 46.99) (xy 83.82 49.53)
+			(xy 82.55 46.99) (xy 82.55 49.53)
 		)
 		(stroke
 			(width 0)
@@ -11062,7 +11017,7 @@
 	)
 	(wire
 		(pts
-			(xy 414.02 27.94) (xy 435.61 27.94)
+			(xy 208.28 97.79) (xy 226.06 97.79)
 		)
 		(stroke
 			(width 0)
@@ -11112,7 +11067,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 20.32) (xy 87.63 22.86)
+			(xy 87.63 21.59) (xy 87.63 24.13)
 		)
 		(stroke
 			(width 0)
@@ -11212,7 +11167,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 20.32) (xy 106.68 20.32)
+			(xy 87.63 21.59) (xy 106.68 21.59)
 		)
 		(stroke
 			(width 0)
@@ -11352,7 +11307,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 57.15) (xy 96.52 59.69)
+			(xy 93.98 59.69) (xy 93.98 62.23)
 		)
 		(stroke
 			(width 0)
@@ -11362,7 +11317,7 @@
 	)
 	(wire
 		(pts
-			(xy 453.39 27.94) (xy 474.98 27.94)
+			(xy 243.84 97.79) (xy 257.81 97.79)
 		)
 		(stroke
 			(width 0)
@@ -11442,7 +11397,7 @@
 	)
 	(wire
 		(pts
-			(xy 453.39 27.94) (xy 453.39 33.02)
+			(xy 243.84 97.79) (xy 243.84 99.06)
 		)
 		(stroke
 			(width 0)
@@ -11462,7 +11417,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 20.32) (xy 106.68 26.67)
+			(xy 106.68 21.59) (xy 106.68 26.67)
 		)
 		(stroke
 			(width 0)
@@ -11572,7 +11527,7 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 20.32) (xy 77.47 22.86)
+			(xy 77.47 21.59) (xy 77.47 24.13)
 		)
 		(stroke
 			(width 0)
@@ -11632,7 +11587,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 20.32) (xy 67.31 20.32)
+			(xy 57.15 21.59) (xy 67.31 21.59)
 		)
 		(stroke
 			(width 0)
@@ -11692,7 +11647,7 @@
 	)
 	(wire
 		(pts
-			(xy 435.61 38.1) (xy 435.61 43.18)
+			(xy 226.06 104.14) (xy 226.06 105.41)
 		)
 		(stroke
 			(width 0)
@@ -11742,7 +11697,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 49.53) (xy 96.52 52.07)
+			(xy 93.98 49.53) (xy 93.98 54.61)
 		)
 		(stroke
 			(width 0)
@@ -11901,7 +11856,7 @@
 		(uuid "0e31667a-58af-59ff-8b3e-378907e4705a")
 	)
 	(label "+3V3_USB"
-		(at 318.77 111.76 0)
+		(at 309.88 111.76 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -12081,7 +12036,7 @@
 		(uuid "40d44fa4-bcc4-55ed-83db-002be59dbdea")
 	)
 	(label "USB_XO_24M"
-		(at 474.98 27.94 180)
+		(at 257.81 97.79 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -12231,7 +12186,7 @@
 		(uuid "68e779b8-280c-5be1-bf8e-82f75fc36048")
 	)
 	(label "USB_REFCLK_24M"
-		(at 414.02 27.94 0)
+		(at 208.28 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13401,7 +13356,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 83.82 57.15 0)
+		(at 82.55 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -13409,7 +13364,7 @@
 		(dnp no)
 		(uuid "0270b16a-586f-5fce-a20e-8d1d3dd05540")
 		(property "Reference" "#PWR1009"
-			(at 83.82 63.5 0)
+			(at 82.55 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13418,7 +13373,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 83.82 60.96 0)
+			(at 82.55 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13426,7 +13381,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 57.15 0)
+			(at 82.55 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13435,7 +13390,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 83.82 57.15 0)
+			(at 82.55 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13444,7 +13399,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 83.82 57.15 0)
+			(at 82.55 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13453,7 +13408,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 83.82 57.15 0)
+			(at 82.55 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14314,7 +14269,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 57.15 25.4 0)
+		(at 57.15 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14322,7 +14277,7 @@
 		(dnp no)
 		(uuid "13514c40-0b4f-52a8-a2e5-0705324bdaf7")
 		(property "Reference" "C1003"
-			(at 55.245 24.13 0)
+			(at 55.245 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14331,7 +14286,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 55.245 26.67 0)
+			(at 55.245 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14340,7 +14295,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 57.15 25.4 0)
+			(at 57.15 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14349,7 +14304,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 57.15 25.4 0)
+			(at 57.15 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14358,7 +14313,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 57.15 25.4 0)
+			(at 57.15 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14367,7 +14322,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 57.15 25.4 0)
+			(at 57.15 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14376,7 +14331,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 57.15 25.4 0)
+			(at 57.15 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14475,7 +14430,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 453.39 43.18 0)
+		(at 243.84 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -14483,7 +14438,7 @@
 		(dnp no)
 		(uuid "19edd203-2467-538c-9445-be3f6c4a05cd")
 		(property "Reference" "#PWR1066"
-			(at 453.39 49.53 0)
+			(at 243.84 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14492,7 +14447,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 453.39 46.99 0)
+			(at 243.84 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14500,7 +14455,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 453.39 43.18 0)
+			(at 243.84 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14509,7 +14464,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 453.39 43.18 0)
+			(at 243.84 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14518,7 +14473,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 453.39 43.18 0)
+			(at 243.84 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14527,7 +14482,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 453.39 43.18 0)
+			(at 243.84 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14623,7 +14578,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 46.99 25.4 0)
+		(at 46.99 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14631,7 +14586,7 @@
 		(dnp no)
 		(uuid "22003601-8185-50dd-8a6a-707c02a67d58")
 		(property "Reference" "C1002"
-			(at 45.085 24.13 0)
+			(at 45.085 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14640,7 +14595,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 45.085 26.67 0)
+			(at 45.085 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14649,7 +14604,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 46.99 25.4 0)
+			(at 46.99 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14658,7 +14613,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 46.99 25.4 0)
+			(at 46.99 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14667,7 +14622,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 46.99 25.4 0)
+			(at 46.99 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14676,7 +14631,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 46.99 25.4 0)
+			(at 46.99 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14685,7 +14640,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 46.99 25.4 0)
+			(at 46.99 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14858,7 +14813,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_4.7uF_0603_20%_35V")
-		(at 36.83 25.4 0)
+		(at 36.83 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14866,7 +14821,7 @@
 		(dnp no)
 		(uuid "27b29c40-7236-51db-9e91-e403c3c02848")
 		(property "Reference" "C1001"
-			(at 34.925 24.13 0)
+			(at 34.925 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14875,7 +14830,7 @@
 			)
 		)
 		(property "Value" "4.7uF"
-			(at 34.925 26.67 0)
+			(at 34.925 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14884,7 +14839,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 36.83 25.4 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14893,7 +14848,7 @@
 			)
 		)
 		(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/MURE/MURE-S-A0010588647/MURE-S-A0010588896-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0"
-			(at 36.83 25.4 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14902,7 +14857,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 4.7uF 0603 20% X5R 35V"
-			(at 36.83 25.4 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14911,7 +14866,7 @@
 			)
 		)
 		(property "mpn" "ZRB18AR6YA475ME05L"
-			(at 36.83 25.4 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14920,7 +14875,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 36.83 25.4 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15328,7 +15283,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 67.31 25.4 0)
+		(at 67.31 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15336,7 +15291,7 @@
 		(dnp no)
 		(uuid "37d36b24-a310-5079-8be6-92a62652eab4")
 		(property "Reference" "C1004"
-			(at 65.405 24.13 0)
+			(at 65.405 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15345,7 +15300,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 65.405 26.67 0)
+			(at 65.405 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15354,7 +15309,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 67.31 25.4 0)
+			(at 67.31 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15363,7 +15318,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 67.31 25.4 0)
+			(at 67.31 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15372,7 +15327,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 67.31 25.4 0)
+			(at 67.31 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15381,7 +15336,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 67.31 25.4 0)
+			(at 67.31 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15390,7 +15345,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 67.31 25.4 0)
+			(at 67.31 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17270,7 +17225,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_27pF_0603_2%_50V_C0G_1")
-		(at 435.61 35.56 0)
+		(at 226.06 101.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17278,7 +17233,7 @@
 		(dnp no)
 		(uuid "60ab4211-21c2-5ca2-a3c8-c125e182b674")
 		(property "Reference" "C1025"
-			(at 433.705 34.29 0)
+			(at 224.155 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17287,7 +17242,7 @@
 			)
 		)
 		(property "Value" "27pF 2%"
-			(at 433.705 36.83 0)
+			(at 224.155 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17296,7 +17251,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 435.61 35.56 0)
+			(at 226.06 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17305,7 +17260,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/C0GNP0_Dielectric-2952720.pdf"
-			(at 435.61 35.56 0)
+			(at 226.06 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17314,7 +17269,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 27pF 0603 2% C0G 50V"
-			(at 435.61 35.56 0)
+			(at 226.06 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17323,7 +17278,7 @@
 			)
 		)
 		(property "mpn" "06035A270GAT2A"
-			(at 435.61 35.56 0)
+			(at 226.06 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17332,7 +17287,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 435.61 35.56 0)
+			(at 226.06 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17753,7 +17708,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 26.67 20.32 0)
+		(at 36.83 21.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -17761,7 +17716,7 @@
 		(dnp no)
 		(uuid "6a48d778-23f3-56b3-a122-cc7e691d148e")
 		(property "Reference" "#PWR1001"
-			(at 26.67 13.97 0)
+			(at 36.83 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17770,7 +17725,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 26.67 16.51 0)
+			(at 36.83 17.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17778,7 +17733,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 26.67 20.32 0)
+			(at 36.83 21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17787,7 +17742,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 26.67 20.32 0)
+			(at 36.83 21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17796,7 +17751,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 26.67 20.32 0)
+			(at 36.83 21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17805,7 +17760,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 26.67 20.32 0)
+			(at 36.83 21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18073,7 +18028,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 77.47 25.4 0)
+		(at 77.47 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18081,7 +18036,7 @@
 		(dnp no)
 		(uuid "70c98a16-c8a2-5d69-b273-23bbf6750355")
 		(property "Reference" "C1005"
-			(at 75.565 24.13 0)
+			(at 75.565 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18090,7 +18045,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 75.565 26.67 0)
+			(at 75.565 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18099,7 +18054,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 77.47 25.4 0)
+			(at 77.47 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18108,7 +18063,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 77.47 25.4 0)
+			(at 77.47 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18117,7 +18072,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 77.47 25.4 0)
+			(at 77.47 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18126,7 +18081,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 77.47 25.4 0)
+			(at 77.47 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18135,7 +18090,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 77.47 25.4 0)
+			(at 77.47 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18234,7 +18189,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 435.61 43.18 0)
+		(at 226.06 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -18242,7 +18197,7 @@
 		(dnp no)
 		(uuid "773f968b-880e-5a33-a15c-13910ad8c117")
 		(property "Reference" "#PWR1065"
-			(at 435.61 49.53 0)
+			(at 226.06 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18251,7 +18206,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 435.61 46.99 0)
+			(at 226.06 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18259,7 +18214,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 435.61 43.18 0)
+			(at 226.06 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18268,7 +18223,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 435.61 43.18 0)
+			(at 226.06 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18277,7 +18232,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 435.61 43.18 0)
+			(at 226.06 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18286,7 +18241,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 435.61 43.18 0)
+			(at 226.06 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19777,7 +19732,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 87.63 25.4 0)
+		(at 87.63 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19785,7 +19740,7 @@
 		(dnp no)
 		(uuid "8e6cfd80-cd2c-5251-b304-3cd6f668c14c")
 		(property "Reference" "C1006"
-			(at 85.725 24.13 0)
+			(at 85.725 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19794,7 +19749,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 85.725 26.67 0)
+			(at 85.725 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19803,7 +19758,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 87.63 25.4 0)
+			(at 87.63 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19812,7 +19767,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 87.63 25.4 0)
+			(at 87.63 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19821,7 +19776,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 87.63 25.4 0)
+			(at 87.63 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19830,7 +19785,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 87.63 25.4 0)
+			(at 87.63 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19839,7 +19794,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 87.63 25.4 0)
+			(at 87.63 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20332,7 +20287,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_2.2uF_0603_10%_16V")
-		(at 96.52 54.61 0)
+		(at 93.98 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20340,7 +20295,7 @@
 		(dnp no)
 		(uuid "99f99091-60be-550a-869d-c0992292cd3a")
 		(property "Reference" "C1008"
-			(at 94.615 53.34 0)
+			(at 92.075 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20349,7 +20304,7 @@
 			)
 		)
 		(property "Value" "2.2uF"
-			(at 94.615 55.88 0)
+			(at 92.075 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20358,7 +20313,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 96.52 54.61 0)
+			(at 93.98 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20367,7 +20322,7 @@
 			)
 		)
 		(property "Datasheet" "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM188Z71C225KE43-01A.pdf"
-			(at 96.52 54.61 0)
+			(at 93.98 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20376,7 +20331,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 2.2uF 0603 10% X7R 16V"
-			(at 96.52 54.61 0)
+			(at 93.98 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20385,7 +20340,7 @@
 			)
 		)
 		(property "mpn" "GRM188Z71C225KE43J"
-			(at 96.52 54.61 0)
+			(at 93.98 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20394,7 +20349,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 96.52 54.61 0)
+			(at 93.98 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20671,7 +20626,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Crystals:ECS-240-12-23G-JGN-TR_1")
-		(at 444.5 27.94 0)
+		(at 234.95 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20679,7 +20634,7 @@
 		(dnp no)
 		(uuid "a4e7df36-682d-55b6-bfa0-59763f7731e5")
 		(property "Reference" "Y1002"
-			(at 444.5 19.05 0)
+			(at 234.95 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20688,7 +20643,7 @@
 			)
 		)
 		(property "Value" "24MHz 18pF"
-			(at 444.5 21.59 0)
+			(at 234.95 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20697,7 +20652,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:Crystal_SMD_0603_2Pin_6.0x3.5mm"
-			(at 444.5 27.94 0)
+			(at 234.95 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20706,7 +20661,7 @@
 			)
 		)
 		(property "Datasheet" "https://ecsxtal.com/store/pdf/ECS-23G.pdf"
-			(at 444.5 27.94 0)
+			(at 234.95 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20715,7 +20670,7 @@
 			)
 		)
 		(property "Description" "Crystals 24MHz 18pF -40C +85C"
-			(at 444.5 27.94 0)
+			(at 234.95 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20724,7 +20679,7 @@
 			)
 		)
 		(property "mpn" "ECS-240-12-23G-JGN-TR"
-			(at 444.5 27.94 0)
+			(at 234.95 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20733,7 +20688,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 444.5 27.94 0)
+			(at 234.95 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22384,7 +22339,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 83.82 41.91 0)
+		(at 82.55 44.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -22392,7 +22347,7 @@
 		(dnp no)
 		(uuid "cb370a0f-e5be-5ac9-b2d0-a32d6abd78d1")
 		(property "Reference" "#PWR1008"
-			(at 83.82 35.56 0)
+			(at 82.55 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22401,7 +22356,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 83.82 38.1 0)
+			(at 82.55 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22409,7 +22364,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 41.91 0)
+			(at 82.55 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22418,7 +22373,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 83.82 41.91 0)
+			(at 82.55 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22427,7 +22382,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 83.82 41.91 0)
+			(at 82.55 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22436,7 +22391,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 83.82 41.91 0)
+			(at 82.55 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22545,7 +22500,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 83.82 52.07 0)
+		(at 82.55 52.07 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22553,7 +22508,7 @@
 		(dnp no)
 		(uuid "cf3f4a98-e4b1-5735-ae95-34d1e4c8b5ca")
 		(property "Reference" "C1007"
-			(at 81.915 50.8 0)
+			(at 80.645 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22562,7 +22517,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 81.915 53.34 0)
+			(at 80.645 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22571,7 +22526,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 83.82 52.07 0)
+			(at 82.55 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22580,7 +22535,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 83.82 52.07 0)
+			(at 82.55 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22589,7 +22544,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 83.82 52.07 0)
+			(at 82.55 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22598,7 +22553,7 @@
 			)
 		)
 		(property "mpn" "04025C104KAT2A"
-			(at 83.82 52.07 0)
+			(at 82.55 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22607,7 +22562,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 83.82 52.07 0)
+			(at 82.55 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24636,7 +24591,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_27pF_0603_2%_50V_C0G_1")
-		(at 453.39 35.56 0)
+		(at 243.84 101.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24644,7 +24599,7 @@
 		(dnp no)
 		(uuid "fbbadb24-6b90-5dcd-b7ae-cb32ff231f0c")
 		(property "Reference" "C1026"
-			(at 455.295 34.29 0)
+			(at 245.745 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24653,7 +24608,7 @@
 			)
 		)
 		(property "Value" "27pF 2%"
-			(at 455.295 36.83 0)
+			(at 245.745 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24662,7 +24617,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 453.39 35.56 0)
+			(at 243.84 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24671,7 +24626,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/C0GNP0_Dielectric-2952720.pdf"
-			(at 453.39 35.56 0)
+			(at 243.84 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24680,7 +24635,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 27pF 0603 2% C0G 50V"
-			(at 453.39 35.56 0)
+			(at 243.84 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24689,7 +24644,7 @@
 			)
 		)
 		(property "mpn" "06035A270GAT2A"
-			(at 453.39 35.56 0)
+			(at 243.84 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24698,7 +24653,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 453.39 35.56 0)
+			(at 243.84 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24723,7 +24678,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 96.52 59.69 0)
+		(at 93.98 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -24731,7 +24686,7 @@
 		(dnp no)
 		(uuid "fd15e4e7-8d1d-56d7-80c9-4ecb3389dccd")
 		(property "Reference" "#PWR1010"
-			(at 96.52 66.04 0)
+			(at 93.98 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24740,7 +24695,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 96.52 63.5 0)
+			(at 93.98 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24748,7 +24703,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 96.52 59.69 0)
+			(at 93.98 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24757,7 +24712,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 96.52 59.69 0)
+			(at 93.98 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24766,7 +24721,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 96.52 59.69 0)
+			(at 93.98 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24775,7 +24730,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 96.52 59.69 0)
+			(at 93.98 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)

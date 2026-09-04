@@ -5326,7 +5326,7 @@
 	)
 	(rectangle
 		(start 248.92 214.63)
-		(end 406.4 248.92)
+		(end 406.4 251.46)
 		(stroke
 			(width 0.254)
 			(type dash)
@@ -5499,7 +5499,7 @@
 	)
 	(text "TIM1 CH1/CH1N..CH3/CH3N (PE8-PE13),\n6x PWM mode, dead time in the MCU.\nINHx/INLx have internal 100k pull-downs;\nENABLE low forces GHx to SHx and GLx to\nPGND, so the bridge is off in MCU reset."
 		(exclude_from_sim no)
-		(at 124.46 83.82 0)
+		(at 124.46 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5573,7 +5573,7 @@
 		(uuid "0ea2a6df-a985-5c22-8ee4-ccd715323eae")
 	)
 	(junction
-		(at 77.47 264.16)
+		(at 67.31 262.89)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1163ef83-a749-5928-ade6-eb592956d21e")
@@ -5585,7 +5585,7 @@
 		(uuid "156bf874-0889-5cba-95bc-0725c6a79fcd")
 	)
 	(junction
-		(at 69.85 204.47)
+		(at 69.85 214.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "158ba94f-54f9-5864-8b9c-9e4684b2e077")
@@ -5601,6 +5601,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1d335a4b-9ac2-5e6d-afc5-93c17d061ddf")
+	)
+	(junction
+		(at 177.8 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "20e4cfdf-0d15-4958-9001-75e7f3b89655")
 	)
 	(junction
 		(at 41.91 128.27)
@@ -5627,7 +5633,7 @@
 		(uuid "2a6eb199-3fb2-5119-a6b3-c2e950f01475")
 	)
 	(junction
-		(at 62.23 190.5)
+		(at 62.23 203.2)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2cdaea32-e92f-5c99-a626-8d4037452fbb")
@@ -5669,16 +5675,16 @@
 		(uuid "460a95a5-41f3-50f0-a327-85ef9dc4322c")
 	)
 	(junction
-		(at 77.47 218.44)
+		(at 184.15 173.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4c45d3a8-a7e0-4f85-807d-857e95bdaaee")
+	)
+	(junction
+		(at 77.47 226.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4fb2e0fc-9c91-5cf0-a6c7-785f4062d10d")
-	)
-	(junction
-		(at 177.8 113.03)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4fe15d0e-5677-58b1-9714-2a8c0e76460d")
 	)
 	(junction
 		(at 185.42 77.47)
@@ -5699,7 +5705,7 @@
 		(uuid "532ee299-0e50-50e4-9be1-8039fbe01d38")
 	)
 	(junction
-		(at 62.23 236.22)
+		(at 52.07 240.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "55e26083-a040-547c-a135-bb034392e4fb")
@@ -5807,7 +5813,7 @@
 		(uuid "9ee7617a-36aa-5b56-8f16-d860f99d236f")
 	)
 	(junction
-		(at 31.75 238.76)
+		(at 33.02 250.19)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a08c9791-0fa1-5981-b397-5d09dd8c12e5")
@@ -5823,12 +5829,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a5aa5319-0e94-556f-8e2e-1fc91d447f98")
-	)
-	(junction
-		(at 175.26 173.99)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a7b62159-7480-5040-8bba-4739397c06a6")
 	)
 	(junction
 		(at 80.01 60.96)
@@ -5867,7 +5867,7 @@
 		(uuid "c2c929c1-44e2-51a9-8cb0-5d695286a87e")
 	)
 	(junction
-		(at 52.07 172.72)
+		(at 52.07 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c487c40d-3fad-5d43-aecd-b3eb53dc0885")
@@ -5891,7 +5891,7 @@
 		(uuid "d27d4e2c-9a49-5962-8649-1856e59623a3")
 	)
 	(junction
-		(at 38.1 172.72)
+		(at 38.1 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d3fbe435-06c9-5639-86b6-20132211eb84")
@@ -5921,6 +5921,12 @@
 		(uuid "e8dea541-7db2-55b9-9c43-3ebbc3a77abb")
 	)
 	(junction
+		(at 88.9 77.47)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eb7a8401-9061-475f-a4cb-e873c86db897")
+	)
+	(junction
 		(at 340.36 179.07)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5939,7 +5945,7 @@
 		(uuid "f27342c3-b89c-5eca-82d9-019afd634bef")
 	)
 	(junction
-		(at 44.45 172.72)
+		(at 44.45 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f2bcd657-9a26-583a-846d-de6313a9d18b")
@@ -5957,13 +5963,13 @@
 		(uuid "f5733e1e-9fd9-560b-b65b-cd8cd2e9f19e")
 	)
 	(junction
-		(at 31.75 193.04)
+		(at 31.75 213.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "faef15d3-6325-5092-956e-ee4fb92d9ef9")
 	)
 	(junction
-		(at 69.85 250.19)
+		(at 59.69 251.46)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fe502759-d287-50f8-baba-58c859b1f89d")
@@ -5996,13 +6002,13 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 228.6) (xy 49.53 236.22)
+			(xy 184.15 173.99) (xy 193.04 173.99)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "028c2c72-2e02-52b1-9bc2-8c5a41e21d9b")
+		(uuid "03635e6a-ccc1-487b-a269-5974935081a5")
 	)
 	(wire
 		(pts
@@ -6036,7 +6042,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 173.99) (xy 175.26 173.99)
+			(xy 137.16 173.99) (xy 184.15 173.99)
 		)
 		(stroke
 			(width 0)
@@ -6056,7 +6062,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 109.22) (xy 177.8 113.03)
+			(xy 177.8 109.22) (xy 177.8 110.49)
 		)
 		(stroke
 			(width 0)
@@ -6076,17 +6082,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 226.06) (xy 62.23 228.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0c67a1fb-6d51-5ca9-8681-4eb66744c5c6")
-	)
-	(wire
-		(pts
-			(xy 31.75 193.04) (xy 31.75 198.12)
+			(xy 31.75 213.36) (xy 31.75 218.44)
 		)
 		(stroke
 			(width 0)
@@ -6126,7 +6122,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 185.42) (xy 40.64 204.47)
+			(xy 40.64 205.74) (xy 40.64 214.63)
 		)
 		(stroke
 			(width 0)
@@ -6186,7 +6182,7 @@
 	)
 	(wire
 		(pts
-			(xy 361.95 128.27) (xy 379.73 128.27)
+			(xy 361.95 128.27) (xy 392.43 128.27)
 		)
 		(stroke
 			(width 0)
@@ -6196,7 +6192,7 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 190.5) (xy 31.75 193.04)
+			(xy 31.75 210.82) (xy 31.75 213.36)
 		)
 		(stroke
 			(width 0)
@@ -6216,16 +6212,6 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 97.79) (xy 160.02 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "17468bfa-9625-53f1-a6cb-f6c413f8692e")
-	)
-	(wire
-		(pts
 			(xy 168.91 43.18) (xy 168.91 64.77)
 		)
 		(stroke
@@ -6236,23 +6222,13 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 167.64) (xy 20.32 172.72)
+			(xy 20.32 170.18) (xy 20.32 175.26)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "194c9ed8-ae3c-52c3-ab05-b9faa3459c2e")
-	)
-	(wire
-		(pts
-			(xy 146.05 191.77) (xy 146.05 196.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "19c9089a-d017-5f2a-a20b-2bba8ab00925")
 	)
 	(wire
 		(pts
@@ -6266,7 +6242,7 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 236.22) (xy 31.75 238.76)
+			(xy 33.02 247.65) (xy 33.02 250.19)
 		)
 		(stroke
 			(width 0)
@@ -6306,16 +6282,6 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 195.58) (xy 69.85 196.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21791104-562a-50e0-9c3f-8ad3ab5bf5e8")
-	)
-	(wire
-		(pts
 			(xy 250.19 62.23) (xy 331.47 62.23)
 		)
 		(stroke
@@ -6336,7 +6302,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 231.14) (xy 43.18 250.19)
+			(xy 43.18 242.57) (xy 43.18 251.46)
 		)
 		(stroke
 			(width 0)
@@ -6346,7 +6312,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 182.88) (xy 49.53 182.88)
+			(xy 29.21 203.2) (xy 62.23 203.2)
 		)
 		(stroke
 			(width 0)
@@ -6386,7 +6352,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 156.21) (xy 38.1 162.56)
+			(xy 38.1 158.75) (xy 38.1 165.1)
 		)
 		(stroke
 			(width 0)
@@ -6516,7 +6482,7 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 238.76) (xy 31.75 243.84)
+			(xy 33.02 250.19) (xy 33.02 255.27)
 		)
 		(stroke
 			(width 0)
@@ -6566,7 +6532,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 113.03) (xy 189.23 113.03)
+			(xy 177.8 110.49) (xy 189.23 110.49)
 		)
 		(stroke
 			(width 0)
@@ -6586,7 +6552,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 248.92) (xy 156.21 252.73)
+			(xy 156.21 246.38) (xy 156.21 250.19)
 		)
 		(stroke
 			(width 0)
@@ -6596,7 +6562,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 171.45) (xy 193.04 171.45)
+			(xy 172.72 171.45) (xy 193.04 171.45)
 		)
 		(stroke
 			(width 0)
@@ -6676,7 +6642,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 236.22) (xy 31.75 236.22)
+			(xy 30.48 247.65) (xy 33.02 247.65)
 		)
 		(stroke
 			(width 0)
@@ -6696,7 +6662,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 228.6) (xy 49.53 228.6)
+			(xy 30.48 240.03) (xy 52.07 240.03)
 		)
 		(stroke
 			(width 0)
@@ -6716,7 +6682,7 @@
 	)
 	(wire
 		(pts
-			(xy 372.11 124.46) (xy 392.43 124.46)
+			(xy 372.11 125.73) (xy 392.43 125.73)
 		)
 		(stroke
 			(width 0)
@@ -6736,7 +6702,7 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 264.16) (xy 81.28 264.16)
+			(xy 67.31 262.89) (xy 77.47 262.89)
 		)
 		(stroke
 			(width 0)
@@ -6776,7 +6742,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 250.19) (xy 81.28 250.19)
+			(xy 59.69 251.46) (xy 77.47 251.46)
 		)
 		(stroke
 			(width 0)
@@ -6813,16 +6779,6 @@
 			(type default)
 		)
 		(uuid "465f258b-958e-5b0d-b166-ca1e7f735611")
-	)
-	(wire
-		(pts
-			(xy 175.26 173.99) (xy 193.04 173.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "474322d4-ab43-568f-ae1b-7647a81565e4")
 	)
 	(wire
 		(pts
@@ -6876,7 +6832,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 218.44) (xy 77.47 218.44)
+			(xy 36.83 226.06) (xy 77.47 226.06)
 		)
 		(stroke
 			(width 0)
@@ -6946,7 +6902,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 43.18) (xy 146.05 43.18)
+			(xy 134.62 43.18) (xy 146.05 43.18)
 		)
 		(stroke
 			(width 0)
@@ -6986,7 +6942,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 193.04) (xy 171.45 196.85)
+			(xy 172.72 191.77) (xy 172.72 196.85)
 		)
 		(stroke
 			(width 0)
@@ -7056,7 +7012,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 180.34) (xy 40.64 180.34)
+			(xy 29.21 200.66) (xy 40.64 200.66)
 		)
 		(stroke
 			(width 0)
@@ -7093,16 +7049,6 @@
 			(type default)
 		)
 		(uuid "59114eb9-51d4-5857-b1c8-924193ebdd6c")
-	)
-	(wire
-		(pts
-			(xy 77.47 261.62) (xy 77.47 264.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5b4ff628-22f3-5a4e-a3ef-2cbb727c387a")
 	)
 	(wire
 		(pts
@@ -7156,17 +7102,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 182.88) (xy 49.53 190.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5fb6f666-2817-5edb-a391-9959c05343db")
-	)
-	(wire
-		(pts
-			(xy 171.45 171.45) (xy 171.45 187.96)
+			(xy 172.72 171.45) (xy 172.72 186.69)
 		)
 		(stroke
 			(width 0)
@@ -7183,6 +7119,16 @@
 			(type default)
 		)
 		(uuid "62df15b3-1d4a-57a4-b481-82a41e826643")
+	)
+	(wire
+		(pts
+			(xy 168.91 246.38) (xy 168.91 250.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6337fe41-3901-4daf-9bb7-2d6b8af84144")
 	)
 	(wire
 		(pts
@@ -7216,16 +7162,6 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 241.3) (xy 69.85 242.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "68528b94-ddd2-5334-bddf-dbd707df5859")
-	)
-	(wire
-		(pts
 			(xy 152.4 43.18) (xy 160.02 43.18)
 		)
 		(stroke
@@ -7233,16 +7169,6 @@
 			(type default)
 		)
 		(uuid "68f6d94b-27cb-58b0-b4ef-a3e786e8f0dc")
-	)
-	(wire
-		(pts
-			(xy 379.73 127) (xy 379.73 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69b00c0c-c6a1-5200-90a9-78f12df513d4")
 	)
 	(wire
 		(pts
@@ -7286,7 +7212,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 204.47) (xy 81.28 204.47)
+			(xy 69.85 214.63) (xy 85.09 214.63)
 		)
 		(stroke
 			(width 0)
@@ -7296,7 +7222,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 218.44) (xy 91.44 218.44)
+			(xy 90.17 226.06) (xy 91.44 226.06)
 		)
 		(stroke
 			(width 0)
@@ -7326,7 +7252,7 @@
 	)
 	(wire
 		(pts
-			(xy 387.35 129.54) (xy 387.35 179.07)
+			(xy 387.35 130.81) (xy 387.35 179.07)
 		)
 		(stroke
 			(width 0)
@@ -7346,13 +7272,13 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 190.5) (xy 62.23 190.5)
+			(xy 86.36 77.47) (xy 88.9 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "715a23f3-a01d-57eb-ac7b-aa4b446e6f97")
+		(uuid "745ca107-ee24-43b8-a8a6-3d197fde1a53")
 	)
 	(wire
 		(pts
@@ -7363,16 +7289,6 @@
 			(type default)
 		)
 		(uuid "74cad923-9a20-54ff-8779-6dee1de503eb")
-	)
-	(wire
-		(pts
-			(xy 69.85 247.65) (xy 69.85 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "751f32cf-009a-59b9-9c9e-5bf6017a5621")
 	)
 	(wire
 		(pts
@@ -7396,7 +7312,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 107.95) (xy 189.23 113.03)
+			(xy 189.23 107.95) (xy 189.23 110.49)
 		)
 		(stroke
 			(width 0)
@@ -7436,7 +7352,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 167.64) (xy 38.1 172.72)
+			(xy 38.1 170.18) (xy 38.1 175.26)
 		)
 		(stroke
 			(width 0)
@@ -7446,7 +7362,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 182.88) (xy 175.26 186.69)
+			(xy 184.15 182.88) (xy 184.15 186.69)
 		)
 		(stroke
 			(width 0)
@@ -7466,7 +7382,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 233.68) (xy 36.83 264.16)
+			(xy 36.83 245.11) (xy 36.83 262.89)
 		)
 		(stroke
 			(width 0)
@@ -7476,7 +7392,7 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 218.44) (xy 81.28 218.44)
+			(xy 77.47 226.06) (xy 85.09 226.06)
 		)
 		(stroke
 			(width 0)
@@ -7506,7 +7422,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 190.5) (xy 91.44 190.5)
+			(xy 90.17 203.2) (xy 91.44 203.2)
 		)
 		(stroke
 			(width 0)
@@ -7556,7 +7472,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 166.37) (xy 157.48 184.15)
+			(xy 156.21 166.37) (xy 156.21 181.61)
 		)
 		(stroke
 			(width 0)
@@ -7566,7 +7482,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 185.42) (xy 143.51 189.23)
+			(xy 143.51 186.69) (xy 143.51 189.23)
 		)
 		(stroke
 			(width 0)
@@ -7576,7 +7492,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 204.47) (xy 91.44 204.47)
+			(xy 90.17 214.63) (xy 91.44 214.63)
 		)
 		(stroke
 			(width 0)
@@ -7636,7 +7552,7 @@
 	)
 	(wire
 		(pts
-			(xy 387.35 129.54) (xy 392.43 129.54)
+			(xy 387.35 130.81) (xy 392.43 130.81)
 		)
 		(stroke
 			(width 0)
@@ -7646,7 +7562,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 231.14) (xy 43.18 231.14)
+			(xy 30.48 242.57) (xy 43.18 242.57)
 		)
 		(stroke
 			(width 0)
@@ -7686,7 +7602,7 @@
 	)
 	(wire
 		(pts
-			(xy 372.11 77.47) (xy 372.11 124.46)
+			(xy 372.11 77.47) (xy 372.11 125.73)
 		)
 		(stroke
 			(width 0)
@@ -7756,16 +7672,6 @@
 	)
 	(wire
 		(pts
-			(xy 379.73 127) (xy 392.43 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "91abde87-9de3-509c-9d59-62c99cc7312f")
-	)
-	(wire
-		(pts
 			(xy 187.96 157.48) (xy 187.96 161.29)
 		)
 		(stroke
@@ -7776,7 +7682,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 187.96) (xy 36.83 218.44)
+			(xy 36.83 208.28) (xy 36.83 226.06)
 		)
 		(stroke
 			(width 0)
@@ -7856,7 +7762,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 190.5) (xy 31.75 190.5)
+			(xy 29.21 210.82) (xy 31.75 210.82)
 		)
 		(stroke
 			(width 0)
@@ -7906,7 +7812,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 173.99) (xy 175.26 177.8)
+			(xy 184.15 173.99) (xy 184.15 177.8)
 		)
 		(stroke
 			(width 0)
@@ -7916,7 +7822,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 236.22) (xy 91.44 236.22)
+			(xy 82.55 240.03) (xy 87.63 240.03)
 		)
 		(stroke
 			(width 0)
@@ -7926,7 +7832,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 204.47) (xy 69.85 204.47)
+			(xy 40.64 214.63) (xy 69.85 214.63)
 		)
 		(stroke
 			(width 0)
@@ -7963,16 +7869,6 @@
 			(type default)
 		)
 		(uuid "a0074921-2d02-5102-a21b-3bbd60d84204")
-	)
-	(wire
-		(pts
-			(xy 77.47 215.9) (xy 77.47 218.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a19a7364-14ef-5ad6-8912-1de6fb151d7f")
 	)
 	(wire
 		(pts
@@ -8026,16 +7922,6 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 255.27) (xy 77.47 256.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a2daecfc-c742-5b39-b280-c340747fe88a")
-	)
-	(wire
-		(pts
 			(xy 361.95 66.04) (xy 361.95 77.47)
 		)
 		(stroke
@@ -8086,7 +7972,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 264.16) (xy 77.47 264.16)
+			(xy 36.83 262.89) (xy 67.31 262.89)
 		)
 		(stroke
 			(width 0)
@@ -8126,7 +8012,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 181.61) (xy 44.45 185.42)
+			(xy 44.45 184.15) (xy 44.45 187.96)
 		)
 		(stroke
 			(width 0)
@@ -8146,7 +8032,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 172.72) (xy 44.45 176.53)
+			(xy 44.45 175.26) (xy 44.45 179.07)
 		)
 		(stroke
 			(width 0)
@@ -8196,17 +8082,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 77.47) (xy 101.6 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ac358cef-0d03-54ca-9c2d-2b12c7bb733b")
-	)
-	(wire
-		(pts
-			(xy 166.37 196.85) (xy 171.45 196.85)
+			(xy 166.37 196.85) (xy 172.72 196.85)
 		)
 		(stroke
 			(width 0)
@@ -8246,17 +8122,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 180.34) (xy 62.23 182.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b0586796-cef6-524d-89bb-24f70a06fbad")
-	)
-	(wire
-		(pts
-			(xy 62.23 236.22) (xy 81.28 236.22)
+			(xy 52.07 240.03) (xy 77.47 240.03)
 		)
 		(stroke
 			(width 0)
@@ -8266,7 +8132,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 237.49) (xy 168.91 246.38)
+			(xy 168.91 237.49) (xy 168.91 241.3)
 		)
 		(stroke
 			(width 0)
@@ -8276,7 +8142,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 166.37) (xy 193.04 166.37)
+			(xy 156.21 166.37) (xy 193.04 166.37)
 		)
 		(stroke
 			(width 0)
@@ -8306,16 +8172,6 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 236.22) (xy 62.23 236.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b844f75e-019c-5979-826a-87a5a0e3e66a")
-	)
-	(wire
-		(pts
 			(xy 340.36 176.53) (xy 340.36 179.07)
 		)
 		(stroke
@@ -8326,7 +8182,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 187.96) (xy 36.83 187.96)
+			(xy 29.21 208.28) (xy 36.83 208.28)
 		)
 		(stroke
 			(width 0)
@@ -8386,23 +8242,13 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 250.19) (xy 91.44 250.19)
+			(xy 82.55 251.46) (xy 87.63 251.46)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "bdb50783-0ef0-5d98-b073-9a47de2f086a")
-	)
-	(wire
-		(pts
-			(xy 168.91 251.46) (xy 168.91 255.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bdbd4b49-4986-5bfe-b641-7092d241a84f")
 	)
 	(wire
 		(pts
@@ -8416,16 +8262,6 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 182.88) (xy 166.37 186.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be69d732-4866-55c6-9254-e3c640a42715")
-	)
-	(wire
-		(pts
 			(xy 173.99 64.77) (xy 173.99 68.58)
 		)
 		(stroke
@@ -8436,17 +8272,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 187.96) (xy 62.23 190.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2c9f7d7-e434-5d01-a58c-fa1a6d4e167a")
-	)
-	(wire
-		(pts
-			(xy 29.21 193.04) (xy 31.75 193.04)
+			(xy 29.21 213.36) (xy 31.75 213.36)
 		)
 		(stroke
 			(width 0)
@@ -8456,7 +8282,7 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 156.21) (xy 20.32 162.56)
+			(xy 20.32 158.75) (xy 20.32 165.1)
 		)
 		(stroke
 			(width 0)
@@ -8486,16 +8312,6 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 209.55) (xy 77.47 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c62592d2-b404-5aa6-bf26-3dfaf44ee258")
-	)
-	(wire
-		(pts
 			(xy 340.36 179.07) (xy 361.95 179.07)
 		)
 		(stroke
@@ -8503,6 +8319,16 @@
 			(type default)
 		)
 		(uuid "c65aeeae-df74-5d1f-82a5-d7dfbdb791b5")
+	)
+	(wire
+		(pts
+			(xy 88.9 77.47) (xy 101.6 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c71af9d7-8c3b-4c11-95a0-6a7b8f1829bd")
 	)
 	(wire
 		(pts
@@ -8566,7 +8392,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 172.72) (xy 44.45 172.72)
+			(xy 38.1 175.26) (xy 44.45 175.26)
 		)
 		(stroke
 			(width 0)
@@ -8576,7 +8402,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 264.16) (xy 91.44 264.16)
+			(xy 82.55 262.89) (xy 87.63 262.89)
 		)
 		(stroke
 			(width 0)
@@ -8686,7 +8512,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 181.61) (xy 52.07 185.42)
+			(xy 52.07 184.15) (xy 52.07 187.96)
 		)
 		(stroke
 			(width 0)
@@ -8756,7 +8582,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 233.68) (xy 36.83 233.68)
+			(xy 30.48 245.11) (xy 36.83 245.11)
 		)
 		(stroke
 			(width 0)
@@ -8766,17 +8592,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 233.68) (xy 62.23 236.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dc35203a-547c-5ba4-8b74-cf63c5a81fe7")
-	)
-	(wire
-		(pts
-			(xy 29.21 226.06) (xy 40.64 226.06)
+			(xy 30.48 237.49) (xy 41.91 237.49)
 		)
 		(stroke
 			(width 0)
@@ -8836,7 +8652,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 172.72) (xy 52.07 176.53)
+			(xy 52.07 175.26) (xy 52.07 179.07)
 		)
 		(stroke
 			(width 0)
@@ -8846,7 +8662,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 172.72) (xy 60.96 172.72)
+			(xy 52.07 175.26) (xy 60.96 175.26)
 		)
 		(stroke
 			(width 0)
@@ -8956,7 +8772,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 52.07) (xy 177.8 55.88)
+			(xy 177.8 52.07) (xy 177.8 53.34)
 		)
 		(stroke
 			(width 0)
@@ -8966,7 +8782,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 172.72) (xy 52.07 172.72)
+			(xy 44.45 175.26) (xy 52.07 175.26)
 		)
 		(stroke
 			(width 0)
@@ -8976,7 +8792,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 238.76) (xy 31.75 238.76)
+			(xy 30.48 250.19) (xy 33.02 250.19)
 		)
 		(stroke
 			(width 0)
@@ -8986,7 +8802,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 163.83) (xy 143.51 180.34)
+			(xy 143.51 163.83) (xy 143.51 181.61)
 		)
 		(stroke
 			(width 0)
@@ -9016,7 +8832,7 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 172.72) (xy 38.1 172.72)
+			(xy 20.32 175.26) (xy 38.1 175.26)
 		)
 		(stroke
 			(width 0)
@@ -9026,7 +8842,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 250.19) (xy 69.85 250.19)
+			(xy 43.18 251.46) (xy 59.69 251.46)
 		)
 		(stroke
 			(width 0)
@@ -9036,7 +8852,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 189.23) (xy 157.48 193.04)
+			(xy 156.21 186.69) (xy 156.21 193.04)
 		)
 		(stroke
 			(width 0)
@@ -9056,7 +8872,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 190.5) (xy 81.28 190.5)
+			(xy 62.23 203.2) (xy 85.09 203.2)
 		)
 		(stroke
 			(width 0)
@@ -9076,7 +8892,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 234.95) (xy 156.21 243.84)
+			(xy 156.21 234.95) (xy 156.21 241.3)
 		)
 		(stroke
 			(width 0)
@@ -9116,7 +8932,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 193.04) (xy 157.48 193.04)
+			(xy 139.7 193.04) (xy 156.21 193.04)
 		)
 		(stroke
 			(width 0)
@@ -9146,7 +8962,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 52.07) (xy 189.23 55.88)
+			(xy 189.23 52.07) (xy 189.23 53.34)
 		)
 		(stroke
 			(width 0)
@@ -9186,16 +9002,6 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 201.93) (xy 69.85 204.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f4d04b3f-8673-54fb-8312-a7ce2ff2810c")
-	)
-	(wire
-		(pts
 			(xy 173.99 82.55) (xy 173.99 86.36)
 		)
 		(stroke
@@ -9226,7 +9032,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 191.77) (xy 166.37 196.85)
+			(xy 166.37 186.69) (xy 166.37 196.85)
 		)
 		(stroke
 			(width 0)
@@ -9256,7 +9062,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 167.64) (xy 60.96 172.72)
+			(xy 60.96 170.18) (xy 60.96 175.26)
 		)
 		(stroke
 			(width 0)
@@ -9266,7 +9072,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 185.42) (xy 40.64 185.42)
+			(xy 29.21 205.74) (xy 40.64 205.74)
 		)
 		(stroke
 			(width 0)
@@ -9335,7 +9141,7 @@
 		(uuid "24799d61-5010-564f-9371-41ea73ff22c6")
 	)
 	(label "VENC"
-		(at 40.64 226.06 180)
+		(at 41.91 237.49 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9345,7 +9151,7 @@
 		(uuid "2dcbd72d-ed46-50bf-a4f4-47e2f2a21c78")
 	)
 	(label "VENC"
-		(at 20.32 172.72 0)
+		(at 20.32 175.26 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9375,7 +9181,7 @@
 		(uuid "4aa62724-bf7d-5c02-bbb4-e884acc3bd2f")
 	)
 	(label "MOTOR_V"
-		(at 392.43 127 180)
+		(at 392.43 128.27 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9405,7 +9211,7 @@
 		(uuid "78740c11-eb39-5e10-8d35-61c4ac6d37ec")
 	)
 	(label "MOTOR_U"
-		(at 392.43 124.46 180)
+		(at 392.43 125.73 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9415,7 +9221,7 @@
 		(uuid "977502b8-2c0a-5ab4-9f65-0a19e2688972")
 	)
 	(label "MOTOR_W"
-		(at 392.43 129.54 180)
+		(at 392.43 130.81 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9445,7 +9251,7 @@
 		(uuid "d70fe109-c175-5d2e-8342-5ecf931bf177")
 	)
 	(label "VM_DRV"
-		(at 139.7 43.18 0)
+		(at 134.62 43.18 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9465,7 +9271,7 @@
 		(uuid "e90e3832-2308-5c6e-a202-ea3d657a0195")
 	)
 	(label "VENC"
-		(at 40.64 180.34 180)
+		(at 40.64 200.66 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9487,7 +9293,7 @@
 	)
 	(hierarchical_label "HALL2"
 		(shape input)
-		(at 91.44 250.19 0)
+		(at 87.63 251.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9498,7 +9304,7 @@
 	)
 	(hierarchical_label "MOTOR_ENCODER_I"
 		(shape input)
-		(at 91.44 218.44 0)
+		(at 91.44 226.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9531,7 +9337,7 @@
 	)
 	(hierarchical_label "VBUS_MON"
 		(shape output)
-		(at 101.6 77.47 180)
+		(at 86.36 77.47 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9542,7 +9348,7 @@
 	)
 	(hierarchical_label "MOTOR_ENCODER_A"
 		(shape input)
-		(at 91.44 190.5 0)
+		(at 91.44 203.2 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9564,7 +9370,7 @@
 	)
 	(hierarchical_label "HALL1"
 		(shape input)
-		(at 91.44 236.22 0)
+		(at 87.63 240.03 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9641,7 +9447,7 @@
 	)
 	(hierarchical_label "HALL3"
 		(shape input)
-		(at 91.44 264.16 0)
+		(at 87.63 262.89 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9718,7 +9524,7 @@
 	)
 	(hierarchical_label "MOTOR_ENCODER_B"
 		(shape input)
-		(at 91.44 204.47 0)
+		(at 91.44 214.63 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9928,7 +9734,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0402_10%_50V")
-		(at 52.07 179.07 0)
+		(at 52.07 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9936,15 +9742,6 @@
 		(dnp no)
 		(uuid "09fc6cd8-8641-556b-a406-1f9cf0a8115b")
 		(property "Reference" "C1108"
-			(at 53.975 178.435 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100nF"
 			(at 53.975 180.975 0)
 			(effects
 				(font
@@ -9953,8 +9750,17 @@
 				(justify left)
 			)
 		)
+		(property "Value" "100nF"
+			(at 53.975 183.515 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(property "Footprint" "Amodo:C_0402_1005Metric"
-			(at 52.07 179.07 0)
+			(at 52.07 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9963,7 +9769,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/40/KGM_X7R-3223212.pdf"
-			(at 52.07 179.07 0)
+			(at 52.07 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9972,7 +9778,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0402 10% X7R 50V"
-			(at 52.07 179.07 0)
+			(at 52.07 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10543,7 +10349,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
-		(at 77.47 256.54 0)
+		(at 67.31 257.81 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10551,7 +10357,7 @@
 		(dnp no)
 		(uuid "16bacc14-f5bb-5db5-9865-564d4279464c")
 		(property "Reference" "R1113"
-			(at 79.375 257.175 0)
+			(at 69.215 258.445 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10560,7 +10366,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 79.375 259.715 0)
+			(at 69.215 260.985 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10569,7 +10375,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 77.47 256.54 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10578,7 +10384,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 77.47 256.54 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10587,7 +10393,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
-			(at 77.47 256.54 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10750,7 +10556,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 38.1 162.56 0)
+		(at 38.1 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10758,7 +10564,7 @@
 		(dnp yes)
 		(uuid "1e9627d4-6128-55b1-b251-69993294d2a8")
 		(property "Reference" "R1107"
-			(at 36.195 163.195 0)
+			(at 36.195 165.735 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10767,7 +10573,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 36.195 167.005 0)
+			(at 36.195 169.545 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10776,7 +10582,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 38.1 162.56 0)
+			(at 38.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10785,7 +10591,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.1 162.56 0)
+			(at 38.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10794,7 +10600,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 38.1 162.56 0)
+			(at 38.1 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10885,7 +10691,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:Header_Male_6-way_1-row_Straight_2.54mm_THT")
-		(at 25.4 232.41 0)
+		(at 26.67 243.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10893,7 +10699,7 @@
 		(dnp no)
 		(uuid "2398af07-d486-5ba4-84f7-879f191ba1b6")
 		(property "Reference" "J1102"
-			(at 20.32 222.25 0)
+			(at 21.59 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10902,7 +10708,7 @@
 			)
 		)
 		(property "Value" "1x6 2.54mm"
-			(at 19.05 242.57 0)
+			(at 20.32 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10911,7 +10717,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:Adam_Tech_PH1-06-UA"
-			(at 25.4 232.41 0)
+			(at 26.67 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10920,7 +10726,7 @@
 			)
 		)
 		(property "Datasheet" "https://app.adam-tech.com/products/download/data_sheet/201605/ph1-xx-ua-data-sheet.pdf"
-			(at 25.4 232.41 0)
+			(at 26.67 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10929,7 +10735,7 @@
 			)
 		)
 		(property "Description" "6 Circuit 2.54mm pitch, Single Row, Straight, THT"
-			(at 25.4 232.41 0)
+			(at 26.67 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10966,7 +10772,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100pF_0603_10%_50V")
-		(at 156.21 246.38 0)
+		(at 156.21 243.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10974,7 +10780,7 @@
 		(dnp no)
 		(uuid "311e13e7-20e7-525f-b64c-97c798f76049")
 		(property "Reference" "C1117"
-			(at 158.115 244.475 0)
+			(at 158.115 241.935 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10983,7 +10789,7 @@
 			)
 		)
 		(property "Value" "100pF"
-			(at 158.115 248.285 0)
+			(at 158.115 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10992,7 +10798,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 156.21 246.38 0)
+			(at 156.21 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11001,7 +10807,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/KEM_C1023_X7R_AUTO_SMD-3316698.pdf"
-			(at 156.21 246.38 0)
+			(at 156.21 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11010,7 +10816,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100pF 0603 10% X7R 50V"
-			(at 156.21 246.38 0)
+			(at 156.21 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11035,7 +10841,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 177.8 113.03 0)
+		(at 177.8 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11043,7 +10849,7 @@
 		(dnp no)
 		(uuid "333ca60e-472d-5259-8380-31f5ff20896b")
 		(property "Reference" "#PWR1128"
-			(at 177.8 106.68 0)
+			(at 177.8 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11052,7 +10858,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 177.8 116.84 0)
+			(at 177.8 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11060,7 +10866,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 177.8 113.03 0)
+			(at 177.8 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11069,7 +10875,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 113.03 0)
+			(at 177.8 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11078,7 +10884,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 177.8 113.03 0)
+			(at 177.8 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11100,7 +10906,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:TestPoint")
-		(at 60.96 167.64 0)
+		(at 60.96 170.18 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11108,7 +10914,7 @@
 		(dnp no)
 		(uuid "333d3e05-0a64-51dd-a9d8-6294750986f9")
 		(property "Reference" "TP1105"
-			(at 62.865 166.37 0)
+			(at 62.865 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11117,7 +10923,7 @@
 			)
 		)
 		(property "Value" "VENC"
-			(at 62.865 168.77 0)
+			(at 62.865 171.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11126,7 +10932,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
-			(at 60.96 167.64 0)
+			(at 60.96 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11135,7 +10941,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 60.96 167.64 0)
+			(at 60.96 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11144,7 +10950,7 @@
 			)
 		)
 		(property "Description" "Test Point"
-			(at 60.96 167.64 0)
+			(at 60.96 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11645,21 +11451,19 @@
 		(dnp no)
 		(uuid "40634530-1f44-5169-8533-1fc38fa6bfa7")
 		(property "Reference" "TP1108"
-			(at 187.325 106.68 0)
+			(at 189.23 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Value" "GND"
-			(at 187.325 109.08 0)
+			(at 189.23 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
@@ -11703,7 +11507,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 69.85 241.3 0)
+		(at 59.69 246.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11711,7 +11515,7 @@
 		(dnp no)
 		(uuid "41be4e9a-fd5d-5853-82d5-2fdd5ba8f079")
 		(property "Reference" "#PWR1120"
-			(at 69.85 241.3 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11720,7 +11524,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 69.85 237.49 0)
+			(at 59.69 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11728,7 +11532,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 241.3 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11737,7 +11541,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 241.3 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11746,7 +11550,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 69.85 241.3 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11929,7 +11733,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_2.2k_0603")
-		(at 62.23 182.88 0)
+		(at 62.23 198.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11937,7 +11741,7 @@
 		(dnp no)
 		(uuid "4916c5e8-25c4-5e2e-ba91-ec5f2b713d59")
 		(property "Reference" "R1108"
-			(at 64.135 183.515 0)
+			(at 64.77 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11946,7 +11750,7 @@
 			)
 		)
 		(property "Value" "2k2"
-			(at 64.135 187.325 0)
+			(at 64.77 201.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11955,7 +11759,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 62.23 182.88 0)
+			(at 62.23 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11964,7 +11768,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 62.23 182.88 0)
+			(at 62.23 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11973,7 +11777,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 2.2k 0603 1% 100mW"
-			(at 62.23 182.88 0)
+			(at 62.23 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12110,7 +11914,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 175.26 186.69 0)
+		(at 184.15 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12118,7 +11922,7 @@
 		(dnp no)
 		(uuid "4c54c7b5-535a-5ebc-869e-d379fc33087e")
 		(property "Reference" "#PWR1132"
-			(at 175.26 180.34 0)
+			(at 184.15 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12127,7 +11931,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 175.26 190.5 0)
+			(at 184.15 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12135,7 +11939,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 175.26 186.69 0)
+			(at 184.15 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12144,7 +11948,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 175.26 186.69 0)
+			(at 184.15 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12153,7 +11957,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 175.26 186.69 0)
+			(at 184.15 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12240,7 +12044,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 157.48 184.15 0)
+		(at 156.21 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12248,7 +12052,7 @@
 		(dnp no)
 		(uuid "4f0ebb31-9cbb-5e30-8e61-abdd6504a3c3")
 		(property "Reference" "R1117"
-			(at 155.575 184.785 0)
+			(at 154.305 182.245 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12257,7 +12061,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 155.575 188.595 0)
+			(at 154.305 186.055 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12266,7 +12070,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 157.48 184.15 0)
+			(at 156.21 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12275,7 +12079,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 184.15 0)
+			(at 156.21 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12284,7 +12088,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 157.48 184.15 0)
+			(at 156.21 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12378,7 +12182,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_10uF_0805_20%_25V")
-		(at 44.45 179.07 0)
+		(at 44.45 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12386,7 +12190,7 @@
 		(dnp no)
 		(uuid "511ac506-272f-53c0-a2e3-57107928cc1e")
 		(property "Reference" "C1107"
-			(at 45.72 177.165 0)
+			(at 45.72 179.705 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12395,7 +12199,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 46.355 180.975 0)
+			(at 46.355 183.515 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12404,7 +12208,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0805_2012Metric"
-			(at 44.45 179.07 0)
+			(at 44.45 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12413,7 +12217,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/3/76/2/GRM21BR61E106MA73_01A.pdf"
-			(at 44.45 179.07 0)
+			(at 44.45 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12422,7 +12226,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 10uF 0805 20% X5R 25V"
-			(at 44.45 179.07 0)
+			(at 44.45 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12516,7 +12320,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
-		(at 166.37 186.69 0)
+		(at 166.37 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12524,7 +12328,7 @@
 		(dnp no)
 		(uuid "5373b63e-14ca-53b3-8b28-17225f85b0f6")
 		(property "Reference" "R1120"
-			(at 164.9 187.32 0)
+			(at 164.9 182.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12533,7 +12337,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 164.465 191.135 0)
+			(at 164.465 186.055 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12542,7 +12346,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 166.37 186.69 0)
+			(at 166.37 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12551,7 +12355,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 166.37 186.69 0)
+			(at 166.37 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12560,7 +12364,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
-			(at 166.37 186.69 0)
+			(at 166.37 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12585,7 +12389,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 69.85 195.58 0)
+		(at 69.85 209.55 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12593,7 +12397,7 @@
 		(dnp no)
 		(uuid "552c5a42-e4e2-5d16-81ec-11d77ef4adc5")
 		(property "Reference" "#PWR1116"
-			(at 69.85 195.58 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12602,7 +12406,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 69.85 191.77 0)
+			(at 69.85 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12610,7 +12414,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 195.58 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12619,7 +12423,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 195.58 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12628,7 +12432,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 69.85 195.58 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12742,7 +12546,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 168.91 255.27 0)
+		(at 168.91 250.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12750,7 +12554,7 @@
 		(dnp no)
 		(uuid "56be7338-0f90-51f0-8e71-bb697890676a")
 		(property "Reference" "#PWR1135"
-			(at 168.91 248.92 0)
+			(at 168.91 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12759,7 +12563,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 168.91 259.08 0)
+			(at 168.91 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12767,7 +12571,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 168.91 255.27 0)
+			(at 168.91 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12776,7 +12580,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 168.91 255.27 0)
+			(at 168.91 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12785,7 +12589,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 168.91 255.27 0)
+			(at 168.91 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12941,7 +12745,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 171.45 187.96 0)
+		(at 172.72 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12949,7 +12753,7 @@
 		(dnp no)
 		(uuid "5e5707fa-a6e5-51b1-8672-29e58ab99f98")
 		(property "Reference" "R1119"
-			(at 177.165 188.595 0)
+			(at 175.26 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12958,7 +12762,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 173.355 192.405 0)
+			(at 175.26 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12967,7 +12771,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 171.45 187.96 0)
+			(at 172.72 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12976,7 +12780,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 187.96 0)
+			(at 172.72 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12985,7 +12789,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 171.45 187.96 0)
+			(at 172.72 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13279,7 +13083,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_2.2k_0603")
-		(at 69.85 196.85 0)
+		(at 69.85 209.55 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13287,7 +13091,7 @@
 		(dnp no)
 		(uuid "684eeebb-8dfb-5a23-bbb0-f88ed0430756")
 		(property "Reference" "R1109"
-			(at 71.755 197.485 0)
+			(at 72.39 210.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13296,7 +13100,7 @@
 			)
 		)
 		(property "Value" "2k2"
-			(at 71.755 201.295 0)
+			(at 72.39 213.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13305,7 +13109,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 69.85 196.85 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13314,7 +13118,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 69.85 196.85 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13323,7 +13127,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 2.2k 0603 1% 100mW"
-			(at 69.85 196.85 0)
+			(at 69.85 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13810,7 +13614,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_100R_0603")
-		(at 81.28 264.16 90)
+		(at 77.47 262.89 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13818,7 +13622,7 @@
 		(dnp no)
 		(uuid "71343c7a-5062-5f8c-aa18-1549e1204626")
 		(property "Reference" "R1133"
-			(at 83.82 262.128 270)
+			(at 80.01 260.858 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13826,7 +13630,7 @@
 			)
 		)
 		(property "Value" "100R"
-			(at 83.82 266.446 270)
+			(at 80.01 265.176 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13834,7 +13638,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 81.28 264.16 270)
+			(at 77.47 262.89 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13843,7 +13647,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 81.28 264.16 270)
+			(at 77.47 262.89 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13852,7 +13656,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
-			(at 81.28 264.16 270)
+			(at 77.47 262.89 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13861,7 +13665,7 @@
 			)
 		)
 		(property "mpn" "ERJ-3EKF1000V"
-			(at 81.28 264.16 270)
+			(at 77.47 262.89 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13870,7 +13674,7 @@
 			)
 		)
 		(property "gpn" "GPR0603100R"
-			(at 81.28 264.16 270)
+			(at 77.47 262.89 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13879,7 +13683,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 81.28 264.16 270)
+			(at 77.47 262.89 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13904,7 +13708,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 52.07 185.42 0)
+		(at 52.07 187.96 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13912,7 +13716,7 @@
 		(dnp no)
 		(uuid "72aab8da-2eff-59e3-aeb4-ef8edd93f710")
 		(property "Reference" "#PWR1114"
-			(at 52.07 179.07 0)
+			(at 52.07 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13921,7 +13725,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 52.07 189.23 0)
+			(at 52.07 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13929,7 +13733,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 52.07 185.42 0)
+			(at 52.07 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13938,7 +13742,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.07 185.42 0)
+			(at 52.07 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13947,7 +13751,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 52.07 185.42 0)
+			(at 52.07 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14035,7 +13839,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 77.47 209.55 0)
+		(at 77.47 220.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14043,7 +13847,7 @@
 		(dnp no)
 		(uuid "745b4820-471e-580e-beda-8e91f95576d8")
 		(property "Reference" "#PWR1117"
-			(at 77.47 209.55 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14052,7 +13856,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 77.47 205.74 0)
+			(at 77.47 217.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14060,7 +13864,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 77.47 209.55 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14069,7 +13873,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 77.47 209.55 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14078,7 +13882,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 77.47 209.55 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14531,7 +14335,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
-		(at 175.26 177.8 0)
+		(at 184.15 177.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14539,7 +14343,7 @@
 		(dnp no)
 		(uuid "847b6d0f-6458-5d39-8a9b-c81aad8d2afc")
 		(property "Reference" "R1121"
-			(at 177.165 178.435 0)
+			(at 186.055 178.435 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14548,7 +14352,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 177.165 182.245 0)
+			(at 186.055 182.245 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14557,7 +14361,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 175.26 177.8 0)
+			(at 184.15 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14566,7 +14370,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 175.26 177.8 0)
+			(at 184.15 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14575,7 +14379,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
-			(at 175.26 177.8 0)
+			(at 184.15 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14600,7 +14404,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 62.23 226.06 0)
+		(at 52.07 234.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14608,7 +14412,7 @@
 		(dnp no)
 		(uuid "84e1dce2-7945-5bc3-aad1-e2171341fddf")
 		(property "Reference" "#PWR1119"
-			(at 62.23 219.71 0)
+			(at 52.07 228.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14617,7 +14421,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 62.23 222.25 0)
+			(at 52.07 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14625,7 +14429,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 62.23 226.06 0)
+			(at 52.07 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14634,7 +14438,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 62.23 226.06 0)
+			(at 52.07 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14643,7 +14447,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 62.23 226.06 0)
+			(at 52.07 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14803,7 +14607,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_100R_0603")
-		(at 81.28 218.44 90)
+		(at 85.09 226.06 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14811,7 +14615,7 @@
 		(dnp no)
 		(uuid "879022d4-e232-5a92-8303-e47d0cc47106")
 		(property "Reference" "R1130"
-			(at 83.82 216.408 270)
+			(at 87.63 224.028 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14819,7 +14623,7 @@
 			)
 		)
 		(property "Value" "100R"
-			(at 83.82 220.726 270)
+			(at 87.63 228.346 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14827,7 +14631,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 81.28 218.44 270)
+			(at 85.09 226.06 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14836,7 +14640,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 81.28 218.44 270)
+			(at 85.09 226.06 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14845,7 +14649,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
-			(at 81.28 218.44 270)
+			(at 85.09 226.06 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14854,7 +14658,7 @@
 			)
 		)
 		(property "mpn" "ERJ-3EKF1000V"
-			(at 81.28 218.44 270)
+			(at 85.09 226.06 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14863,7 +14667,7 @@
 			)
 		)
 		(property "gpn" "GPR0603100R"
-			(at 81.28 218.44 270)
+			(at 85.09 226.06 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14872,7 +14676,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 81.28 218.44 270)
+			(at 85.09 226.06 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15361,7 +15165,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_100R_0603")
-		(at 81.28 204.47 90)
+		(at 85.09 214.63 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15369,7 +15173,7 @@
 		(dnp no)
 		(uuid "91389919-a655-5877-ac89-88599de4ac80")
 		(property "Reference" "R1129"
-			(at 83.82 202.438 270)
+			(at 87.63 212.598 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15377,7 +15181,7 @@
 			)
 		)
 		(property "Value" "100R"
-			(at 83.82 206.756 270)
+			(at 87.63 216.916 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15385,7 +15189,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 81.28 204.47 270)
+			(at 85.09 214.63 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15394,7 +15198,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 81.28 204.47 270)
+			(at 85.09 214.63 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15403,7 +15207,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
-			(at 81.28 204.47 270)
+			(at 85.09 214.63 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15412,7 +15216,7 @@
 			)
 		)
 		(property "mpn" "ERJ-3EKF1000V"
-			(at 81.28 204.47 270)
+			(at 85.09 214.63 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15421,7 +15225,7 @@
 			)
 		)
 		(property "gpn" "GPR0603100R"
-			(at 81.28 204.47 270)
+			(at 85.09 214.63 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15430,7 +15234,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 81.28 204.47 270)
+			(at 85.09 214.63 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15455,7 +15259,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_100R_0603")
-		(at 81.28 190.5 90)
+		(at 85.09 203.2 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15463,7 +15267,7 @@
 		(dnp no)
 		(uuid "94326640-525e-5e78-b560-b91c2725e283")
 		(property "Reference" "R1128"
-			(at 83.82 188.468 270)
+			(at 87.63 201.168 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15471,7 +15275,7 @@
 			)
 		)
 		(property "Value" "100R"
-			(at 83.82 192.786 270)
+			(at 87.63 205.486 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15479,7 +15283,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 81.28 190.5 270)
+			(at 85.09 203.2 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15488,7 +15292,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 81.28 190.5 270)
+			(at 85.09 203.2 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15497,7 +15301,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
-			(at 81.28 190.5 270)
+			(at 85.09 203.2 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15506,7 +15310,7 @@
 			)
 		)
 		(property "mpn" "ERJ-3EKF1000V"
-			(at 81.28 190.5 270)
+			(at 85.09 203.2 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15515,7 +15319,7 @@
 			)
 		)
 		(property "gpn" "GPR0603100R"
-			(at 81.28 190.5 270)
+			(at 85.09 203.2 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15524,7 +15328,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 81.28 190.5 270)
+			(at 85.09 203.2 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15814,7 +15618,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 189.23 55.88 0)
+		(at 189.23 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15822,7 +15626,7 @@
 		(dnp no)
 		(uuid "9f69af80-4f04-5f08-94b4-2670e7706828")
 		(property "Reference" "#PWR1124"
-			(at 189.23 49.53 0)
+			(at 189.23 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15831,7 +15635,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 189.23 59.69 0)
+			(at 189.23 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15839,7 +15643,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 189.23 55.88 0)
+			(at 189.23 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15848,7 +15652,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 189.23 55.88 0)
+			(at 189.23 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15857,7 +15661,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 189.23 55.88 0)
+			(at 189.23 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15879,7 +15683,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 62.23 180.34 0)
+		(at 62.23 198.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15887,7 +15691,7 @@
 		(dnp no)
 		(uuid "a11b0041-7437-565e-bd57-50eea3ce4692")
 		(property "Reference" "#PWR1115"
-			(at 62.23 173.99 0)
+			(at 62.23 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15896,7 +15700,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 62.23 176.53 0)
+			(at 62.23 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15904,7 +15708,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 62.23 180.34 0)
+			(at 62.23 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15913,7 +15717,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 62.23 180.34 0)
+			(at 62.23 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15922,7 +15726,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 62.23 180.34 0)
+			(at 62.23 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16010,7 +15814,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+5V")
-		(at 38.1 156.21 0)
+		(at 38.1 158.75 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16018,7 +15822,7 @@
 		(dnp no)
 		(uuid "a8107222-8da7-52e1-bb3d-03fd8b7152c1")
 		(property "Reference" "#PWR1112"
-			(at 38.1 149.86 0)
+			(at 38.1 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16027,7 +15831,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 38.1 152.4 0)
+			(at 38.1 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16035,7 +15839,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 38.1 156.21 0)
+			(at 38.1 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16044,7 +15848,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.1 156.21 0)
+			(at 38.1 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16053,7 +15857,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 38.1 156.21 0)
+			(at 38.1 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16075,7 +15879,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 177.8 55.88 0)
+		(at 177.8 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16083,7 +15887,7 @@
 		(dnp no)
 		(uuid "a9fd1dcd-e068-510c-a6ed-c7d92c414732")
 		(property "Reference" "#PWR1123"
-			(at 177.8 49.53 0)
+			(at 177.8 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16092,7 +15896,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 177.8 59.69 0)
+			(at 177.8 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16100,7 +15904,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16109,7 +15913,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16118,7 +15922,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 177.8 55.88 0)
+			(at 177.8 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16140,7 +15944,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100pF_0603_10%_50V")
-		(at 168.91 248.92 0)
+		(at 168.91 243.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16148,7 +15952,7 @@
 		(dnp no)
 		(uuid "abb326ec-12e0-536e-94cb-bb57ec6da9de")
 		(property "Reference" "C1118"
-			(at 170.815 247.015 0)
+			(at 170.815 241.935 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16157,7 +15961,7 @@
 			)
 		)
 		(property "Value" "100pF"
-			(at 170.815 250.825 0)
+			(at 170.815 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16166,7 +15970,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 168.91 248.92 0)
+			(at 168.91 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16175,7 +15979,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/KEM_C1023_X7R_AUTO_SMD-3316698.pdf"
-			(at 168.91 248.92 0)
+			(at 168.91 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16184,7 +15988,7 @@
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100pF 0603 10% X7R 50V"
-			(at 168.91 248.92 0)
+			(at 168.91 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16274,7 +16078,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 31.75 243.84 0)
+		(at 33.02 255.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16282,7 +16086,7 @@
 		(dnp no)
 		(uuid "ad8b3062-3996-5a6e-be93-2ba9591cdac9")
 		(property "Reference" "#PWR1122"
-			(at 31.75 237.49 0)
+			(at 33.02 248.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16291,7 +16095,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 31.75 247.65 0)
+			(at 33.02 259.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16299,7 +16103,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 31.75 243.84 0)
+			(at 33.02 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16308,7 +16112,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 31.75 243.84 0)
+			(at 33.02 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16317,7 +16121,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 31.75 243.84 0)
+			(at 33.02 255.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16404,7 +16208,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_100R_0603")
-		(at 81.28 250.19 90)
+		(at 77.47 251.46 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16412,7 +16216,7 @@
 		(dnp no)
 		(uuid "b09ff8d4-75f8-5cf0-a825-c8c6adfc2e83")
 		(property "Reference" "R1132"
-			(at 83.82 248.158 270)
+			(at 80.01 249.428 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16420,7 +16224,7 @@
 			)
 		)
 		(property "Value" "100R"
-			(at 83.82 252.476 270)
+			(at 80.01 253.746 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16428,7 +16232,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 81.28 250.19 270)
+			(at 77.47 251.46 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16437,7 +16241,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 81.28 250.19 270)
+			(at 77.47 251.46 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16446,7 +16250,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
-			(at 81.28 250.19 270)
+			(at 77.47 251.46 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16455,7 +16259,7 @@
 			)
 		)
 		(property "mpn" "ERJ-3EKF1000V"
-			(at 81.28 250.19 270)
+			(at 77.47 251.46 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16464,7 +16268,7 @@
 			)
 		)
 		(property "gpn" "GPR0603100R"
-			(at 81.28 250.19 270)
+			(at 77.47 251.46 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16473,7 +16277,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 81.28 250.19 270)
+			(at 77.47 251.46 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16636,7 +16440,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 44.45 185.42 0)
+		(at 44.45 187.96 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16644,7 +16448,7 @@
 		(dnp no)
 		(uuid "b253fca8-b11e-534b-8f6e-d6ec2e3775d1")
 		(property "Reference" "#PWR1113"
-			(at 44.45 179.07 0)
+			(at 44.45 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16653,7 +16457,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 44.45 189.23 0)
+			(at 44.45 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16661,7 +16465,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 44.45 185.42 0)
+			(at 44.45 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16670,7 +16474,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 44.45 185.42 0)
+			(at 44.45 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16679,7 +16483,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 44.45 185.42 0)
+			(at 44.45 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16766,7 +16570,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 31.75 198.12 0)
+		(at 31.75 218.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16774,7 +16578,7 @@
 		(dnp no)
 		(uuid "b48f813f-74f6-5e89-a630-766710aa9eae")
 		(property "Reference" "#PWR1118"
-			(at 31.75 191.77 0)
+			(at 31.75 212.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16783,7 +16587,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 31.75 201.93 0)
+			(at 31.75 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16791,7 +16595,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 31.75 198.12 0)
+			(at 31.75 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16800,7 +16604,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 31.75 198.12 0)
+			(at 31.75 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16809,7 +16613,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 31.75 198.12 0)
+			(at 31.75 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17172,7 +16976,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 146.05 191.77 0)
+		(at 146.05 196.85 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17180,7 +16984,7 @@
 		(dnp no)
 		(uuid "bfd948c2-b128-57de-8d64-28d7e909cf04")
 		(property "Reference" "TP1109"
-			(at 147.32 190.5 0)
+			(at 146.05 203.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17189,7 +16993,7 @@
 			)
 		)
 		(property "Value" "nFLT"
-			(at 145.41 195.3 0)
+			(at 146.05 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17198,7 +17002,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 146.05 191.77 0)
+			(at 146.05 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17207,7 +17011,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 146.05 191.77 0)
+			(at 146.05 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17216,7 +17020,7 @@
 			)
 		)
 		(property "Description" "Test Point"
-			(at 146.05 191.77 0)
+			(at 146.05 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17238,7 +17042,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:Molex_Micro-Fit_3.0_Straight,1x3")
-		(at 396.24 123.19 0)
+		(at 396.24 124.46 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17246,7 +17050,7 @@
 		(dnp no)
 		(uuid "c324d398-43bd-503d-adb7-d67ed9e6d3b6")
 		(property "Reference" "J1103"
-			(at 389.89 113.03 0)
+			(at 389.89 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17255,7 +17059,7 @@
 			)
 		)
 		(property "Value" "Micro-Fit 1x3"
-			(at 389.89 115.57 0)
+			(at 389.89 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17264,7 +17068,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:436500327"
-			(at 396.24 123.19 0)
+			(at 396.24 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17273,7 +17077,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.molex.com/en-us/products/part-detail/436500327"
-			(at 396.24 123.19 0)
+			(at 396.24 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17282,7 +17086,7 @@
 			)
 		)
 		(property "Description" "Molex Micro-Fit 3.0 Series Straight Through Hole PCB Header, 3-Contact, 3.0mm Pitch, 1-Row, Shrouded"
-			(at 396.24 123.19 0)
+			(at 396.24 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17445,7 +17249,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 20.32 162.56 0)
+		(at 20.32 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17453,7 +17257,7 @@
 		(dnp no)
 		(uuid "c82dc713-41ef-55ad-b81c-2e7cb6622752")
 		(property "Reference" "R1106"
-			(at 22.225 163.195 0)
+			(at 22.225 165.735 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17462,7 +17266,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 22.225 167.005 0)
+			(at 22.225 169.545 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17471,7 +17275,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 20.32 162.56 0)
+			(at 20.32 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17480,7 +17284,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 20.32 162.56 0)
+			(at 20.32 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17489,7 +17293,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 20.32 162.56 0)
+			(at 20.32 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17583,7 +17387,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 143.51 180.34 0)
+		(at 143.51 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17591,7 +17395,7 @@
 		(dnp no)
 		(uuid "cafdf931-8a0e-5fc4-8568-819be3b71a4b")
 		(property "Reference" "R1116"
-			(at 141.605 180.975 0)
+			(at 141.605 182.245 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17600,7 +17404,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 141.605 184.785 0)
+			(at 141.605 186.055 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17609,7 +17413,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 143.51 180.34 0)
+			(at 143.51 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17618,7 +17422,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 143.51 180.34 0)
+			(at 143.51 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17627,7 +17431,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 143.51 180.34 0)
+			(at 143.51 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18250,7 +18054,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 166.37 182.88 0)
+		(at 166.37 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18258,7 +18062,7 @@
 		(dnp no)
 		(uuid "df5b1177-48dc-528d-99e5-e16b79a98100")
 		(property "Reference" "#PWR1131"
-			(at 166.37 176.53 0)
+			(at 166.37 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18267,7 +18071,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 166.37 179.07 0)
+			(at 166.37 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18275,7 +18079,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 182.88 0)
+			(at 166.37 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18284,7 +18088,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 182.88 0)
+			(at 166.37 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18293,7 +18097,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 166.37 182.88 0)
+			(at 166.37 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18557,7 +18361,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_2.2k_0603")
-		(at 77.47 210.82 0)
+		(at 77.47 220.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18565,7 +18369,7 @@
 		(dnp no)
 		(uuid "e75a8808-45de-56c8-a81c-d896d8c595fd")
 		(property "Reference" "R1110"
-			(at 79.375 211.455 0)
+			(at 79.375 221.615 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18574,7 +18378,7 @@
 			)
 		)
 		(property "Value" "2k2"
-			(at 79.375 213.995 0)
+			(at 79.375 224.155 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18583,7 +18387,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 77.47 210.82 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18592,7 +18396,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 77.47 210.82 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18601,7 +18405,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 2.2k 0603 1% 100mW"
-			(at 77.47 210.82 0)
+			(at 77.47 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18828,7 +18632,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 152.4 97.79 0)
+		(at 160.02 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18836,7 +18640,7 @@
 		(dnp no)
 		(uuid "ed7ce3c5-0082-52bd-8300-499432b4032f")
 		(property "Reference" "#PWR1125"
-			(at 152.4 91.44 0)
+			(at 160.02 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18845,7 +18649,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 152.4 93.98 0)
+			(at 160.02 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18853,7 +18657,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 152.4 97.79 0)
+			(at 160.02 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18862,7 +18666,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 152.4 97.79 0)
+			(at 160.02 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18871,7 +18675,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 152.4 97.79 0)
+			(at 160.02 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18893,7 +18697,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 77.47 255.27 0)
+		(at 67.31 257.81 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18901,7 +18705,7 @@
 		(dnp no)
 		(uuid "f04106a7-2143-5b6b-8c80-098470592ed1")
 		(property "Reference" "#PWR1121"
-			(at 77.47 255.27 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18910,7 +18714,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 77.47 251.46 0)
+			(at 67.31 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18918,7 +18722,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 77.47 255.27 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18927,7 +18731,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 77.47 255.27 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18936,7 +18740,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 77.47 255.27 0)
+			(at 67.31 257.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18958,7 +18762,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:Header_Male_6-way_1-row_Straight_2.54mm_THT")
-		(at 25.4 186.69 0)
+		(at 25.4 207.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18966,7 +18770,7 @@
 		(dnp no)
 		(uuid "f19e9e70-002d-54a2-a33f-43787fd0d28e")
 		(property "Reference" "J1101"
-			(at 20.32 176.53 0)
+			(at 20.32 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18975,7 +18779,7 @@
 			)
 		)
 		(property "Value" "1x6 2.54mm"
-			(at 19.05 196.85 0)
+			(at 19.05 217.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18984,7 +18788,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:Adam_Tech_PH1-06-UA"
-			(at 25.4 186.69 0)
+			(at 25.4 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18993,7 +18797,7 @@
 			)
 		)
 		(property "Datasheet" "https://app.adam-tech.com/products/download/data_sheet/201605/ph1-xx-ua-data-sheet.pdf"
-			(at 25.4 186.69 0)
+			(at 25.4 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19002,7 +18806,7 @@
 			)
 		)
 		(property "Description" "6 Circuit 2.54mm pitch, Single Row, Straight, THT"
-			(at 25.4 186.69 0)
+			(at 25.4 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19039,7 +18843,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 156.21 252.73 0)
+		(at 156.21 250.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19047,7 +18851,7 @@
 		(dnp no)
 		(uuid "f4113040-6afb-5098-95b4-84f71192e23d")
 		(property "Reference" "#PWR1134"
-			(at 156.21 246.38 0)
+			(at 156.21 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19056,7 +18860,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 156.21 256.54 0)
+			(at 156.21 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19064,7 +18868,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 156.21 252.73 0)
+			(at 156.21 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19073,7 +18877,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 156.21 252.73 0)
+			(at 156.21 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19082,7 +18886,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 156.21 252.73 0)
+			(at 156.21 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19104,7 +18908,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_100R_0603")
-		(at 81.28 236.22 90)
+		(at 77.47 240.03 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19112,7 +18916,7 @@
 		(dnp no)
 		(uuid "f9c3b5bd-5b87-5ebf-8aba-45104367924f")
 		(property "Reference" "R1131"
-			(at 83.82 234.188 270)
+			(at 80.01 237.998 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19120,7 +18924,7 @@
 			)
 		)
 		(property "Value" "100R"
-			(at 83.82 238.506 270)
+			(at 80.01 242.316 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19128,7 +18932,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 81.28 236.22 270)
+			(at 77.47 240.03 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19137,7 +18941,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 81.28 236.22 270)
+			(at 77.47 240.03 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19146,7 +18950,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 100R 0603 1% 100mW - horizontal variant"
-			(at 81.28 236.22 270)
+			(at 77.47 240.03 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19155,7 +18959,7 @@
 			)
 		)
 		(property "mpn" "ERJ-3EKF1000V"
-			(at 81.28 236.22 270)
+			(at 77.47 240.03 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19164,7 +18968,7 @@
 			)
 		)
 		(property "gpn" "GPR0603100R"
-			(at 81.28 236.22 270)
+			(at 77.47 240.03 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19173,7 +18977,7 @@
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 81.28 236.22 270)
+			(at 77.47 240.03 270)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19267,7 +19071,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 20.32 156.21 0)
+		(at 20.32 158.75 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19275,7 +19079,7 @@
 		(dnp no)
 		(uuid "fc232ea2-013a-50bc-9386-c070b5f0d204")
 		(property "Reference" "#PWR1111"
-			(at 20.32 149.86 0)
+			(at 20.32 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19284,7 +19088,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 20.32 152.4 0)
+			(at 20.32 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19292,7 +19096,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 20.32 156.21 0)
+			(at 20.32 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19301,7 +19105,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 20.32 156.21 0)
+			(at 20.32 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19310,7 +19114,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 20.32 156.21 0)
+			(at 20.32 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19398,7 +19202,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
-		(at 69.85 242.57 0)
+		(at 59.69 246.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19406,7 +19210,7 @@
 		(dnp no)
 		(uuid "fe8fccc4-5ffd-5c76-9f13-ee34680e717c")
 		(property "Reference" "R1112"
-			(at 71.755 243.205 0)
+			(at 62.23 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19415,7 +19219,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 71.755 247.015 0)
+			(at 62.23 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19424,7 +19228,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 69.85 242.57 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19433,7 +19237,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 69.85 242.57 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19442,7 +19246,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
-			(at 69.85 242.57 0)
+			(at 59.69 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19467,7 +19271,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
-		(at 62.23 228.6 0)
+		(at 52.07 234.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19475,7 +19279,7 @@
 		(dnp no)
 		(uuid "ff1c6137-a8ab-59b0-a58d-55da2c1bd779")
 		(property "Reference" "R1111"
-			(at 64.135 229.235 0)
+			(at 54.61 236.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19484,7 +19288,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 64.135 233.045 0)
+			(at 54.61 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19493,7 +19297,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 62.23 228.6 0)
+			(at 52.07 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19502,7 +19306,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 62.23 228.6 0)
+			(at 52.07 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19511,7 +19315,7 @@
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
-			(at 62.23 228.6 0)
+			(at 52.07 234.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)

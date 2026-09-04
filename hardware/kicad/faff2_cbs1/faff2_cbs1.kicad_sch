@@ -28,7 +28,7 @@
 	)
 	(text "GPIO / TIM15 / TIM1_BKIN2"
 		(exclude_from_sim no)
-		(at 93.98 135.89 0)
+		(at 92.71 142.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -39,7 +39,7 @@
 	)
 	(text "SPI3 + MCO2 clock"
 		(exclude_from_sim no)
-		(at 93.98 62.23 0)
+		(at 93.98 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -50,7 +50,7 @@
 	)
 	(text "TIM5 encoder mode"
 		(exclude_from_sim no)
-		(at 93.98 91.44 0)
+		(at 93.98 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -61,7 +61,7 @@
 	)
 	(text "SPI2 CONFIG bus + ADS1120 nCS"
 		(exclude_from_sim no)
-		(at 210.82 116.84 0)
+		(at 210.82 119.38 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -72,7 +72,7 @@
 	)
 	(text "TIM1 PWM, ADC1/2 sense, TIM3"
 		(exclude_from_sim no)
-		(at 210.82 53.34 0)
+		(at 210.82 58.42 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -83,7 +83,7 @@
 	)
 	(text "I2C1 calibration EEPROM"
 		(exclude_from_sim no)
-		(at 93.98 116.84 0)
+		(at 93.98 121.92 0)
 		(effects
 			(font
 				(size 1.27 1.27)

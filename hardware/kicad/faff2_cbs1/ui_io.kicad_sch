@@ -4408,16 +4408,6 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 30.48) (xy 209.55 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b3c22135-a3ca-5d29-9a41-e5f45b735d05")
-	)
-	(wire
-		(pts
 			(xy 167.64 205.74) (xy 167.64 213.36)
 		)
 		(stroke
@@ -4458,7 +4448,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 25.4) (xy 204.47 30.48)
+			(xy 204.47 25.4) (xy 204.47 29.21)
 		)
 		(stroke
 			(width 0)
@@ -5369,21 +5359,19 @@
 		(dnp no)
 		(uuid "30e0a69f-06c6-5056-9391-59df5184d6c3")
 		(property "Reference" "R907"
-			(at 188.595 26.67 0)
+			(at 186.69 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "39R"
-			(at 186.055 29.21 0)
+			(at 186.69 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
@@ -6991,7 +6979,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 209.55 35.56 0)
+		(at 204.47 34.29 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6999,7 +6987,7 @@
 		(dnp no)
 		(uuid "7371b077-e34b-5213-8d8e-992eb0e11b78")
 		(property "Reference" "#PWR912"
-			(at 209.55 41.91 0)
+			(at 204.47 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7008,7 +6996,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 209.55 39.37 0)
+			(at 204.47 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7016,7 +7004,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 209.55 35.56 0)
+			(at 204.47 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7025,7 +7013,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 209.55 35.56 0)
+			(at 204.47 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7034,7 +7022,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 209.55 35.56 0)
+			(at 204.47 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7043,7 +7031,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 209.55 35.56 0)
+			(at 204.47 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7551,7 +7539,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Diodes:ESD8351XV2T1G")
-		(at 204.47 30.48 0)
+		(at 204.47 29.21 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7559,7 +7547,7 @@
 		(dnp no)
 		(uuid "8911358c-ffba-507e-8f06-ec024ffab978")
 		(property "Reference" "D903"
-			(at 203.2 33.02 0)
+			(at 201.93 30.48 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7568,7 +7556,7 @@
 			)
 		)
 		(property "Value" "ESD8351XV2T1G"
-			(at 203.2 35.56 0)
+			(at 201.93 33.02 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7577,7 +7565,7 @@
 			)
 		)
 		(property "Footprint" "Amodo:SC-79 (SOD523)"
-			(at 204.47 27.94 0)
+			(at 207.01 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7586,7 +7574,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.onsemi.com/download/data-sheet/pdf/esd8351-d.pdf"
-			(at 204.47 27.94 0)
+			(at 207.01 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7595,7 +7583,7 @@
 			)
 		)
 		(property "Description" "Unidirectional ESD protection - 3.3 V, SOD523, 0.55 pF"
-			(at 204.47 27.94 0)
+			(at 207.01 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7604,7 +7592,7 @@
 			)
 		)
 		(property "mpn" "ESD8351XV2T1G"
-			(at 204.47 27.94 0)
+			(at 207.01 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7613,7 +7601,7 @@
 			)
 		)
 		(property "SymLifecycle" "reviewed"
-			(at 204.47 27.94 0)
+			(at 207.01 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)

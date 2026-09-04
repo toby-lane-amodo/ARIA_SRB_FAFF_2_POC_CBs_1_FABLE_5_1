@@ -3256,12 +3256,6 @@
 		(uuid "08ada235-f4f1-5d95-80fc-f7b15dfff5f0")
 	)
 	(junction
-		(at 44.45 52.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1d83a47c-d5ec-52b0-b9a8-12fb867b94d1")
-	)
-	(junction
 		(at 344.17 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3284,6 +3278,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "57df966b-c7ca-5377-92e3-3185a6c2540b")
+	)
+	(junction
+		(at 44.45 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "582d110c-0076-42fb-bd84-0a36ed8c02ae")
 	)
 	(junction
 		(at 266.7 71.12)
@@ -3653,16 +3653,6 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 52.07) (xy 44.45 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4df57fa9-d997-56a6-9057-bcebec16ba29")
-	)
-	(wire
-		(pts
 			(xy 228.6 71.12) (xy 266.7 71.12)
 		)
 		(stroke
@@ -3683,7 +3673,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 41.91) (xy 57.15 82.55)
+			(xy 57.15 41.91) (xy 57.15 49.53)
 		)
 		(stroke
 			(width 0)
@@ -4083,7 +4073,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 82.55) (xy 57.15 82.55)
+			(xy 44.45 49.53) (xy 57.15 49.53)
 		)
 		(stroke
 			(width 0)
@@ -4252,7 +4242,7 @@
 		(uuid "4a6932d7-7bca-599f-a0df-57b74890ed7c")
 	)
 	(label "V0_IN"
-		(at 46.99 82.55 0)
+		(at 46.99 49.53 0)
 		(effects
 			(font
 				(size 1.27 1.27)
