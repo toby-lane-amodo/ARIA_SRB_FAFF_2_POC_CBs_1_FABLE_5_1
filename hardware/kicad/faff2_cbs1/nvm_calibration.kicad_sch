@@ -102,8 +102,7 @@
 			(symbol "CAP_MLCC_100nF_0603_20%_50V_0_1"
 				(polyline
 					(pts
-						(xy -1.524 0.508)
-						(xy 1.524 0.508)
+						(xy -1.524 0.508) (xy 1.524 0.508)
 					)
 					(stroke
 						(width 0.3048)
@@ -115,8 +114,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.524 -0.508)
-						(xy 1.524 -0.508)
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
 					)
 					(stroke
 						(width 0.3302)
@@ -653,8 +651,7 @@
 			(symbol "JUMPER_SOLDERABLE_NC_0_1"
 				(polyline
 					(pts
-						(xy 2.286 -1.016)
-						(xy 2.286 -0.254)
+						(xy 2.286 -1.016) (xy 2.286 -0.254)
 					)
 					(stroke
 						(width 0)
@@ -690,8 +687,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.286 -1.524)
-						(xy 2.286 -2.286)
+						(xy 2.286 -1.524) (xy 2.286 -2.286)
 					)
 					(stroke
 						(width 0)
@@ -703,8 +699,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.286 -1.524)
-						(xy 2.794 -1.524)
+						(xy 2.286 -1.524) (xy 2.794 -1.524)
 					)
 					(stroke
 						(width 0)
@@ -716,8 +711,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.794 -1.016)
-						(xy 2.286 -1.016)
+						(xy 2.794 -1.016) (xy 2.286 -1.016)
 					)
 					(stroke
 						(width 0)
@@ -729,8 +723,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.794 -1.016)
-						(xy 2.794 -0.254)
+						(xy 2.794 -1.016) (xy 2.794 -0.254)
 					)
 					(stroke
 						(width 0)
@@ -766,8 +759,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.794 -1.524)
-						(xy 2.794 -2.286)
+						(xy 2.794 -1.524) (xy 2.794 -2.286)
 					)
 					(stroke
 						(width 0)
@@ -907,8 +899,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.286 -2.286)
-						(xy 2.286 -0.254)
+						(xy 2.286 -2.286) (xy 2.286 -0.254)
 					)
 					(stroke
 						(width 0)
@@ -944,8 +935,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.794 -2.286)
-						(xy 2.794 -0.254)
+						(xy 2.794 -2.286) (xy 2.794 -0.254)
 					)
 					(stroke
 						(width 0)
@@ -1072,11 +1062,7 @@
 			(symbol "RES_TF_0R_0603_1_1"
 				(polyline
 					(pts
-						(xy 0 -1.016)
-						(xy 1.016 -1.397)
-						(xy 0 -1.778)
-						(xy -1.016 -2.159)
-						(xy 0 -2.54)
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -1088,11 +1074,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 -2.54)
-						(xy 1.016 -2.921)
-						(xy 0 -3.302)
-						(xy -1.016 -3.683)
-						(xy 0 -4.064)
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
 					)
 					(stroke
 						(width 0)
@@ -1224,11 +1206,7 @@
 			(symbol "RES_TF_10k_0603_1_1"
 				(polyline
 					(pts
-						(xy 0 -1.016)
-						(xy 1.016 -1.397)
-						(xy 0 -1.778)
-						(xy -1.016 -2.159)
-						(xy 0 -2.54)
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -1240,11 +1218,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 -2.54)
-						(xy 1.016 -2.921)
-						(xy 0 -3.302)
-						(xy -1.016 -3.683)
-						(xy 0 -4.064)
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
 					)
 					(stroke
 						(width 0)
@@ -1376,11 +1350,7 @@
 			(symbol "RES_TF_4.7k_0603_1_1"
 				(polyline
 					(pts
-						(xy 0 -1.016)
-						(xy 1.016 -1.397)
-						(xy 0 -1.778)
-						(xy -1.016 -2.159)
-						(xy 0 -2.54)
+						(xy 0 -1.016) (xy 1.016 -1.397) (xy 0 -1.778) (xy -1.016 -2.159) (xy 0 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -1392,11 +1362,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 -2.54)
-						(xy 1.016 -2.921)
-						(xy 0 -3.302)
-						(xy -1.016 -3.683)
-						(xy 0 -4.064)
+						(xy 0 -2.54) (xy 1.016 -2.921) (xy 0 -3.302) (xy -1.016 -3.683) (xy 0 -4.064)
 					)
 					(stroke
 						(width 0)
@@ -1518,8 +1484,7 @@
 			(symbol "+3V3_0_1"
 				(polyline
 					(pts
-						(xy -0.762 1.27)
-						(xy 0 2.54)
+						(xy -0.762 1.27) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1531,8 +1496,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54)
-						(xy 0.762 1.27)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -1544,8 +1508,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0)
-						(xy 0 2.54)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1652,12 +1615,7 @@
 			(symbol "GND_0_1"
 				(polyline
 					(pts
-						(xy 0 0)
-						(xy 0 -1.27)
-						(xy 1.27 -1.27)
-						(xy 0 -2.54)
-						(xy -1.27 -1.27)
-						(xy 0 -1.27)
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -1693,8 +1651,8 @@
 		)
 	)
 	(rectangle
-		(start 15.2400 12.7000)
-		(end 83.8200 93.9800)
+		(start 15.24 12.7)
+		(end 83.82 93.98)
 		(stroke
 			(width 0.2)
 			(type solid)
@@ -1702,46 +1660,175 @@
 		(fill
 			(type none)
 		)
-		(uuid "729ee4ab-b557-5fd8-8a0e-c16accdb2d2c")
+		(uuid 729ee4ab-b557-5fd8-8a0e-c16accdb2d2c)
+	)
+	(rectangle
+		(start 15.24 99.06)
+		(end 162.56 132.08)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(uuid a39dc0ba-5eb4-52fa-baa4-123325fbf698)
+	)
+	(rectangle
+		(start 86.36 12.7)
+		(end 162.56 93.98)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(uuid aa1092ac-e5c8-53ec-aa18-bd283ae8f597)
+	)
+	(text "R801/R802 are the removable links of TEST_PLAN 4: lift\neither to drop its pull-up.  SB801/SB802 are cut to take\nthe EEPROM off I2C1 while the bus stays pulled up -\nthis block owns that break, so mcu must not duplicate\nit.  The SDA pull-up crosses the SCL run, no junction."
+		(exclude_from_sim no)
+		(at 16.51 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "105bd7d2-e09f-55f1-8b9e-484c80985678")
+	)
+	(text "BLOCK NOTES - nvm_calibration\n\nU1 = Microchip 24FC16T-I/OT, 16 kbit (2048 x 8) I2C EEPROM in SOT-23-5.\nPin map verified against the datasheet package drawing (DS20001703R p.1):\n  1 SCL   2 VSS   3 SDA   4 VCC   5 WP.\n1.7-5.5 V and 1 MHz capable, so it keeps up with I2C1 at either 400 kHz or\nFast-mode Plus, and 4 million erase/write cycles covers repeated calibration.\n\n2 KB is sized for coefficients, not tables: force and temperature calibration\nconstants, the variant (V50N / V10N - see DEC-0010, where the variants differ\nonly by a calibration constant), board serial number and build state.  Bulk\nforce profiles live in the OCTOSPI1 RAM on the mcu sheet (DEC-0006), not here.\n\nADDRESSING CAVEAT.  The 24xx16 uses all three block-select bits internally, so\nit answers to the WHOLE 1010xxx address space and A0/A1/A2 do not exist on the\npart.  No second 1010-family device can share I2C1.  It is the only device on\nthe bus today; if another is ever added, swap to a smaller 24xx02/04 first.\n\n4k7 pull-ups suit 400 kHz on a short board-level bus with one load.  They are\nthe only pull-ups on I2C1: the mcu block must not add its own."
+		(exclude_from_sim no)
+		(at 15.24 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "1ffe50d9-4e8b-5859-b9ba-c05194388d64")
 	)
 	(text "I2C1 BUS, PULL-UPS, ISOLATION"
 		(exclude_from_sim no)
-		(at 16.5100 13.9700 0)
+		(at 16.51 13.97 0)
 		(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left top)
+			(font
+				(size 1.524 1.524)
 			)
+			(justify left top)
+		)
 		(uuid "4c9620e1-9ada-55d9-91d6-8ec430f4d7e7")
 	)
-	(hierarchical_label "EEPROM_SCL"
-		(shape bidirectional)
-		(at 33.0200 40.6400 180)
-		(fields_autoplaced yes)
+	(text "GND hooks beside TP801/TP802 for the scope or analyser clips."
+		(exclude_from_sim no)
+		(at 20.32 124.46 0)
 		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right bottom)
+			(font
+				(size 1.27 1.27)
 			)
-		(uuid "c98290db-d903-5025-9f75-6e836606306b")
+			(justify left top)
+		)
+		(uuid "84131e22-f823-558a-8913-266cee39fe15")
 	)
-	(hierarchical_label "EEPROM_SDA"
-		(shape bidirectional)
-		(at 33.0200 50.8000 180)
-		(fields_autoplaced yes)
+	(text "EEPROM, DECOUPLING, WRITE PROTECT"
+		(exclude_from_sim no)
+		(at 87.63 13.97 0)
 		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right bottom)
+			(font
+				(size 1.524 1.524)
 			)
-		(uuid "7c749966-141b-5b7f-8713-35396cc9de7f")
+			(justify left top)
+		)
+		(uuid "84219f8d-0b81-57f1-99bf-e8b76739e017")
+	)
+	(text "GROUND HOOKS"
+		(exclude_from_sim no)
+		(at 16.51 100.33 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left top)
+		)
+		(uuid "a4ade720-d41d-5414-bd34-7a613ebcf96e")
+	)
+	(text "+3V3 and GND are generated in power_rails and enter this block through the\nhierarchy; nothing here drives them, so ERC reports power_pin_not_driven\nuntil that sheet lands.  See docs/decisions/actuator-sch-periph.md."
+		(exclude_from_sim no)
+		(at 71.12 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "d01de9c1-5856-5ecd-a801-806567520df3")
+	)
+	(text "WP is ACTIVE HIGH.  R805 holds it low, so the part is\nwritable and firmware can store calibration at any\ntime; solder SB803 to lock the device permanently.  TP3\nlets a jig drive WP either way.  This resolves OQ-06 -\nno MCU pin is spent on write protect."
+		(exclude_from_sim no)
+		(at 88.9 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "de87aba1-b73c-5756-86fb-5b7e5e91d70a")
+	)
+	(junction
+		(at 63.5 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "121a862a-c5e2-5b08-a4e8-4dc4ed1519aa")
+	)
+	(junction
+		(at 137.16 63.5)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "48603140-6fed-581f-8a9a-ba60b457cbb6")
+	)
+	(junction
+		(at 124.46 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6781ff62-2b68-5ffe-a76a-e525eed8e0dc")
+	)
+	(junction
+		(at 63.5 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "70398e14-05eb-578c-a04a-5fdd84c33897")
+	)
+	(junction
+		(at 53.34 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a433d19f-5f97-5da6-a756-a69eeae13630")
+	)
+	(junction
+		(at 43.18 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b4a9ea17-8729-5e23-b9de-908889cac713")
+	)
+	(junction
+		(at 127 63.5)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b568e8ab-7856-5808-9883-4034e4a853d1")
 	)
 	(wire
 		(pts
-			(xy 33.0200 40.6400) (xy 43.1800 40.6400)
+			(xy 152.4 63.5) (xy 152.4 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0870d95e-be53-56e7-916b-35cfbf78ac83")
+	)
+	(wire
+		(pts
+			(xy 33.02 40.64) (xy 43.18 40.64)
 		)
 		(stroke
 			(width 0)
@@ -1751,341 +1838,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.1800 40.6400) (xy 63.5000 40.6400)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4adef09e-6a01-523f-9d9d-0def258aeb84")
-	)
-	(wire
-		(pts
-			(xy 63.5000 40.6400) (xy 73.6600 40.6400)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dc7424f4-689a-5804-a5bf-ba647a628710")
-	)
-	(junction
-		(at 43.1800 40.6400)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b4a9ea17-8729-5e23-b9de-908889cac713")
-	)
-	(junction
-		(at 63.5000 40.6400)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "121a862a-c5e2-5b08-a4e8-4dc4ed1519aa")
-	)
-	(wire
-		(pts
-			(xy 43.1800 22.8600) (xy 43.1800 25.4000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d16bbb0-09ff-5234-bb27-d20135df1b43")
-	)
-	(wire
-		(pts
-			(xy 43.1800 30.4800) (xy 43.1800 33.0200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ad625dac-dfe4-5e55-b1a6-c373b646eaab")
-	)
-	(wire
-		(pts
-			(xy 43.1800 38.1000) (xy 43.1800 40.6400)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cf3610db-f29d-530d-8eb4-977b4dc80245")
-	)
-	(wire
-		(pts
-			(xy 63.5000 40.6400) (xy 63.5000 35.5600)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c808d95b-2c1b-5bb9-a6b2-a6573b6ac06d")
-	)
-	(wire
-		(pts
-			(xy 78.7400 40.6400) (xy 88.9000 40.6400)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fdb7e465-1be6-5948-959c-a3812c192cfa")
-	)
-	(wire
-		(pts
-			(xy 33.0200 50.8000) (xy 53.3400 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e75163c6-501a-5fe6-9e6f-3289e3098f99")
-	)
-	(wire
-		(pts
-			(xy 53.3400 50.8000) (xy 63.5000 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e7e19f24-e77c-56f6-a5fa-aef5a873e6ec")
-	)
-	(wire
-		(pts
-			(xy 63.5000 50.8000) (xy 73.6600 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ef9ed6b-3f0c-50e3-b32e-be5e748e4468")
-	)
-	(junction
-		(at 53.3400 50.8000)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a433d19f-5f97-5da6-a756-a69eeae13630")
-	)
-	(junction
-		(at 63.5000 50.8000)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "70398e14-05eb-578c-a04a-5fdd84c33897")
-	)
-	(wire
-		(pts
-			(xy 53.3400 22.8600) (xy 53.3400 25.4000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "af48809e-2ef3-53c1-aec0-e7aad8f5c2c0")
-	)
-	(wire
-		(pts
-			(xy 53.3400 30.4800) (xy 53.3400 33.0200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cfe57531-d7ae-5ba7-89be-567e91405e6c")
-	)
-	(wire
-		(pts
-			(xy 53.3400 38.1000) (xy 53.3400 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93f4a271-96dc-54f9-920b-9d2815b0189f")
-	)
-	(wire
-		(pts
-			(xy 63.5000 50.8000) (xy 63.5000 45.7200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "74953dd8-1c6b-5166-a96b-35a4acdbb7a6")
-	)
-	(wire
-		(pts
-			(xy 78.7400 50.8000) (xy 86.3600 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93d5a8f1-7cdb-5b2d-a1b6-4b0cc22e31bc")
-	)
-	(wire
-		(pts
-			(xy 88.9000 40.6400) (xy 88.9000 45.7200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "70e92593-ca97-5bf7-bb0e-b06809230878")
-	)
-	(wire
-		(pts
-			(xy 88.9000 45.7200) (xy 91.4400 45.7200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e451f0e6-f50e-589f-909f-0e9fe6a9fb69")
-	)
-	(wire
-		(pts
-			(xy 86.3600 50.8000) (xy 91.4400 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a1859dea-a1e3-5bab-bfce-01dd1f46d8c7")
-	)
-	(text "R801/R802 are the removable links of TEST_PLAN 4: lift\neither to drop its pull-up.  SB801/SB802 are cut to take\nthe EEPROM off I2C1 while the bus stays pulled up -\nthis block owns that break, so mcu must not duplicate\nit.  The SDA pull-up crosses the SCL run, no junction."
-		(exclude_from_sim no)
-		(at 16.51 66.04 0)
-		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		(uuid "105bd7d2-e09f-55f1-8b9e-484c80985678")
-	)
-	(rectangle
-		(start 86.3600 12.7000)
-		(end 162.5600 93.9800)
-		(stroke
-			(width 0.2)
-			(type solid)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "aa1092ac-e5c8-53ec-aa18-bd283ae8f597")
-	)
-	(text "EEPROM, DECOUPLING, WRITE PROTECT"
-		(exclude_from_sim no)
-		(at 87.6300 13.9700 0)
-		(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left top)
-			)
-		(uuid "84219f8d-0b81-57f1-99bf-e8b76739e017")
-	)
-	(wire
-		(pts
-			(xy 111.7600 45.7200) (xy 124.4600 45.7200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "60ac9192-51b9-5d99-84d9-fcb725e32dd1")
-	)
-	(wire
-		(pts
-			(xy 124.4600 38.1000) (xy 124.4600 45.7200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b705f16a-7df4-5f00-912b-fb0ea55db7e1")
-	)
-	(junction
-		(at 124.4600 45.7200)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6781ff62-2b68-5ffe-a76a-e525eed8e0dc")
-	)
-	(wire
-		(pts
-			(xy 124.4600 45.7200) (xy 124.4600 46.9900)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ccc3e3b9-18a6-5adc-b217-bda00d5938ae")
-	)
-	(wire
-		(pts
-			(xy 124.4600 52.0700) (xy 124.4600 54.6100)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "98a6fe53-096b-5fd7-be85-f8041edef43c")
-	)
-	(wire
-		(pts
-			(xy 111.7600 50.8000) (xy 116.8400 50.8000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "265c0ecd-159f-577a-86b7-4a191a65d1c4")
-	)
-	(wire
-		(pts
-			(xy 116.8400 50.8000) (xy 116.8400 58.4200)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "313a3372-b69b-5078-93bf-1903d68feba1")
-	)
-	(wire
-		(pts
-			(xy 111.7600 48.2600) (xy 121.9200 48.2600)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5f123e38-4eb7-54ec-9c23-7af1b05dd69c")
-	)
-	(wire
-		(pts
-			(xy 121.9200 48.2600) (xy 121.9200 63.5000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d8e7437-43fc-5019-8254-4096c893d334")
-	)
-	(wire
-		(pts
-			(xy 121.9200 63.5000) (xy 127.0000 63.5000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "803ba749-2c9b-52ff-9c4d-3574d87c100d")
-	)
-	(wire
-		(pts
-			(xy 127.0000 63.5000) (xy 137.1600 63.5000)
+			(xy 127 63.5) (xy 137.16 63.5)
 		)
 		(stroke
 			(width 0)
@@ -2095,49 +1848,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.1600 63.5000) (xy 142.2400 63.5000)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3f909a91-cff4-5ea5-870d-de1874aef202")
-	)
-	(junction
-		(at 127.0000 63.5000)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b568e8ab-7856-5808-9883-4034e4a853d1")
-	)
-	(junction
-		(at 137.1600 63.5000)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "48603140-6fed-581f-8a9a-ba60b457cbb6")
-	)
-	(wire
-		(pts
-			(xy 127.0000 63.5000) (xy 127.0000 66.0400)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ef0fc08c-0ce1-55fe-a312-697612da6fc7")
-	)
-	(wire
-		(pts
-			(xy 127.0000 71.1200) (xy 127.0000 73.6600)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "da08cc39-1b52-5e3f-9ca7-a1a77fe25548")
-	)
-	(wire
-		(pts
-			(xy 137.1600 63.5000) (xy 137.1600 58.4200)
+			(xy 137.16 63.5) (xy 137.16 58.42)
 		)
 		(stroke
 			(width 0)
@@ -2147,7 +1858,137 @@
 	)
 	(wire
 		(pts
-			(xy 147.3200 63.5000) (xy 152.4000 63.5000)
+			(xy 111.76 50.8) (xy 116.84 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "265c0ecd-159f-577a-86b7-4a191a65d1c4")
+	)
+	(wire
+		(pts
+			(xy 116.84 50.8) (xy 116.84 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "313a3372-b69b-5078-93bf-1903d68feba1")
+	)
+	(wire
+		(pts
+			(xy 43.18 22.86) (xy 43.18 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d16bbb0-09ff-5234-bb27-d20135df1b43")
+	)
+	(wire
+		(pts
+			(xy 121.92 48.26) (xy 121.92 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d8e7437-43fc-5019-8254-4096c893d334")
+	)
+	(wire
+		(pts
+			(xy 137.16 63.5) (xy 142.24 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f909a91-cff4-5ea5-870d-de1874aef202")
+	)
+	(wire
+		(pts
+			(xy 33.02 114.3) (xy 33.02 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48977eb9-bc5c-5f14-8d60-f9d91d4b77a2")
+	)
+	(wire
+		(pts
+			(xy 43.18 40.64) (xy 63.5 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4adef09e-6a01-523f-9d9d-0def258aeb84")
+	)
+	(wire
+		(pts
+			(xy 111.76 48.26) (xy 121.92 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5f123e38-4eb7-54ec-9c23-7af1b05dd69c")
+	)
+	(wire
+		(pts
+			(xy 111.76 45.72) (xy 124.46 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "60ac9192-51b9-5d99-84d9-fcb725e32dd1")
+	)
+	(wire
+		(pts
+			(xy 88.9 40.64) (xy 88.9 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70e92593-ca97-5bf7-bb0e-b06809230878")
+	)
+	(wire
+		(pts
+			(xy 63.5 50.8) (xy 63.5 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74953dd8-1c6b-5166-a96b-35a4acdbb7a6")
+	)
+	(wire
+		(pts
+			(xy 121.92 63.5) (xy 127 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "803ba749-2c9b-52ff-9c4d-3574d87c100d")
+	)
+	(wire
+		(pts
+			(xy 63.5 50.8) (xy 73.66 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ef9ed6b-3f0c-50e3-b32e-be5e748e4468")
+	)
+	(wire
+		(pts
+			(xy 147.32 63.5) (xy 152.4 63.5)
 		)
 		(stroke
 			(width 0)
@@ -2157,51 +1998,157 @@
 	)
 	(wire
 		(pts
-			(xy 152.4000 63.5000) (xy 152.4000 55.8800)
+			(xy 78.74 50.8) (xy 91.44 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "0870d95e-be53-56e7-916b-35cfbf78ac83")
-	)
-	(text "WP is ACTIVE HIGH.  R805 holds it low, so the part is\nwritable and firmware can store calibration at any\ntime; solder SB803 to lock the device permanently.  TP3\nlets a jig drive WP either way.  This resolves OQ-06 -\nno MCU pin is spent on write protect."
-		(exclude_from_sim no)
-		(at 88.9000 81.2800 0)
-		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		(uuid "de87aba1-b73c-5756-86fb-5b7e5e91d70a")
-	)
-	(rectangle
-		(start 15.2400 99.0600)
-		(end 162.5600 132.0800)
-		(stroke
-			(width 0.2)
-			(type solid)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "a39dc0ba-5eb4-52fa-baa4-123325fbf698")
-	)
-	(text "GROUND HOOKS"
-		(exclude_from_sim no)
-		(at 16.5100 100.3300 0)
-		(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left top)
-			)
-		(uuid "a4ade720-d41d-5414-bd34-7a613ebcf96e")
+		(uuid "93d5a8f1-7cdb-5b2d-a1b6-4b0cc22e31bc")
 	)
 	(wire
 		(pts
-			(xy 22.8600 114.3000) (xy 22.8600 119.3800)
+			(xy 53.34 38.1) (xy 53.34 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93f4a271-96dc-54f9-920b-9d2815b0189f")
+	)
+	(wire
+		(pts
+			(xy 124.46 52.07) (xy 124.46 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "98a6fe53-096b-5fd7-be85-f8041edef43c")
+	)
+	(wire
+		(pts
+			(xy 43.18 30.48) (xy 43.18 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad625dac-dfe4-5e55-b1a6-c373b646eaab")
+	)
+	(wire
+		(pts
+			(xy 53.34 22.86) (xy 53.34 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af48809e-2ef3-53c1-aec0-e7aad8f5c2c0")
+	)
+	(wire
+		(pts
+			(xy 124.46 38.1) (xy 124.46 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b705f16a-7df4-5f00-912b-fb0ea55db7e1")
+	)
+	(wire
+		(pts
+			(xy 63.5 40.64) (xy 63.5 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c808d95b-2c1b-5bb9-a6b2-a6573b6ac06d")
+	)
+	(wire
+		(pts
+			(xy 124.46 45.72) (xy 124.46 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ccc3e3b9-18a6-5adc-b217-bda00d5938ae")
+	)
+	(wire
+		(pts
+			(xy 43.18 38.1) (xy 43.18 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cf3610db-f29d-530d-8eb4-977b4dc80245")
+	)
+	(wire
+		(pts
+			(xy 53.34 30.48) (xy 53.34 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfe57531-d7ae-5ba7-89be-567e91405e6c")
+	)
+	(wire
+		(pts
+			(xy 127 71.12) (xy 127 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da08cc39-1b52-5e3f-9ca7-a1a77fe25548")
+	)
+	(wire
+		(pts
+			(xy 63.5 40.64) (xy 73.66 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dc7424f4-689a-5804-a5bf-ba647a628710")
+	)
+	(wire
+		(pts
+			(xy 88.9 45.72) (xy 91.44 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e451f0e6-f50e-589f-909f-0e9fe6a9fb69")
+	)
+	(wire
+		(pts
+			(xy 33.02 50.8) (xy 53.34 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e75163c6-501a-5fe6-9e6f-3289e3098f99")
+	)
+	(wire
+		(pts
+			(xy 53.34 50.8) (xy 63.5 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7e19f24-e77c-56f6-a5fa-aef5a873e6ec")
+	)
+	(wire
+		(pts
+			(xy 22.86 114.3) (xy 22.86 119.38)
 		)
 		(stroke
 			(width 0)
@@ -2211,138 +2158,131 @@
 	)
 	(wire
 		(pts
-			(xy 33.0200 114.3000) (xy 33.0200 119.3800)
+			(xy 127 63.5) (xy 127 66.04)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "48977eb9-bc5c-5f14-8d60-f9d91d4b77a2")
+		(uuid "ef0fc08c-0ce1-55fe-a312-697612da6fc7")
 	)
-	(text "GND hooks beside TP801/TP802 for the scope or analyser clips."
-		(exclude_from_sim no)
-		(at 20.3200 124.4600 0)
-		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		(uuid "84131e22-f823-558a-8913-266cee39fe15")
+	(wire
+		(pts
+			(xy 78.74 40.64) (xy 88.9 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdb7e465-1be6-5948-959c-a3812c192cfa")
 	)
-	(text "+3V3 and GND are generated in power_rails and enter this block through the\nhierarchy; nothing here drives them, so ERC reports power_pin_not_driven\nuntil that sheet lands.  See docs/decisions/actuator-sch-periph.md."
-		(exclude_from_sim no)
-		(at 71.1200 104.1400 0)
+	(hierarchical_label "EEPROM_SDA"
+		(shape bidirectional)
+		(at 33.02 50.8 180)
 		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
+			(font
+				(size 1.27 1.27)
 			)
-		(uuid "d01de9c1-5856-5ecd-a801-806567520df3")
+			(justify right bottom)
+		)
+		(uuid "7c749966-141b-5b7f-8713-35396cc9de7f")
 	)
-	(text "BLOCK NOTES - nvm_calibration\n\nU1 = Microchip 24FC16T-I/OT, 16 kbit (2048 x 8) I2C EEPROM in SOT-23-5.\nPin map verified against the datasheet package drawing (DS20001703R p.1):\n  1 SCL   2 VSS   3 SDA   4 VCC   5 WP.\n1.7-5.5 V and 1 MHz capable, so it keeps up with I2C1 at either 400 kHz or\nFast-mode Plus, and 4 million erase/write cycles covers repeated calibration.\n\n2 KB is sized for coefficients, not tables: force and temperature calibration\nconstants, the variant (V50N / V10N - see DEC-0010, where the variants differ\nonly by a calibration constant), board serial number and build state.  Bulk\nforce profiles live in the OCTOSPI1 RAM on the mcu sheet (DEC-0006), not here.\n\nADDRESSING CAVEAT.  The 24xx16 uses all three block-select bits internally, so\nit answers to the WHOLE 1010xxx address space and A0/A1/A2 do not exist on the\npart.  No second 1010-family device can share I2C1.  It is the only device on\nthe bus today; if another is ever added, swap to a smaller 24xx02/04 first.\n\n4k7 pull-ups suit 400 kHz on a short board-level bus with one load.  They are\nthe only pull-ups on I2C1: the mcu block must not add its own."
-		(exclude_from_sim no)
-		(at 15.2400 139.7000 0)
+	(hierarchical_label "EEPROM_SCL"
+		(shape bidirectional)
+		(at 33.02 40.64 180)
 		(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
+			(font
+				(size 1.27 1.27)
 			)
-		(uuid "1ffe50d9-4e8b-5859-b9ba-c05194388d64")
+			(justify right bottom)
+		)
+		(uuid "c98290db-d903-5025-9f75-6e836606306b")
 	)
 	(symbol
-		(lib_id "Amodo_Symbols:+3V3")
-		(at 43.1800 22.8600 0)
+		(lib_id "Amodo_Symbols:GND")
+		(at 22.86 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "50f2591e-d65f-5b3f-8121-6d4e2d5907c1")
-		(property "Reference" "#PWR801"
-			(at 43.1800 16.5100 0)
+		(uuid "028c25eb-2cd9-5c35-86e1-7108f03dbcd9")
+		(property "Reference" "#PWR808"
+			(at 22.86 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 43.18 19.05 0)
+		(property "Value" "GND"
+			(at 22.86 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 			)
 		)
 		(property "Footprint" ""
-			(at 43.1800 22.8600 0)
+			(at 22.86 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 43.1800 22.8600 0)
+			(at 22.86 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 43.1800 22.8600 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 22.86 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 43.1800 22.8600 0)
+			(at 22.86 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "a59f8cb4-09de-5b63-a270-0e6c3129bdcf")
+			(uuid "414fddfb-34bc-5736-a213-c16c2cdead66")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR801")
+					(reference "#PWR808")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 43.1800 25.4000 0)
+		(lib_id "Amodo_Resistors:JUMPER_SOLDERABLE_NO")
+		(at 142.24 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5b953ffb-c995-557b-a61a-0a318f44552c")
-		(property "Reference" "R801"
-			(at 45.0850 26.6700 0)
+		(uuid "02aa70a7-06cc-599b-92c7-a781d14348b1")
+		(property "Reference" "SB803"
+			(at 142.64 57.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2350,8 +2290,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0R"
-			(at 45.0850 29.2100 0)
+		(property "Value" "NO"
+			(at 142.64 59.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2359,82 +2299,68 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 43.1800 25.4000 0)
+		(property "Footprint" "Amodo:SOLDER_JUMPER_NO"
+			(at 142.24 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 43.1800 25.4000 0)
+			(at 142.24 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 43.1800 25.4000 0)
+		(property "Description" "Solderable jumper - default NO - Normally Open - solder to close"
+			(at 142.24 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "mpn" "RC0603FR-070RL"
-			(at 43.1800 25.4000 0)
+		(property "SymLifecycle" "draft"
+			(at 142.24 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 43.1800 25.4000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "6f3574b5-0497-5406-afe3-602505fad57e")
+			(uuid "78f840e5-debe-5bdb-a22d-60e090dd7465")
 		)
 		(pin "2"
-			(uuid "eb4b02ed-00cf-52d2-8cce-05346f2931bf")
+			(uuid "20a1d88c-aaf0-51fc-bcd2-cbaeca20c297")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "R801")
+					(reference "SB803")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TF_4.7k_0603")
-		(at 43.1800 33.0200 0)
+		(lib_id "Amodo_Connectors:TestPoint")
+		(at 137.16 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "76224d0e-9135-531e-903d-dd035cb1028f")
-		(property "Reference" "R803"
-			(at 45.0850 34.2900 0)
+		(uuid "032a3e09-8913-5677-a2f1-c8791f806303")
+		(property "Reference" "TP803"
+			(at 139.06 55.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2442,8 +2368,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 45.0850 36.8300 0)
+		(property "Value" "WP"
+			(at 139.06 57.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2451,76 +2377,49 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 43.1800 33.0200 0)
+		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
+			(at 142.24 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 43.1800 33.0200 0)
+		(property "Datasheet" "~"
+			(at 142.24 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thick Film Resistor 4.7k 0603 1% 100mW"
-			(at 43.1800 33.0200 0)
+		(property "Description" "Test Point"
+			(at 137.16 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
-			)
-		)
-		(property "mpn" "ERJ-3EKF4701V"
-			(at 43.1800 33.0200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "gpn" "GPR06034k7"
-			(at 43.1800 33.0200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 43.1800 33.0200 0)
+			(at 137.16 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "2047695b-3aa2-501a-bd1e-26ef901f57cc")
-		)
-		(pin "2"
-			(uuid "ae55f6e9-c2ea-5d2a-a107-886d20cd9c62")
+			(uuid "70b42d03-2b61-5732-9a84-86aa0be80f02")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "R803")
+					(reference "TP803")
 					(unit 1)
 				)
 			)
@@ -2528,7 +2427,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 63.5000 35.5600 0)
+		(at 63.5 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2536,7 +2435,7 @@
 		(dnp no)
 		(uuid "32c37fb6-ea45-5361-bf04-45b135906ebb")
 		(property "Reference" "TP801"
-			(at 65.4000 32.2600 0)
+			(at 65.4 32.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2551,56 +2450,50 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				
 			)
 		)
 		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 68.5800 35.5600 0)
+			(at 68.58 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 68.5800 35.5600 0)
+			(at 68.58 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Description" "Test Point"
-			(at 63.5000 35.5600 0)
+			(at 63.5 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "mpn" "5002"
-			(at 63.5000 35.5600 0)
+			(at 63.5 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 63.5000 35.5600 0)
+			(at 63.5 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
@@ -2617,170 +2510,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:JUMPER_SOLDERABLE_NC")
-		(at 73.6600 39.3700 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "db8773a1-80e2-518e-b765-13039c480694")
-		(property "Reference" "SB801"
-			(at 74.0600 34.9700 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "NC"
-			(at 74.0600 36.9700 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:SOLDER_JUMPER_NC"
-			(at 73.6600 38.1000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 73.6600 38.1000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Solderable jumper - default NC - Normally Closed - cut to break"
-			(at 73.6600 38.1000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "draft"
-			(at 73.6600 39.3700 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "63cc185a-dbf2-5888-b6dc-50a8477551b1")
-		)
-		(pin "2"
-			(uuid "1b17de84-2fde-5ecd-9ff4-61e8b3e6e68a")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "SB801")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Symbols:+3V3")
-		(at 53.3400 22.8600 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "432d7507-eaa8-545e-98e8-cab0ddd2d795")
-		(property "Reference" "#PWR802"
-			(at 53.3400 16.5100 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 53.34 19.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" ""
-			(at 53.3400 22.8600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 53.3400 22.8600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 53.3400 22.8600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 53.3400 22.8600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6fafe972-83be-5cb3-b73f-f41dd9142cce")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR802")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
-		(at 53.3400 25.4000 0)
+		(at 53.34 25.4 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2788,7 +2519,7 @@
 		(dnp no)
 		(uuid "3f66bc13-4659-5cbb-a2b3-c72af68a1157")
 		(property "Reference" "R802"
-			(at 55.2450 26.6700 0)
+			(at 55.245 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2797,7 +2528,7 @@
 			)
 		)
 		(property "Value" "0R"
-			(at 55.2450 29.2100 0)
+			(at 55.245 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2806,52 +2537,47 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 53.3400 25.4000 0)
+			(at 53.34 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 53.3400 25.4000 0)
+			(at 53.34 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
-			(at 53.3400 25.4000 0)
+			(at 53.34 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "mpn" "RC0603FR-070RL"
-			(at 53.3400 25.4000 0)
+			(at 53.34 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 53.3400 25.4000 0)
+			(at 53.34 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
@@ -2871,274 +2597,74 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TF_4.7k_0603")
-		(at 53.3400 33.0200 0)
+		(lib_id "Amodo_Symbols:+3V3")
+		(at 53.34 22.86 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a959c0e3-59a3-599e-9846-22438e22995b")
-		(property "Reference" "R804"
-			(at 55.2450 34.2900 0)
+		(uuid "432d7507-eaa8-545e-98e8-cab0ddd2d795")
+		(property "Reference" "#PWR802"
+			(at 53.34 16.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
-			)
-		)
-		(property "Value" "4.7k"
-			(at 55.2450 36.8300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 53.3400 33.0200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 53.3400 33.0200 0)
+		(property "Value" "+3V3"
+			(at 53.34 19.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thick Film Resistor 4.7k 0603 1% 100mW"
-			(at 53.3400 33.0200 0)
+		(property "Footprint" ""
+			(at 53.34 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
-			)
-		)
-		(property "mpn" "ERJ-3EKF4701V"
-			(at 53.3400 33.0200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "gpn" "GPR06034k7"
-			(at 53.3400 33.0200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 53.3400 33.0200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d509866a-31c9-5950-a3f6-ebaf636c9ff0")
-		)
-		(pin "2"
-			(uuid "2e51f03e-aa79-5f0c-968f-b9cca7969f2d")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "R804")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 63.5000 45.7200 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8173c41f-c1ff-57d0-bc22-634d4c426ada")
-		(property "Reference" "TP802"
-			(at 65.4000 42.4200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SDA"
-			(at 65.4 44.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 68.5800 45.7200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 68.5800 45.7200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 63.5000 45.7200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 63.5000 45.7200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 63.5000 45.7200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0bf00c56-0876-5a5f-8860-3b3bd3a3e290")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "TP802")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Resistors:JUMPER_SOLDERABLE_NC")
-		(at 73.6600 49.5300 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "89f154d0-74ed-5fd5-8d0a-2e53439e72ba")
-		(property "Reference" "SB802"
-			(at 74.0600 45.1300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "NC"
-			(at 74.0600 47.1300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:SOLDER_JUMPER_NC"
-			(at 73.6600 48.2600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 73.6600 48.2600 0)
+			(at 53.34 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" "Solderable jumper - default NC - Normally Closed - cut to break"
-			(at 73.6600 48.2600 0)
+		(property "Description" ""
+			(at 53.34 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "SymLifecycle" "draft"
-			(at 73.6600 49.5300 0)
+		(property "SymLifecycle" "tested"
+			(at 53.34 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "e47d8e41-009f-55f1-aee5-1805875ed220")
-		)
-		(pin "2"
-			(uuid "124c5141-5535-5eff-ba49-45f4d8ed0a3c")
+			(uuid "6fafe972-83be-5cb3-b73f-f41dd9142cce")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "SB802")
+					(reference "#PWR802")
 					(unit 1)
 				)
 			)
@@ -3146,7 +2672,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Digital_ICs:24FC16T-I/OT")
-		(at 101.6000 48.2600 0)
+		(at 101.6 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3154,7 +2680,7 @@
 		(dnp no)
 		(uuid "4bc21761-3f9c-5b0e-a1d4-132f107b5444")
 		(property "Reference" "U801"
-			(at 93.9800 41.8600 0)
+			(at 93.98 41.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3163,7 +2689,7 @@
 			)
 		)
 		(property "Value" "24FC16T-I/OT"
-			(at 93.9800 55.2600 0)
+			(at 93.98 55.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3172,52 +2698,47 @@
 			)
 		)
 		(property "Footprint" "Amodo:SOT23-5 - TI"
-			(at 101.6000 36.8300 0)
+			(at 101.6 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA16-24LC16B-24FC16-16Kbit-I2C-Serial-EEPROM-DS20001703.pdf"
-			(at 101.3460 34.2900 0)
+			(at 101.346 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Description" "16kbit I2C Serial EEPROM, SOT23-5, 1.6-5.5V, 1MHz"
-			(at 101.6000 29.2100 0)
+			(at 101.6 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "mpn" "24FC16T-I/OT"
-			(at 101.6000 31.7500 0)
+			(at 101.6 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 101.6000 26.6700 0)
+			(at 101.6 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
@@ -3247,79 +2768,414 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:+3V3")
-		(at 124.4600 38.1000 0)
+		(at 43.18 22.86 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "92ddd851-fa6f-5ff4-a8f5-74ed2a1bd405")
-		(property "Reference" "#PWR803"
-			(at 124.4600 31.7500 0)
+		(uuid "50f2591e-d65f-5b3f-8121-6d4e2d5907c1")
+		(property "Reference" "#PWR801"
+			(at 43.18 16.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Value" "+3V3"
-			(at 124.46 34.29 0)
+			(at 43.18 19.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 			)
 		)
 		(property "Footprint" ""
-			(at 124.4600 38.1000 0)
+			(at 43.18 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 124.4600 38.1000 0)
+			(at 43.18 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Description" ""
-			(at 124.4600 38.1000 0)
+			(at 43.18 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 124.4600 38.1000 0)
+			(at 43.18 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "452fe5a4-3795-55d8-b817-3c8eef2f3733")
+			(uuid "a59f8cb4-09de-5b63-a270-0e6c3129bdcf")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR803")
+					(reference "#PWR801")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 33.02 119.38 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "590d160d-8a6a-5915-97a6-d1466615a486")
+		(property "Reference" "#PWR809"
+			(at 33.02 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 33.02 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 33.02 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 33.02 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 33.02 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 33.02 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "85244fdd-edb1-5614-aedc-a3a23d287d59")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "#PWR809")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_0R_0603")
+		(at 43.18 25.4 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5b953ffb-c995-557b-a61a-0a318f44552c")
+		(property "Reference" "R801"
+			(at 45.085 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0R"
+			(at 45.085 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 43.18 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 43.18 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 0R 0603 1% 100mW"
+			(at 43.18 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "RC0603FR-070RL"
+			(at 43.18 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 43.18 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6f3574b5-0497-5406-afe3-602505fad57e")
+		)
+		(pin "2"
+			(uuid "eb4b02ed-00cf-52d2-8cce-05346f2931bf")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "R801")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 22.86 114.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "65b4aa3d-b83a-5333-b66a-049f129f9739")
+		(property "Reference" "TP804"
+			(at 24.76 111 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GND"
+			(at 24.76 113.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 27.94 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 27.94 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 22.86 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 22.86 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 22.86 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "36d56f8b-c3da-5cbc-81c5-9d5c4d78af77")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "TP804")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_4.7k_0603")
+		(at 43.18 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "76224d0e-9135-531e-903d-dd035cb1028f")
+		(property "Reference" "R803"
+			(at 45.085 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 45.085 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 43.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 43.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 4.7k 0603 1% 100mW"
+			(at 43.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF4701V"
+			(at 43.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR06034k7"
+			(at 43.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 43.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2047695b-3aa2-501a-bd1e-26ef901f57cc")
+		)
+		(pin "2"
+			(uuid "ae55f6e9-c2ea-5d2a-a107-886d20cd9c62")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "R803")
 					(unit 1)
 				)
 			)
@@ -3327,7 +3183,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_100nF_0603_20%_50V")
-		(at 124.4600 49.5300 0)
+		(at 124.46 49.53 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3335,7 +3191,7 @@
 		(dnp no)
 		(uuid "7d771dc1-be11-506b-9089-92d02d2b0736")
 		(property "Reference" "C801"
-			(at 126.3650 48.2600 0)
+			(at 126.365 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3344,7 +3200,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 126.3650 50.8000 0)
+			(at 126.365 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3353,62 +3209,56 @@
 			)
 		)
 		(property "Footprint" "Amodo:C_0603_1608Metric"
-			(at 124.4600 49.5300 0)
+			(at 124.46 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/447/KEM_C1023_X7R_AUTO_SMD-3316698.pdf"
-			(at 124.4600 49.5300 0)
+			(at 124.46 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Description" "SMD MLCC Capacitor 100nF 0603 20% X7R 50V"
-			(at 124.4600 49.5300 0)
+			(at 124.46 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "mpn" "C0603C104M5RACAUTO"
-			(at 124.4600 49.5300 0)
+			(at 124.46 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "gpn" "GPC0603104-50-X7R"
-			(at 124.4600 49.5300 0)
+			(at 124.46 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 124.4600 49.5300 0)
+			(at 124.46 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
@@ -3428,80 +3278,84 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Symbols:GND")
-		(at 124.4600 54.6100 0)
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 33.02 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "90440f68-c540-5c39-9e95-485d0c190f71")
-		(property "Reference" "#PWR804"
-			(at 124.4600 60.9600 0)
+		(uuid "7da266d3-1ee1-59fa-b616-ef32a08424b4")
+		(property "Reference" "TP805"
+			(at 34.92 111 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Value" "GND"
-			(at 124.46 58.42 0)
+			(at 34.92 113.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
+				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 124.4600 54.6100 0)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 38.1 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 124.4600 54.6100 0)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 38.1 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 124.4600 54.6100 0)
+		(property "Description" "Test Point"
+			(at 33.02 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 33.02 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 124.4600 54.6100 0)
+			(at 33.02 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "467bcdd0-c234-5d61-911e-3e509fce4cfd")
+			(uuid "b121c852-65c6-587a-8d09-30bf9d518861")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR804")
+					(reference "TP805")
 					(unit 1)
 				)
 			)
@@ -3509,7 +3363,165 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:GND")
-		(at 116.8400 58.4200 0)
+		(at 127 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "80843ee7-0ee5-5ccb-8686-1fdc11c8badf")
+		(property "Reference" "#PWR806"
+			(at 127 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 127 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 127 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 127 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 127 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 127 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8acc50f5-059b-5977-b9b3-0f18002c26d8")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "#PWR806")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Connectors:TestPointHook")
+		(at 63.5 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8173c41f-c1ff-57d0-bc22-634d4c426ada")
+		(property "Reference" "TP802"
+			(at 65.4 42.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SDA"
+			(at 65.4 44.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
+			(at 68.58 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
+			(at 68.58 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Test Point"
+			(at 63.5 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "5002"
+			(at 63.5 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 63.5 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0bf00c56-0876-5a5f-8860-3b3bd3a3e290")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "TP802")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 116.84 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3517,12 +3529,11 @@
 		(dnp no)
 		(uuid "86990995-44e9-5c12-9766-b8185f8c541d")
 		(property "Reference" "#PWR805"
-			(at 116.8400 64.7700 0)
+			(at 116.84 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
@@ -3532,46 +3543,41 @@
 				(font
 					(size 1.27 1.27)
 				)
-				
 			)
 		)
 		(property "Footprint" ""
-			(at 116.8400 58.4200 0)
+			(at 116.84 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 116.8400 58.4200 0)
+			(at 116.84 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 116.8400 58.4200 0)
+			(at 116.84 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 116.8400 58.4200 0)
+			(at 116.84 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
@@ -3588,16 +3594,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
-		(at 127.0000 66.0400 0)
+		(lib_id "Amodo_Resistors:JUMPER_SOLDERABLE_NC")
+		(at 73.66 49.53 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cf756855-7d42-59bd-948b-733d985444ba")
-		(property "Reference" "R805"
-			(at 128.9050 67.3100 0)
+		(uuid "89f154d0-74ed-5fd5-8d0a-2e53439e72ba")
+		(property "Reference" "SB802"
+			(at 74.06 45.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3605,8 +3611,234 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
-			(at 128.9050 69.8500 0)
+		(property "Value" "NC"
+			(at 74.06 47.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:SOLDER_JUMPER_NC"
+			(at 73.66 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 73.66 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Solderable jumper - default NC - Normally Closed - cut to break"
+			(at 73.66 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "draft"
+			(at 73.66 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e47d8e41-009f-55f1-aee5-1805875ed220")
+		)
+		(pin "2"
+			(uuid "124c5141-5535-5eff-ba49-45f4d8ed0a3c")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "SB802")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 124.46 54.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "90440f68-c540-5c39-9e95-485d0c190f71")
+		(property "Reference" "#PWR804"
+			(at 124.46 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 124.46 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 124.46 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 124.46 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 124.46 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 124.46 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "467bcdd0-c234-5d61-911e-3e509fce4cfd")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "#PWR804")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:+3V3")
+		(at 124.46 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "92ddd851-fa6f-5ff4-a8f5-74ed2a1bd405")
+		(property "Reference" "#PWR803"
+			(at 124.46 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 124.46 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 124.46 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 124.46 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 124.46 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 124.46 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "452fe5a4-3795-55d8-b817-3c8eef2f3733")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "#PWR803")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_4.7k_0603")
+		(at 53.34 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a959c0e3-59a3-599e-9846-22438e22995b")
+		(property "Reference" "R804"
+			(at 55.245 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 55.245 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3615,62 +3847,226 @@
 			)
 		)
 		(property "Footprint" "Amodo:R_0603_1608Metric"
-			(at 127.0000 66.0400 0)
+			(at 53.34 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
-			(at 127.0000 66.0400 0)
+			(at 53.34 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
-			(at 127.0000 66.0400 0)
+		(property "Description" "SMD Thick Film Resistor 4.7k 0603 1% 100mW"
+			(at 53.34 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "mpn" "ERJ-3EKF1002V"
-			(at 127.0000 66.0400 0)
+		(property "mpn" "ERJ-3EKF4701V"
+			(at 53.34 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "gpn" "GPR060310K"
-			(at 127.0000 66.0400 0)
+		(property "gpn" "GPR06034k7"
+			(at 53.34 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 127.0000 66.0400 0)
+			(at 53.34 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d509866a-31c9-5950-a3f6-ebaf636c9ff0")
+		)
+		(pin "2"
+			(uuid "2e51f03e-aa79-5f0c-968f-b9cca7969f2d")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "R804")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:+3V3")
+		(at 152.4 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b65fb98a-2afc-5c8c-be81-f42fc341faa0")
+		(property "Reference" "#PWR807"
+			(at 152.4 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 152.4 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 152.4 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 152.4 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "75819328-099b-5238-9cf6-9207fc90e42c")
+		)
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
+					(reference "#PWR807")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Resistors:RES_TF_10k_0603")
+		(at 127 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cf756855-7d42-59bd-948b-733d985444ba")
+		(property "Reference" "R805"
+			(at 128.905 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 128.905 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Amodo:R_0603_1608Metric"
+			(at 127 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.co.uk/datasheet/2/315/AOA0000C304-1149620.pdf"
+			(at 127 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SMD Thick Film Resistor 10k 0603 1% 100mW"
+			(at 127 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mpn" "ERJ-3EKF1002V"
+			(at 127 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gpn" "GPR060310K"
+			(at 127 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SymLifecycle" "tested"
+			(at 127 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -3690,666 +4086,81 @@
 		)
 	)
 	(symbol
-		(lib_id "Amodo_Symbols:GND")
-		(at 127.0000 73.6600 0)
+		(lib_id "Amodo_Resistors:JUMPER_SOLDERABLE_NC")
+		(at 73.66 39.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "80843ee7-0ee5-5ccb-8686-1fdc11c8badf")
-		(property "Reference" "#PWR806"
-			(at 127.0000 80.0100 0)
+		(uuid "db8773a1-80e2-518e-b765-13039c480694")
+		(property "Reference" "SB801"
+			(at 74.06 34.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
+				(justify left)
 			)
 		)
-		(property "Value" "GND"
-			(at 127 77.47 0)
+		(property "Value" "NC"
+			(at 74.06 36.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
+				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 127.0000 73.6600 0)
+		(property "Footprint" "Amodo:SOLDER_JUMPER_NC"
+			(at 73.66 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(property "Datasheet" "~"
-			(at 127.0000 73.6600 0)
+			(at 73.66 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 127.0000 73.6600 0)
+		(property "Description" "Solderable jumper - default NC - Normally Closed - cut to break"
+			(at 73.66 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 127.0000 73.6600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8acc50f5-059b-5977-b9b3-0f18002c26d8")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR806")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPoint")
-		(at 137.1600 58.4200 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "032a3e09-8913-5677-a2f1-c8791f806303")
-		(property "Reference" "TP803"
-			(at 139.0600 55.1200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "WP"
-			(at 139.06 57.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				
-			)
-		)
-		(property "Footprint" "Amodo:TestPoint_Pad_D1.0mm"
-			(at 142.2400 58.4200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 142.2400 58.4200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 137.1600 58.4200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 137.1600 58.4200 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "70b42d03-2b61-5732-9a84-86aa0be80f02")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "TP803")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Resistors:JUMPER_SOLDERABLE_NO")
-		(at 142.2400 62.2300 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "02aa70a7-06cc-599b-92c7-a781d14348b1")
-		(property "Reference" "SB803"
-			(at 142.6400 57.8300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "NO"
-			(at 142.6400 59.8300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Amodo:SOLDER_JUMPER_NO"
-			(at 142.2400 60.9600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 142.2400 60.9600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Solderable jumper - default NO - Normally Open - solder to close"
-			(at 142.2400 60.9600 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
 				(hide yes)
 			)
 		)
 		(property "SymLifecycle" "draft"
-			(at 142.2400 62.2300 0)
+			(at 73.66 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				
 				(hide yes)
 			)
 		)
 		(pin "1"
-			(uuid "78f840e5-debe-5bdb-a22d-60e090dd7465")
+			(uuid "63cc185a-dbf2-5888-b6dc-50a8477551b1")
 		)
 		(pin "2"
-			(uuid "20a1d88c-aaf0-51fc-bcd2-cbaeca20c297")
+			(uuid "1b17de84-2fde-5ecd-9ff4-61e8b3e6e68a")
 		)
 		(instances
 			(project "faff2_cbs1"
 				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "SB803")
+					(reference "SB801")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(symbol
-		(lib_id "Amodo_Symbols:+3V3")
-		(at 152.4000 55.8800 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b65fb98a-2afc-5c8c-be81-f42fc341faa0")
-		(property "Reference" "#PWR807"
-			(at 152.4000 49.5300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 152.4 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" ""
-			(at 152.4000 55.8800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 152.4000 55.8800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 152.4000 55.8800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 152.4000 55.8800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "75819328-099b-5238-9cf6-9207fc90e42c")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR807")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Symbols:GND")
-		(at 22.8600 119.3800 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "028c25eb-2cd9-5c35-86e1-7108f03dbcd9")
-		(property "Reference" "#PWR808"
-			(at 22.8600 125.7300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 22.86 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" ""
-			(at 22.8600 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 22.8600 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 22.8600 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 22.8600 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "414fddfb-34bc-5736-a213-c16c2cdead66")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR808")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 22.8600 114.3000 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "65b4aa3d-b83a-5333-b66a-049f129f9739")
-		(property "Reference" "TP804"
-			(at 24.7600 111.0000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "GND"
-			(at 24.76 113.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 27.9400 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 27.9400 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 22.8600 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 22.8600 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 22.8600 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "36d56f8b-c3da-5cbc-81c5-9d5c4d78af77")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "TP804")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Symbols:GND")
-		(at 33.0200 119.3800 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "590d160d-8a6a-5915-97a6-d1466615a486")
-		(property "Reference" "#PWR809"
-			(at 33.0200 125.7300 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 33.02 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-			)
-		)
-		(property "Footprint" ""
-			(at 33.0200 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 33.0200 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 33.0200 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 33.0200 119.3800 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "85244fdd-edb1-5614-aedc-a3a23d287d59")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "#PWR809")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amodo_Connectors:TestPointHook")
-		(at 33.0200 114.3000 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7da266d3-1ee1-59fa-b616-ef32a08424b4")
-		(property "Reference" "TP805"
-			(at 34.9200 111.0000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "GND"
-			(at 34.92 113.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				
-			)
-		)
-		(property "Footprint" "Amodo:KeystoneMiniatureTestLoop"
-			(at 38.1000 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p56.pdf"
-			(at 38.1000 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "Description" "Test Point"
-			(at 33.0200 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "mpn" "5002"
-			(at 33.0200 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(property "SymLifecycle" "tested"
-			(at 33.0200 114.3000 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b121c852-65c6-587a-8d09-30bf9d518861")
-		)
-		(instances
-			(project "faff2_cbs1"
-				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/9fddfe18-c15c-5dd7-9f89-62033d73aa2a"
-					(reference "TP805")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(embedded_fonts no)
 )
