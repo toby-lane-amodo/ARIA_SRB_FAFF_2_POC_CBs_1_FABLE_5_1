@@ -172,6 +172,13 @@ was reviewed.
 
 ### D-REV-07 — Pre-rotated horizontal passives live in `faff2_passives.kicad_sym`
 
+> **SUPERSEDED — the library and both symbols are gone.** The rotation rule is settled the other
+> way: rotating a part on the schematic is normal, and needing an orientation is not a reason to
+> make a library variant. `R907` and `R915` use the house symbols rotated 90°, with field angles
+> compensated to 270 so their text still renders horizontal. `faff2_passives.kicad_sym` held
+> nothing else and has been deleted along with its `sym-lib-table` entry. The record below is
+> history.
+
 `schematic-style` forbids instance rotation for orientation variants — it turns the
 reference and value text sideways. The Amodo house library has no horizontal
 resistor, so a project-local library was created:
@@ -226,8 +233,9 @@ The review PDF was **deliberately not regenerated** by this pass. Overtaken by
    duplicate coverage of `TP301`/`TP305`? (D-REV-01)
 2. **`Y1002` ESR** — confirm the ECS-23G against the USB3320's ≤ 30 Ω before the
    first order. (D-REV-04)
-3. **`faff2_passives.kicad_sym`** — the two horizontal resistors want to be house
-   parts in `Amodo_Resistors.kicad_sym`. (D-REV-07)
+3. ~~**`faff2_passives.kicad_sym`** — the two horizontal resistors want to be house
+   parts in `Amodo_Resistors.kicad_sym`. (D-REV-07)~~ **Closed:** they are house parts,
+   rotated on the schematic; the local library is deleted. Nothing is wanted upstream.
 4. **DEC numbers** — D-REV-01..07 need real `DEC-00xx` numbers in
    `docs/DECISIONS.md`. They are not minted here because three review branches were
    in flight at once and would have raced for the same numbers. The one exception is
