@@ -28,7 +28,7 @@ The `test_debug` sheet held three blocks. All three moved to `mcu.kicad_sch`:
 | Was | Is | Refdes |
 |---|---|---|
 | **T1** SWD + USART3 debug header | **H** on `mcu` | `J401→J1003`, `R401→R1013`, `R402→R1014` |
-| **T2** consolidated rail probe header | **J** on `mcu` | `J402→J1004` |
+| **T2** consolidated rail probe header | **`power_rails` block D** | `J402→J1004→J301` (moved off `mcu` in review round 4) |
 | **T3** six GND hooks for scope clips | **K** on `mcu`, re-drawn as one row of six | `TP401..406 → TP1006..1011` |
 | power symbols | — | `#PWR401..414 → #PWR1051..1064` |
 
@@ -218,7 +218,11 @@ integration pass rebuilds it once, after every parallel review branch has landed
 
 ## 6. Left for the captain
 
-1. **`J1004`, the rail probe header** — move to `power_rails`, or retire it as
+1. ~~**`J1004`, the rail probe header** — move to `power_rails`, or retire it as~~
+   **Closed, review round 4: moved to `power_rails` as `J301`,** into block D,
+   which already carries `RAIL_PGOOD`, `D303` and `TP308`. The rails, their
+   isolation links and their current breaks are all on that sheet; the header
+   only observes them. Original wording:
    duplicate coverage of `TP301`/`TP305`? (D-REV-01)
 2. **`Y1002` ESR** — confirm the ECS-23G against the USB3320's ≤ 30 Ω before the
    first order. (D-REV-04)

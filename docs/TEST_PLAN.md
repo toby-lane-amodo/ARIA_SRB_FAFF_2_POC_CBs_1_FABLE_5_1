@@ -94,7 +94,7 @@ independent of the motor branch, so the motor stage can be left dead while logic
 | `+24V_IN` | `power_entry_24v` | (pre-protection) | — | 25 W peak, 7 W typical |
 | `+24V_SW` | `power_entry_24v` | `motor_drive` only | `R203` | motor Iq 20 mA quiescent |
 | `V24_LOGIC` | `power_entry_24v` | `power_rails` | `R204` | logic branch, ~5.8 W in |
-| `+5V5` | `power_rails` | pre-regulator for `+5V` / `+5VA` | `R305` | sheet-local, never leaves `power_rails` |
+| `+5V5` | `power_rails` | pre-regulator for `+5V` / `+5VA` | `R305` | sheet-local, never leaves `power_rails`. **6.110 V since review round 4** — the name is historical (`DEC-P10`) |
 | `+5V` | `power_rails` | IKP11 read head | `R306` | ~115 mA |
 | `+5VA` | `power_rails` | ADS1235 AVDD + bridge excitation, ADS1120 AVDD | `R307` | ~30 mA |
 | `+3V3` | `power_rails` | STM32, USB3320, DRV8323 logic, QSPI, EEPROM | `R312` | ~1.1 A |
@@ -148,8 +148,8 @@ What each block owns. Block tasks add these while drawing.
 | Block | Must provide |
 |---|---|
 | `power_entry_24v` | TPs on `+24V_IN`, `+24V_SW`, `PGND`; current break on `+24V_SW`; TP on `V24_MON`; reverse-polarity and fuse behaviour testable without downstream load |
-| `power_rails` | TP + isolation link + current break per rail (§3); TP on each feedback node; PGOOD TPs if fitted |
-| `mcu` | The SWD + USART3 debug header (block H), the consolidated rail probe header (J) and the GND hooks for scope clips (K) — test coverage lives on the page it covers, so these are not a sheet of their own. TPs on `NRST`, `BOOT0`, each supply pin group, HSE clock in, MCO2. **No TPs on ULPI or QSPI** (§2.2). USB-C shield/CC access |
+| `power_rails` | TP + isolation link + current break per rail (§3); TP on each feedback node; PGOOD TPs if fitted; the consolidated rail probe header `J301`, moved here from `mcu` in review round 4 |
+| `mcu` | The SWD + USART3 debug header (block H, `J1003`, now the STM32 14-way IDC part) and the GND hooks for scope clips (K) — test coverage lives on the page it covers, so these are not a sheet of their own. TPs on `NRST`, `BOOT0`, each supply pin group, HSE clock in, MCO2. **No TPs on ULPI or QSPI** (§2.2). USB-C shield/CC access |
 | `motor_drive` | TPs on each gate drive output, each current-sense output, `VBUS_MON`, `nFAULT`; U.FL candidate on one phase node and the DC link; link to isolate the gate driver supply; means to spin the motor with the load cell disconnected |
 | `loadcell_afe` | TPs on excitation +/-, sense +/-, `SIG+`/`SIG-` (U.FL candidate), ADC reference, `nDRDY`; SPI3 hooks; link to configure 4-wire vs 6-wire (DEC-0014); means to substitute a resistive bridge simulator for the load cell |
 | `linear_encoder` | TPs on each RS-422 receiver output (`ENC_A/B/Z`) and on the 5 V read-head supply; termination fitted/removable; header pinout silkscreened; means to inject a quadrature signal without the read head |

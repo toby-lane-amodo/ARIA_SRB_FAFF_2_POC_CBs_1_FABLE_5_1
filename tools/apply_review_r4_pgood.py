@@ -54,8 +54,11 @@ TEXT = [
      "carries REQ-FF-04.  R303/R304 are sized so the\\nworst-case floor clears "
      "6.0 V, not just the nominal:\\n6.009 / 6.110 / 6.212 V.  Was 5.5 V while the\\n"
      "TPS7A20's 6.0 V input maximum capped it."),
+    # the net keeps its name - the captain's own instruction calls it +5V5 -
+    # so the note has to say the voltage, or the drawing reads as a lie
     ("RAILS  +5V5   LMR33630 buck from V24_LOGIC. Pre-regulator only,",
-     "RAILS  +6V0   LMR33630 buck from V24_LOGIC. Pre-regulator only,"),
+     "RAILS  +5V5   LMR33630 buck from V24_LOGIC, 6.110 V since review\n"
+     "              round 4 - the name is historical. Pre-regulator only,"),
     ("       buck at 5.5 V feeding two LDOs costs one converter and post-",
      "       buck at 6.0 V feeding two LDOs costs one converter and post-"),
     ("       RAIL_PGOOD is open drain, the wired-AND of both converters\\n"

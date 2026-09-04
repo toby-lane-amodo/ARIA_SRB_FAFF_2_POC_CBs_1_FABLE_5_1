@@ -131,6 +131,33 @@ batch, not by arrival. Reasoning for every judgement call is in
 | R3.4 | "Respace the grazing power-label placements and find the TIM1 note a clean home" | **Done.** The improved checker turned 13 into 60; 57 cleared, ERC 0/0 and node sets identical. The TIM1 note sits beside U1101's logic inputs — round 2's "nothing fits in this block" was wrong, 495 positions do. Three left, both argued out in `actuator-sch-review-r1.md`: `#PWR1131` needs 4.45 mm in a 2.54 mm bus field (**for the captain**), and `#PWR327` is a 0.13 mm graze with every direction taken |
 | R3.5 | "Leave ESD off the AFE inputs" | **Done** — recorded as a closed decision |
 
+## Round 4
+
+| # | Point | Resolution |
+|---|---|---|
+| R4.0 | "Parallel components share ONE GND-flag height — sweep ALL sets of parallel capacitors and parallel parts across the design" (good: the `C1113` row; bad: `C1101`/`C1102` staggered) | **Done, and recorded as standing style** in `AGENTS.md`. `tools/gnd_rows.py` finds every breach rather than relying on the eye; four rows were out, all six flags now level |
+| R4.1 | "Apply that alignment around `C315`/`C316`/`R308` — it also fixes the R308 overcrowding" | **Done.** Levelling put each flag's name 0.26 mm inside the EN divider's top resistor, so the divider column moved 2.54 mm left; both clear by 2.28 |
+| R4.2 | "`PGND` pin on `U304` overlaps `C318`" | **Done.** `U301` is the same regulator wired the same way and its PGND ground hangs 1.27 mm below the pin; `U304`'s hung 6.35 mm down, into C318's lane. Matching `U301` also closed both of round 3's residual findings |
+| R4.3 | "The `+5VA` bridge-excitation label/wiring falls outside the sheet boundary at the top" | **Done.** The drawing area starts at y=11.94 (measured off a render); the whole excitation cluster dropped 6.35 mm |
+| R4.4 | "The rail probe header belongs on THIS sheet" | **Done.** `J1004` → **`J301`** on `power_rails`, block D. Its own note had already named this sheet as the alternative home |
+| R4.5 | "`FL501`/`FL502` are connectors — re-designate as `J`" | **Done → `J503`/`J504`.** No reason survives: they are `Amodo_Connectors:CONUFL001-SMD`, U.FL coaxial connectors with connector footprints, and the library symbol's own default prefix is `J`. `FL` designates a *filter*; they sit in a filter chain, which is the only reading that explains it. `DEC-A14` |
+| R4.6 | "Add a very concise text note directly next to `J501`" | **Done.** Five lines under the connector; the full table stays in the notes column |
+| R4.7 | "`R601` and `R608` are the same package — keep ONE" | **Done, `R608` removed.** Reverses part of review point R6; the reasoning is better — to meter head current you replace `R601` with a shunt |
+| R4.8 | "Remove `R609` entirely — `FB601` can be lifted" | **Done.** `D602` stays: a second clamp *position* for a different part is not the same argument |
+| R4.9 | "`temp_sense` content crosses the top sheet boundary" | **Done.** Six rectangles across `temp_sense` and `mcu` started at y=11.43, half a millimetre above the drawing area. Nothing is above the boundary now |
+| R4.10 | "Add 100R between the SWD header and the `+3V3` pin" | **Done, `R1015`** — the same series resistance `ARIA_EITSYS_CBs_1` puts on the same pin |
+| R4.11 | "Swap the SWD header to the STM32 14-way version as in `ARIA_EITSYS_CBs_1`" | **Done.** `Amodo_Connectors:SAMTEC_SHF-107-01-L-D-SM`, pinout traced pin by pin from that repo's `J11`. **One deviation, an addition:** `SWO` on pin 10, which is NC there — this design has SWO (`REQ-AR-15`) and dropping it would lose a capability |
+| R4.12 | "`VBUS_MON` sheet exit has wrong justification/overlap; align the nearby capacitor GNDs" | **Done.** It was the only hierarchical label on the sheet with `justify left bottom`; all fifteen siblings read back over the wire. The four capacitor grounds are level under R4.0 |
+| R4.13 | "`R1128`-`R1133` use a different 100R symbol — why, and unify" | **Done.** The reason was real but does not outweigh the divergence: round 2 added `faff2_passives:RES_TF_100R_0603_H`, a pre-rotated variant, so they could lie horizontally without instance rotation. Nine other 100R use the house symbol. All six now do too, rotated 90 with field angles compensated; the local variant is deleted |
+
+### Captain rulings folded in from round 3
+
+| # | Ruling | Done |
+|---|---|---|
+| A1 | PG into `RAIL_PGOOD`: **yes** | `R317`/`R318`, 1 k each. A dead 5 V rail is now visible at `D303`/`TP308` |
+| A2 | Raise `+5V5`: **yes, 6.0 V or slightly above** | 6.110 V nominal, worst-case floor 6.009 V. `DEC-P10` shows the stack |
+| A3 | `#PWR1131`: drag `R1120` and its flag down, no bus reroute | Done, 7.62 mm |
+
 ### What the bundled overlap checker cannot see
 
 The sweep found three structural blind spots in `check_overlaps.py`, all measured

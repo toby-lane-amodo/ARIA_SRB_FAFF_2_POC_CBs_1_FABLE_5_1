@@ -110,7 +110,7 @@ exists (`docs/decisions/actuator-rev-testdebug.md`). Do not recreate it, in any 
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
 is the DEC-0021 baseline and the end state.
 
-**The design now meets it in full** — 408 components, 264 nets, 0/0 — so any violation you see
+**The design now meets it in full** — 409 components, 265 nets, 0/0 — so any violation you see
 is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
 `pin_not_driven`) all cleared when the root was wired; do not reintroduce them as "expected".
 
@@ -158,9 +158,8 @@ The mirror for ground is deliberate: "above" a GND symbol is where its wire
 arrives. `tools/apply_review_r2_labels.py` applies the rule and re-solves the
 placement around it; re-run it after any power-symbol move.
 
-Three placements still graze, all argued out in `actuator-sch-review-r1.md` round 3 item 4:
-`#PWR1131`'s arrow needs 4.45 mm in a 2.54 mm bus field, and `#PWR327`'s name is 0.13 mm off
-C318 with every direction taken. `tools/check_text_clearance.py --margin 0.35` is the check.
+**The design is clean under `tools/check_text_clearance.py --margin 0.35`** — zero findings on
+all ten sheets, and zero misaligned ground rows under `tools/gnd_rows.py`. Keep it that way.
 
 ## Parallel parts share one ground-flag height
 

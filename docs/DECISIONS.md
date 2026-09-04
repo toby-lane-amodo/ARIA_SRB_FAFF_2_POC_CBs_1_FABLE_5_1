@@ -411,7 +411,8 @@ them as `/<root-uuid>/<sheet-uuid>`, and changing one silently disconnects that 
 a **sheet-local label** now.
 
 *Reasoning.* `power_rails` exported it for "the rail probe header and a future MCU GPIO". That
-header (`J402`, now `J1004` on the `mcu` sheet) carries `+5V`, `+3V3`, `+3V3A` and three
+header (`J402`, then `J1004` on `mcu`, and `J301` on `power_rails` since review round 4)
+carries `+5V`, `+3V3`, `+3V3A` and three
 grounds with no seventh way, and OQ-07
 has never allocated the GPIO. A sheet pin on a net with one endpoint is an ERC error, and
 inventing a consumer at integration would be exactly the kind of unilateral contract change

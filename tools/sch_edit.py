@@ -522,3 +522,45 @@ def move_label_at(text, name, xy, x, y, rot=None, justify=None):
         new = re.sub(r"\(justify [a-z ]+\)", "(justify %s)" % justify, new,
                      count=1)
     return text[:s] + new + text[s + len(blk):]
+
+
+def del_note(text, key):
+    hits = [s for s, blk in _blocks(text, "text") if key in blk]
+    assert len(hits) == 1, (key, len(hits))
+    s = hits[0]
+    return text[:s - 1] + text[s + len(block(text, s)) + 1:]
+
+
+def del_rect(text, box):
+    o = "(start %s %s)" % (fmt(box[0]), fmt(box[1]))
+    oe = "(end %s %s)" % (fmt(box[2]), fmt(box[3]))
+    hits = [(s, blk) for s, blk in _blocks(text, "rectangle")
+            if o in blk and oe in blk]
+    assert len(hits) == 1, box
+    s, blk = hits[0]
+    return text[:s - 1] + text[s + len(blk) + 1:]
+
+
+def instance_path(text, ref):
+    s, e = sym_span(text, ref)
+    return re.search(r'\(path "([^"]*)"', text[s:e]).group(1)
+
+
+def shift_block(blk, dx, dy):
+    return re.sub(r"\(at ([-\d.]+) ([-\d.]+)( [-\d.]+)?\)",
+                  lambda m: "(at %s %s%s)" % (fmt(float(m.group(1)) + dx),
+                                              fmt(float(m.group(2)) + dy),
+                                              m.group(3) or ""), blk)
+
+
+def repath(blk, path):
+    return re.sub(r'\(path "[^"]*"', '(path "%s"' % path, blk, count=1)
+
+
+def reuid(blk, ref):
+    n = [0]
+
+    def one(m):
+        n[0] += 1
+        return '(uuid "%s")' % uid5(ref, "u", n[0])
+    return re.sub(r'\(uuid "[0-9a-f-]{36}"\)', one, blk)

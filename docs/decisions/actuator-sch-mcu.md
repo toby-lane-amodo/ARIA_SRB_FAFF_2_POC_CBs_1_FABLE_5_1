@@ -203,6 +203,12 @@ not set that bar.
 `J401` is a 2×5 2.54 mm header (`TSW-105-07-F-D`) wired in the standard ARM Cortex
 Debug 10-pin order, so an ordinary SWD probe cable plugs straight on:
 
+> **Superseded, review round 4.** `J1003` is now
+> `Amodo_Connectors:SAMTEC_SHF-107-01-L-D-SM`, the STM32 14-way 1.27 mm IDC
+> socket, pinned exactly as `ARIA_EITSYS_CBs_1` pins its J11 — plus `SWO` on
+> pin 10, which is spare there. `R1015` puts 100 R between the header and
+> `+3V3`, matching that board's R625. The 10-pin description below is history.
+
 ```
 1 VTref(+3V3)   2 SWDIO     3 GND      4 SWCLK    5 GND
 6 SWO           7 DBG_RX    8 DBG_TX   9 GND     10 nRESET

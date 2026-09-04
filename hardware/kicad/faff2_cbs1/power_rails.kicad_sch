@@ -15,6 +15,197 @@
 		(comment 4 "Design reasoning: docs/decisions/actuator-sch-power.md")
 	)
 	(lib_symbols
+		(symbol "Amodo_Connectors:Header_Male_6-way_1-row_Straight_2.54mm_THT"
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "PH1-06-UA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Amodo:Adam_Tech_PH1-06-UA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://app.adam-tech.com/products/download/data_sheet/201605/ph1-xx-ua-data-sheet.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "6 Circuit 2.54mm pitch, Single Row, Straight, THT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "mpn" "PH1-06-UA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "SymLifecycle" "reviewed"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Header_Male_6-way_1-row_Straight_2.54mm_THT_1_1"
+				(rectangle
+					(start -1.27 7.62)
+					(end 1.27 -7.62)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at 3.81 6.35 180)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 3.81 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 1.27 180)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 -1.27 180)
+					(length 2.54)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 -3.81 180)
+					(length 2.54)
+					(name "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 -6.35 180)
+					(length 2.54)
+					(name "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Amodo_Resistors:RES_TNF_12.7k_0603_0.1%"
 			(pin_numbers
 				(hide yes)
@@ -7007,6 +7198,339 @@
 		)
 		(uuid "18682ab3-e75d-5c1a-8ccf-f949ab51ad87")
 	)
+	(symbol
+		(lib_id "Amodo_Connectors:Header_Male_6-way_1-row_Straight_2.54mm_THT")
+		(at 250.19 147.32 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "af408bed-4aac-50e2-a391-7a7d7c556ee9")
+		(property "Reference" "J301"
+			(at 246.38 138.43 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "PH1-06-UA"
+			(at 246.38 135.89 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Amodo:Adam_Tech_PH1-06-UA"
+			(at 250.19 147.32 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://app.adam-tech.com/products/download/data_sheet/201605/ph1-xx-ua-data-sheet.pdf"
+			(at 250.19 147.32 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "6 Circuit 2.54mm pitch, Single Row, Straight, THT"
+			(at 250.19 147.32 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "mpn" "PH1-06-UA"
+			(at 250.19 147.32 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "SymLifecycle" "reviewed"
+			(at 250.19 147.32 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "675b8cb0-f1fb-5bb2-b11f-786f7be0719b"))
+		(pin "2" (uuid "c0430070-7251-5df0-8fc8-50150029815c"))
+		(pin "3" (uuid "cd73449c-734c-57c0-b410-0a4f57ef3926"))
+		(pin "4" (uuid "3f8791a6-3bc4-5a22-b720-c2d5a960a9e8"))
+		(pin "5" (uuid "423f9664-e9ff-59c5-a126-277f6adfc3db"))
+		(pin "6" (uuid "281dd511-b21c-57ec-8507-0e6c8b2b1272"))
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "J301") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:+5V")
+		(at 265.43 140.97 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "321f91ea-9ec3-5b57-b1dd-c26159468216")
+		(property "Reference" "#PWR358"
+			(at 265.43 134.62 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+5V"
+			(at 265.43 137.16 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 265.43 140.97 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 265.43 140.97 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" ""
+			(at 265.43 140.97 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "SymLifecycle" "tested"
+			(at 265.43 140.97 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "64cfe722-bce5-5c51-b61b-da827acf3eb6"))
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR358") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:+3V3")
+		(at 273.05 143.51 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "75144e76-548e-5f4b-b2e8-4b89c3983202")
+		(property "Reference" "#PWR359"
+			(at 273.05 137.16 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 273.05 139.7 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 273.05 143.51 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 273.05 143.51 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" ""
+			(at 273.05 143.51 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "SymLifecycle" "tested"
+			(at 273.05 143.51 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "13026568-383f-5b5e-8da9-b09c15a44674"))
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR359") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:+3V3A")
+		(at 280.67 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "c7c26c22-5410-5e5c-8e26-5f2164fb3f95")
+		(property "Reference" "#PWR360"
+			(at 280.67 139.7 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3A"
+			(at 280.67 142.24 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 280.67 146.05 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 280.67 146.05 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" ""
+			(at 280.67 146.05 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "SymLifecycle" "draft"
+			(at 280.67 146.05 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "d17c6e6f-697e-5c7b-8e64-9b5221817398"))
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR360") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amodo_Symbols:GND")
+		(at 260.35 157.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "1b173caa-c497-577a-a59b-a812a816c7d4")
+		(property "Reference" "#PWR361"
+			(at 260.35 163.83 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 260.35 161.29 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 260.35 157.48 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 260.35 157.48 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 260.35 157.48 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "SymLifecycle" "tested"
+			(at 260.35 157.48 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(pin "1" (uuid "59687ebd-9dac-55ec-bfc6-8759757e3d01"))
+		(instances
+			(project "faff2_cbs1"
+				(path "/5edb00fd-45c9-5fe7-8d71-adbf38f38546/cfac6e86-3b1f-5c4c-b992-5519585fa944"
+					(reference "#PWR361") (unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 254 140.97) (xy 265.43 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "939e4b68-a82e-588a-9217-e49361a17c4f")
+	)
+	(wire
+		(pts
+			(xy 254 143.51) (xy 273.05 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1bb3d236-2549-56d1-a53a-511afafbd8e1")
+	)
+	(wire
+		(pts
+			(xy 254 146.05) (xy 280.67 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb980f4f-7d7e-59cf-a41d-77960ee27b57")
+	)
+	(wire
+		(pts
+			(xy 254 148.59) (xy 260.35 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e68b0a42-4d46-503c-884f-d77f8d360dc1")
+	)
+	(wire
+		(pts
+			(xy 254 151.13) (xy 260.35 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "257717c2-f2c0-5ff4-8011-3dfa993e10a7")
+	)
+	(wire
+		(pts
+			(xy 254 153.67) (xy 260.35 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf5fe10f-f891-58e9-bf80-94e1af4a790e")
+	)
+	(wire
+		(pts
+			(xy 260.35 148.59) (xy 260.35 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b71a4a8-3d59-5060-9ae8-fa0d468f969d")
+	)
+	(wire
+		(pts
+			(xy 260.35 151.13) (xy 260.35 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b9db640-6b33-5789-a25f-eabd56a3e1af")
+	)
+	(wire
+		(pts
+			(xy 260.35 153.67) (xy 260.35 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2838a0a2-383e-53f9-a347-cbd7b1d67528")
+	)
+	(text
+		"RAIL PROBE HEADER (TEST_PLAN 4)\nOne header to check every logic rail with a DMM during bring-up\nsteps 2 and 3 of TEST_PLAN 5.  It only observes: the rails, their\nisolation links and their current breaks are the rest of this sheet.\n  1 +5V    2 +3V3    3 +3V3A    4 GND    5 GND    6 GND\n\n+24V IS DELIBERATELY NOT ON THIS HEADER.  24 V next to 3.3 V on a\n2.54 mm strip is one slip away from destroying the board;\npower_entry_24v carries the +24V_SW test point and the current break\nthat TEST_PLAN 4 asks for.\n\nMoved here from mcu in review round 4.  Its old note named this sheet\nas the alternative home; the captain chose it."
+		(exclude_from_sim no)
+		(at 290.83 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "40842fbf-71f7-5350-bb58-def572fdd9d2")
+	)
+	(junction
+		(at 260.35 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "754a9706-59d1-5428-bbd7-dcffc0118962")
+	)
+	(junction
+		(at 260.35 153.67)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3909f9f1-dee9-5360-9c27-3ea0d8944ef0")
+	)
 	(junction
 		(at 383.54 86.36)
 		(diameter 0)
@@ -7697,7 +8221,7 @@
 		)
 		(uuid "ca5dd8c5-dbc8-5274-8cff-0f9ac5e63794")
 	)
-	(text "D.  ANALOG 3V3 FOR THE ADC DIGITAL SUPPLIES, AND RAIL POWER-GOOD"
+	(text "D.  ANALOG 3V3, RAIL POWER-GOOD, AND THE RAIL PROBE HEADER"
 		(exclude_from_sim no)
 		(at 213.36 132.62 0)
 		(effects
