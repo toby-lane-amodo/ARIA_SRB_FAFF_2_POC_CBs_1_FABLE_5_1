@@ -12874,7 +12874,7 @@
 		)
 		(uuid "07e4478d-7e10-554f-b0a2-5a05c962e883")
 	)
-		(wire
+	(wire
 		(pts
 			(xy 208.28 24.13) (xy 208.28 30.48)
 		)
@@ -12884,7 +12884,7 @@
 		)
 		(uuid "0ca7adae-7ae5-5632-93f6-8b32d9959f92")
 	)
-		(text
+	(text
 		"J501 -> HBK S2M cable\n1 SIG+ wht   2 SIG- red\n3 EXC+ blu   4 SEN+ grn\n5 SEN- gry   6 EXC- blk\n7,8 SHLD screen, R510"
 		(exclude_from_sim no)
 		(at 19.05 76.2 0)

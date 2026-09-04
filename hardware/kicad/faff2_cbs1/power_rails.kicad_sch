@@ -6721,7 +6721,7 @@
 		)
 		(uuid "b5cc13e2-4cbd-53a3-854f-672b54217d44")
 	)
-		(symbol
+	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
 		(at 247.65 93.98 0)
 		(unit 1)

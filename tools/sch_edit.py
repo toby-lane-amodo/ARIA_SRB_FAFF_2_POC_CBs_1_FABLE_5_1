@@ -213,9 +213,16 @@ def del_point(text, tag, p):
 
 
 def add(text, chunk):
-    """Insert top-level content before the sheet's first junction block."""
+    """Insert top-level content before the sheet's first junction block.
+
+    The insert lands at a LINE start. Getting this wrong put one extra tab in
+    front of everything added - KiCad does not care, but every tool here that
+    anchors on "\\n\\t(" stopped seeing those blocks, so a resistor that was in
+    the netlist could not be found on the sheet.
+    """
     for s, _b in _blocks(text, "junction"):
-        return text[:s] + chunk + "\t" + text[s:]
+        assert text[s - 1] == "\t" and text[s - 2] == "\n"
+        return text[:s - 1] + chunk + text[s - 1:]
     raise AssertionError("no junction to anchor to")
 
 
@@ -387,3 +394,131 @@ def sync_properties(text, ref, src, bare, keep=("Reference",), value=None):
         pos = k + len(block(blk, k))
     out.append(blk[pos:])
     return text[:s] + "".join(out) + text[e:]
+
+
+def nc_block(x, y, uid):
+    on_grid(x, y)
+    return (f"\t(no_connect\n\t\t(at {fmt(x)} {fmt(y)})\n"
+            f'\t\t(uuid "{uid}")\n\t)\n')
+
+
+def clone_symbol(text, model, ref, x, y, uid):
+    """A new instance cloned from an existing one on the same sheet.
+
+    Cloning beats hand-building: the property set, effects, instance path and
+    library id all come out right, and a hand-built block is how a stray
+    str.replace once put `(hide yes)` inside a font block and truncated a sheet.
+    """
+    s, e = sym_span(text, model)
+    blk = text[s:e]
+    m = re.search(r"\(at ([-\d.]+) ([-\d.]+) [-\d.]+\)", blk)
+    dx, dy = x - float(m.group(1)), y - float(m.group(2))
+
+    def shift(mm):
+        return "(at %s %s%s)" % (fmt(float(mm.group(1)) + dx),
+                                 fmt(float(mm.group(2)) + dy),
+                                 mm.group(3) or "")
+    out = re.sub(r"\(at ([-\d.]+) ([-\d.]+)( [-\d.]+)?\)", shift, blk)
+    out = out.replace('"%s"' % model, '"%s"' % ref)
+    out = re.sub(r'\(uuid "[0-9a-f-]{36}"\)', '(uuid "%s")' % uid, out, count=1)
+    n = [0]
+
+    def pinuid(mm):
+        n[0] += 1
+        return '(uuid "%s")' % uid5(ref, "pin", n[0])
+    head, tail = out.split('(pin "1"', 1)
+    return "\t" + head + '(pin "1"' + re.sub(
+        r'\(uuid "[0-9a-f-]{36}"\)', pinuid, tail) + "\n"
+
+
+def symbol_block(lib_id, ref, value, x, y, path, src, uid, fields, npins):
+    """A fresh instance of a library part, properties taken from the library."""
+    i = src.index('\t(symbol "%s"\n' % lib_id.split(":", 1)[1]) + 1
+    lib = block(src, i)
+    props = {m.group(1): m.group(2) for m in
+             re.finditer(r'\(property "([^"]*)" "((?:[^"\\]|\\.)*)"', lib)}
+    props["Reference"], props["Value"] = ref, value
+    eff_shown = ("\t\t\t(effects\n\t\t\t\t(font\n\t\t\t\t\t(size 1.27 1.27)\n"
+                 "\t\t\t\t)\n\t\t\t)\n")
+    eff_hidden = ("\t\t\t(effects\n\t\t\t\t(font\n\t\t\t\t\t(size 1.27 1.27)\n"
+                  "\t\t\t\t)\n\t\t\t\t(hide yes)\n\t\t\t)\n")
+    s = ['\t(symbol\n\t\t(lib_id "%s")\n\t\t(at %s %s 0)\n\t\t(unit 1)\n'
+         % (lib_id, fmt(x), fmt(y)),
+         "\t\t(exclude_from_sim no)\n\t\t(in_bom yes)\n\t\t(on_board yes)\n",
+         '\t\t(dnp no)\n\t\t(fields_autoplaced no)\n\t\t(uuid "%s")\n' % uid]
+    for name, val in props.items():
+        px, py = fields.get(name, (x, y))
+        s.append('\t\t(property "%s" "%s"\n\t\t\t(at %s %s 0)\n%s\t\t)\n'
+                 % (name, val, fmt(px), fmt(py),
+                    eff_shown if name in fields else eff_hidden))
+    for n in range(1, npins + 1):
+        s.append('\t\t(pin "%d"\n\t\t\t(uuid "%s")\n\t\t)\n'
+                 % (n, uid5(ref, "pin", n)))
+    s.append('\t\t(instances\n\t\t\t(project "faff2_cbs1"\n\t\t\t\t(path "%s"\n'
+             '\t\t\t\t\t(reference "%s")\n\t\t\t\t\t(unit 1)\n'
+             "\t\t\t\t)\n\t\t\t)\n\t\t)\n\t)\n" % (path, ref))
+    return "".join(s)
+
+
+def move_label_to(text, name, occurrence, x, y):
+    seen = 0
+    for tag in ("label", "hierarchical_label", "global_label"):
+        for s, blk in list(_blocks(text, tag)):
+            if not blk.startswith('(%s "%s"' % (tag, name)):
+                continue
+            if seen == occurrence:
+                new = re.sub(r"\(at [-\d.]+ [-\d.]+( [-\d.]+)?\)",
+                             lambda m: "(at %s %s%s)" % (fmt(x), fmt(y),
+                                                         m.group(1) or ""),
+                             blk, count=1)
+                return text[:s] + new + text[s + len(blk):]
+            seen += 1
+    raise AssertionError((name, occurrence))
+
+
+def set_rotation_label(text, name, occurrence, angle):
+    seen = 0
+    for tag in ("label", "hierarchical_label", "global_label"):
+        for s, blk in list(_blocks(text, tag)):
+            if not blk.startswith('(%s "%s"' % (tag, name)):
+                continue
+            if seen == occurrence:
+                new = re.sub(r"\(at ([-\d.]+) ([-\d.]+) [-\d.]+\)",
+                             lambda m: "(at %s %s %g)" % (m.group(1),
+                                                          m.group(2), angle),
+                             blk, count=1)
+                return text[:s] + new + text[s + len(blk):]
+            seen += 1
+    raise AssertionError((name, occurrence))
+
+
+def _label_at(text, name, xy):
+    """The label of this name whose anchor is at `xy`.
+
+    Keying labels by an occurrence index is a trap: a net is usually labelled
+    at both ends, and moving "the first SWDIO" moved the one at the MCU pin
+    rather than the one at the header - four dangling labels and an ERC error
+    each. Position is the identity that means something.
+    """
+    for tag in ("label", "hierarchical_label", "global_label"):
+        for s, blk in list(_blocks(text, tag)):
+            if not blk.startswith('(%s "%s"' % (tag, name)):
+                continue
+            m = re.search(r"\(at ([-\d.]+) ([-\d.]+)", blk)
+            if abs(float(m.group(1)) - xy[0]) < 0.01 and \
+               abs(float(m.group(2)) - xy[1]) < 0.01:
+                return s, blk
+    raise AssertionError((name, xy))
+
+
+def move_label_at(text, name, xy, x, y, rot=None, justify=None):
+    s, blk = _label_at(text, name, xy)
+    new = re.sub(r"\(at [-\d.]+ [-\d.]+( [-\d.]+)?\)",
+                 lambda m: "(at %s %s %s)" % (
+                     fmt(x), fmt(y),
+                     ("%g" % rot) if rot is not None
+                     else (m.group(1) or " 0").strip()), blk, count=1)
+    if justify is not None:
+        new = re.sub(r"\(justify [a-z ]+\)", "(justify %s)" % justify, new,
+                     count=1)
+    return text[:s] + new + text[s + len(blk):]
