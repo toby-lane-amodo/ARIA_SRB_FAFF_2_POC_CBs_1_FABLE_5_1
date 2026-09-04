@@ -108,7 +108,7 @@ exists (`docs/decisions/actuator-rev-testdebug.md`). Do not recreate it, in any 
 ERC must be clean at **severity-all — 0 errors and 0 warnings**, with nothing suppressed. That
 is the DEC-0021 baseline and the end state.
 
-**The design now meets it in full** — 412 components, 259 nets, 0/0 — so any violation you see
+**The design now meets it in full** — 408 components, 264 nets, 0/0 — so any violation you see
 is yours. The parallel-wave residuals (`hier_label_mismatch`, `label_dangling`,
 `pin_not_driven`) all cleared when the root was wired; do not reintroduce them as "expected".
 
@@ -156,8 +156,9 @@ The mirror for ground is deliberate: "above" a GND symbol is where its wire
 arrives. `tools/apply_review_r2_labels.py` applies the rule and re-solves the
 placement around it; re-run it after any power-symbol move.
 
-Some labels still graze a wire, body or note; `tools/check_text_clearance.py --margin 0.35`
-lists them and `actuator-sch-review-r1.md` explains what each class is.
+Three placements still graze, all argued out in `actuator-sch-review-r1.md` round 3 item 4:
+`#PWR1131`'s arrow needs 4.45 mm in a 2.54 mm bus field, and `#PWR327`'s name is 0.13 mm off
+C318 with every direction taken. `tools/check_text_clearance.py --margin 0.35` is the check.
 
 ## The bundled overlap checker is not the last word
 
@@ -172,14 +173,21 @@ spots, each measured against renders and written up in `docs/decisions/actuator-
 - It reflects a **rotated or mirrored symbol's body** about the origin, so `body-vs-*` findings
   on those are noise.
 
-`tools/sch_geom.py` models all three correctly. **Run `tools/check_text_clearance.py`** (margin
-0.35) rather than either — it is the recorded successor, and it also fixed a blind spot of its
-own that a render caught: net labels and symbol bodies used to be obstacles only, never
-subjects, so a label drawn through a GND arrow scored zero findings. Text needs *clearance*;
-a body box is the bounding box of a triangle, so it counts only when genuinely penetrated.
-`tools/dump_region.py` prints everything a sheet draws inside a rectangle — use it before
-placing anything, never a partial wire dump. `tools/netlist_nodes.py` is the node-set
-invariance proof for any geometry rework.
+`tools/sch_geom.py` models all three correctly. **Run `tools/check_text_clearance.py --margin
+0.35`** rather than either — it is the recorded successor, and round 3 found four more blind
+spots that a render caught after it had already passed a sheet clean: a field was never
+compared against its own symbol's outline; labels and bodies were obstacles but never
+subjects; block titles are bold **1.778**, 40% wider per character than the 1.27 the model
+assumed; and field-against-field comparison had been dropped. Text needs *clearance*; a body
+box is the bounding box of a triangle, so it counts only when genuinely penetrated; and text
+over its **own** electrical node is not an overlap at all (`wire_nodes()`).
+
+The rest of `tools/`: **`dump_region.py`** prints everything a sheet draws inside a rectangle —
+use it before placing anything, never a partial wire dump (round 1 shorted two gate nets that
+way). **`netlist_nodes.py`** is the node-set invariance proof for any geometry rework — run it
+before and after, and "ERC is still clean" is not a substitute. **`sch_edit.py`** holds edit
+primitives that assert they changed something, because `str.replace` says nothing when it
+matches nothing.
 
 ## Sharp edges
 

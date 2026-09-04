@@ -474,7 +474,7 @@ first order.
 ### DEC-0026 - A review PDF is committed under `docs/review/`, deviating from `schematic-style`
 **Date** 2026-09-03 · **Status** Accepted · **Scope** `docs/review/`
 
-`docs/review/faff2_cbs1_schematic.pdf` — all 11 pages, from `kicad-cli sch export pdf`.
+`docs/review/faff2_cbs1_schematic.pdf` — all 10 pages (nine blocks and the root; it said 11 while `test_debug` existed), from `kicad-cli sch export pdf`.
 
 *Reasoning.* `schematic-style` says "never produce or commit review PDFs — the client reviews in
 the KiCad GUI". The captain's integration brief asks for exactly that PDF as the deliverable, so
