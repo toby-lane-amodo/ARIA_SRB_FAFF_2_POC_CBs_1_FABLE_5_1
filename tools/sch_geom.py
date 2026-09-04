@@ -26,8 +26,20 @@ LINE_H = 1.27
 LINE_PITCH = 1.85     # KiCad's line spacing for a multi-line note, measured
 
 
-def note_height(n):
-    return LINE_H + (n - 1) * LINE_PITCH
+def note_height(n, scale=1.0):
+    return (LINE_H + (n - 1) * LINE_PITCH) * scale
+
+
+def font_scale(eff):
+    """Text size relative to 1.27.
+
+    Block titles are bold 1.778 - 40% wider per character - so a model that
+    ignores this under-measures every title by a third, which is how the
+    `5 V BRIDGE EXCITATION` title's real 35 mm width came back as 25.
+    """
+    f = kid(eff, "font") if eff else None
+    sz = kid(f, "size") if f else None
+    return float(a(sz, 2)) / 1.27 if sz else 1.0
 
 
 
@@ -108,10 +120,10 @@ def grows_left(justify, rot, mirror):
     return bool((justify == "right") ^ (int(rot) == 180) ^ bool(mirror))
 
 
-def text_box(x, y, text, justify, rot, mirror):
+def text_box(x, y, text, justify, rot, mirror, scale=1.0):
     lines = text.split("\\n")
-    w = max(len(l) for l in lines) * CHAR_W
-    h = len(lines) * LINE_H
+    w = max(len(l) for l in lines) * CHAR_W * scale
+    h = len(lines) * LINE_H * scale
     if grows_left(justify, rot, mirror):
         x0, x1 = x - w, x
     elif justify == "left" or justify == "right":
@@ -246,7 +258,8 @@ class Sheet:
                 just = j[0] if j and j[0] in ("left", "right") else None
                 pa = at(pr)
                 out.append((ref, a(pr, 1),
-                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir),
+                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir,
+                                     font_scale(eff)),
                             (ref, a(pr, 1)) in skip_refs))
         return out
 
@@ -260,9 +273,10 @@ class Sheet:
             j = [a(x, i) for x in kids(eff, "justify")
                  for i in range(1, len(x))] if eff else []
             just = j[0] if j and j[0] in ("left", "right") else None
+            k = font_scale(eff)
             lines = a(t, 1).split("\\n")
-            w = max(len(l) for l in lines) * CHAR_W
-            h = note_height(len(lines))
+            w = max(len(l) for l in lines) * CHAR_W * k
+            h = note_height(len(lines), k)
             x0 = p[0] if just != "right" else p[0] - w
             y0 = p[1] if "top" in j else p[1] - h
             out.append((x0, y0, x0 + w, y0 + h))
@@ -287,20 +301,22 @@ class Sheet:
                 j = [a(x, i) for x in kids(eff, "justify")
                      for i in range(1, len(x))] if eff else []
                 just = next((v for v in j if v in ("left", "right")), None)
+                k = font_scale(eff)
                 txt = a(l, 1)
-                w = len(txt) * CHAR_W + (0.0 if tag == "label" else 2.2)
+                w = len(txt) * CHAR_W * k + (0.0 if tag == "label" else 2.2)
+                lh = LINE_H * k
                 if "bottom" in j:
-                    y0, y1 = p[1] - LINE_H, p[1]
+                    y0, y1 = p[1] - lh, p[1]
                 elif "top" in j:
-                    y0, y1 = p[1], p[1] + LINE_H
+                    y0, y1 = p[1], p[1] + lh
                 else:
-                    y0, y1 = p[1] - LINE_H / 2, p[1] + LINE_H / 2
+                    y0, y1 = p[1] - lh / 2, p[1] + lh / 2
                 if int(p[2]) in (90, 270):
                     # runs vertically; the justify axis rotates with it
                     d = -w if just == "right" else w
-                    out.append(((min(p[0] - LINE_H, p[0]),
+                    out.append(((min(p[0] - lh, p[0]),
                                  min(p[1], p[1] - d),
-                                 max(p[0] + LINE_H, p[0]),
+                                 max(p[0] + lh, p[0]),
                                  max(p[1], p[1] - d)), tag, (p[0], p[1])))
                 elif grows_left(just, 0, False):
                     out.append(((p[0] - w, y0, p[0], y1), tag, (p[0], p[1])))
@@ -329,7 +345,8 @@ class Sheet:
                 j = [a(x, 1) for x in kids(eff, "justify")] if eff else []
                 just = j[0] if j and j[0] in ("left", "right") else None
                 pa = at(pr)
+                k = font_scale(eff)
                 out.append((su, ref, a(pr, 1),
-                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir),
-                            (pa[0], pa[1], a(pr, 2), just, p[2], mir, pa[2])))
+                            text_box(pa[0], pa[1], a(pr, 2), just, p[2], mir, k),
+                            (pa[0], pa[1], a(pr, 2), just, p[2], mir, pa[2], k)))
         return out

@@ -3259,7 +3259,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 45.72) (xy 81.28 45.72)
+			(xy 71.12 45.72) (xy 77.47 45.72)
 		)
 		(stroke
 			(width 0)
@@ -4995,7 +4995,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:PWR_FLAG")
-		(at 81.28 45.72 0)
+		(at 77.47 45.72 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5004,7 +5004,7 @@
 		(fields_autoplaced no)
 		(uuid "0ae17bc0-3749-5810-9b76-b987588d1975")
 		(property "Reference" "#FLG203"
-			(at 83.82 44.45 0)
+			(at 80.01 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5014,7 +5014,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 81.28 41.91 0)
+			(at 77.47 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5022,7 +5022,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 81.28 45.72 0)
+			(at 77.47 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5032,7 +5032,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 81.28 45.72 0)
+			(at 77.47 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5042,7 +5042,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 81.28 45.72 0)
+			(at 77.47 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5052,7 +5052,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 81.28 45.72 0)
+			(at 77.47 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5062,7 +5062,7 @@
 			)
 		)
 		(property "ki_keywords" "flag power"
-			(at 81.28 45.72 0)
+			(at 77.47 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)

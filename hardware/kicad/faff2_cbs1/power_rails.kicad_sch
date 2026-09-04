@@ -4861,7 +4861,7 @@
 	)
 	(wire
 		(pts
-			(xy 27.94 63.5) (xy 52.07 63.5)
+			(xy 27.94 63.5) (xy 53.34 63.5)
 		)
 		(stroke
 			(width 0)
@@ -4921,7 +4921,7 @@
 	)
 	(wire
 		(pts
-			(xy 27.94 171.45) (xy 52.07 171.45)
+			(xy 27.94 171.45) (xy 53.34 171.45)
 		)
 		(stroke
 			(width 0)
@@ -5131,7 +5131,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 45.72) (xy 52.07 63.5)
+			(xy 53.34 45.72) (xy 53.34 63.5)
 		)
 		(stroke
 			(width 0)
@@ -5141,7 +5141,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 45.72) (xy 60.96 45.72)
+			(xy 53.34 45.72) (xy 60.96 45.72)
 		)
 		(stroke
 			(width 0)
@@ -5151,7 +5151,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 153.67) (xy 52.07 171.45)
+			(xy 53.34 153.67) (xy 53.34 171.45)
 		)
 		(stroke
 			(width 0)
@@ -5161,7 +5161,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 153.67) (xy 60.96 153.67)
+			(xy 53.34 153.67) (xy 60.96 153.67)
 		)
 		(stroke
 			(width 0)
@@ -6505,6 +6505,78 @@
 		)
 		(uuid "9df1a101-6ea6-5f79-b522-e4f03ee8448a")
 	)
+		(wire
+		(pts
+			(xy 281.94 83.82) (xy 292.1 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88f5e81e-f32e-52ab-bbf6-54308bc08fc8")
+	)
+	(wire
+		(pts
+			(xy 281.94 86.36) (xy 281.94 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6faec43-d328-51b5-9b77-d4cfdeb0f3a7")
+	)
+	(wire
+		(pts
+			(xy 275.59 86.36) (xy 281.94 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91545a60-54e3-5060-a44e-f37e6cb765ce")
+	)
+		(wire
+		(pts
+			(xy 383.54 83.82) (xy 393.7 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9ef42e4-aea7-530f-9c65-c33ccb5f3e6d")
+	)
+	(wire
+		(pts
+			(xy 383.54 86.36) (xy 383.54 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5859f5e1-bd05-544a-9026-07492e114a75")
+	)
+	(wire
+		(pts
+			(xy 377.19 86.36) (xy 383.54 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5cc13e2-4cbd-53a3-854f-672b54217d44")
+	)
+	(junction
+		(at 383.54 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aab6b4b1-2b1f-51c3-9062-da8a3acf6bca")
+	)
+	(junction
+		(at 281.94 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "86a77ea5-445c-507f-8806-603017f67ad8")
+	)
 	(junction
 		(at 247.65 73.66)
 		(diameter 0)
@@ -7033,7 +7105,7 @@
 		(uuid "2becd775-ccd6-506c-bd31-adb31c18763d")
 	)
 	(rectangle
-		(start 15.24 26.67)
+		(start 13.97 26.67)
 		(end 205.74 128.27)
 		(stroke
 			(width 0.254)
@@ -7125,7 +7197,7 @@
 		(uuid "47b660b5-c8b4-5445-b8d6-c2fd5e2c1b70")
 	)
 	(rectangle
-		(start 15.24 134.62)
+		(start 13.97 134.62)
 		(end 205.74 236.22)
 		(stroke
 			(width 0.254)
@@ -7329,7 +7401,7 @@
 	)
 	(wire
 		(pts
-			(xy 281.94 83.82) (xy 281.94 87.63)
+			(xy 281.94 83.82) (xy 281.94 86.36)
 		)
 		(stroke
 			(width 0)
@@ -7369,7 +7441,7 @@
 	)
 	(wire
 		(pts
-			(xy 383.54 83.82) (xy 383.54 87.63)
+			(xy 383.54 83.82) (xy 383.54 86.36)
 		)
 		(stroke
 			(width 0)
@@ -7702,78 +7774,6 @@
 	)
 	(wire
 		(pts
-			(xy 281.94 83.82) (xy 284.48 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "74f8a50e-c5ec-5031-9a29-e91b14f745ea")
-	)
-	(wire
-		(pts
-			(xy 284.48 83.82) (xy 292.1 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93125628-8b5b-58f0-96eb-63cabc8587a5")
-	)
-	(wire
-		(pts
-			(xy 284.48 81.28) (xy 284.48 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdcb8b60-4fe2-5fb3-a96b-b462e26a496e")
-	)
-	(junction
-		(at 284.48 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3a8672a9-73ec-5c01-b542-0f5af1f66eac")
-	)
-	(wire
-		(pts
-			(xy 383.54 83.82) (xy 386.08 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4db551d3-e54b-56d2-9a84-48e0ef3b3346")
-	)
-	(wire
-		(pts
-			(xy 386.08 83.82) (xy 393.7 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69fd48b8-3273-55dc-8967-6bb76080744e")
-	)
-	(wire
-		(pts
-			(xy 386.08 81.28) (xy 386.08 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3cc0e084-3281-525f-b87e-f0355e00c7db")
-	)
-	(junction
-		(at 386.08 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "92d2fb35-c381-5707-8340-d92386391279")
-	)
-	(wire
-		(pts
 			(xy 182.88 161.29) (xy 186.69 161.29)
 		)
 		(stroke
@@ -7957,7 +7957,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Capacitors:CAP_MLCC_1uF_0603_10%_16V")
 		(at 57.15 62.23 0)
 		(unit 1)
@@ -8059,7 +8060,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 57.15 67.31 0)
 		(unit 1)
@@ -8148,7 +8150,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 72.39 71.12 0)
 		(unit 1)
@@ -8237,7 +8240,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Inductors:IND_SMD_15uH_5.3A")
 		(at 118.11 53.34 0)
 		(unit 1)
@@ -8339,7 +8343,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Resistors:RES_TNF_22.1k_0603_0.1%")
 		(at 132.08 68.58 0)
 		(unit 1)
@@ -8441,7 +8446,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Resistors:RES_TF_1k_0603")
 		(at 86.36 81.28 0)
 		(unit 1)
@@ -8543,7 +8549,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 190.5 72.39 0)
 		(unit 1)
@@ -8632,7 +8639,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 281.94 92.71 0)
 		(unit 1)
@@ -8721,7 +8729,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 383.54 92.71 0)
 		(unit 1)
@@ -8810,7 +8819,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 190.5 180.34 0)
 		(unit 1)
@@ -8899,7 +8909,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:GND")
 		(at 287.02 190.5 0)
 		(unit 1)
@@ -8988,7 +8999,8 @@
 				)
 			)
 		)
-	)	(symbol
+	)
+	(symbol
 		(lib_id "Amodo_Symbols:PWR_FLAG")
 		(at 38.1 33.02 0)
 		(unit 1)
@@ -11642,7 +11654,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 266.19 82.14 0)
+			(at 266.19 84.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12598,7 +12610,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 367.79 82.14 0)
+			(at 367.79 84.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18046,7 +18058,7 @@
 	)
 	(symbol
 		(lib_id "Amodo_Symbols:PWR_FLAG")
-		(at 284.48 81.28 0)
+		(at 275.59 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18055,7 +18067,7 @@
 		(fields_autoplaced no)
 		(uuid "a6ba45aa-bf0e-55a2-917e-02ad166b41bb")
 		(property "Reference" "#FLG345"
-			(at 284.48 81.28 0)
+			(at 275.59 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18065,7 +18077,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 284.48 77.47 0)
+			(at 275.59 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18073,7 +18085,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 284.48 81.28 0)
+			(at 275.59 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18083,7 +18095,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 284.48 81.28 0)
+			(at 275.59 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18093,7 +18105,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 284.48 81.28 0)
+			(at 275.59 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18103,7 +18115,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 284.48 81.28 0)
+			(at 275.59 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18113,7 +18125,7 @@
 			)
 		)
 		(property "ki_keywords" "flag power"
-			(at 284.48 81.28 0)
+			(at 275.59 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18137,7 +18149,7 @@
 
 	(symbol
 		(lib_id "Amodo_Symbols:PWR_FLAG")
-		(at 386.08 81.28 0)
+		(at 377.19 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18146,7 +18158,7 @@
 		(fields_autoplaced no)
 		(uuid "98b6aaf0-7aa0-52b6-bdf5-2ab0fd2bc1fa")
 		(property "Reference" "#FLG347"
-			(at 386.08 81.28 0)
+			(at 377.19 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18156,7 +18168,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 386.08 77.47 0)
+			(at 377.19 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18164,7 +18176,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 386.08 81.28 0)
+			(at 377.19 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18174,7 +18186,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 386.08 81.28 0)
+			(at 377.19 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18184,7 +18196,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 386.08 81.28 0)
+			(at 377.19 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18194,7 +18206,7 @@
 			)
 		)
 		(property "SymLifecycle" "tested"
-			(at 386.08 81.28 0)
+			(at 377.19 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18204,7 +18216,7 @@
 			)
 		)
 		(property "ki_keywords" "flag power"
-			(at 386.08 81.28 0)
+			(at 377.19 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)

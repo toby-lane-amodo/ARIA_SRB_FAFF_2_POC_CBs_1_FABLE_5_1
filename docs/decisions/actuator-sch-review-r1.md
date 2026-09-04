@@ -867,3 +867,68 @@ it - either connector reaching a panel, or the probes becoming field-swappable.
 
 No schematic change. The audit table in round 2 item 3 stays the working
 reference for every other interface.
+
+## Item 4 - respacing every grazing placement, and a home for the TIM1 note
+
+`tools/apply_review_r3_respace.py`, on `tools/sch_edit.py`. Round 2 left thirteen
+power-symbol names grazing something and pinned the labels; item 1's checker,
+once labels and bodies became subjects and the font model learned that block
+titles are bold 1.778 (40% wider per character than the 1.27 the model assumed),
+turned thirteen into **sixty**. All but three are now clear, with ERC 0/0 and
+**node sets identical** - every change is geometry.
+
+### What the sixty actually were
+
+| Class | n | What was done |
+|---|---|---|
+| A power symbol's arrow with a vertex exactly on a wire that runs past it | 10 | the symbol moves along its own stub - GND arrows up, rail arrows **down**, because a rail arrow's name sits above it and moving up only puts the text where the arrow was |
+| A bold block title wider than its block | 6 | moved clear, or re-wrapped where nothing else fitted |
+| A note or hierarchical label running out through a block border | 8 | anchors moved in, one block box grown, two notes re-wrapped |
+| A pinned power name overlapped by a neighbouring wire or body | 12 | the neighbour moved: a feed elbow 1.27 mm, a capacitor's value, a whole `+3V3` drop |
+| Text over **its own** conductor | 14 | not a defect - see below |
+| Field against field | 3 | surfaced only after a checker bug was fixed - see below |
+| Two PWR_FLAG names across the rail wire beside them | 2 | each flag moves onto the test-point stub below, where its name has clear air |
+
+### Two checker corrections that came out of doing the work
+
+**Text over its own node is not an overlap.** Fourteen findings were a label
+sitting on its wire while a *branch* of the same net dropped away through its
+text - which is what "the wire must extend under the entire label" asks for.
+Excusing only the one segment the anchor touches was not enough;
+`wire_nodes()` groups wire segments into electrical nodes by shared endpoints
+and excuses the whole node.
+
+**Field-against-field had been lost.** Rewriting `findings()` around subjects and
+obstacles dropped the pass that compared one symbol's text against another's,
+and reference-against-value is the commonest review defect there is. It went
+unnoticed until a render showed `PWR_FLAG` 0.86 mm inside a neighbouring
+`100nF` on a sheet the checker called clean. Fields are obstacles now as well as
+subjects.
+
+### The TIM1 note
+
+Round 2 recorded that nothing 47.6 x 8.7 mm fitted anywhere in `motor_drive`
+block 4. With item 1's geometry that was simply wrong: **495 positions fit** at
+0.35 mm. It sits at (124.46, 83.82) now, beside U1101's logic inputs, which is
+what the note is about - the nearest free position to where it was.
+
+### Three that are still there, and why
+
+* **`#PWR1131`**, a `+3V3` arrow crossed by the DRV8323_EN row. The gate-drive
+  rows are on 2.54 mm pitch and a rail arrow plus its name at the 3.81 mm offset
+  needs 4.45 mm, so there is no position on that pull-up's stub that clears both
+  neighbours. Fixing it means moving a bus or moving R1120's supply, which is a
+  layout change, not a respacing. **For the captain.**
+* **`#PWR327`**, whose `GND` is 0.13 mm off C318's body, and whose arrow corner
+  meets C318's stub corner. Every direction is taken: up puts the name on U304's
+  VCC stub, down and left run into the EN feed's elbow, right puts C318's own
+  reference inside U304's body. 0.13 mm is a graze, not an overlap, and the
+  Amodo library's own field offsets sit at 0.38.
+
+### One thing found on the way
+
+Eighteen top-level blocks across `motor_drive` and `power_rails` had lost the
+newline between them - `\n\t)\t(symbol` - written that way by a round-1 script.
+KiCad does not care, which is why ERC and the netlist never noticed, but it
+hides a block from anything anchored on line starts, and it silently defeated
+this pass's first run. `sch_edit.normalise()` puts them back.

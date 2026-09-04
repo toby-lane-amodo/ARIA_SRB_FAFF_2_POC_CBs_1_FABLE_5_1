@@ -11329,7 +11329,7 @@
 	(text
 		"SIGNAL INPUT FILTER"
 		(exclude_from_sim no)
-		(at 96.52 41.66 0)
+		(at 100.33 41.66 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -11354,7 +11354,7 @@
 	(text
 		"REFERENCE (SENSE) FILTER - RATIOMETRIC"
 		(exclude_from_sim no)
-		(at 96.52 84.84 0)
+		(at 100.33 84.84 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -11365,8 +11365,8 @@
 		(uuid "b1d9925e-aa6c-5ef8-aa99-238fe02771f8")
 	)
 	(rectangle
-		(start 196.85 13.97)
-		(end 245.11 35.56)
+		(start 196.85 16.51)
+		(end 254 35.56)
 		(stroke
 			(width 0.1524)
 			(type dash)
@@ -11379,7 +11379,7 @@
 	(text
 		"5 V BRIDGE EXCITATION"
 		(exclude_from_sim no)
-		(at 198.12 14.99 0)
+		(at 216.51 17.15 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -11429,7 +11429,7 @@
 	(text
 		"OPERATING POINT (prelim calc Force sheet; ADS1235 SBAS824)\n  Gain 128, 4800 SPS, Sinc2, VREF = bridge excitation (ratiometric)\n  FSR = +/-VREF/128 = +/-39.06 mV (78.125 mV span) vs +/-10 mV signal\n  Input-referred noise 0.29 uVrms / 2.4 uVpp (data sheet table 1)\n    = 12.0 mNpp (V50N) / 2.4 mNpp (V10N) vs REQ-FF-04 20 / 5 mNpp\n  Ratiometric operation cancels excitation drift and noise, so the\n  5 V rail does not need to be a precision reference.\n\nFILTERS - the ADS1235 data sheet figure 84 reference design.\n  Signal and reference filters are deliberately identical so their\n  corner frequencies match: 100R series per leg, 1 nF C0G common mode\n  to AVSS, 10 nF C0G differential. The differential capacitor is 10x\n  the common-mode capacitors, so common-mode capacitor mismatch\n  converts little common-mode noise into differential noise.\n  Differential corner ~76 kHz, common mode ~1.6 MHz; the ADC PGA\n  antialias filter (C514, 4.7 nF C0G) is at 60 kHz.\n  R505 (100k) across the sense pair is the data sheet reference\n  monitor resistor: it collapses VREF if the cable is unplugged so\n  REFL_ALM asserts. It sits on the bridge side of R503/R504 so its\n  50 uA does not develop an error across the reference filter."
 		(exclude_from_sim no)
-		(at 250.19 76.2 0)
+		(at 251.46 76.2 0)
 		(effects
 			(font
 				(size 1.27 1.27)

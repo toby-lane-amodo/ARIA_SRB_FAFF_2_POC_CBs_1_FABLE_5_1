@@ -1955,7 +1955,7 @@
 	)
 	(text "R801/R802 are the removable links of TEST_PLAN 4: lift\neither to drop its pull-up.  SB801/SB802 are cut to take\nthe EEPROM off I2C1 while the bus stays pulled up -\nthis block owns that break, so mcu must not duplicate\nit.  The SDA pull-up crosses the SCL run, no junction."
 		(exclude_from_sim no)
-		(at 17.7800 66.0400 0)
+		(at 16.51 66.04 0)
 		(effects
 				(font
 					(size 1.27 1.27)

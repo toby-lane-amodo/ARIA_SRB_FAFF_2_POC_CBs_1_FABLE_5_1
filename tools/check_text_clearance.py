@@ -69,9 +69,12 @@ def obstacles(sheet):
            for n, w in enumerate(sheet.wires())]
     out += [(("border", n), "blockborder", G.seg_box(*e))
             for n, e in enumerate(sheet.rect_edges())]
-    out += [(("note", n), "note", b)
+    notes = [G.a(t, 1).split("\\n")[0][:22] for t in G.kids(sheet.sch, "text")]
+    out += [(("note", n), 'note "%s"' % notes[n], b)
             for n, b in enumerate(sheet.free_text_boxes())]
-    out += [(("netlabel", n), "netlabel:" + t, b)
+    names = [G.a(l, 1) for tag in ("label", "hierarchical_label", "global_label")
+             for l in G.kids(sheet.sch, tag)]
+    out += [(("netlabel", n), "label:" + names[n], b)
             for n, (b, t, _a) in enumerate(sheet.label_details())]
     for s in sheet.symbols():
         ref = next((G.a(pr, 2) for pr in G.kids(s, "property")
@@ -80,6 +83,13 @@ def obstacles(sheet):
         b = sheet.body_box(s)
         if b:
             out.append((("body", su), "body:" + ref, b))
+    # Fields are obstacles too. Leaving them out of this list is how a
+    # "PWR_FLAG" 0.86 mm inside a neighbouring "100nF" survived a clean run:
+    # the subject/obstacle rewrite dropped the field-against-field pass the
+    # first version had, and reference-against-value is the commonest defect
+    # of the lot.
+    out += [(("field", su, prop), "%s.%s" % (ref, prop), box)
+            for (su, ref, prop, box, _m) in sheet.visible_fields_by_instance()]
     return out
 
 
@@ -109,12 +119,40 @@ def reportable(kind, box, obs_key, ob, margin):
     return d < -BODY_MIN, d
 
 
-def excused(sheet, subj_key, obs_key, wires, pins, anchors):
+def wire_nodes(wires):
+    """Group wire segments into electrical nodes by shared endpoints.
+
+    A label names a node, and every wire of that node may legitimately run
+    under its text - that is what "the wire must extend under the entire label"
+    asks for. Excusing only the one segment the anchor sits on reported every
+    branch dropping off that same node, nine times across mcu and motor_drive.
+    """
+    parent = list(range(len(wires)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    at_point = {}
+    for i, (p, q) in enumerate(wires):
+        for e in (p, q):
+            at_point.setdefault((round(e[0], 2), round(e[1], 2)), []).append(i)
+    for js in at_point.values():
+        for j in js[1:]:
+            a_, b_ = find(js[0]), find(j)
+            if a_ != b_:
+                parent[b_] = a_
+    return [find(i) for i in range(len(wires))]
+
+
+def excused(sheet, subj_key, obs_key, wires, pins, anchors, nodes=None):
     """True where a subject and an obstacle are meant to be in contact.
 
-    Two cases, and only two. A symbol body touches every wire that lands on one
-    of its own pins - a GND arrow's outline starts at its pin, so all 283 power
-    symbols would otherwise report. And a net label sits on the wire it names.
+    A symbol body touches every wire that lands on one of its own pins - a GND
+    arrow's outline starts at its pin, so all 283 power symbols would otherwise
+    report. And a net label sits on its own node, branches included.
     """
     if subj_key[0] == "body" and obs_key[0] == "wire":
         w = wires[obs_key[1]]
@@ -123,11 +161,16 @@ def excused(sheet, subj_key, obs_key, wires, pins, anchors):
         return subj_key[1] == obs_key[1]
     if subj_key[0] == "netlabel":
         if obs_key[0] == "wire":
-            return on_segment(anchors[subj_key[1]], wires[obs_key[1]])
+            own = {nodes[i] for i, w in enumerate(wires)
+                   if on_segment(anchors[subj_key[1]], w)} if nodes else set()
+            return nodes[obs_key[1]] in own if own else on_segment(
+                anchors[subj_key[1]], wires[obs_key[1]])
         if obs_key[0] == "netlabel":
             return subj_key[1] == obs_key[1]
     if subj_key[0] == "note" and obs_key[0] == "note":
         return subj_key[1] == obs_key[1]
+    if subj_key[0] == "field" and obs_key[0] == "field":
+        return subj_key[1:] == obs_key[1:]
     return False
 
 
@@ -141,10 +184,13 @@ def subjects(sheet):
     out = []
     for (su, ref, prop, box, _m) in sheet.visible_fields_by_instance():
         out.append((("field", su, prop), "%s.%s" % (ref, prop), "field", box))
+    names = [G.a(l, 1) for tag in ("label", "hierarchical_label", "global_label")
+             for l in G.kids(sheet.sch, tag)]
     for n, (b, t, _a) in enumerate(sheet.label_details()):
-        out.append((("netlabel", n), t, "netlabel", b))
-    for n, b in enumerate(sheet.free_text_boxes()):
-        out.append((("note", n), "note", "note", b))
+        out.append((("netlabel", n), "label:" + names[n], "netlabel", b))
+    for n, tx in enumerate(G.kids(sheet.sch, "text")):
+        out.append((("note", n), 'note "%s"' % G.a(tx, 1).split("\\n")[0][:22],
+                    "note", sheet.free_text_boxes()[n]))
     for s in sheet.symbols():
         ref = next((G.a(pr, 2) for pr in G.kids(s, "property")
                     if G.a(pr, 1) == "Reference"), "")
@@ -163,15 +209,19 @@ def findings(path, margin):
     anchors = [a_ for (_b, _t, a_) in sheet.label_details()]
     pins = {G.a(G.kid(s, "uuid"), 1): sheet.pin_points(s)
             for s in sheet.symbols()}
+    nodes = wire_nodes(wires)
     out = []
     for (skey, name, kind, box) in subs:
         for okey, olabel, ob in obs:
             if kind == "field" and okey[0] == "body":
                 pass                      # a field vs its OWN body still counts
+            elif kind == "field" and okey[0] == "field":
+                if skey[1:] == okey[1:]:
+                    continue
             elif skey[:2] == okey[:2] or (kind, skey[1]) == (okey[0], okey[1]):
                 continue
             if excused(sheet, (kind, skey[1]) if kind != "field" else skey,
-                       okey, wires, pins, anchors):
+                       okey, wires, pins, anchors, nodes):
                 continue
             hit, d = reportable(kind, box, okey, ob, margin)
             if hit:
@@ -261,9 +311,9 @@ def fix_sheet(path, margin):
                 continue
             if clear(key, boxes[key]):
                 continue
-            x0, y0, txt, just, rot, mir, fang = m
+            x0, y0, txt, just, rot, mir, fang, fk = m
             for (dx, dy) in CANDIDATES:
-                nb = G.text_box(x0 + dx, y0 + dy, txt, just, rot, mir)
+                nb = G.text_box(x0 + dx, y0 + dy, txt, just, rot, mir, fk)
                 if clear(key, nb):
                     pick = (key[0], key[1], x0 + dx, y0 + dy, fang)
                     break
@@ -316,8 +366,8 @@ def main():
         if not a.quiet:
             for (d, name, kind, olabel, box, ob) in f:
                 word = "overlaps by" if d < 0 else "clears by only"
-                print("   %-22s %-9s %s %5.2f mm  vs %-18s @ (%.2f,%.2f)"
-                      % (name, kind, word, abs(d), olabel,
+                print("   %-30s %s %5.2f  vs %-30s @ (%.2f,%.2f)"
+                      % (name, word, abs(d), olabel,
                          (ob[0] + ob[2]) / 2, (ob[1] + ob[3]) / 2))
         total += len(f)
     print("TOTAL: %d (margin %.2f mm)" % (total, a.margin))
