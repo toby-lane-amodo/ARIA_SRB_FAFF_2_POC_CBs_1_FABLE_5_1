@@ -160,6 +160,18 @@ Three placements still graze, all argued out in `actuator-sch-review-r1.md` roun
 `#PWR1131`'s arrow needs 4.45 mm in a 2.54 mm bus field, and `#PWR327`'s name is 0.13 mm off
 C318 with every direction taken. `tools/check_text_clearance.py --margin 0.35` is the check.
 
+## Parallel parts share one ground-flag height
+
+Capacitors — or any parts — drawn in parallel across the same net put their GND flags at the
+**same y**, so the row reads as a row. Four flags on four heights draws as a staircase; that is
+the captain's round-4 ruling and `C1101`…`C1104` were the example. Where a row already agrees,
+the odd one out joins it; otherwise the height that makes the bottom stub match the top one is
+the right target, since `schematic-style` asks for equal stubs anyway.
+
+**`tools/gnd_rows.py` finds every breach** — it groups two-terminal parts by upper net and body
+y, splits them into visual runs, and reports any run whose flags disagree. Run it after moving
+a ground: a local fix that solves one collision by dropping one flag out of line is not a fix.
+
 ## The bundled overlap checker is not the last word
 
 `check_overlaps.py` from `schematic-style` is the first pass, not the verdict. Three blind
