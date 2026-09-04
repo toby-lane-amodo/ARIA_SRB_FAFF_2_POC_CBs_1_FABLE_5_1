@@ -30,7 +30,7 @@ This is the spec for the skill update. Four rules govern it:
    rounds, no project names. A rule reads as an instruction to the next engineer.
 4. **Anything not commented on is approved as written.**
 
-Items marked **HELD** are not to be applied until the outstanding question is answered.
+Every item is ruled on; nothing is held.
 
 ---
 
@@ -287,27 +287,30 @@ fits inside it."* Sizing is covered; crossing a body or the frame is not.
 
 ## C. Symbols, designators and libraries
 
-### 16. Instance rotation is allowed, on one condition — prefer the house symbol
+### 16. Rotate the part on the schematic; keep its text horizontal
 
-**Rule.** Prefer the house library symbol and rotate the instance over creating a project-local
-pre-rotated variant of a part the library already has. Instance rotation carries one condition: a
-property's `(at x y angle)` angle is **relative to the symbol**, so field angles must be
-compensated — 270 on a symbol at 90, 90 on one at 270 — or the reference and value come out
-sideways. **Prove it in a render, every time.**
+**Rule.** Rotating a part on the schematic is acceptable and normal. Needing an orientation is not
+a reason to make a library variant — use the standard symbol and turn it. Keep the reference and
+value rendering **horizontal**: a property's `(at x y angle)` angle is *relative to the symbol*, so
+compensate the field angles — 270 on a symbol at 90, 90 on one at 270 — or the text comes out
+sideways. Verify it in a render.
 
 **Origin.** *"`R1128`-`R1133` use a different 100R symbol — why, and unify"*, ruled *"unify onto the
-standard 100R symbol regardless"*.
+standard 100R symbol regardless"*, then settled directly: *"It is perfectly acceptable to rotate a
+part in a schematic. Needing to rotate a part should not require a new library variant to be
+made."*
 
 **Status.** **CONTRADICTS** *"Orientation variants are pre-rotated in the library, never
 instance-rotated — this keeps reference/value text horizontal. If a part must sit horizontally
 (in-line series resistor, rotated FET), make a `_H`/pre-rotated local variant."*
-Current skill: pre-rotated variant, never instance rotation.
-Proposed: house symbol plus compensated instance rotation; a project-local variant of a part the
-house library already has is a divergence to be avoided.
-Note the two are reconcilable if "in the library" means *the house library*: making the variant
-**upstream** satisfies both. It is only the **project-local** variant the captain rejected.
+Current skill: pre-rotated library variant; never rotate the instance.
+Proposed: rotate the instance; no variant is needed for orientation. The *purpose* of the old rule
+— reference and value text rendering horizontal — is kept, and the Rule above says how to achieve
+it while rotating.
 
-**Disposition.** **HELD.** Not to be applied until the outstanding question is answered: whether a rotated copy of a symbol is acceptable when it is made in the shared house library, or whether the standard part should always be turned on the schematic instead.
+**Disposition.** **APPROVED — this one REPLACES the text it contradicts.** It is the single
+exception to folding a change in as added detail: the existing sentence says the opposite, so it
+comes out and the Rule above goes in its place. The `_H`/pre-rotated-variant sentence goes with it.
 
 ### 17. Reference-designator prefixes follow the part's function
 
@@ -590,7 +593,7 @@ place.
 
 | # | Item | Ruling |
 |---|---|---|
-| 1 | 16 — instance rotation vs pre-rotated variants | **HELD.** An explanation has been given and an answer is awaited: is a rotated copy acceptable when it lives in the *shared house library*, or should the standard part always be turned on the schematic? The item is not to be applied until this is settled, because the two readings give opposite instructions. |
+| 1 | 16 — instance rotation vs pre-rotated variants | **Ruled: rotate the part.** *"It is perfectly acceptable to rotate a part in a schematic. Needing to rotate a part should not require a new library variant to be made."* The item now **replaces** the never-instance-rotate text rather than folding into it, keeping that rule's purpose — horizontal reference and value — as the condition on rotating. |
 | 2 | 13 — character advance | **Use the safer version.** The rule now says to measure it on a render rather than quoting a number. |
 | 3 | 12 — the clearance margin | **Left to my judgement; decided: no fixed number.** The rule gives a calibration method instead — sweep at increasing margins, find where the finding count jumps because the library's own field offsets have started reporting, sit just below that. A number measured against one library is wrong for the next one; the method is not. |
 | 4 | 19 — test coverage on its own sheet | **Disagreed with my reservation: test coverage goes on the sheet.** The rule globalises as written and my large-design caveat is withdrawn. The one addition is that an existing sheet carrying test coverage is not collapsed without asking the designer first. |
@@ -602,10 +605,14 @@ place.
 
 ## Summary for the skill update
 
-* **34 items.** 33 approved as written or as amended above; **1 held** (item 16).
+* **34 items, all approved.** Nothing is held.
 * **Refinements are folded into the named existing rule as added detail** — they do not become new
-  bullets. Items 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 15, 16, 20, 25, 29, 34 name the rule they
-  extend.
+  bullets. Items 1, 2, 3, 4, 8, 9, 10, 11, 12, 15, 20, 25, 29 and 34 name the rule they extend, and
+  item 13 amends a figure inside an existing line in the same way.
+* **One item replaces rather than extends: item 16.** The existing "never instance-rotated"
+  sentence, and the `_H`/pre-rotated-variant sentence with it, come out; the Rule in item 16 goes
+  in their place. That rule's purpose — reference and value rendering horizontal — is preserved as
+  the condition on rotating.
 * **Origins are not pushed.** They exist in this document only.
 * **The Rule text is the only text that transfers**, and it is already written in plain
   designer-to-designer style: no process narration, no roles, no review rounds, no project names.

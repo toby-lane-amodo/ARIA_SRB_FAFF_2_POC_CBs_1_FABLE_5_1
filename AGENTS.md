@@ -67,15 +67,15 @@ reference their 3D models through it. `README.md` has the setup table; DEC-0015 
   `hardware/kicad/faff2_cbs1/faff2_<block>.kicad_sym` (and `faff2.pretty/` for footprints),
   registered in the project `sym-lib-table` / `fp-lib-table` through `${KIPRJMOD}`. Record why
   in the block's decisions file so the captain can fix the house library upstream.
-- **A pre-rotated variant is one way to lay a part horizontally** — they live in
-  `faff2_passives.kicad_sym` (`RES_TF_39R_0603_H`, `RES_TF_0R_0603_H`). **Prefer the house
-  symbol** and rotate the instance: round 4's ruling is that a project-local variant of a part
-  the house library already has is a divergence, and `RES_TF_100R_0603_H` was deleted for it.
-  Instance-rotation carries a condition: a symbol property's `(at x y angle)`
-  angle is **relative to the symbol**, so the field angles must be compensated (270 on a symbol
-  at 90, 90 on one at 270) or the reference and value come out sideways. **Prove it in a render,
-  every time** — 38 instances across the design do this correctly. `schematic-style`;
-  `actuator-rev-testdebug.md`; `actuator-sch-review-r1.md`.
+- **Rotate the instance. Do not make a library variant to get an orientation** — the captain's
+  ruling: *"It is perfectly acceptable to rotate a part in a schematic. Needing to rotate a part
+  should not require a new library variant to be made."* Rotation carries one condition: a symbol
+  property's `(at x y angle)` angle is **relative to the symbol**, so the field angles must be
+  compensated (270 on a symbol at 90, 90 on one at 270) or the reference and value come out
+  sideways. **Prove it in a render, every time** — 57 rotated instances across the design do this
+  correctly. Two pre-rotated variants predate the ruling and still have users,
+  `RES_TF_39R_0603_H` and `RES_TF_0R_0603_H` in `faff2_passives.kicad_sym`; leave them, but make
+  no more. `RES_TF_100R_0603_H` was deleted in round 4 for exactly this reason.
 - Some Amodo symbols are **uncommitted local additions** to that working copy — `ADS1235` is
   one. `git checkout --` on a file there deletes them. Do not run git operations in that
   library; it is not ours to manage.
