@@ -185,6 +185,34 @@ def polyline(board, pts, width, layer, nc):
 # --------------------------------------------------------------------------
 GRID = 0.05        # mm
 BUCKET = 4.0       # mm, spatial index cell
+RESERVED = -1      # pseudo-net for a corridor held for a later stage
+
+
+SEG_STEP = 0.15    # obstacle box pitch along a diagonal track
+
+
+def _seg_obstacle_boxes(a, c, hw):
+    """A track as axis-aligned obstacle boxes.
+
+    An axis-aligned segment IS its bbox, so it takes one box.  A diagonal's
+    bbox is far bigger than the copper -- at 45 deg a single box over-blocks
+    by 0.4 mm, which quietly walls off legal lanes -- so it is chopped at
+    SEG_STEP.
+    """
+    if abs(a[0] - c[0]) < 1e-9 or abs(a[1] - c[1]) < 1e-9:
+        return [(min(a[0], c[0]) - hw, min(a[1], c[1]) - hw,
+                 max(a[0], c[0]) + hw, max(a[1], c[1]) + hw)]
+    n = max(1, int(dist(a, c) / SEG_STEP) + 1)
+    out = []
+    for s in range(n):
+        t0, t1 = s / n, (s + 1) / n
+        x0 = a[0] + (c[0] - a[0]) * t0
+        y0 = a[1] + (c[1] - a[1]) * t0
+        x1 = a[0] + (c[0] - a[0]) * t1
+        y1 = a[1] + (c[1] - a[1]) * t1
+        out.append((min(x0, x1) - hw, min(y0, y1) - hw,
+                    max(x0, x1) + hw, max(y0, y1) + hw))
+    return out
 
 
 class Obstacles:
@@ -247,19 +275,8 @@ class Obstacles:
             else:
                 a, c = pt(t.GetStart()), pt(t.GetEnd())
                 hw = tomm(t.GetWidth()) / 2.0
-                # axis-aligned and 45 deg segments are handled as a chain of
-                # small boxes so a diagonal does not block its whole bbox
-                n = max(1, int(dist(a, c) / 0.5))
-                for s in range(n):
-                    t0 = s / n
-                    t1 = (s + 1) / n
-                    px0 = a[0] + (c[0] - a[0]) * t0
-                    py0 = a[1] + (c[1] - a[1]) * t0
-                    px1 = a[0] + (c[0] - a[0]) * t1
-                    py1 = a[1] + (c[1] - a[1]) * t1
-                    items.append((nc, frozenset((t.GetLayer(),)),
-                                  (min(px0, px1) - hw, min(py0, py1) - hw,
-                                   max(px0, px1) + hw, max(py0, py1) + hw), "cu"))
+                for box in _seg_obstacle_boxes(a, c, hw):
+                    items.append((nc, frozenset((t.GetLayer(),)), box, "cu"))
         self.items = items
         self._index()
         # rule areas
@@ -283,16 +300,29 @@ class Obstacles:
                 self.buckets.setdefault((bi, bj), []).append(k)
 
     def add_seg(self, a, c, hw, layer, nc):
-        n = max(1, int(dist(a, c) / 0.5))
-        for s in range(n):
-            t0, t1 = s / n, (s + 1) / n
-            px0 = a[0] + (c[0] - a[0]) * t0
-            py0 = a[1] + (c[1] - a[1]) * t0
-            px1 = a[0] + (c[0] - a[0]) * t1
-            py1 = a[1] + (c[1] - a[1]) * t1
-            self._add((nc, frozenset((layer,)),
-                       (min(px0, px1) - hw, min(py0, py1) - hw,
-                        max(px0, px1) + hw, max(py0, py1) + hw), "cu"))
+        for box in _seg_obstacle_boxes(a, c, hw):
+            self._add((nc, frozenset((layer,)), box, "cu"))
+
+    def reserve(self, pts, hw):
+        """Block a corridor on both layers for a net not routed yet.
+
+        Reservations live only in this obstacle model, never on the board, so
+        a later stage that rebuilds the model sees clear board again.  They
+        exist so the house step order (planes, feeds, ground, then signals)
+        cannot drop a ground stitch across a controlled-impedance corridor
+        that step 5 has to have.
+        """
+        for a, b in zip(pts, pts[1:]):
+            n = max(1, int(dist(a, b) / 0.4))
+            for k in range(n):
+                t0, t1 = k / n, (k + 1) / n
+                x0 = a[0] + (b[0] - a[0]) * t0
+                y0 = a[1] + (b[1] - a[1]) * t0
+                x1 = a[0] + (b[0] - a[0]) * t1
+                y1 = a[1] + (b[1] - a[1]) * t1
+                self._add((RESERVED, frozenset((F, B)),
+                           (min(x0, x1) - hw, min(y0, y1) - hw,
+                            max(x0, x1) + hw, max(y0, y1) + hw), "cu"))
 
     def add_via_at(self, q, nc):
         hw = VIA_D / 2.0
@@ -390,10 +420,14 @@ class Obstacles:
             arr[:, :max(0, lo_j - j0)] = True
         if hi_j - j0 + 1 < arr.shape[1]:
             arr[:, max(0, hi_j - j0 + 1):] = True
-        # board corners are R2 -- clip the four 2 mm quadrants conservatively
-        for cx, cy, sx, sy in ((BX + 2, BY + 2, -1, -1), (BX + BW - 2, BY + 2, 1, -1),
+        # the board's R2 corners, only when the window actually reaches one
+        for cx, cy, sx, sy in ((BX + 2, BY + 2, -1, -1),
+                               (BX + BW - 2, BY + 2, 1, -1),
                                (BX + 2, BY + BH - 2, -1, 1),
                                (BX + BW - 2, BY + BH - 2, 1, 1)):
+            ci, cj = self.ij(cx, cy)
+            if not (i0 - 50 <= ci <= i1 + 50 and j0 - 50 <= cj <= j1 + 50):
+                continue
             rr = 2.0 - EDGE_CLEAR - radius
             for di in range(0, int(2.5 / GRID)):
                 for dj in range(0, int(2.5 / GRID)):
@@ -401,8 +435,8 @@ class Obstacles:
                     y = cy + sy * dj * GRID
                     if math.hypot(x - cx, y - cy) <= rr:
                         continue
-                    ii = int(math.floor((x - self.x0) / GRID + 0.5)) - i0
-                    jj = int(math.floor((y - self.y0) / GRID + 0.5)) - j0
+                    ii = self.ij(x, y)[0] - i0
+                    jj = self.ij(x, y)[1] - j0
                     if 0 <= ii < arr.shape[0] and 0 <= jj < arr.shape[1]:
                         arr[ii, jj] = True
 
@@ -802,6 +836,115 @@ def seg_ok(obst, a, b, width, nc, layer=F, samples=None):
         if m[i - win[0], j - win[1]]:
             return False
     return True
+
+
+# --------------------------------------------------------------------------
+# Geometric connectivity, per net
+#
+# pcbnew's Python binding does not expose the ratsnest usefully, and the
+# proofs need more than a count: which pads are in which island, and whether a
+# net's connectivity leans on a single via.  So build it from the copper.
+# --------------------------------------------------------------------------
+class _UF:
+    def __init__(self, n):
+        self.p = list(range(n))
+
+    def find(self, a):
+        while self.p[a] != a:
+            self.p[a] = self.p[self.p[a]]
+            a = self.p[a]
+        return a
+
+    def union(self, a, b):
+        ra, rb = self.find(a), self.find(b)
+        if ra != rb:
+            self.p[ra] = rb
+
+
+def net_items(board, net):
+    """[(kind, ref, layers, [boxes])] -- every piece of copper on `net`."""
+    out = []
+    for f in board.GetFootprints():
+        for p in f.Pads():
+            if p.GetNetname() != net:
+                continue
+            lay = pad_copper_layers(p)
+            if not lay:
+                continue
+            if is_hole(p):
+                lay = {F, B, IN1, IN2}
+            out.append(("pad", f"{f.GetReference()}.{p.GetNumber()}",
+                        frozenset(lay), [pad_bbox(p)]))
+    for t in board.GetTracks():
+        if t.GetNetname() != net:
+            continue
+        if isinstance(t, pcbnew.PCB_VIA):
+            q = pt(t.GetPosition())
+            hw = VIA_D / 2.0
+            out.append(("via", f"{q[0]:.3f},{q[1]:.3f}",
+                        frozenset((F, B, IN1, IN2)),
+                        [(q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw)]))
+        else:
+            a, b = pt(t.GetStart()), pt(t.GetEnd())
+            hw = tomm(t.GetWidth()) / 2.0
+            out.append(("track", f"{a[0]:.2f},{a[1]:.2f}-{b[0]:.2f},{b[1]:.2f}",
+                        frozenset((t.GetLayer(),)),
+                        _seg_obstacle_boxes(a, b, hw)))
+    return out
+
+
+def _touch_graph(items, plane_layers=()):
+    """Union-find over items whose boxes overlap on a shared layer."""
+    uf = _UF(len(items))
+    cell = 2.0
+    buckets = {}
+    for i, (_k, _r, lay, boxes) in enumerate(items):
+        for bx in boxes:
+            for gi in range(int(bx[0] // cell), int(bx[2] // cell) + 1):
+                for gj in range(int(bx[1] // cell), int(bx[3] // cell) + 1):
+                    buckets.setdefault((gi, gj), set()).add(i)
+    for key, ids in buckets.items():
+        ids = sorted(ids)
+        for x in range(len(ids)):
+            for y in range(x + 1, len(ids)):
+                i, j = ids[x], ids[y]
+                if uf.find(i) == uf.find(j):
+                    continue
+                if not (items[i][2] & items[j][2]):
+                    continue
+                if _boxes_touch(items[i][3], items[j][3]):
+                    uf.union(i, j)
+    # a filled plane joins everything that reaches it
+    if plane_layers:
+        reach = [i for i, it in enumerate(items)
+                 if it[2] & set(plane_layers)]
+        for i in reach[1:]:
+            uf.union(reach[0], i)
+    return uf
+
+
+def _boxes_touch(a, b):
+    for p in a:
+        for q in b:
+            if (p[0] <= q[2] + 1e-6 and q[0] <= p[2] + 1e-6
+                    and p[1] <= q[3] + 1e-6 and q[1] <= p[3] + 1e-6):
+                return True
+    return False
+
+
+def net_islands(board, net, plane=False):
+    items = net_items(board, net)
+    uf = _touch_graph(items, (IN1, IN2) if plane else ())
+    groups = {}
+    for i, it in enumerate(items):
+        groups.setdefault(uf.find(i), []).append(it)
+    return list(groups.values())
+
+
+def net_is_whole(board, net, plane=False):
+    isl = net_islands(board, net, plane)
+    with_pads = [g for g in isl if any(k == "pad" for k, *_ in g)]
+    return len(with_pads) <= 1
 
 
 def unconnected(board):

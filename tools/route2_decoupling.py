@@ -94,8 +94,10 @@ def via_slot(board, obst, sup_pad, away_from, nc):
     """A legal feed-via centre in the supply pad's own escape lane."""
     import math
     s = R.pt(sup_pad.GetPosition())
-    w = R.tomm(sup_pad.GetSizeX())
-    h = R.tomm(sup_pad.GetSizeY())
+    # world bbox, not GetSizeX/Y: a 90 deg rotated footprint swaps its pads'
+    # local x/y, and a slot sized from the local size lands the via ON the pad
+    bb = R.pad_bbox(sup_pad)
+    w, h = bb[2] - bb[0], bb[3] - bb[1]
     base = math.atan2(s[1] - away_from[1], s[0] - away_from[0])
     for swing in SWINGS:
         a = base + math.radians(swing)

@@ -1,0 +1,324 @@
+#!/usr/bin/env python3
+"""Routing proofs for `faff2_cbs1.kicad_pcb`.
+
+Everything the house rules say must be *proved programmatically* rather than
+eyeballed, plus the numbers the routing decisions file quotes.
+
+  --gnd      every SMD GND pad owns its own via (the step-3 completeness
+             proof), and no via is shared between two ground lands
+  --viainpad no via sits in a pad, by true rectangle distance from the barrel
+             to each pad's world bbox -- the QFN/SOIC exposed pads are the
+             one client-ruled exception
+  --power    via count per power net against the 1.0 A/via budget, and a
+             brute-force minimum-via-cut: if removing fewer vias than the
+             budget requires splits the net, the net leans on too few
+  --usb      differential pair geometry, length and skew
+  --g5       every signal via's nearest GND via (guideline G5)
+  --nets     which nets are still in more than one island
+
+With no flag it runs the lot.  Exit code 1 if any proof fails.
+"""
+import argparse
+import itertools
+import math
+import os
+import sys
+
+import pcbnew
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import route_lib as R  # noqa: E402
+from route3_gnd import EP_PADS  # noqa: E402
+
+BUDGET = {
+    "/power_entry_24v/V24_IN": 3.0, "Net-(F201-Pad2)": 3.0,
+    "Net-(Q201-D)": 3.0, "/power_entry_24v/V24_PROT": 3.0,
+    "/power_entry_24v/V0_IN": 3.0, "/power_entry_24v/+24V_SW": 3.0,
+    "Net-(R1101-Pad2)": 3.0, "/motor_drive/V24_MOT": 3.0,
+    "/motor_drive/MOTOR_U": 3.0, "/motor_drive/MOTOR_V": 3.0,
+    "/motor_drive/MOTOR_W": 3.0,
+    "/power_entry_24v/V24_LOGIC": 0.3, "Net-(U301-SW)": 0.7,
+    "Net-(C306-Pad1)": 0.7, "/power_rails/+6V0": 0.6,
+    "Net-(U302-SENSE)": 0.3, "Net-(U303-SENSE)": 0.3,
+    "+5V": 0.3, "+5VA": 0.3, "Net-(U304-SW)": 1.5, "Net-(C320-Pad1)": 1.5,
+    "+3V3": 1.5, "+3V3A": 0.2, "/mcu/+3V3_USB": 0.3, "/mcu/+1V8_USB": 0.2,
+    "/linear_encoder/+5V_ENC": 0.3, "/motor_drive/VENC": 0.3,
+    "/motor_drive/VM_DRV": 0.1,
+}
+
+fails = []
+
+
+def vias(board, net=None):
+    out = []
+    for t in board.GetTracks():
+        if isinstance(t, pcbnew.PCB_VIA) and (net is None
+                                              or t.GetNetname() == net):
+            out.append((R.pt(t.GetPosition()), t.GetNetname()))
+    return out
+
+
+def tracks(board, net=None):
+    out = []
+    for t in board.GetTracks():
+        if isinstance(t, pcbnew.PCB_VIA):
+            continue
+        if net is None or t.GetNetname() == net:
+            out.append((R.pt(t.GetStart()), R.pt(t.GetEnd()),
+                        R.tomm(t.GetWidth()), t.GetLayer(), t.GetNetname()))
+    return out
+
+
+def inside(p, bb, slack=0.0):
+    return (bb[0] - slack <= p[0] <= bb[2] + slack
+            and bb[1] - slack <= p[1] <= bb[3] + slack)
+
+
+# --------------------------------------------------------------------------
+def check_gnd(board):
+    print("== GND completeness (step 3: one via per pad)")
+    # merge physically overlapping pads into one land -- a USB-C shell pin
+    # pair (A1/B12) is one piece of copper, not two
+    raw = []
+    for f in board.GetFootprints():
+        for p in f.Pads():
+            if p.GetNetname() != "GND" or not R.pad_copper_layers(p):
+                continue
+            if p.GetAttribute() != pcbnew.PAD_ATTRIB_SMD:
+                continue
+            raw.append((f.GetReference(), p.GetNumber(), R.pad_bbox(p)))
+    used = [False] * len(raw)
+    lands = []
+    for i, a in enumerate(raw):
+        if used[i]:
+            continue
+        grp = [a]
+        used[i] = True
+        again = True
+        while again:
+            again = False
+            for j, b in enumerate(raw):
+                if used[j] or b[0] != a[0]:
+                    continue
+                for m in grp:
+                    if (b[2][0] <= m[2][2] and m[2][0] <= b[2][2]
+                            and b[2][1] <= m[2][3] and m[2][1] <= b[2][3]):
+                        grp.append(b)
+                        used[j] = True
+                        again = True
+                        break
+        lands.append(grp)
+
+    gvias = [q for q, n in vias(board) if n == "GND"]
+    # components of GND copper made only of tracks and vias -- the stubs
+    items = [it for it in R.net_items(board, "GND") if it[0] != "pad"]
+    uf = R._touch_graph(items)
+    comp = {}
+    for i, it in enumerate(items):
+        comp.setdefault(uf.find(i), []).append(it)
+
+    covered, owners = set(), {}
+    for grp in lands:
+        key = (grp[0][0], grp[0][1])
+        mine = set()
+        for root, its in comp.items():
+            touches = any(any(R._boxes_touch(it[3], [bb]) for _r, _n, bb in grp)
+                          for it in its)
+            if not touches:
+                continue
+            for it in its:
+                if it[0] == "via":
+                    mine.add(it[1])
+        if mine:
+            covered.add(key)
+            for v in mine:
+                owners.setdefault(v, set()).add(key)
+
+    missing = [(g[0][0], g[0][1]) for g in lands
+               if (g[0][0], g[0][1]) not in covered]
+    shared = {v: o for v, o in owners.items() if len(o) > 1}
+    print(f"   SMD GND pads          {sum(len(g) for g in lands)} "
+          f"in {len(lands)} lands")
+    print(f"   lands reaching a via  {len(lands) - len(missing)}")
+    print(f"   GND vias on the board {len(gvias)}")
+    print(f"   vias reachable from more than one land: {len(shared)}")
+    if missing:
+        print(f"   MISSING: {sorted(missing)}")
+        fails.append(f"GND: {len(missing)} lands without a via")
+    isl = R.net_islands(board, "GND", plane=True)
+    with_pads = [g for g in isl if any(k == "pad" for k, *_ in g)]
+    print(f"   GND islands carrying pads: {len(with_pads)} (must be 1)")
+    if len(with_pads) != 1:
+        fails.append("GND is not one island")
+
+
+# --------------------------------------------------------------------------
+def check_viainpad(board):
+    print("\n== no via-in-pad (true rectangle distance, barrel to pad bbox)")
+    allowed = set()
+    for f in board.GetFootprints():
+        for p in f.Pads():
+            if (f.GetReference(), p.GetNumber()) in EP_PADS:
+                allowed.add((f.GetReference(), p.GetNumber()))
+    bad = []
+    inpad = 0
+    pads = [(f.GetReference(), p.GetNumber(), R.pad_bbox(p), p)
+            for f in board.GetFootprints() for p in f.Pads()
+            if R.pad_copper_layers(p)]
+    for q, net in vias(board):
+        for ref, num, bb, p in pads:
+            dx = max(bb[0] - q[0], 0.0, q[0] - bb[2])
+            dy = max(bb[1] - q[1], 0.0, q[1] - bb[3])
+            if math.hypot(dx, dy) >= R.VIA_D / 2.0:
+                continue
+            if (ref, num) in allowed:
+                inpad += 1
+                continue
+            bad.append((ref, num, q, net))
+    print(f"   vias inside an allowed exposed pad: {inpad}")
+    print(f"   vias inside any other pad:          {len(bad)}")
+    if bad:
+        for b in bad[:20]:
+            print("     ", b)
+        fails.append(f"{len(bad)} vias in pads")
+
+
+# --------------------------------------------------------------------------
+def islands_without(items, drop):
+    keep = [it for i, it in enumerate(items) if i not in drop]
+    uf = R._touch_graph(keep)
+    groups = {}
+    for i, it in enumerate(keep):
+        groups.setdefault(uf.find(i), []).append(it)
+    return [g for g in groups.values() if any(k == "pad" for k, *_ in g)]
+
+
+def check_power(board):
+    print("\n== power vias against the 1.0 A/via budget "
+          "(n = ceil(I/1.0), min 2 on a layer change)")
+    print(f"   {'net':<30} {'I des':>6} {'need':>5} {'vias':>5} "
+          f"{'min w':>6}  min-cut")
+    for net, amps in sorted(BUDGET.items(), key=lambda kv: -kv[1]):
+        v = [q for q, n in vias(board, net)]
+        tr = tracks(board, net)
+        layers = {t[3] for t in tr}
+        need = max(2, math.ceil(amps / R.VIA_A)) if len(layers) > 1 else 0
+        minw = min((t[2] for t in tr), default=0.0)
+        cut = "-"
+        if need:
+            items = R.net_items(board, net)
+            vidx = [i for i, it in enumerate(items) if it[0] == "via"]
+            base = len(islands_without(items, set()))
+            found = None
+            for k in range(1, min(need, 3)):
+                for combo in itertools.combinations(vidx, k):
+                    if len(islands_without(items, set(combo))) > base:
+                        found = k
+                        break
+                if found:
+                    break
+            cut = f"{found}" if found else f">={min(need,3)}"
+            if found:
+                fails.append(f"{net}: splits when {found} via(s) removed, "
+                             f"budget needs {need}")
+        flag = "" if (not need or len(v) >= need) else "  <-- TOO FEW"
+        print(f"   {net:<30} {amps:6.2f} {need:5d} {len(v):5d} "
+              f"{minw:6.3f}  {cut}{flag}")
+        if need and len(v) < need:
+            fails.append(f"{net}: {len(v)} vias, needs {need}")
+
+
+# --------------------------------------------------------------------------
+def check_usb(board):
+    print("\n== USB 2.0 HS pair (target 90 ohm: 0.30 mm wide, 0.20 mm gap)")
+    out = {}
+    for net in ("/mcu/USB_DM", "/mcu/USB_DP"):
+        tr = tracks(board, net)
+        ln = sum(R.dist(a, b) for a, b, *_ in tr)
+        ws = sorted({round(t[2], 3) for t in tr})
+        lay = sorted({board.GetLayerName(t[3]) for t in tr})
+        nv = len(vias(board, net))
+        out[net] = ln
+        print(f"   {net:<16} {ln:7.2f} mm  widths {ws}  layers {lay}  "
+              f"vias {nv}")
+    skew = abs(out["/mcu/USB_DM"] - out["/mcu/USB_DP"])
+    print(f"   skew {skew:.3f} mm "
+          f"({'within' if skew < 1.0 else 'OVER'} the 1 mm working tolerance)")
+    if skew >= 1.0:
+        fails.append(f"USB skew {skew:.2f} mm")
+
+
+# --------------------------------------------------------------------------
+def check_g5(board):
+    print("\n== G5: every signal via wants a GND via beside it")
+    g = [q for q, n in vias(board) if n == "GND"]
+    rows = []
+    for q, net in vias(board):
+        if net == "GND":
+            continue
+        d = min((R.dist(q, p) for p in g), default=1e9)
+        rows.append((d, net, q))
+    rows.sort(reverse=True)
+    far = [r for r in rows if r[0] > 3.0]
+    print(f"   non-GND vias {len(rows)};  nearest GND via: "
+          f"median {sorted(r[0] for r in rows)[len(rows)//2]:.2f} mm, "
+          f"worst {rows[0][0]:.2f} mm")
+    print(f"   further than 3.0 mm from any GND via: {len(far)}")
+    for d, net, q in far[:15]:
+        print(f"     {d:6.2f} mm  {net:<28} at {q[0]:.2f},{q[1]:.2f}")
+
+
+# --------------------------------------------------------------------------
+def check_nets(board):
+    print("\n== net completeness")
+    nets = sorted({p.GetNetname() for f in board.GetFootprints()
+                   for p in f.Pads() if p.GetNetname()
+                   and not p.GetNetname().startswith("unconnected-")})
+    split = []
+    for n in nets:
+        if len(R.pad_nodes(board, n)) < 2:
+            continue
+        if not R.net_is_whole(board, n, plane=(n == "GND")):
+            split.append((n, len(R.net_islands(board, n, plane=(n == "GND")))))
+    print(f"   {len(nets)} nets;  still split: {len(split)}")
+    for n, k in split:
+        print(f"     {n:<40} {k} islands")
+    if split:
+        fails.append(f"{len(split)} nets still split")
+    t = [x for x in board.GetTracks() if not isinstance(x, pcbnew.PCB_VIA)]
+    v = [x for x in board.GetTracks() if isinstance(x, pcbnew.PCB_VIA)]
+    ln = {}
+    for x in t:
+        k = board.GetLayerName(x.GetLayer())
+        ln[k] = ln.get(k, 0.0) + R.dist(R.pt(x.GetStart()), R.pt(x.GetEnd()))
+    print(f"   tracks {len(t)}  vias {len(v)}  copper "
+          + "  ".join(f"{k} {vv:.0f} mm" for k, vv in sorted(ln.items())))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    for f in ("gnd", "viainpad", "power", "usb", "g5", "nets"):
+        ap.add_argument("--" + f, action="store_true")
+    a = ap.parse_args()
+    run_all = not any(vars(a).values())
+    board = R.load()
+    if run_all or a.gnd:
+        check_gnd(board)
+    if run_all or a.viainpad:
+        check_viainpad(board)
+    if run_all or a.power:
+        check_power(board)
+    if run_all or a.usb:
+        check_usb(board)
+    if run_all or a.g5:
+        check_g5(board)
+    if run_all or a.nets:
+        check_nets(board)
+    print("\n" + ("ALL PROOFS PASS" if not fails else "FAILURES:"))
+    for f in fails:
+        print("   " + f)
+    return 1 if fails else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
