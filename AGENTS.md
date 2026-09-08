@@ -212,6 +212,53 @@ it. Neither tool is the last word; the render is.
 Rebuilding from `HEAD` works exactly once: after the script's own commit lands, `HEAD` already
 contains its edits and a re-run double-applies them.
 
+## PCB layout phase
+
+The board is `hardware/kicad/faff2_cbs1/faff2_cbs1.kicad_pcb`. It was created by
+`tools/gen_pcb_setup.py` (stackup, layer roles, outline, mounting holes, schematic import) and
+`tools/gen_pcb_rules.py` (net classes, DRC constraints). **From placement onwards the board
+file is the master — never re-run those generators over it.** Full reasoning, the stackup
+table and the connector edge plan: [`docs/decisions/actuator-pcb-setup.md`](docs/decisions/actuator-pcb-setup.md).
+
+Board-wide numbers every layout task needs:
+
+- **Stackup: JLCPCB `JLC04161H-7628`** — standard no-surcharge 4-layer, 1.6 mm, 1 oz outer /
+  0.5 oz inner. The only impedance-relevant dielectric is the **0.2104 mm 7628 prepreg,
+  Dk 4.4**, between each outer layer and its GND plane. 50 Ω microstrip = 0.37 mm;
+  90 Ω differential (USB) = 0.30 mm wide / 0.20 mm gap.
+- **Layer roles (house G1)**: `F.Cu` and `B.Cu` are `mixed` and carry **all** signals **and**
+  power as traces; `In1.Cu`/`In2.Cu` are unbroken GND planes. Never split a plane (G10).
+- **One via for the whole board: 0.6 mm pad / 0.20 mm drill**, annular ring 0.20 mm — JLC's
+  *recommended* annulus, on a no-surcharge drill. No blind, buried or micro vias.
+- **1.0 A per via — not 3 A.** JLC plates ~18 µm, so the barrel is worth a 0.32 mm 1 oz trace
+  (≈1.05 A at 10 °C rise). Power via count is `ceil(I / 1.0)`, minimum 2 on any rail that
+  changes layer.
+- **Trace/space default 6/6 mil** (0.1524 mm); `Power` 0.5 mm, `Motor` 1.0 mm. G12 floors are
+  0.15 mm track and clearance — floors, not targets.
+- Board is **210 × 130 mm**, R2 corners, four **M3 NPTH** holes 6 mm in from each corner.
+  Non-plated on purpose: plated holes would chassis-ground the load-cell AFE through the
+  standoffs. Drill/place origin is the board's bottom-left corner.
+
+**`pcbnew.SaveBoard()` rewrites the sibling `.kicad_pro` wholesale**, exactly as an open KiCad
+session does — it replaces the ERC configuration, the schematic settings block, the 10-sheet
+list, the net classes and the DRC rules with KiCad defaults, silently and with no error. It
+cost the whole DEC-0021 ERC baseline once. Snapshot the `.kicad_pro` before any `SaveBoard`
+and write it back afterwards (`tools/gen_pcb_setup.py` does), run `tools/gen_pcb_rules.py`
+**after** the board generator and never before, and re-run the schematic ERC after any board
+save to prove the baseline survived.
+
+Sequencing, and what is **not** done yet:
+
+- **G7 is a hard gate: the captain reviews placement before any routing.** Placement is its
+  own task; submit a placement pack and stop.
+- Until placement runs, the 408 imported footprints sit in an **off-board holding grid**,
+  grouped by schematic sheet with a caption per group on `Cmts.User`. DRC's unconnected count
+  is the whole ratsnest until then — that is the expected residual, not a defect.
+- **The two GND plane zones are routing step 1, not board setup** — the house process opens
+  and closes each routing step with the engineer, so the pours land there.
+- Connector edge plan (actuator connectors on one long edge, bench connectors on the other) is
+  recorded in the decisions file for the placement task to execute.
+
 ## Sharp edges
 
 - Multi-line schematic text must use `\n` **escape sequences** in the file. A literal newline
