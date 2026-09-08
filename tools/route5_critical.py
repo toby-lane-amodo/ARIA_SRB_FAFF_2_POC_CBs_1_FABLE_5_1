@@ -43,38 +43,15 @@ USB_W = 0.30
 USB_GAP = 0.20
 
 
-def grp(board, ref, num):
-    out = []
-    for f in board.GetFootprints():
-        if f.GetReference() != ref:
-            continue
-        for p in f.Pads():
-            if p.GetNumber() == num and R.pad_copper_layers(p):
-                out.append((ref, p))
-    if not out:
-        raise KeyError(f"{ref}.{num}")
-    return out
-
-
-def gmin(g):
-    bs = [R.pad_bbox(p) for _r, p in g]
-    bb = (min(b[0] for b in bs), min(b[1] for b in bs),
-          max(b[2] for b in bs), max(b[3] for b in bs))
-    return min(bb[2] - bb[0], bb[3] - bb[1])
-
-
 def link(board, obst, maze, net, a, b, w, layers=(R.F,), margin=12, **kw):
-    nc = R.netcode(board, net)
-    ga, gb = grp(board, *a), grp(board, *b)
-    width = max(R.W_SIGNAL, round(min(w, gmin(ga), gmin(gb)), 4))
-    na, nb = R.node_geom(ga), R.node_geom(gb)
-    for m in (margin, margin * 2, margin * 4):
-        res = maze.route(nc, na[2], nb[2], width, layers=layers,
-                         start_rects=na[1], goal_rects=nb[1], margin=m, **kw)
-        if res is not None:
-            R.emit_result(board, obst, res, width, nc)
-            return R.route_len(res), width, len(res[1])
-    return None, width, 0
+    """R.link, with a printable length and an explicit ok flag."""
+    ln, width, nv, direct = R.link(board, obst, maze, net, a, b, w,
+                                   layers=layers, margin=margin, **kw)
+    return (ln if ln is not None else float("nan")), width, nv, (ln is not None)
+
+
+def fmt(ln, ok):
+    return f"{ln:6.2f} mm" if ok else "   FAILED"
 
 
 # --------------------------------------------------------------------------
@@ -92,44 +69,122 @@ LEGS = [
 ]
 
 
+# Phase-node via drops.  P1-03: each phase leaves the node on B.Cu and runs
+# south to J1103, which keeps the whole discontinuous di/dt inside the bridge
+# and keeps F.Cu free for the six gate runs.  3 vias at 1.0 A each for the 3 A
+# peak (setup S3).  x is the FET column, y sits in the gap between the
+# high-side source and the low-side drain.
+PHASE_DROP = {"/motor_drive/MOTOR_U": (226.0, (119.1, 120.0, 120.9)),
+              "/motor_drive/MOTOR_V": (211.0, (119.1, 120.0, 120.9)),
+              "/motor_drive/MOTOR_W": (196.0, (119.1, 120.0, 120.9))}
+
+
+def phase_drop(board, obst, maze, net):
+    """Plant the phase's via cluster on the node and return the via centres."""
+    nc = R.netcode(board, net)
+    x, ys = PHASE_DROP[net]
+    out = []
+    for y in ys:
+        q = None
+        for dx in (0.0, 0.35, -0.35, 0.7, -0.7, 1.05, -1.05):
+            c = (round(x + dx, 3), y)
+            win = obst.ij(c[0] - 1.8, c[1] - 1.8) + obst.ij(c[0] + 1.8,
+                                                            c[1] + 1.8)
+            m = obst.via_mask(win, nc)
+            i, j = obst.ij(*c)
+            if not m[i - win[0], j - win[1]]:
+                q = c
+                break
+        if q is None:
+            continue
+        R.add_via(board, q, nc)
+        obst.add_via_at(q, nc)
+        out.append(q)
+    # tie the cluster together on F.Cu at motor width -- it sits on the node
+    for a, b in zip(out, out[1:]):
+        R.add_track(board, a, b, W_PHASE, R.F, nc)
+        obst.add_seg(a, b, W_PHASE / 2.0, R.F, nc)
+    return out
+
+
 def bridge(board, obst, maze):
-    print("== commutation loop")
+    """Two passes over the three legs, and the order is the whole point.
+
+    Pass A gives every leg its node, its shunt path, its Kelvin taps and its
+    six gate runs -- all on F.Cu, in the channels between the legs.  Only then
+    does pass B take the three phase outputs out to the connector, on B.Cu
+    from a 3-via drop on the node itself (P1-03, 3 A peak at 1.0 A/via).
+
+    Routed the other way round, leg U's 1 mm phase output cuts straight
+    through leg V's gate corridors and none of them can be drawn at any width.
+    """
+    print("== commutation loop -- pass A: nodes, shunts, gates, senses")
     for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
-        # phase node: high-side source straight down onto the low-side drain
-        d, w, v = link(board, obst, maze, phase, (qh, "1_2_3"), (ql, "5_6_7_8"),
-                       W_PHASE, margin=8)
-        print(f"   {phase:<24} {qh}.S -> {ql}.D   {d:6.2f} mm @ {w:.2f}")
-        # phase observation point, then out to the connector on B.Cu (P1-03)
-        link(board, obst, maze, phase, (ql, "5_6_7_8"), (tp, "1"), 0.6,
-             margin=10)
-        d2, w2, v2 = link(board, obst, maze, phase, (ql, "5_6_7_8"),
-                          ("J1103", jp), W_PHASE, layers=(R.F, R.B),
-                          margin=16, via_cost=40)
-        print(f"   {phase:<24} {ql}.D -> J1103.{jp} {d2:6.2f} mm @ {w2:.2f}"
-              f"  vias {v2}")
-        # low-side source -> shunt, power width; then the Kelvin sense tap
-        d3, w3, _ = link(board, obst, maze, snet, (ql, "1_2_3"), (shunt, "1"),
-                         W_PHASE, margin=10)
-        print(f"   {snet:<24} {ql}.S -> {shunt}.1 {d3:6.2f} mm @ {w3:.2f}")
-        d4, w4, _ = link(board, obst, maze, snet, (shunt, "1"), ("U1101", sp),
-                         W_KELVIN, margin=16)
-        print(f"   {snet:<24} KELVIN {shunt}.1 -> U1101.{sp} "
-              f"{d4:6.2f} mm @ {w4:.2f}")
-        # SNx return: dedicated trace from the shunt's own ground pad
-        d5, w5, _ = link(board, obst, maze, "GND", (shunt, "2"),
-                         ("U1101", sn), W_KELVIN, margin=18)
-        print(f"   GND                      KELVIN-RTN {shunt}.2 -> "
-              f"U1101.{sn} {d5:6.2f} mm @ {w5:.2f}")
-        # gate drives, F.Cu, via-free
-        for q, pin in ((qh, gh), (ql, gl)):
-            d6, w6, _ = link(board, obst, maze, f"Net-({q}-G)", (q, "4"),
-                             ("U1101", pin), W_GATE, margin=16)
-            print(f"   Net-({q}-G){'':<10} {q}.G -> U1101.{pin:<3} "
-                  f"{d6:6.2f} mm @ {w6:.2f}")
-        # high-side source sense (SHx) shares the phase node
-        d7, w7, _ = link(board, obst, maze, phase, (ql, "5_6_7_8"),
-                         ("U1101", sh), 0.35, margin=16)
-        print(f"   {phase:<24} SH   -> U1101.{sh:<3} {d7:6.2f} mm @ {w7:.2f}")
+        d, w, v, ok = link(board, obst, maze, phase, (qh, "1_2_3"),
+                           (ql, "5_6_7_8"), W_PHASE, margin=8)
+        print(f"   {phase:<24} {qh}.S -> {ql}.D     {fmt(d, ok)} @ {w:.2f}")
+        d3, w3, _, ok3 = link(board, obst, maze, snet, (ql, "1_2_3"),
+                              (shunt, "1"), W_PHASE, margin=10)
+        print(f"   {snet:<24} {ql}.S -> {shunt}.1   {fmt(d3, ok3)} @ {w3:.2f}")
+        d4, w4, _, ok4 = link(board, obst, maze, snet, (shunt, "1"),
+                              ("U1101", sp), W_KELVIN, layers=(R.F, R.B),
+                              margin=20, via_cost=70)
+        print(f"   {snet:<24} KELVIN {shunt}.1 -> U1101.{sp:<3} "
+              f"{fmt(d4, ok4)} @ {w4:.2f}")
+        # high-side gate and its source sense are a pair -- draw them together
+        d6, w6, nv6, ok6 = link(board, obst, maze, f"Net-({qh}-G)", (qh, "4"),
+                                ("U1101", gh), W_GATE, margin=20)
+        print(f"   Net-({qh}-G){'':<10} {qh}.G -> U1101.{gh:<3} "
+              f"{fmt(d6, ok6)} @ {w6:.2f}  vias {nv6}")
+        d7, w7, nv7, ok7 = link(board, obst, maze, phase, (ql, "5_6_7_8"),
+                                ("U1101", sh), 0.35, layers=(R.F, R.B),
+                                margin=20, via_cost=70)
+        print(f"   {phase:<24} SH   -> U1101.{sh:<3}   {fmt(d7, ok7)} @ "
+              f"{w7:.2f}  vias {nv7}")
+        d8, w8, nv8, ok8 = link(board, obst, maze, f"Net-({ql}-G)", (ql, "4"),
+                                ("U1101", gl), W_GATE, margin=20)
+        print(f"   Net-({ql}-G){'':<10} {ql}.G -> U1101.{gl:<3} "
+              f"{fmt(d8, ok8)} @ {w8:.2f}  vias {nv8}")
+        dt, wt, _, okt = link(board, obst, maze, phase, (ql, "5_6_7_8"),
+                              (tp, "1"), 0.6, margin=12)
+        print(f"   {phase:<24} TP   -> {tp:<10} {fmt(dt, okt)} @ {wt:.2f}")
+
+    print("\n== SNx returns: a dedicated trace only where it is really short")
+    for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
+        d5, w5, _, ok5 = link(board, obst, maze, "GND", (shunt, "2"),
+                              ("U1101", sn), W_KELVIN, layers=(R.F, R.B),
+                              margin=20, via_cost=70, max_len=14.0)
+        print(f"   {shunt}.2 -> U1101.{sn:<3} "
+              + (f"{d5:6.2f} mm @ {w5:.2f}" if ok5
+                 else "  none: over 14 mm, the plane is the return"))
+
+    print("\n== commutation loop -- pass B: phase outputs to J1103, on B.Cu")
+    for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
+        vias = phase_drop(board, obst, maze, phase)
+        nc = R.netcode(board, phase)
+        gb = R.node_geom(R.pad_group(board, "J1103", jp))
+        done = False
+        for ww in (W_PHASE, 0.80, 0.60):
+            for v in vias:
+                res = maze.route(nc, [v], gb[2], ww, layers=(R.B,),
+                                 start_rects={R.B: [(v[0] - 0.2, v[1] - 0.2,
+                                                     v[0] + 0.2, v[1] + 0.2)]},
+                                 goal_rects=gb[1], margin=25)
+                if res is None:
+                    continue
+                R.emit_result(board, obst, res, ww, nc)
+                print(f"   {phase:<24} {len(vias)} node vias, B.Cu to "
+                      f"J1103.{jp}  {R.route_len(res):6.2f} mm @ {ww:.2f}")
+                done = True
+                break
+            if done:
+                break
+        if not done:
+            d2, w2, v2, ok2 = link(board, obst, maze, phase, (ql, "5_6_7_8"),
+                                   ("J1103", jp), W_PHASE, layers=(R.F, R.B),
+                                   margin=25, via_cost=30)
+            print(f"   {phase:<24} -> J1103.{jp} FALLBACK on F.Cu "
+                  f"{fmt(d2, ok2)} @ {w2:.2f} vias {v2}")
 
 
 # --------------------------------------------------------------------------
@@ -285,6 +340,8 @@ CLOCKS = ["/loadcell_afe/ADS1235_CLKIN", "Net-(U501A-CLKIN)",
 def main():
     board = R.load()
     obst = R.Obstacles(board)
+    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
+    R.escape_pass(board, obst)
     maze = R.Maze(obst)
 
     bridge(board, obst, maze)
@@ -316,9 +373,10 @@ def main():
                          (("D903", "1"), ("R907", "2"), "Net-(D903-K)", 0.37),
                          (("R907", "1"), ("U901", "4"), "Net-(R907-Pad1)",
                           0.37)):
-        d, ww, v = link(board, obst, maze, net, a, b, w, margin=14)
+        d, ww, v, okk = link(board, obst, maze, net, a, b, w, margin=14,
+                             layers=(R.F, R.B), via_cost=80)
         print(f"   {net:<20} {a[0]}.{a[1]} -> {b[0]}.{b[1]}  "
-              f"{(d or 0):6.2f} mm @ {ww:.2f}")
+              f"{fmt(d, okk)} @ {ww:.2f}")
     for net in RF:
         f = R.connect_net(board, obst, maze, net,
                           width=R.net_width(net), via_cost=80, margin=20)

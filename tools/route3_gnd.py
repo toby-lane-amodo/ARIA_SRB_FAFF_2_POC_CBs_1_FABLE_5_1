@@ -306,6 +306,7 @@ def main():
            for t in board.GetTracks()):
         raise SystemExit("route3: GND vias already present -- runs once")
     obst = R.Obstacles(board)
+    obst.reserve_pin_escapes(board)
     for pts, hw in RESERVED_CORRIDORS:
         obst.reserve(pts, hw)
     maze = R.Maze(obst)

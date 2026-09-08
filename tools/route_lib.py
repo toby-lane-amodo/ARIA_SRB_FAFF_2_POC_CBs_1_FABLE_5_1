@@ -303,7 +303,51 @@ class Obstacles:
         for box in _seg_obstacle_boxes(a, c, hw):
             self._add((nc, frozenset((layer,)), box, "cu"))
 
-    def reserve(self, pts, hw):
+    def reserve_pin_escapes(self, board, pitch_max=0.75, length=0.8):
+        """Hold every fine-pitch pin's own escape lane open.
+
+        An IC's pin ring is escape lanes wall to wall (R3-1).  Nothing stops a
+        foreign net's trace running straight down one of them -- step 2's
+        VM_DRV link did exactly that along U1101 pin 5's only lane, and pin 5
+        then had nowhere to go.  Each lane is reserved *with its own pin's
+        netcode*, so the pin's own net may use it and no other net may cross
+        the ring.  Returns the number of lanes held.
+        """
+        n = 0
+        for f in board.GetFootprints():
+            pads = [p for p in f.Pads() if pad_copper_layers(p)]
+            if len(pads) < 8:
+                continue
+            cs = [pt(p.GetPosition()) for p in pads]
+            pitch = min((dist(a, b) for i, a in enumerate(cs)
+                         for b in cs[i + 1:]), default=99)
+            if pitch > pitch_max:
+                continue
+            c = pt(f.GetPosition())
+            for p in pads:
+                nc = p.GetNetCode()
+                if not nc or p.GetNetname().startswith("unconnected-"):
+                    continue
+                bb = pad_bbox(p)
+                w, h = bb[2] - bb[0], bb[3] - bb[1]
+                if abs(w - h) < 0.05:
+                    continue
+                q = pt(p.GetPosition())
+                if w > h:
+                    u = (math.copysign(1.0, (q[0] - c[0]) or 1.0), 0.0)
+                    hw = h / 2.0
+                    d0 = w / 2.0
+                else:
+                    u = (0.0, math.copysign(1.0, (q[1] - c[1]) or 1.0))
+                    hw = w / 2.0
+                    d0 = h / 2.0
+                a = (q[0] + u[0] * d0, q[1] + u[1] * d0)
+                b = (q[0] + u[0] * (d0 + length), q[1] + u[1] * (d0 + length))
+                self.reserve([a, b], hw, nc)
+                n += 1
+        return n
+
+    def reserve(self, pts, hw, nc=RESERVED):
         """Block a corridor on both layers for a net not routed yet.
 
         Reservations live only in this obstacle model, never on the board, so
@@ -320,7 +364,7 @@ class Obstacles:
                 y0 = a[1] + (b[1] - a[1]) * t0
                 x1 = a[0] + (b[0] - a[0]) * t1
                 y1 = a[1] + (b[1] - a[1]) * t1
-                self._add((RESERVED, frozenset((F, B)),
+                self._add((nc, frozenset((F, B)),
                            (min(x0, x1) - hw, min(y0, y1) - hw,
                             max(x0, x1) + hw, max(y0, y1) + hw), "cu"))
 
@@ -495,6 +539,13 @@ class Maze:
         if not openq:
             return None
 
+        # the heuristic is evaluated per expansion, so cap how many goal
+        # points it scans -- keep the ones nearest the start
+        if len(goals) > 16:
+            sx = sum(p[0] for p in starts) / len(starts)
+            sy = sum(p[1] for p in starts) / len(starts)
+            goals = sorted(goals, key=lambda g: (g[0] - sx) ** 2
+                           + (g[1] - sy) ** 2)[:16]
         gpts = [o.ij(*g) for g in goals]
         gpts = [(a - i0, b - j0) for a, b in gpts]
 
@@ -769,75 +820,6 @@ def seg_rects(res, hw):
     return out
 
 
-def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
-                seed=None, skip_nodes=(), verbose=True, **kw):
-    """Route every node of `netname` into one tree.
-
-    Greedy nearest-node growth: the target of each hop is the whole of the
-    already-connected copper, not just one pad, so branches join wherever they
-    reach rather than doubling back to a pad.
-    """
-    nc = netcode(board, netname)
-    w = width if width is not None else net_width(netname)
-    nodes = [g for g in pad_nodes(board, netname)
-             if not any(r in skip_nodes for r, _ in g)]
-    if len(nodes) < 2:
-        return []
-    geoms = [node_geom(g) for g in nodes]
-    # existing copper of this net already on the board seeds the tree
-    have = board_net_rects(board, nc)
-
-    start = seed if seed is not None else 0
-    conn = {start}
-    tree = {F: list(geoms[start][1][F]) + have[F],
-            B: list(geoms[start][1][B]) + have[B]}
-    tree_pts = list(geoms[start][2])
-    fails = []
-    while len(conn) < len(nodes):
-        cand = sorted(((min(dist(geoms[a][0], geoms[b][0]) for a in conn), b)
-                       for b in range(len(nodes)) if b not in conn))
-        placed = False
-        for _d, b in cand:
-            res = maze.route(nc, geoms[b][2], tree_pts, w, layers=layers,
-                             start_rects=geoms[b][1], goal_rects=tree, **kw)
-            if res is None:
-                continue
-            emit_result(board, obst, res, w, nc)
-            r = seg_rects(res, w / 2.0)
-            for l in (F, B):
-                tree[l] += r[l] + geoms[b][1][l]
-            tree_pts += geoms[b][2]
-            conn.add(b)
-            placed = True
-            break
-        if not placed:
-            for _d, b in cand:
-                fails.append([r for r, _ in nodes[b]][0])
-            break
-    if fails and verbose:
-        print(f"    ! {netname}: unrouted nodes {sorted(set(fails))}")
-    return fails
-
-
-def seg_ok(obst, a, b, width, nc, layer=F, samples=None):
-    """True when a `width` trace from a to b clears all foreign copper."""
-    r = width / 2.0 + CLEAR
-    win = (min(obst.ij(a[0], a[1])[0], obst.ij(b[0], b[1])[0]) - 20,
-           min(obst.ij(a[0], a[1])[1], obst.ij(b[0], b[1])[1]) - 20,
-           max(obst.ij(a[0], a[1])[0], obst.ij(b[0], b[1])[0]) + 20,
-           max(obst.ij(a[0], a[1])[1], obst.ij(b[0], b[1])[1]) + 20)
-    m = obst.track_mask(win, nc, layer, r)
-    n = samples or max(2, int(dist(a, b) / (GRID / 2)) + 1)
-    for k in range(n + 1):
-        t = k / n
-        x = a[0] + (b[0] - a[0]) * t
-        y = a[1] + (b[1] - a[1]) * t
-        i, j = obst.ij(x, y)
-        if m[i - win[0], j - win[1]]:
-            return False
-    return True
-
-
 # --------------------------------------------------------------------------
 # Geometric connectivity, per net
 #
@@ -862,7 +844,11 @@ class _UF:
 
 
 def net_items(board, net):
-    """[(kind, ref, layers, [boxes])] -- every piece of copper on `net`."""
+    """[(kind, ref, layers, obstacle boxes, goal boxes)] for one net.
+
+    Obstacle boxes cover the copper; goal boxes lie strictly inside it, so a
+    route that lands on one is really on the copper.
+    """
     out = []
     for f in board.GetFootprints():
         for p in f.Pads():
@@ -874,22 +860,26 @@ def net_items(board, net):
             if is_hole(p):
                 lay = {F, B, IN1, IN2}
             out.append(("pad", f"{f.GetReference()}.{p.GetNumber()}",
-                        frozenset(lay), [pad_bbox(p)]))
+                        frozenset(lay), [pad_bbox(p)],
+                        [pad_target_rect(p)]))
     for t in board.GetTracks():
         if t.GetNetname() != net:
             continue
         if isinstance(t, pcbnew.PCB_VIA):
             q = pt(t.GetPosition())
             hw = VIA_D / 2.0
+            g = hw / 1.5
             out.append(("via", f"{q[0]:.3f},{q[1]:.3f}",
                         frozenset((F, B, IN1, IN2)),
-                        [(q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw)]))
+                        [(q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw)],
+                        [(q[0] - g, q[1] - g, q[0] + g, q[1] + g)]))
         else:
             a, b = pt(t.GetStart()), pt(t.GetEnd())
             hw = tomm(t.GetWidth()) / 2.0
             out.append(("track", f"{a[0]:.2f},{a[1]:.2f}-{b[0]:.2f},{b[1]:.2f}",
                         frozenset((t.GetLayer(),)),
-                        _seg_obstacle_boxes(a, b, hw)))
+                        _seg_obstacle_boxes(a, b, hw),
+                        seg_boxes(a, b, hw)))
     return out
 
 
@@ -898,12 +888,12 @@ def _touch_graph(items, plane_layers=()):
     uf = _UF(len(items))
     cell = 2.0
     buckets = {}
-    for i, (_k, _r, lay, boxes) in enumerate(items):
-        for bx in boxes:
+    for i, it in enumerate(items):
+        for bx in it[3]:
             for gi in range(int(bx[0] // cell), int(bx[2] // cell) + 1):
                 for gj in range(int(bx[1] // cell), int(bx[3] // cell) + 1):
                     buckets.setdefault((gi, gj), set()).add(i)
-    for key, ids in buckets.items():
+    for _key, ids in buckets.items():
         ids = sorted(ids)
         for x in range(len(ids)):
             for y in range(x + 1, len(ids)):
@@ -914,10 +904,8 @@ def _touch_graph(items, plane_layers=()):
                     continue
                 if _boxes_touch(items[i][3], items[j][3]):
                     uf.union(i, j)
-    # a filled plane joins everything that reaches it
     if plane_layers:
-        reach = [i for i, it in enumerate(items)
-                 if it[2] & set(plane_layers)]
+        reach = [i for i, it in enumerate(items) if it[2] & set(plane_layers)]
         for i in reach[1:]:
             uf.union(reach[0], i)
     return uf
@@ -945,6 +933,363 @@ def net_is_whole(board, net, plane=False):
     isl = net_islands(board, net, plane)
     with_pads = [g for g in isl if any(k == "pad" for k, *_ in g)]
     return len(with_pads) <= 1
+
+
+def island_geoms(board, net):
+    """(root -> goal geometry, pad name -> root) for one net's copper."""
+    items = net_items(board, net)
+    uf = _touch_graph(items)
+    isl, pad_root = {}, {}
+    for i, it in enumerate(items):
+        r = uf.find(i)
+        d = isl.setdefault(r, {F: [], B: [], "pts": []})
+        for l in it[2]:
+            if l in (F, B):
+                d[l] += it[4]
+        b0 = it[4][0]
+        d["pts"].append(((b0[0] + b0[2]) / 2.0, (b0[1] + b0[3]) / 2.0))
+        if it[0] == "pad":
+            pad_root[it[1]] = r
+    return isl, pad_root
+
+
+def _pad_has_copper(board, pad, nc):
+    bb = pad_bbox(pad)
+    for t in board.GetTracks():
+        if t.GetNetCode() != nc:
+            continue
+        if isinstance(t, pcbnew.PCB_VIA):
+            q = pt(t.GetPosition())
+            r = VIA_D / 2.0
+            box = (q[0] - r, q[1] - r, q[0] + r, q[1] + r)
+        else:
+            a, c = pt(t.GetStart()), pt(t.GetEnd())
+            hw = tomm(t.GetWidth()) / 2.0
+            box = (min(a[0], c[0]) - hw, min(a[1], c[1]) - hw,
+                   max(a[0], c[0]) + hw, max(a[1], c[1]) + hw)
+        if (box[0] <= bb[2] and bb[0] <= box[2]
+                and box[1] <= bb[3] and bb[1] <= box[3]):
+            return True
+    return False
+
+
+def escape_pass(board, obst, pitch_max=1.35, min_pads=6, length=0.9,
+                verbose=True):
+    """Fan every fine-pitch pin out of its package's ring before area routing.
+
+    An IC's pin ring is escape lanes wall to wall, and any trace that crosses
+    above the ring caps every lane it passes.  Two real examples: the +6V0 tie
+    across U302's top row sealed pin 7 in, and C304's VCC link boxed U301's FB
+    pin into a closed pocket -- in both cases no later router could get the pin
+    out at any width, on either layer.  Pulling every pin that still needs
+    routing one lane-length into open board *first* makes that impossible: the
+    stub is real copper, so a crossing trace has to go round it, and every
+    later hop starts from the stub end because `connect_net` and `link` seed
+    from the whole island, not from the pad.
+
+    Runs on any package of `min_pads` or more at `pitch_max` or finer, which
+    takes in the SOIC-8s and SOT23-6s as well as the QFNs and the LQFP100 --
+    U301's FB pin is on a 1.27 mm pitch part.
+    """
+    split = set()
+    for f in board.GetFootprints():
+        for p in f.Pads():
+            n = p.GetNetname()
+            if not n or n == "GND" or n.startswith("unconnected-"):
+                continue
+            if n in split:
+                continue
+            if len(pad_nodes(board, n)) > 1 and not net_is_whole(board, n):
+                split.add(n)
+    made = 0
+    for f in board.GetFootprints():
+        pads = [p for p in f.Pads() if pad_copper_layers(p)]
+        if len(pads) < min_pads:
+            continue
+        cs = [pt(p.GetPosition()) for p in pads]
+        pitch = min((dist(a, b) for i, a in enumerate(cs) for b in cs[i + 1:]),
+                    default=99)
+        if pitch > pitch_max:
+            continue
+        c = pt(f.GetPosition())
+        for p in pads:
+            net = p.GetNetname()
+            if net not in split:
+                continue
+            bb = pad_bbox(p)
+            w, h = bb[2] - bb[0], bb[3] - bb[1]
+            if abs(w - h) < 0.05:
+                continue
+            q = pt(p.GetPosition())
+            if w > h:
+                u = (math.copysign(1.0, (q[0] - c[0]) or 1.0), 0.0)
+                tw, d0 = h, w / 2.0
+            else:
+                u = (0.0, math.copysign(1.0, (q[1] - c[1]) or 1.0))
+                tw, d0 = w, h / 2.0
+            tw = max(W_SIGNAL, round(min(tw, 0.30), 4))
+            nc = p.GetNetCode()
+            if _pad_has_copper(board, p, nc):
+                continue          # already fanned out, or already routed
+            end = None
+            for L in (length, 0.7, 0.55, 0.4, 0.3):
+                e = (round(q[0] + u[0] * (d0 + L), 3),
+                     round(q[1] + u[1] * (d0 + L), 3))
+                if seg_ok(obst, q, e, tw, nc, F):
+                    end = e
+                    break
+            if end is None:
+                continue
+            add_track(board, q, end, tw, F, nc)
+            obst.add_seg(q, end, tw / 2.0, F, nc)
+            made += 1
+    if verbose:
+        print(f"   {made} fine-pitch pins fanned out of their pin ring")
+    return made
+
+
+def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
+                skip_nodes=(), verbose=True, min_width=None, **kw):
+    """Route a net until every pad is in one island.
+
+    Works on *islands*, and merges the closest pair of them each round rather
+    than growing one tree from a fixed seed.  That matters: U301's FB divider
+    has three islands, and the pin the seed happened to land on could not be
+    reached from either resistor -- with pairwise merging the two resistors
+    join first and the pair then reaches the pin.
+
+    A pin its own decoupler link already reaches is recorded as connected, not
+    re-routed (a 0.5 mm rail trace cannot even start on a 0.5 mm-pitch pad),
+    and a hop only ever targets copper genuinely joined to what it grows from.
+    Each hop is searched between the closest pair of points on the two
+    islands, so the window stays small even on a board-spanning rail.
+    """
+    nc = netcode(board, netname)
+    w = width if width is not None else net_width(netname)
+    nodes = [g for g in pad_nodes(board, netname)
+             if not any(r in skip_nodes for r, _ in g)]
+    if len(nodes) < 2:
+        return []
+    isl, pad_root = island_geoms(board, netname)
+    node_root = {}
+    for bi, g in enumerate(nodes):
+        for ref, p in g:
+            r = pad_root.get(f"{ref}.{p.GetNumber()}")
+            if r is not None:
+                node_root[bi] = r
+                break
+    comps = {}
+    for bi, r in node_root.items():
+        c = comps.setdefault(r, {F: list(isl[r][F]), B: list(isl[r][B]),
+                                 "pts": list(isl[r]["pts"]), "nodes": []})
+        c["nodes"].append(bi)
+    keys = list(comps)
+    if len(keys) < 2:
+        return []
+
+    ladder = [x for x in (w, 0.30, 0.20, W_SIGNAL)
+              if x <= w and x >= (min_width or W_SIGNAL)] or [w]
+    fails = []
+    while len(keys) > 1:
+        pairs = []
+        for i, a in enumerate(keys):
+            for b in keys[i + 1:]:
+                pa, pb, d = _closest(comps[a]["pts"], comps[b]["pts"])
+                pairs.append((d, a, b, pa, pb))
+        pairs.sort(key=lambda t: t[0])
+        placed = False
+        for _d, a, b, pa, pb in pairs:
+            res, ww = None, ladder[0]
+            for ww in ladder:
+                res = maze.route(nc, [pa], [pb], ww, layers=layers,
+                                 start_rects={F: comps[a][F], B: comps[a][B]},
+                                 goal_rects={F: comps[b][F], B: comps[b][B]},
+                                 **kw)
+                if res is not None:
+                    break
+            if res is None:
+                continue
+            emit_result(board, obst, res, ww, nc)
+            r = seg_rects(res, ww / 2.0)
+            comps[a][F] += comps[b][F] + r[F]
+            comps[a][B] += comps[b][B] + r[B]
+            comps[a]["pts"] += comps[b]["pts"] + [
+                (round((q[0] + q[2]) / 2, 3), round((q[1] + q[3]) / 2, 3))
+                for q in r[F] + r[B]]
+            comps[a]["nodes"] += comps[b]["nodes"]
+            del comps[b]
+            keys.remove(b)
+            placed = True
+            break
+        if not placed:
+            for k in keys[1:]:
+                for bi in comps[k]["nodes"]:
+                    ref, pd = nodes[bi][0]
+                    fails.append(f"{ref}.{pd.GetNumber()}")
+            break
+    if fails and verbose:
+        print(f"    ! {netname}: unrouted {sorted(set(fails))}")
+    return fails
+
+
+def _closest(pa, pb):
+    """Closest pair of points between two lists (sampled if very large)."""
+    A = pa if len(pa) <= 400 else pa[::max(1, len(pa) // 400)]
+    B = pb if len(pb) <= 400 else pb[::max(1, len(pb) // 400)]
+    best = (A[0], B[0], dist(A[0], B[0]))
+    for x in A:
+        for y in B:
+            d = dist(x, y)
+            if d < best[2]:
+                best = (x, y, d)
+    return best
+
+
+def repair(board, nets, widths=None, tries=(dict(via_cost=45, margin=25),
+                                            dict(via_cost=30, margin=45))):
+    """Retry nets a stage could not finish, on a freshly built model.
+
+    The incremental obstacle model a stage carries is rebuilt from the board
+    here, which also re-derives every reservation and fan-out, so a net that
+    lost a race against another net's copper gets a second, unprejudiced
+    attempt.
+    """
+    out = []
+    for net in nets:
+        obst = Obstacles(board)
+        obst.reserve_pin_escapes(board)
+        maze = Maze(obst)
+        w = (widths or {}).get(net, net_width(net))
+        done = False
+        for kw in tries:
+            f = connect_net(board, obst, maze, net, width=w, verbose=False,
+                            **kw)
+            if not f:
+                done = True
+                break
+        if not done:
+            out.append(net)
+    return out
+
+
+def seg_ok(obst, a, b, width, nc, layer=F, samples=None):
+    """True when a `width` trace from a to b clears all foreign copper."""
+    r = width / 2.0 + CLEAR
+    win = (min(obst.ij(a[0], a[1])[0], obst.ij(b[0], b[1])[0]) - 20,
+           min(obst.ij(a[0], a[1])[1], obst.ij(b[0], b[1])[1]) - 20,
+           max(obst.ij(a[0], a[1])[0], obst.ij(b[0], b[1])[0]) + 20,
+           max(obst.ij(a[0], a[1])[1], obst.ij(b[0], b[1])[1]) + 20)
+    m = obst.track_mask(win, nc, layer, r)
+    n = samples or max(2, int(dist(a, b) / (GRID / 2)) + 1)
+    for k in range(n + 1):
+        t = k / n
+        x = a[0] + (b[0] - a[0]) * t
+        y = a[1] + (b[1] - a[1]) * t
+        i, j = obst.ij(x, y)
+        if m[i - win[0], j - win[1]]:
+            return False
+    return True
+
+
+DETOUR = 3.0        # a route longer than this x the straight line is a hint
+                    # that the layer it was pinned to was the wrong one
+
+
+def pad_group(board, ref, num):
+    out = []
+    for f in board.GetFootprints():
+        if f.GetReference() != ref:
+            continue
+        for p in f.Pads():
+            if p.GetNumber() == num and pad_copper_layers(p):
+                out.append((ref, p))
+    if not out:
+        raise KeyError(f"{ref}.{num}")
+    return out
+
+
+def group_min_dim(g):
+    bs = [pad_bbox(p) for _r, p in g]
+    bb = (min(b[0] for b in bs), min(b[1] for b in bs),
+          max(b[2] for b in bs), max(b[3] for b in bs))
+    return min(bb[2] - bb[0], bb[3] - bb[1])
+
+
+ISLAND_NEAR = 8.0   # mm -- how much of an island counts as "this node"
+
+
+def _near_box(bx, c, r):
+    return (abs((bx[0] + bx[2]) / 2 - c[0]) <= r
+            and abs((bx[1] + bx[3]) / 2 - c[1]) <= r)
+
+
+def _with_island(ng, isl, pad_root, grp, radius=ISLAND_NEAR):
+    """Widen a node's start/goal geometry to the island copper *near* it.
+
+    Near, not all of it: GND's island is the whole board, and handing the
+    router thousands of goal points makes its heuristic O(n) per expansion and
+    its search window the entire outline.
+    """
+    for ref, p in grp:
+        r = pad_root.get(f"{ref}.{p.GetNumber()}")
+        if r is None:
+            continue
+        c = ng[0]
+        return (c,
+                {F: [b for b in isl[r][F] if _near_box(b, c, radius)] + ng[1][F],
+                 B: [b for b in isl[r][B] if _near_box(b, c, radius)] + ng[1][B]},
+                [q for q in isl[r]["pts"] if abs(q[0] - c[0]) <= radius
+                 and abs(q[1] - c[1]) <= radius] + ng[2])
+    return ng
+
+
+def link(board, obst, maze, net, a, b, w, layers=(F,), margin=12,
+         allow_layer_change=True, max_len=None, **kw):
+    """Route one deliberate pad-to-pad hop.
+
+    Tries the layer it was asked for first.  If that fails, or comes back more
+    than DETOUR x the straight-line distance -- which is how a trunk ends up
+    slicing diagonally across a whole block -- it re-tries with both layers
+    and keeps whichever is shorter.
+    """
+    nc = netcode(board, net)
+    ga, gb = pad_group(board, *a), pad_group(board, *b)
+    width = max(W_SIGNAL, round(min(w, group_min_dim(ga),
+                                    group_min_dim(gb)), 4))
+    na, nb = node_geom(ga), node_geom(gb)
+    direct = dist(na[0], nb[0])
+    isl, pad_root = island_geoms(board, net)
+    na = _with_island(na, isl, pad_root, ga)
+    nb = _with_island(nb, isl, pad_root, gb)
+    best = None
+    ladder = [x for x in (width, 0.30, 0.20, W_SIGNAL) if x <= width] or [width]
+    for lay in ([layers] + ([(F, B)] if allow_layer_change and
+                            tuple(layers) != (F, B) else [])):
+        for ww in ladder:
+            res = None
+            for m in (margin, margin * 2, margin * 4):
+                res = maze.route(nc, na[2], nb[2], ww, layers=lay,
+                                 start_rects=na[1], goal_rects=nb[1],
+                                 margin=m, **kw)
+                if res is not None:
+                    break
+            if res is None:
+                continue
+            ln = route_len(res)
+            if best is None or ww > best[3] or (ww == best[3] and ln < best[1]):
+                best = (res, ln, lay, ww)
+            break
+        if best and best[1] <= max(DETOUR * direct, direct + 8.0):
+            break
+    if best is None:
+        return None, width, 0, direct
+    if max_len is not None and best[1] > max_len:
+        # a route this long is no longer the thing that was asked for: a
+        # "Kelvin" return of 27 mm is just a wire, and it walls off a gate
+        # corridor on the way.  Drop it rather than emit it.
+        return None, width, 0, direct
+    emit_result(board, obst, best[0], best[3], nc)
+    return best[1], best[3], len(best[0][1]), direct
 
 
 def unconnected(board):

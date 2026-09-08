@@ -132,6 +132,8 @@ def main():
         raise SystemExit("route2: board already carries copper -- this stage "
                          "runs once, on the zones-only board")
     obst = R.Obstacles(board)
+    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
+    R.escape_pass(board, obst)
     maze = R.Maze(obst)
     fps = R.by_ref(board)
 

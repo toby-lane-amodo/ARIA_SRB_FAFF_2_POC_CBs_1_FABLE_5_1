@@ -33,31 +33,27 @@ def span(board, net):
 
 
 def open_nets(board):
-    """Nets whose pads are not all in one connectivity island yet."""
-    board.BuildConnectivity()
-    conn = board.GetConnectivity()
-    out = []
+    """Nets whose pads are not yet all in one island."""
+    todo = []
+    seen = set()
     for f in board.GetFootprints():
         for p in f.Pads():
             n = p.GetNetname()
-            if not n or n == "GND" or n.startswith(SKIP_PREFIX):
+            if not n or n in seen or n == "GND" or n.startswith(SKIP_PREFIX):
                 continue
-            if n not in out and conn.GetUnconnectedCount(True):
-                out.append(n)
-    # keep only the ones that really still have islands
-    todo = []
-    for n in out:
-        nodes = R.pad_nodes(board, n)
-        if len(nodes) < 2:
-            continue
-        if not R.net_is_whole(board, n):
-            todo.append(n)
+            seen.add(n)
+            if len(R.pad_nodes(board, n)) < 2:
+                continue
+            if not R.net_is_whole(board, n):
+                todo.append(n)
     return todo
 
 
 def main():
     board = R.load()
     obst = R.Obstacles(board)
+    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
+    R.escape_pass(board, obst)
     maze = R.Maze(obst)
 
     todo = open_nets(board)
@@ -73,17 +69,23 @@ def main():
             left.append(net)
     print(f"pass 1: {len(todo) - len(left)} routed, {len(left)} left")
 
-    if left:
-        again = []
-        for net in left:
-            f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
-                              via_cost=45, margin=40, verbose=False)
-            if f:
-                again.append((net, sorted(set(f))))
-        print(f"pass 2 (wide window): {len(left) - len(again)} routed, "
-              f"{len(again)} left")
-        for net, refs in again:
-            print(f"   UNROUTED {net:<36} {refs}")
+    # Reload before the repair pass: a board object that has taken many
+    # hundreds of Add()s behaves differently from the same board read back.
+    R.refill(board)
+    R.save(board)
+    board = R.load()
+
+    still = open_nets(board)
+    if still:
+        print(f"pass 2 (fresh read, wide window): retrying {len(still)}")
+        left2 = R.repair(board, still,
+                         tries=(dict(via_cost=40, margin=30),
+                                dict(via_cost=25, margin=60),
+                                dict(via_cost=25, margin=90, hw=1.0)))
+        for net in left2:
+            print(f"   UNROUTED {net}")
+    else:
+        print("pass 2: nothing left to repair")
 
     R.refill(board)
     R.save(board)
