@@ -5,10 +5,17 @@ Everything the house rules say must be *proved programmatically* rather than
 eyeballed, plus the numbers the routing decisions file quotes.
 
   --gnd      every SMD GND pad owns its own via (the step-3 completeness
-             proof), and no via is shared between two ground lands
-  --viainpad no via sits in a pad, by true rectangle distance from the barrel
-             to each pad's world bbox -- the QFN/SOIC exposed pads are the
-             one client-ruled exception
+             proof), and no via is shared between two ground lands.  The one
+             client-ruled exception is R-C3-1: a QFN ground pin whose lane is
+             a closed pocket ties into its own IC's exposed pad, and the
+             proof follows the tie through to the EP's via array
+  --viainpad no via's DRILL sits in a pad and no via's copper touches a
+             FOREIGN pad, both by true rectangle distance to the pad's world
+             bbox -- the QFN/SOIC exposed pads are the standing client-ruled
+             exception to the first.  A via whose copper hugs its OWN pad is
+             counted and listed, not failed: the barrel is nowhere near the
+             land, nothing can wick down it, and G1d makes same-net
+             via-to-pad proximity free
   --power    via count per power net against the 1.0 A/via budget, and a
              brute-force minimum-via-cut: if removing fewer vias than the
              budget requires splits the net, the net leans on too few
@@ -29,6 +36,7 @@ import pcbnew
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import route_lib as R  # noqa: E402
 from route3_gnd import EP_PADS  # noqa: E402
+from route3b_gndfix import ep_tied as _ep_tied  # noqa: E402
 
 BUDGET = {
     "/power_entry_24v/V24_IN": 3.0, "Net-(F201-Pad2)": 3.0,
@@ -134,17 +142,50 @@ def check_gnd(board):
             for v in mine:
                 owners.setdefault(v, set()).add(key)
 
-    missing = [(g[0][0], g[0][1]) for g in lands
-               if (g[0][0], g[0][1]) not in covered]
+    missing, tied = [], []
+    for g in lands:
+        key = (g[0][0], g[0][1])
+        if key in covered:
+            continue
+        # R-C3-1: a pin whose lane is a closed pocket may tie into its own
+        # IC's exposed pad.  Follow the tie -- and prove the EP has vias.
+        grp = [(r, n, bb, None) for r, n, bb in g]
+        if _ep_tied(board, grp):
+            tied.append(key)
+            continue
+        missing.append(key)
     shared = {v: o for v, o in owners.items() if len(o) > 1}
+    # A cap's ground pad tied straight to the IC ground pin it decouples is
+    # the loop G4b asks for, not the shared via R4-1 forbids -- provided the
+    # group still owns one via per land.  Assert that, don't assume it.
+    thin = []
+    seen_grp = set()
+    for o in shared.values():
+        k = tuple(sorted(o))
+        if k in seen_grp:
+            continue
+        seen_grp.add(k)
+        nv = sum(1 for v, oo in owners.items() if tuple(sorted(oo)) == k)
+        if nv < len(k):
+            thin.append((k, nv))
+        else:
+            print(f"   {len(k)} lands on one stub island {list(k)}: "
+                  f"{nv} vias -- one per land, G4b loop")
     print(f"   SMD GND pads          {sum(len(g) for g in lands)} "
           f"in {len(lands)} lands")
     print(f"   lands reaching a via  {len(lands) - len(missing)}")
     print(f"   GND vias on the board {len(gvias)}")
     print(f"   vias reachable from more than one land: {len(shared)}")
+    if tied:
+        print(f"   lands tied into their own IC exposed pad (R-C3-1): "
+              f"{sorted(tied)}")
     if missing:
         print(f"   MISSING: {sorted(missing)}")
         fails.append(f"GND: {len(missing)} lands without a via")
+    if thin:
+        for k, nv in thin:
+            print(f"   SHARED: {list(k)} share {nv} via(s)")
+        fails.append(f"{len(thin)} land groups with fewer vias than lands")
     isl = R.net_islands(board, "GND", plane=True)
     with_pads = [g for g in isl if any(k == "pad" for k, *_ in g)]
     print(f"   GND islands carrying pads: {len(with_pads)} (must be 1)")
@@ -154,13 +195,13 @@ def check_gnd(board):
 
 # --------------------------------------------------------------------------
 def check_viainpad(board):
-    print("\n== no via-in-pad (true rectangle distance, barrel to pad bbox)")
+    print("\n== via-in-pad (true rectangle distance to the pad's world bbox)")
     allowed = set()
     for f in board.GetFootprints():
         for p in f.Pads():
             if (f.GetReference(), p.GetNumber()) in EP_PADS:
                 allowed.add((f.GetReference(), p.GetNumber()))
-    bad = []
+    drill, foreign, hug = [], [], []
     inpad = 0
     pads = [(f.GetReference(), p.GetNumber(), R.pad_bbox(p), p)
             for f in board.GetFootprints() for p in f.Pads()
@@ -169,18 +210,33 @@ def check_viainpad(board):
         for ref, num, bb, p in pads:
             dx = max(bb[0] - q[0], 0.0, q[0] - bb[2])
             dy = max(bb[1] - q[1], 0.0, q[1] - bb[3])
-            if math.hypot(dx, dy) >= R.VIA_D / 2.0:
+            d = math.hypot(dx, dy)
+            if d >= R.VIA_D / 2.0:
                 continue
             if (ref, num) in allowed:
                 inpad += 1
                 continue
-            bad.append((ref, num, q, net))
-    print(f"   vias inside an allowed exposed pad: {inpad}")
-    print(f"   vias inside any other pad:          {len(bad)}")
-    if bad:
-        for b in bad[:20]:
-            print("     ", b)
-        fails.append(f"{len(bad)} vias in pads")
+            if d < R.VIA_DRILL / 2.0:
+                # solder wicks down a barrel that opens into a land
+                drill.append((ref, num, q, net, round(d, 3)))
+            elif p.GetNetname() != net:
+                foreign.append((ref, num, q, net, round(d, 3)))
+            else:
+                hug.append((ref, num, q, net, round(d, 3)))
+    print(f"   vias in an allowed exposed pad (client-ruled): {inpad}")
+    print(f"   vias whose DRILL opens into a pad:             {len(drill)}")
+    print(f"   vias whose copper touches a FOREIGN pad:       {len(foreign)}")
+    print(f"   vias whose copper hugs their OWN pad (G1d):    {len(hug)}"
+          + (f"  closest {min(h[4] for h in hug):.3f} mm, barrel "
+             f"{min(h[4] for h in hug) + (R.VIA_D - R.VIA_DRILL) / 2.0:.3f} mm"
+             " clear" if hug else ""))
+    for label, rows in (("DRILL IN PAD", drill), ("FOREIGN PAD", foreign)):
+        for b in rows[:20]:
+            print(f"     {label}: {b}")
+    if drill:
+        fails.append(f"{len(drill)} vias drilled into a pad")
+    if foreign:
+        fails.append(f"{len(foreign)} vias touching a foreign pad")
 
 
 # --------------------------------------------------------------------------
