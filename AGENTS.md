@@ -247,17 +247,32 @@ and write it back afterwards (`tools/gen_pcb_setup.py` does), run `tools/gen_pcb
 **after** the board generator and never before, and re-run the schematic ERC after any board
 save to prove the baseline survived.
 
+**Placement round 1 is done and awaiting the captain.** All 412 footprints are placed; the
+floorplan, the judgement calls, the ratsnest and decoupling numbers and five open points are in
+[`docs/decisions/actuator-pcb-place1.md`](docs/decisions/actuator-pcb-place1.md). The actuator
+edge (y = 160) carries the nine actuator connectors, the bench edge (y = 30) the five bench
+ones; analog is bottom-left, MCU centre, power and motor the right-hand column.
+
+The placement tools mutate the board — they never regenerate it:
+
+| Tool | What it does |
+|---|---|
+| `tools/gen_pcb_place1.py` | the position/orientation table; edit it, re-run it, re-run the sweeps |
+| `tools/tidy_silk.py` | re-seats every reference and label clear of pads, silk, edge and each other, and lifts 0.7 mm library text to the 0.8 mm house floor |
+| `tools/check_place.py` | real-courtyard overlaps, board-edge and M3 keep-out margin, 0.25 mm grid — all three must stay at **0** |
+| `tools/place_report.py` | decoupler link lengths, ratsnest per region, DRV8323 gate runs |
+| `tools/place_lib.py` | shared geometry helpers and the `.kicad_pro`-safe `save()` |
+
 Sequencing, and what is **not** done yet:
 
-- **G7 is a hard gate: the captain reviews placement before any routing.** Placement is its
-  own task; submit a placement pack and stop.
-- Until placement runs, the 408 imported footprints sit in an **off-board holding grid**,
-  grouped by schematic sheet with a caption per group on `Cmts.User`. DRC's unconnected count
-  is the whole ratsnest until then — that is the expected residual, not a defect.
+- **G7 is a hard gate: the captain reviews placement before any routing.** Nothing is routed;
+  the board still carries 0 tracks, 0 vias and 0 zones. Do not start routing without his word.
+- DRC after placement is **19 violations, all four library residuals from board setup §8**
+  (`Q201` keepout, `U501` EP annulus, `H1`–`H4`/`J201`/`J1001` lib mismatch) plus 499
+  unconnected, which is the whole ratsnest. Schematic parity 0, silkscreen 0. Any other
+  number is yours.
 - **The two GND plane zones are routing step 1, not board setup** — the house process opens
   and closes each routing step with the engineer, so the pours land there.
-- Connector edge plan (actuator connectors on one long edge, bench connectors on the other) is
-  recorded in the decisions file for the placement task to execute.
 
 ## Sharp edges
 
