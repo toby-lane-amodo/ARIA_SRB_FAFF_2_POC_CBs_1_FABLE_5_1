@@ -3,8 +3,8 @@
 
 Everything the routing stages need that is not stage-specific: the board
 constants read from the project's own files (never carried in from another
-board), an obstacle model that rasterises real pad/track/via/keep-out copper,
-a two-layer A* maze router, and the track/via emitters.
+board), an obstacle model that rasterises the real pad / track / via / hole /
+keep-out copper, a two-layer A* maze router, and the track/via emitters.
 
 The board file is the master.  These scripts *mutate* it -- they never
 regenerate it, and `tools/gen_pcb_setup.py` must never be run over it again.
@@ -13,10 +13,12 @@ KiCad 9 only -- AGENTS.md.
 """
 import math
 import os
+import sys
 
 import pcbnew
 
-from place_lib import PCB, PRO, BX, BY, BW, BH, mm, load, save, by_ref  # noqa: F401
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from place_lib import PCB, PRO, BX, BY, BW, BH, mm, save, by_ref  # noqa: E402,F401
 
 # --------------------------------------------------------------------------
 # Board constants.  Sources, in order of authority:
@@ -28,6 +30,8 @@ VIA_D = 0.60               # via pad diameter, mm
 VIA_DRILL = 0.20           # via drill, mm  -> 0.20 mm annulus
 CLEAR = 0.1524             # min clearance, every net class, mm
 EDGE_CLEAR = 0.30          # copper to board edge, mm
+HOLE_CLEAR = 0.25          # copper to hole, mm
+HOLE2HOLE = 0.45           # hole to hole, mm
 VIA_A = 1.0                # amps per via (setup S3 derivation, JLC 18 um)
 
 W_SIGNAL = 0.1524
@@ -43,7 +47,6 @@ B = pcbnew.B_Cu
 IN1 = pcbnew.In1_Cu
 IN2 = pcbnew.In2_Cu
 
-# Net-class widths, resolved the same way the .kicad_pro patterns do.
 _CLASS_W = {
     "Motor": W_MOTOR, "RF50": W_RF50, "USB_HS": W_USB,
     "Power": W_POWER, "Analog": W_ANALOG, "Signal": W_SIGNAL,
@@ -98,22 +101,56 @@ def dist(a, b):
     return math.hypot(a[0] - b[0], a[1] - b[1])
 
 
+def load():
+    b = pcbnew.LoadBoard(PCB)
+    for f in b.GetFootprints():
+        f.BuildCourtyardCaches()
+    return b
+
+
+def netcode(board, name):
+    for code, info in board.GetNetsByNetcode().items():
+        if info.GetNetname() == name:
+            return code
+    raise KeyError(name)
+
+
+def pad_bbox(p):
+    bb = p.GetBoundingBox()
+    return (tomm(bb.GetLeft()), tomm(bb.GetTop()),
+            tomm(bb.GetRight()), tomm(bb.GetBottom()))
+
+
+def pad_copper_layers(p):
+    """{F, B} the pad actually has copper on.  Paste-only pads have none."""
+    out = set()
+    if p.IsOnLayer(F):
+        out.add(F)
+    if p.IsOnLayer(B):
+        out.add(B)
+    return out
+
+
+def is_hole(p):
+    return p.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH, pcbnew.PAD_ATTRIB_NPTH)
+
+
 # --------------------------------------------------------------------------
 # Emitters.  Create-if-absent only: board.Remove() mid-script poisons SWIG
 # type resolution for every later wrapped return (pcb-layout-style).
 # --------------------------------------------------------------------------
-def add_track(board, a, b, width, layer, netcode):
+def add_track(board, a, b, width, layer, nc):
     t = pcbnew.PCB_TRACK(board)
     t.SetStart(P(*a))
     t.SetEnd(P(*b))
     t.SetWidth(mm(width))
     t.SetLayer(layer)
-    t.SetNetCode(netcode)
+    t.SetNetCode(nc)
     board.Add(t)
     return t
 
 
-def add_via(board, p, netcode, top=F, bot=B):
+def add_via(board, p, nc):
     v = pcbnew.PCB_VIA(board)
     v.SetPosition(P(*p))
     # KiCad 9: SetWidth MUST take the layer argument -- the no-arg overload
@@ -122,19 +159,19 @@ def add_via(board, p, netcode, top=F, bot=B):
     v.SetWidth(B, mm(VIA_D))
     v.SetDrill(mm(VIA_DRILL))
     v.SetViaType(pcbnew.VIATYPE_THROUGH)
-    v.SetTopLayer(top)
-    v.SetBottomLayer(bot)
-    v.SetNetCode(netcode)
+    v.SetTopLayer(F)
+    v.SetBottomLayer(B)
+    v.SetNetCode(nc)
     board.Add(v)
     return v
 
 
-def polyline(board, pts, width, layer, netcode):
+def polyline(board, pts, width, layer, nc):
     out = []
     for a, b in zip(pts, pts[1:]):
         if dist(a, b) < 1e-6:
             continue
-        out.append(add_track(board, a, b, width, layer, netcode))
+        out.append(add_track(board, a, b, width, layer, nc))
     return out
 
 
@@ -142,79 +179,91 @@ def polyline(board, pts, width, layer, netcode):
 # Obstacle model
 #
 # Copper is rasterised on a fixed grid.  For a trace of width w needing
-# clearance c, the centreline must stay (w/2 + c) away from foreign copper,
-# so obstacles are dilated by that radius and the centreline is a point.
+# clearance c, the centreline must stay (w/2 + c) away from foreign copper, so
+# obstacles are dilated by that radius and the centreline is a point.
 # Same-net copper is not an obstacle.
 # --------------------------------------------------------------------------
-GRID = 0.05  # mm
-
-
-def _cells(v):
-    return int(math.floor(v / GRID + 0.5))
+GRID = 0.05        # mm
+BUCKET = 4.0       # mm, spatial index cell
 
 
 class Obstacles:
-    """Rasterised foreign-copper map for one board state.
-
-    Rebuild after any batch of new copper (`refresh`).  Queries are per-net:
-    `mask(net, layer, radius)` returns a boolean numpy array over the whole
-    board where True == the centreline of a trace of that radius may not go.
-    """
-
     def __init__(self, board):
         import numpy as np
         self.np = np
         self.board = board
-        self.x0, self.y0 = BX - 1.0, BY - 1.0
-        self.nx = _cells(BW + 2.0)
-        self.ny = _cells(BH + 2.0)
+        self.x0, self.y0 = BX - 2.0, BY - 2.0
+        self.nx = int(round((BW + 4.0) / GRID))
+        self.ny = int(round((BH + 4.0) / GRID))
         self.refresh()
 
-    # -- rasterisation primitives ------------------------------------------
-    def _rect(self, arr, x0, y0, x1, y1, pad):
-        i0 = max(0, _cells(x0 - pad - self.x0))
-        i1 = min(self.nx, _cells(x1 + pad - self.x0) + 1)
-        j0 = max(0, _cells(y0 - pad - self.y0))
-        j1 = min(self.ny, _cells(y1 + pad - self.y0) + 1)
-        if i0 < i1 and j0 < j1:
-            arr[i0:i1, j0:j1] = True
+    # ---- indexing --------------------------------------------------------
+    def ij(self, x, y):
+        return (int(math.floor((x - self.x0) / GRID + 0.5)),
+                int(math.floor((y - self.y0) / GRID + 0.5)))
+
+    def xy(self, i, j):
+        return (round(self.x0 + i * GRID, 4), round(self.y0 + j * GRID, 4))
+
+    def _index(self):
+        self.buckets = {}
+        for k, it in enumerate(self.items):
+            x0, y0, x1, y1 = it[2]
+            for bi in range(int(x0 // BUCKET), int(x1 // BUCKET) + 1):
+                for bj in range(int(y0 // BUCKET), int(y1 // BUCKET) + 1):
+                    self.buckets.setdefault((bi, bj), []).append(k)
 
     def refresh(self):
-        """Collect copper as (layerset, netcode, kind, geometry) records."""
-        np = self.np
-        self.items = []          # (net, layers, x0, y0, x1, y1, halfw, seg)
+        """items: (netcode, frozenset(layers), (x0,y0,x1,y1), kind)
+
+        kind: 'cu' normal copper, 'hole' a drilled hole (needs HOLE_CLEAR and
+        blocks vias on every layer).
+        """
+        items = []
         b = self.board
         for f in b.GetFootprints():
             for p in f.Pads():
-                net = p.GetNetCode()
-                bb = p.GetBoundingBox()
-                r = (tomm(bb.GetLeft()), tomm(bb.GetTop()),
-                     tomm(bb.GetRight()), tomm(bb.GetBottom()))
-                lay = set()
-                if p.IsOnLayer(F):
-                    lay.add(F)
-                if p.IsOnLayer(B):
-                    lay.add(B)
-                if p.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH,
-                                        pcbnew.PAD_ATTRIB_NPTH):
-                    lay |= {F, B}
-                self.items.append((net, lay, r, None))
+                lay = pad_copper_layers(p)
+                if lay:
+                    items.append((p.GetNetCode(), frozenset(lay),
+                                  pad_bbox(p), "pad"))
+                if is_hole(p):
+                    q = pt(p.GetPosition())
+                    r = max(tomm(p.GetDrillSizeX()),
+                            tomm(p.GetDrillSizeY())) / 2.0
+                    items.append((p.GetNetCode(), frozenset((F, B)),
+                                  (q[0] - r, q[1] - r, q[0] + r, q[1] + r),
+                                  "hole"))
         for t in b.GetTracks():
-            net = t.GetNetCode()
+            nc = t.GetNetCode()
             if isinstance(t, pcbnew.PCB_VIA):
-                p = pt(t.GetPosition())
+                q = pt(t.GetPosition())
                 hw = VIA_D / 2.0
-                r = (p[0] - hw, p[1] - hw, p[0] + hw, p[1] + hw)
-                self.items.append((net, {F, B}, r, None))
+                items.append((nc, frozenset((F, B)),
+                              (q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw), "cu"))
+                hr = VIA_DRILL / 2.0
+                items.append((nc, frozenset((F, B)),
+                              (q[0] - hr, q[1] - hr, q[0] + hr, q[1] + hr), "hole"))
             else:
                 a, c = pt(t.GetStart()), pt(t.GetEnd())
                 hw = tomm(t.GetWidth()) / 2.0
-                r = (min(a[0], c[0]) - hw, min(a[1], c[1]) - hw,
-                     max(a[0], c[0]) + hw, max(a[1], c[1]) + hw)
-                self.items.append((net, {t.GetLayer()}, r, (a, c, hw)))
-        # rule areas that forbid tracks / vias
-        self.no_track = []
-        self.no_via = []
+                # axis-aligned and 45 deg segments are handled as a chain of
+                # small boxes so a diagonal does not block its whole bbox
+                n = max(1, int(dist(a, c) / 0.5))
+                for s in range(n):
+                    t0 = s / n
+                    t1 = (s + 1) / n
+                    px0 = a[0] + (c[0] - a[0]) * t0
+                    py0 = a[1] + (c[1] - a[1]) * t0
+                    px1 = a[0] + (c[0] - a[0]) * t1
+                    py1 = a[1] + (c[1] - a[1]) * t1
+                    items.append((nc, frozenset((t.GetLayer(),)),
+                                  (min(px0, px1) - hw, min(py0, py1) - hw,
+                                   max(px0, px1) + hw, max(py0, py1) + hw), "cu"))
+        self.items = items
+        self._index()
+        # rule areas
+        self.rules = []          # (allow_track, allow_via, bbox)
         for f in b.GetFootprints():
             for z in f.Zones():
                 if not z.GetIsRuleArea():
@@ -222,236 +271,305 @@ class Obstacles:
                 bb = z.GetBoundingBox()
                 r = (tomm(bb.GetLeft()), tomm(bb.GetTop()),
                      tomm(bb.GetRight()), tomm(bb.GetBottom()))
-                if z.GetDoNotAllowTracks():
-                    self.no_track.append((z, r))
-                if z.GetDoNotAllowVias():
-                    self.no_via.append((z, r))
+                self.rules.append((not z.GetDoNotAllowTracks(),
+                                   not z.GetDoNotAllowVias(), r))
 
-    # -- queries -----------------------------------------------------------
-    def mask(self, netcode, layer, radius, extra_nets=()):
-        """True where a centreline of the given radius may not go."""
+    def _add(self, item):
+        self.items.append(item)
+        k = len(self.items) - 1
+        x0, y0, x1, y1 = item[2]
+        for bi in range(int(x0 // BUCKET), int(x1 // BUCKET) + 1):
+            for bj in range(int(y0 // BUCKET), int(y1 // BUCKET) + 1):
+                self.buckets.setdefault((bi, bj), []).append(k)
+
+    def add_seg(self, a, c, hw, layer, nc):
+        n = max(1, int(dist(a, c) / 0.5))
+        for s in range(n):
+            t0, t1 = s / n, (s + 1) / n
+            px0 = a[0] + (c[0] - a[0]) * t0
+            py0 = a[1] + (c[1] - a[1]) * t0
+            px1 = a[0] + (c[0] - a[0]) * t1
+            py1 = a[1] + (c[1] - a[1]) * t1
+            self._add((nc, frozenset((layer,)),
+                       (min(px0, px1) - hw, min(py0, py1) - hw,
+                        max(px0, px1) + hw, max(py0, py1) + hw), "cu"))
+
+    def add_via_at(self, q, nc):
+        hw = VIA_D / 2.0
+        self._add((nc, frozenset((F, B)),
+                   (q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw), "cu"))
+        hr = VIA_DRILL / 2.0
+        self._add((nc, frozenset((F, B)),
+                   (q[0] - hr, q[1] - hr, q[0] + hr, q[1] + hr), "hole"))
+
+    # ---- masks -----------------------------------------------------------
+    def _near(self, win, pad):
+        i0, j0, i1, j1 = win
+        x0 = self.x0 + i0 * GRID - pad
+        y0 = self.y0 + j0 * GRID - pad
+        x1 = self.x0 + i1 * GRID + pad
+        y1 = self.y0 + j1 * GRID + pad
+        out = set()
+        for bi in range(int(x0 // BUCKET), int(x1 // BUCKET) + 1):
+            for bj in range(int(y0 // BUCKET), int(y1 // BUCKET) + 1):
+                out.update(self.buckets.get((bi, bj), ()))
+        return out
+
+    def _paint(self, arr, win, r, pad):
+        i0, j0, _i1, _j1 = win
+        a = max(0, int(math.floor((r[0] - pad - self.x0) / GRID + 0.5)) - i0)
+        c = min(arr.shape[0],
+                int(math.floor((r[2] + pad - self.x0) / GRID + 0.5)) - i0 + 1)
+        d = max(0, int(math.floor((r[1] - pad - self.y0) / GRID + 0.5)) - j0)
+        e = min(arr.shape[1],
+                int(math.floor((r[3] + pad - self.y0) / GRID + 0.5)) - j0 + 1)
+        if a < c and d < e:
+            arr[a:c, d:e] = True
+
+    def track_mask(self, win, nc, layer, radius, free_nets=()):
         np = self.np
-        arr = np.zeros((self.nx, self.ny), dtype=bool)
-        free = {netcode} | set(extra_nets)
-        for net, lay, r, seg in self.items:
+        i0, j0, i1, j1 = win
+        arr = np.zeros((i1 - i0 + 1, j1 - j0 + 1), dtype=bool)
+        free = set(free_nets) | ({nc} if nc else set())
+        big = max(radius, radius - CLEAR + HOLE_CLEAR)
+        for k in self._near(win, big + 0.1):
+            n, lay, r, kind = self.items[k]
+            if n in free:
+                # same-net copper is not an obstacle, and neither is a same-net
+                # PTH barrel -- a trace landing on a through-hole pad covers
+                # its own hole by construction
+                continue
+            if kind == "hole":
+                self._paint(arr, win, r, radius - CLEAR + HOLE_CLEAR)
+                continue
             if layer not in lay:
                 continue
-            if net in free and net != 0:
-                continue
-            self._rect(arr, r[0], r[1], r[2], r[3], radius)
-        for _z, r in self.no_track:
-            self._rect(arr, r[0], r[1], r[2], r[3], radius)
-        # board edge
-        arr[:_cells(BX + EDGE_CLEAR + radius - self.x0) + 1, :] = True
-        arr[_cells(BX + BW - EDGE_CLEAR - radius - self.x0):, :] = True
-        arr[:, :_cells(BY + EDGE_CLEAR + radius - self.y0) + 1] = True
-        arr[:, _cells(BY + BH - EDGE_CLEAR - radius - self.y0):] = True
+            self._paint(arr, win, r, radius)
+        for ok_t, _ok_v, r in self.rules:
+            if not ok_t:
+                self._paint(arr, win, r, radius)
+        self._edges(arr, win, radius)
         return arr
 
-    def via_mask(self, netcode, radius):
-        """True where a via centre of the given clearance radius may not go.
-
-        A via is on every layer, so it is blocked by foreign copper on F or B,
-        by every barrel, and by the no-via rule areas.
-        """
+    def via_mask(self, win, nc, free_nets=()):
+        """Where a via centre may not sit."""
         np = self.np
-        arr = np.zeros((self.nx, self.ny), dtype=bool)
-        for net, lay, r, seg in self.items:
-            if net == netcode and net != 0:
+        i0, j0, i1, j1 = win
+        arr = np.zeros((i1 - i0 + 1, j1 - j0 + 1), dtype=bool)
+        free = set(free_nets) | ({nc} if nc else set())
+        rc = VIA_D / 2.0 + CLEAR
+        rh = VIA_DRILL / 2.0 + HOLE2HOLE
+        for k in self._near(win, max(rc, rh) + 0.1):
+            n, lay, r, kind = self.items[k]
+            if kind == "hole":
+                self._paint(arr, win, r, rh)
                 continue
-            self._rect(arr, r[0], r[1], r[2], r[3], radius)
-        for _z, r in self.no_via:
-            self._rect(arr, r[0], r[1], r[2], r[3], radius)
-        for _z, r in self.no_track:
-            self._rect(arr, r[0], r[1], r[2], r[3], radius)
-        arr[:_cells(BX + EDGE_CLEAR + radius - self.x0) + 1, :] = True
-        arr[_cells(BX + BW - EDGE_CLEAR - radius - self.x0):, :] = True
-        arr[:, :_cells(BY + EDGE_CLEAR + radius - self.y0) + 1] = True
-        arr[:, _cells(BY + BH - EDGE_CLEAR - radius - self.y0):] = True
+            if kind == "pad":
+                # no via-in-pad (G9); the QFN-EP array is placed explicitly
+                self._paint(arr, win, r, VIA_D / 2.0 - 0.05)
+            if n in free:
+                continue
+            self._paint(arr, win, r, rc)
+        for _ok_t, ok_v, r in self.rules:
+            if not ok_v:
+                self._paint(arr, win, r, VIA_D / 2.0)
+        self._edges(arr, win, VIA_D / 2.0 + EDGE_CLEAR - CLEAR + CLEAR)
         return arr
 
-    def ij(self, x, y):
-        return _cells(x - self.x0), _cells(y - self.y0)
-
-    def xy(self, i, j):
-        return (self.x0 + i * GRID, self.y0 + j * GRID)
-
-
-def clear_of(board, x, y, radius, netcode, layers=(F, B), skip_hole=False):
-    """True when a disc of `radius` at (x, y) touches no foreign copper.
-
-    Rectangle distance against every pad/track/via world bbox -- the true
-    distance, not a circumscribed-circle approximation, which falsely rejects
-    legitimate same-net hugs (pcb-layout-style step 3).
-    """
-    for f in board.GetFootprints():
-        for p in f.Pads():
-            if p.GetNetCode() == netcode and netcode != 0:
-                continue
-            on = any(p.IsOnLayer(l) for l in layers) or \
-                p.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH, pcbnew.PAD_ATTRIB_NPTH)
-            if not on:
-                continue
-            bb = p.GetBoundingBox()
-            dx = max(tomm(bb.GetLeft()) - x, 0.0, x - tomm(bb.GetRight()))
-            dy = max(tomm(bb.GetTop()) - y, 0.0, y - tomm(bb.GetBottom()))
-            if math.hypot(dx, dy) < radius:
-                return False
-    return True
+    def _edges(self, arr, win, radius):
+        i0, j0, i1, j1 = win
+        lo_i = int(math.floor((BX + EDGE_CLEAR + radius - self.x0) / GRID + 0.5))
+        hi_i = int(math.floor((BX + BW - EDGE_CLEAR - radius - self.x0) / GRID + 0.5))
+        lo_j = int(math.floor((BY + EDGE_CLEAR + radius - self.y0) / GRID + 0.5))
+        hi_j = int(math.floor((BY + BH - EDGE_CLEAR - radius - self.y0) / GRID + 0.5))
+        if lo_i - i0 > 0:
+            arr[:max(0, lo_i - i0), :] = True
+        if hi_i - i0 + 1 < arr.shape[0]:
+            arr[max(0, hi_i - i0 + 1):, :] = True
+        if lo_j - j0 > 0:
+            arr[:, :max(0, lo_j - j0)] = True
+        if hi_j - j0 + 1 < arr.shape[1]:
+            arr[:, max(0, hi_j - j0 + 1):] = True
+        # board corners are R2 -- clip the four 2 mm quadrants conservatively
+        for cx, cy, sx, sy in ((BX + 2, BY + 2, -1, -1), (BX + BW - 2, BY + 2, 1, -1),
+                               (BX + 2, BY + BH - 2, -1, 1),
+                               (BX + BW - 2, BY + BH - 2, 1, 1)):
+            rr = 2.0 - EDGE_CLEAR - radius
+            for di in range(0, int(2.5 / GRID)):
+                for dj in range(0, int(2.5 / GRID)):
+                    x = cx + sx * di * GRID
+                    y = cy + sy * dj * GRID
+                    if math.hypot(x - cx, y - cy) <= rr:
+                        continue
+                    ii = int(math.floor((x - self.x0) / GRID + 0.5)) - i0
+                    jj = int(math.floor((y - self.y0) / GRID + 0.5)) - j0
+                    if 0 <= ii < arr.shape[0] and 0 <= jj < arr.shape[1]:
+                        arr[ii, jj] = True
 
 
 # --------------------------------------------------------------------------
 # Two-layer A* maze router
 # --------------------------------------------------------------------------
 DIRS8 = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+SQ2 = math.sqrt(2.0)
 
 
-class Router:
-    """A* over (i, j, layer) with a via cost for the layer change.
-
-    Steps are 8-connected on a GRID lattice; diagonals cost sqrt(2).  The
-    search runs inside a bounding box grown around the endpoints so long runs
-    stay affordable.
-    """
-
+class Maze:
     def __init__(self, obst):
         self.o = obst
-        self.np = obst.np
 
-    def route(self, netcode, start, goals, width, layers=(F, B),
-              via_cost=8.0, margin=12.0, extra_nets=(), bend_cost=0.6,
-              start_layers=None, goal_layers=None, max_nodes=4_000_000):
-        """Find a path from `start` to the nearest of `goals`.
-
-        start/goals are (x, y) mm.  Returns (segments, vias) where segments is
-        a list of (layer, [(x, y), ...]) polylines, or None on failure.
-        """
-        import heapq
-        np = self.np
+    def window(self, pts, margin):
         o = self.o
-        r = width / 2.0 + CLEAR
-        vr = VIA_D / 2.0 + CLEAR
-        masks = {l: o.mask(netcode, l, r, extra_nets) for l in layers}
-        vmask = o.via_mask(netcode, vr) if len(layers) > 1 else None
-
-        # search window
-        xs = [start[0]] + [g[0] for g in goals]
-        ys = [start[1]] + [g[1] for g in goals]
+        xs = [p[0] for p in pts]
+        ys = [p[1] for p in pts]
         i0, j0 = o.ij(min(xs) - margin, min(ys) - margin)
         i1, j1 = o.ij(max(xs) + margin, max(ys) + margin)
-        i0, j0 = max(0, i0), max(0, j0)
-        i1, j1 = min(o.nx - 1, i1), min(o.ny - 1, j1)
+        return (max(0, i0), max(0, j0), min(o.nx - 1, i1), min(o.ny - 1, j1))
 
-        sl = tuple(start_layers or layers)
-        gl = tuple(goal_layers or layers)
-        si, sj = o.ij(*start)
-        goal_ij = {}
-        for g in goals:
-            gi, gj = o.ij(*g)
-            for l in gl:
-                goal_ij[(gi, gj, l)] = True
-        gset = set(goal_ij)
+    def route(self, nc, starts, goals, width, layers=(F, B), margin=10.0,
+              via_cost=14.0, bend_cost=0.4, free_nets=(), hw=1.3,
+              max_nodes=1_200_000, goal_rects=None, start_rects=None,
+              layer_bias=None):
+        """starts/goals: [(x, y)] mm.  goal_rects/start_rects: extra copper
+        rectangles per layer, {layer: [(x0,y0,x1,y1)]}, that also count."""
+        import heapq
+        import numpy as np
+        o = self.o
+        r = width / 2.0 + CLEAR
+        win = self.window(list(starts) + list(goals), margin)
+        i0, j0, i1, j1 = win
+        W, H = i1 - i0 + 1, j1 - j0 + 1
+        masks = {l: o.track_mask(win, nc, l, r, free_nets) for l in layers}
+        vmask = o.via_mask(win, nc, free_nets) if len(layers) > 1 else None
 
-        def h(i, j):
-            best = 1e18
-            for g in goals:
-                gi, gj = o.ij(*g)
-                dx, dy = abs(i - gi), abs(j - gj)
-                best = min(best, (dx + dy) + (math.sqrt(2) - 2) * min(dx, dy))
-            return best
+        gmask = {l: np.zeros((W, H), dtype=bool) for l in layers}
+        self._mark(gmask, win, goal_rects, layers)
+        smask = {l: np.zeros((W, H), dtype=bool) for l in layers}
+        self._mark(smask, win, start_rects, layers)
 
+        # open all start cells that are legal
         openq = []
         gscore = {}
         came = {}
-        for l in sl:
-            s = (si, sj, l)
-            gscore[s] = 0.0
-            heapq.heappush(openq, (h(si, sj), 0.0, s, None))
+        for l in layers:
+            free = smask[l] & ~masks[l]
+            idx = np.argwhere(free)
+            for ii, jj in idx:
+                s = (int(ii), int(jj), l)
+                gscore[s] = 0.0
+                heapq.heappush(openq, (0.0, 0.0, s))
+        if not openq:
+            return None
+
+        gpts = [o.ij(*g) for g in goals]
+        gpts = [(a - i0, b - j0) for a, b in gpts]
+
+        def h(i, j):
+            best = 1e18
+            for gi, gj in gpts:
+                dx, dy = abs(i - gi), abs(j - gj)
+                best = min(best, (dx + dy) + (SQ2 - 2) * min(dx, dy))
+            return best * hw
+
+        bias = layer_bias or {}
         seen = 0
         end = None
         while openq:
-            f, g, cur, prev = heapq.heappop(openq)
-            if gscore.get(cur, 1e18) < g - 1e-9:
+            f, g, cur = heapq.heappop(openq)
+            if g > gscore.get(cur, 1e18) + 1e-9:
                 continue
-            if cur in came and came[cur] is not None and prev is not None \
-                    and came[cur] != prev:
-                pass
+            ci, cj, cl = cur
+            if gmask[cl][ci, cj]:
+                end = cur
+                break
             seen += 1
             if seen > max_nodes:
                 return None
-            if cur in gset:
-                end = cur
-                break
-            ci, cj, cl = cur
-            pi = came.get(cur)
+            prev = came.get(cur)
             pdir = None
-            if pi is not None and pi[2] == cl:
-                pdir = (ci - pi[0], cj - pi[1])
-                n = max(abs(pdir[0]), abs(pdir[1])) or 1
-                pdir = (pdir[0] // n if abs(pdir[0]) == n else 0,
-                        pdir[1] // n if abs(pdir[1]) == n else 0)
+            if prev is not None and prev[2] == cl:
+                dx, dy = ci - prev[0], cj - prev[1]
+                n = max(abs(dx), abs(dy)) or 1
+                pdir = (dx // n, dy // n)
+            m = masks[cl]
             for dx, dy in DIRS8:
                 ni, nj = ci + dx, cj + dy
-                if ni < i0 or ni > i1 or nj < j0 or nj > j1:
+                if ni < 0 or nj < 0 or ni >= W or nj >= H:
                     continue
-                if masks[cl][ni, nj]:
+                if m[ni, nj]:
                     continue
                 if dx and dy:
-                    # do not cut corners diagonally through blocked cells
-                    if masks[cl][ci + dx, cj] or masks[cl][ci, cj + dy]:
+                    if m[ci + dx, cj] or m[ci, cj + dy]:
                         continue
-                    step = math.sqrt(2)
+                    step = SQ2
                 else:
                     step = 1.0
-                cost = step
+                cost = step * (1.0 + bias.get(cl, 0.0))
                 if pdir is not None and (dx, dy) != pdir:
                     cost += bend_cost
                 nxt = (ni, nj, cl)
                 ng = g + cost
-                if ng < gscore.get(nxt, 1e18) - 1e-9:
+                if ng + 1e-9 < gscore.get(nxt, 1e18):
                     gscore[nxt] = ng
                     came[nxt] = cur
-                    heapq.heappush(openq, (ng + h(ni, nj), ng, nxt, cur))
+                    heapq.heappush(openq, (ng + h(ni, nj), ng, nxt))
             if vmask is not None and not vmask[ci, cj]:
                 for l in layers:
                     if l == cl:
                         continue
+                    if masks[l][ci, cj]:
+                        continue
                     nxt = (ci, cj, l)
                     ng = g + via_cost
-                    if ng < gscore.get(nxt, 1e18) - 1e-9:
+                    if ng + 1e-9 < gscore.get(nxt, 1e18):
                         gscore[nxt] = ng
                         came[nxt] = cur
-                        heapq.heappush(openq, (ng + h(ci, cj), ng, nxt, cur))
+                        heapq.heappush(openq, (ng + h(ci, cj), ng, nxt))
         if end is None:
             return None
-
-        # reconstruct
         path = [end]
         while came.get(path[-1]) is not None:
             path.append(came[path[-1]])
         path.reverse()
-        return self._to_geometry(path)
+        return self._geom(path, win)
 
-    def _to_geometry(self, path):
+    def _mark(self, masks, win, rects, layers):
+        """Mark copper rectangles, per layer.  Never across layers -- a goal
+        marked on the wrong layer ends a route in mid-air (track_dangling)."""
         o = self.o
-        segs = []
-        vias = []
+        i0, j0, i1, j1 = win
+        for l, rs in (rects or {}).items():
+            if l not in masks:
+                continue
+            for r in rs:
+                a = max(0, int(math.floor((r[0] - o.x0) / GRID + 0.5)) - i0)
+                c = min(masks[l].shape[0],
+                        int(math.floor((r[2] - o.x0) / GRID + 0.5)) - i0 + 1)
+                d = max(0, int(math.floor((r[1] - o.y0) / GRID + 0.5)) - j0)
+                e = min(masks[l].shape[1],
+                        int(math.floor((r[3] - o.y0) / GRID + 0.5)) - j0 + 1)
+                if a < c and d < e:
+                    masks[l][a:c, d:e] = True
+
+    def _geom(self, path, win):
+        o = self.o
+        i0, j0, _, _ = win
+        segs, vias = [], []
         run = [path[0]]
         for a, b in zip(path, path[1:]):
             if a[2] != b[2]:
-                segs.append((a[2], [o.xy(p[0], p[1]) for p in run]))
-                vias.append(o.xy(a[0], a[1]))
+                segs.append((a[2], [o.xy(p[0] + i0, p[1] + j0) for p in run]))
+                vias.append(o.xy(a[0] + i0, a[1] + j0))
                 run = [b]
             else:
                 run.append(b)
-        segs.append((run[-1][2], [o.xy(p[0], p[1]) for p in run]))
-        return ([(l, _simplify(p)) for l, p in segs if len(p) > 1], vias)
+        segs.append((run[0][2], [o.xy(p[0] + i0, p[1] + j0) for p in run]))
+        return ([(l, simplify(p)) for l, p in segs if len(p) > 1], vias)
 
 
-def _simplify(pts):
-    """Collapse collinear runs of grid steps into corner-to-corner segments."""
+def simplify(pts):
     if len(pts) < 3:
-        return pts
+        return list(pts)
     out = [pts[0]]
     for i in range(1, len(pts) - 1):
         ax, ay = out[-1]
@@ -463,28 +581,227 @@ def _simplify(pts):
     return out
 
 
+def emit(board, res, width, nc, obst=None):
+    """Write a Maze.route() result to the board."""
+    segs, vias = res
+    tracks = []
+    for layer, pts in segs:
+        tracks += polyline(board, pts, width, layer, nc)
+    for v in vias:
+        add_via(board, v, nc)
+    return tracks, vias
+
+
+def route_len(res):
+    tot = 0.0
+    for _l, pts in res[0]:
+        for a, b in zip(pts, pts[1:]):
+            tot += dist(a, b)
+    return tot
+
+
 # --------------------------------------------------------------------------
-# Reporting helpers
+# Net-level connection driver
 # --------------------------------------------------------------------------
-def net_of(board, name):
-    ni = board.GetNetsByName()
-    return ni[name].GetNetCode() if name in [k for k in ni.keys()] else None
-
-
-def netcode(board, name):
-    for code, info in board.GetNetsByNetcode().items():
-        if info.GetNetname() == name:
-            return code
-    raise KeyError(name)
-
-
-def pads_of(board, netname):
-    out = []
+def pad_nodes(board, netname):
+    """Pads of a net, merged into nodes where they physically overlap."""
+    pads = []
     for f in board.GetFootprints():
         for p in f.Pads():
-            if p.GetNetname() == netname:
-                out.append((f.GetReference(), p.GetNumber(), pt(p.GetPosition()), p))
+            if p.GetNetname() != netname:
+                continue
+            if not pad_copper_layers(p):
+                continue
+            pads.append((f.GetReference(), p))
+    nodes = []
+    used = [False] * len(pads)
+    for i, (ref, p) in enumerate(pads):
+        if used[i]:
+            continue
+        grp = [(ref, p)]
+        used[i] = True
+        changed = True
+        while changed:
+            changed = False
+            for j, (r2, q) in enumerate(pads):
+                if used[j]:
+                    continue
+                for _r, m in grp:
+                    a, b_ = pad_bbox(m), pad_bbox(q)
+                    if (a[0] <= b_[2] and b_[0] <= a[2]
+                            and a[1] <= b_[3] and b_[1] <= a[3]):
+                        grp.append((r2, q))
+                        used[j] = True
+                        changed = True
+                        break
+        nodes.append(grp)
+    return nodes
+
+
+TARGET_INSET = 0.15
+TARGET_CENTRE_MAX = 2.0
+
+
+def pad_target_rect(p):
+    """Where a trace may legally terminate on this pad.
+
+    Small pads take their centre -- a trace that stops on a pad edge is a
+    connection KiCad has to argue itself into; one that runs to the centre is
+    unambiguous.  Big pads (EPs, shells, terminal blocks) take the bbox inset
+    by TARGET_INSET so the router does not walk their whole length.
+    """
+    x0, y0, x1, y1 = pad_bbox(p)
+    if (x1 - x0) <= TARGET_CENTRE_MAX and (y1 - y0) <= TARGET_CENTRE_MAX:
+        c = pt(p.GetPosition())
+        return (c[0] - 0.03, c[1] - 0.03, c[0] + 0.03, c[1] + 0.03)
+    a = min(TARGET_INSET, (x1 - x0) / 2 - 0.02)
+    b = min(TARGET_INSET, (y1 - y0) / 2 - 0.02)
+    return (x0 + a, y0 + b, x1 - a, y1 - b)
+
+
+def node_geom(grp):
+    """(centre, target-rects per layer, representative points) for a group."""
+    rects = {F: [], B: []}
+    pts = []
+    for _ref, p in grp:
+        tr = pad_target_rect(p)
+        for l in pad_copper_layers(p):
+            rects[l].append(tr)
+        pts.append(pt(p.GetPosition()))
+    cx = sum(q[0] for q in pts) / len(pts)
+    cy = sum(q[1] for q in pts) / len(pts)
+    return (cx, cy), rects, pts
+
+
+def emit_result(board, obst, res, width, nc):
+    """Write a route to the board AND into the live obstacle model."""
+    segs, vias = res
+    for layer, pts in segs:
+        for a, b in zip(pts, pts[1:]):
+            if dist(a, b) < 1e-6:
+                continue
+            add_track(board, a, b, width, layer, nc)
+            obst.add_seg(a, b, width / 2.0, layer, nc)
+    for v in vias:
+        add_via(board, v, nc)
+        obst.add_via_at(v, nc)
+
+
+def seg_boxes(a, b, hw, step=None):
+    """A segment as a chain of small boxes that lie strictly INSIDE the trace.
+
+    The bbox of a 45 deg segment is mostly *not* on the trace, and even a
+    chain of full-width boxes pokes out at the corners -- a goal built from
+    either lets a route stop a hair beside the copper it meant to join (DRC
+    `track_dangling`).  Half-width boxes on a half-width pitch cannot.
+    """
+    h = max(0.03, hw / 2.0)
+    n = max(1, int(dist(a, b) / h))
+    out = []
+    for k in range(n + 1):
+        t = k / n
+        x = a[0] + (b[0] - a[0]) * t
+        y = a[1] + (b[1] - a[1]) * t
+        out.append((x - h, y - h, x + h, y + h))
     return out
+
+
+def board_net_rects(board, nc, hw_extra=0.0):
+    """Every existing copper rectangle of a net, per layer, chain-boxed."""
+    out = {F: [], B: []}
+    for t in board.GetTracks():
+        if t.GetNetCode() != nc:
+            continue
+        if isinstance(t, pcbnew.PCB_VIA):
+            q = pt(t.GetPosition())
+            hw = VIA_D / 2.0 / 1.5      # inscribed square of the via pad
+            for l in (F, B):
+                out[l].append((q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw))
+        else:
+            hw = tomm(t.GetWidth()) / 2.0 + hw_extra
+            out[t.GetLayer()] += seg_boxes(pt(t.GetStart()), pt(t.GetEnd()), hw)
+    return out
+
+
+def seg_rects(res, hw):
+    out = {F: [], B: []}
+    for layer, pts in res[0]:
+        for a, b in zip(pts, pts[1:]):
+            out[layer] += seg_boxes(a, b, hw)
+    for v in res[1]:
+        for l in (F, B):
+            out[l].append((v[0] - VIA_D / 2, v[1] - VIA_D / 2,
+                           v[0] + VIA_D / 2, v[1] + VIA_D / 2))
+    return out
+
+
+def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
+                seed=None, skip_nodes=(), verbose=True, **kw):
+    """Route every node of `netname` into one tree.
+
+    Greedy nearest-node growth: the target of each hop is the whole of the
+    already-connected copper, not just one pad, so branches join wherever they
+    reach rather than doubling back to a pad.
+    """
+    nc = netcode(board, netname)
+    w = width if width is not None else net_width(netname)
+    nodes = [g for g in pad_nodes(board, netname)
+             if not any(r in skip_nodes for r, _ in g)]
+    if len(nodes) < 2:
+        return []
+    geoms = [node_geom(g) for g in nodes]
+    # existing copper of this net already on the board seeds the tree
+    have = board_net_rects(board, nc)
+
+    start = seed if seed is not None else 0
+    conn = {start}
+    tree = {F: list(geoms[start][1][F]) + have[F],
+            B: list(geoms[start][1][B]) + have[B]}
+    tree_pts = list(geoms[start][2])
+    fails = []
+    while len(conn) < len(nodes):
+        cand = sorted(((min(dist(geoms[a][0], geoms[b][0]) for a in conn), b)
+                       for b in range(len(nodes)) if b not in conn))
+        placed = False
+        for _d, b in cand:
+            res = maze.route(nc, geoms[b][2], tree_pts, w, layers=layers,
+                             start_rects=geoms[b][1], goal_rects=tree, **kw)
+            if res is None:
+                continue
+            emit_result(board, obst, res, w, nc)
+            r = seg_rects(res, w / 2.0)
+            for l in (F, B):
+                tree[l] += r[l] + geoms[b][1][l]
+            tree_pts += geoms[b][2]
+            conn.add(b)
+            placed = True
+            break
+        if not placed:
+            for _d, b in cand:
+                fails.append([r for r, _ in nodes[b]][0])
+            break
+    if fails and verbose:
+        print(f"    ! {netname}: unrouted nodes {sorted(set(fails))}")
+    return fails
+
+
+def seg_ok(obst, a, b, width, nc, layer=F, samples=None):
+    """True when a `width` trace from a to b clears all foreign copper."""
+    r = width / 2.0 + CLEAR
+    win = (min(obst.ij(a[0], a[1])[0], obst.ij(b[0], b[1])[0]) - 20,
+           min(obst.ij(a[0], a[1])[1], obst.ij(b[0], b[1])[1]) - 20,
+           max(obst.ij(a[0], a[1])[0], obst.ij(b[0], b[1])[0]) + 20,
+           max(obst.ij(a[0], a[1])[1], obst.ij(b[0], b[1])[1]) + 20)
+    m = obst.track_mask(win, nc, layer, r)
+    n = samples or max(2, int(dist(a, b) / (GRID / 2)) + 1)
+    for k in range(n + 1):
+        t = k / n
+        x = a[0] + (b[0] - a[0]) * t
+        y = a[1] + (b[1] - a[1]) * t
+        i, j = obst.ij(x, y)
+        if m[i - win[0], j - win[1]]:
+            return False
+    return True
 
 
 def unconnected(board):
@@ -493,5 +810,9 @@ def unconnected(board):
 
 
 def refill(board):
+    """Refill every zone.  Connectivity first -- ZONE_FILLER's island removal
+    reads it, and a stale graph drops copper that is really connected."""
+    board.BuildConnectivity()
     filler = pcbnew.ZONE_FILLER(board)
     filler.Fill(board.Zones())
+    board.BuildConnectivity()
