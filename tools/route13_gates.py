@@ -22,8 +22,11 @@ import pcbnew
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import route_lib as R  # noqa: E402
 
-NETS = ["Net-(Q1102-G)", "Net-(Q1104-G)", "Net-(Q1106-G)",
-        "/motor_drive/VM_DRV"]
+# MOTOR_U leads: it was whole before the east-row experiment ripped it, and
+# recovering it is worth more than any of the gates -- it is the leg's VDS
+# sense into the driver.
+NETS = ["/motor_drive/MOTOR_U", "Net-(Q1102-G)", "Net-(Q1104-G)",
+        "Net-(Q1106-G)", "/motor_drive/VM_DRV"]
 TRIES = (dict(via_cost=45, margin=30),
          dict(via_cost=25, margin=55),
          dict(via_cost=12, margin=90, hw=1.0))

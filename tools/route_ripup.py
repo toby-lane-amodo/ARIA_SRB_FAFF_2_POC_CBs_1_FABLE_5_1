@@ -135,17 +135,17 @@ PLANS = {
     # the reservations go on, so neither can take the other's lane.
     "u1101-gates": dict(
         box=(207.5, 134.0, 220.5, 144.5),
-        # The whole east row goes, not just the gates.  Pins 5..9 all leave
-        # eastward on a 0.5 mm pitch and every one of them turns off in the
-        # same 1.5 mm of board, so planning four of the five and leaving
-        # MOTOR_U where it is does not work: its own escape via sits at
-        # (217.20, 140.10), 0.35 mm off pin 7's centreline and squarely in
-        # pin 8's lane, and it is what the gate runs into 1.2 mm out.  Same
-        # R3-1 hazard, one pin further along.
+        # Ripping the *whole* east row was tried and is not kept.  It did
+        # prove the point -- with MOTOR_U and Q1101-G out of the way,
+        # Q1102-G reached U1101.8 and only its FET end stayed open -- but it
+        # cost MOTOR_U, which had been whole, so the count went from four
+        # open to five.  The row cannot carry its nets; ripping more of it
+        # only changes which one loses.  That is the placement finding in
+        # docs/decisions/actuator-pcb-route1.md S12, not something to keep
+        # re-deciding here.
         rip=["Net-(Q1102-G)", "Net-(Q1104-G)", "Net-(Q1106-G)",
              "Net-(Q1102-S_3)", "Net-(Q1104-S_3)", "Net-(Q1106-S_3)",
-             "/motor_drive/VM_DRV", "/motor_drive/MOTOR_U",
-             "Net-(Q1101-G)"],
+             "/motor_drive/VM_DRV"],
         passes=[
             dict(reserve=True, nets=[
                 ("Net-(Q1102-S_3)", 0.25, {}),
@@ -163,10 +163,8 @@ PLANS = {
                 ("Net-(Q1102-G)", 0.25, {}),
                 ("Net-(Q1104-G)", 0.25, {}),
                 ("Net-(Q1106-G)", 0.25, {})]),
-            dict(reserve=False, fanout=False, nets=[
-                ("/motor_drive/VM_DRV", 0.25, {}),
-                ("Net-(Q1101-G)", 0.25, {}),
-                ("/motor_drive/MOTOR_U", 0.25, dict(via_cost=25, margin=30))]),
+            dict(reserve=False, fanout=False,
+                 nets=[("/motor_drive/VM_DRV", 0.25, {})]),
         ],
     ),
     "u303-pg": dict(
