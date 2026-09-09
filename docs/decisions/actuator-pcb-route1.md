@@ -52,7 +52,41 @@ copper.
 the vias each net actually has against its budgeted current, and it runs a
 **brute-force minimum-via cut** — if removing fewer vias than the budget
 requires would split the net, the net leans on too few, whatever the total
-count says.
+count says. **It passes.** Every current-carrying path has at least its
+budgeted via count with no single-via dependency.
+
+| Net | I design | vias needed | vias | min cut |
+|---|---|---|---|---|
+| `Net-(F201-Pad2)` | 3.0 A | 3 | 6 | ≥3 |
+| `/power_entry_24v/V0_IN` | 3.0 A | 3 | 3 | ≥3 |
+| `/power_entry_24v/+24V_SW` | 3.0 A | 3 | 7 | ≥3 |
+| `/motor_drive/V24_MOT` | 3.0 A | 3 | 6 | ≥3 |
+| `/motor_drive/MOTOR_U` | 3.0 A | 3 | 7 | ≥3 |
+| `/motor_drive/MOTOR_V` | 3.0 A | 3 | 7 | ≥3 |
+| `/motor_drive/MOTOR_W` | 3.0 A | 3 | 11 | ≥3 |
+| `Net-(Q1104-S_3)` | 3.0 A | 3 | 4 | ≥3 |
+| `+3V3` | 1.5 A | 2 | 67 | ≥2 |
+| `Net-(U301-SW)` | 0.7 A | 2 | 4 | ≥2 |
+| `/power_rails/+6V0` | 0.6 A | 2 | 10 | ≥2 |
+| `+5V` / `+5VA` / `+3V3A` / `+3V3_USB` / `+1V8_USB` / `V24_LOGIC` | 0.2–0.3 A | 2 | 6–11 | ≥2 |
+
+Nets showing 0 vias never change layer, so they need none.
+
+**The three low-side source nets were missing from the budget** — `Net-(Q1102-S_3)`
+and its siblings carry the leg's full 3 A from the FET source into the shunt,
+and they are named after the FET rather than the phase, which is how they were
+overlooked. They are in it now.
+
+**The min-cut test is load-aware, and had to be made so.** It failed on
+`MOTOR_U/V/W` and `Q1104-S_3` with a 1-via cut each, and each cut isolated
+exactly one pad: `U1101.7`, `U1101.12` — the DRV8323's VDS monitor and the SPB
+Kelvin tap. Those are high-impedance sense inputs drawing microamps into a
+comparator; a via carrying only one of them carries no current, and the leg's
+3 A goes down the phase drop, which is a separate cluster. Demanding two more
+vias there would have put copper on a sense line to satisfy a rule about
+power. The DRV's six sense pins are now named explicitly, because guessing a
+pin's function from its reference designator is what produced the false
+failure.
 
 ## 3. USB 2.0 HS pair — drawn, not routed
 
@@ -252,6 +286,28 @@ The four pre-existing residual classes from board setup §8 are unchanged and ar
 | `lib_footprint_mismatch` | 6 | `H1`–`H4` (BOARD_ONLY/NPTH attribute normalisation), `J201`, `J1001` |
 | `annular_width` | 4 | `U501` exposed-pad annulus, library land |
 
+### The round-1 result
+
+```
+DRC severity-all       248 violations
+  track_dangling       199   in progress -- fan-out stubs on the nets still open
+  via_dangling          30   in progress -- likewise
+  items_not_allowed      9   library residual (board setup S8)
+  lib_footprint_mismatch 6   library residual
+  annular_width          4   library residual
+  REAL                   0
+schematic parity         0
+unconnected            111   79 nets, S12
+```
+
+**Zero real violations.** Every one of the 248 is either a known library
+residual from board setup §8 or a dangling fan-out stub belonging to a net
+that is still open — and those clear the moment their net closes.
+
+Board state: **3366 track segments, 1004 vias, 2 zones**; 4763.5 mm of copper
+on `F.Cu`, 2707.8 mm on `B.Cu`. Vias by class: 775 Default (535 of them GND),
+150 Power, 35 Motor, 34 Analog, 6 RF50, 4 USB_HS.
+
 ## 7. Open points for the captain
 
 1. **The DM tie's landing point.** `J1001` B7 joins DM 1.6 mm past `D1001`
@@ -407,8 +463,24 @@ and both are now in the script:
 
 ## 12. What is left, and what round 2 should look at first
 
-This is round 1: the board is routed for review, not signed off. The residue
-below is listed rather than hidden, and each line says why it is where it is.
+This is round 1: the board is routed for review, not signed off. **111
+unconnected items across 79 nets remain** — the brief asked for zero, and this
+does not reach it. What follows is why, honestly, rather than a claim that it
+is nearly there.
+
+The residue is not scattered. It is three things:
+
+| Cause | Nets | Fixable by routing? |
+|---|---|---|
+| DRV8323 / regulator pin rows over-subscribed (below) | ~8 | **No** — placement |
+| MCU-to-peripheral runs across a saturated board | ~65 | Partly, with more passes |
+| The rest — `J601`/`J602` encoder pairs, a few taps | ~6 | Yes |
+
+The proofs that *do* pass are the ones that matter most for a review:
+**`--gnd`, `--viainpad`, `--power`, `--usb`, `--analog` and `--g5` all pass**,
+and DRC has zero real violations. What is missing is completeness, not
+correctness: nothing on the board is wrong, there is simply not enough of it
+yet.
 
 The three things round 2 should take first, in this order:
 
