@@ -280,7 +280,7 @@ class Obstacles:
                     q = pt(p.GetPosition())
                     r = max(tomm(p.GetDrillSizeX()),
                             tomm(p.GetDrillSizeY())) / 2.0
-                    items.append((p.GetNetCode(), frozenset((F, B)),
+                    items.append((p.GetNetCode(), frozenset(ROUTE_LAYERS),
                                   (q[0] - r, q[1] - r, q[0] + r, q[1] + r),
                                   "hole"))
         for t in b.GetTracks():
@@ -288,10 +288,15 @@ class Obstacles:
             if isinstance(t, pcbnew.PCB_VIA):
                 q = pt(t.GetPosition())
                 hw = VIA_D / 2.0
-                items.append((nc, frozenset((F, B)),
+                # A through via exists on *every* layer.  Registering it on
+                # F and B alone was harmless while those were the only two
+                # routing layers; on a six-layer board it lets the inner-layer
+                # router drive straight through 535 via barrels, which is
+                # exactly what it did.
+                items.append((nc, frozenset(ROUTE_LAYERS),
                               (q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw), "cu"))
                 hr = VIA_DRILL / 2.0
-                items.append((nc, frozenset((F, B)),
+                items.append((nc, frozenset(ROUTE_LAYERS),
                               (q[0] - hr, q[1] - hr, q[0] + hr, q[1] + hr), "hole"))
             else:
                 a, c = pt(t.GetStart()), pt(t.GetEnd())
@@ -385,16 +390,16 @@ class Obstacles:
                 y0 = a[1] + (b[1] - a[1]) * t0
                 x1 = a[0] + (b[0] - a[0]) * t1
                 y1 = a[1] + (b[1] - a[1]) * t1
-                self._add((nc, frozenset((F, B)),
+                self._add((nc, frozenset(ROUTE_LAYERS),
                            (min(x0, x1) - hw, min(y0, y1) - hw,
                             max(x0, x1) + hw, max(y0, y1) + hw), "cu"))
 
     def add_via_at(self, q, nc):
         hw = VIA_D / 2.0
-        self._add((nc, frozenset((F, B)),
+        self._add((nc, frozenset(ROUTE_LAYERS),
                    (q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw), "cu"))
         hr = VIA_DRILL / 2.0
-        self._add((nc, frozenset((F, B)),
+        self._add((nc, frozenset(ROUTE_LAYERS),
                    (q[0] - hr, q[1] - hr, q[0] + hr, q[1] + hr), "hole"))
 
     # ---- masks -----------------------------------------------------------
