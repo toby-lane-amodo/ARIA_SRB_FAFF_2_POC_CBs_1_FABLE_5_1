@@ -37,6 +37,21 @@ DIRS = [(math.cos(math.radians(a)), math.sin(math.radians(a)))
         for a in range(0, 360, 45)]
 
 
+def pin_width(net, pad):
+    """The width to test the escape at: the class width, capped by the pad.
+
+    A net's class width is what it wants in open board, not what it can start
+    at.  VM_DRV is Motor class, 1.00 mm; SYNC_TRIG is RF50, 0.37 mm; both land
+    on 0.30 mm pads at 0.5 mm pitch, where neither will fit by construction.
+    Testing at the class width calls those pins sealed when what is actually
+    true is that the link necks down at the pad, which is the house rule for
+    every fine-pitch pin: the widest trace that does not exceed the pad.
+    """
+    bb = R.pad_bbox(pad)
+    return min(R.net_width(net), max(R.W_SIGNAL,
+                                     min(bb[2] - bb[0], bb[3] - bb[1])))
+
+
 def half_at(bb, u):
     """Half-extent of an axis-aligned pad box along direction u.
 
@@ -156,13 +171,13 @@ def main():
 
     sealed, tight, open_ = [], [], []
     for net in sorted(split):
-        w = R.net_width(net)
         isl = R.net_islands(board, net)
         for g in isl:
             for key in sorted({x[1] for x in g if x[0] == "pad"}):
                 p = pads.get(key)
                 if p is None or not R.pad_copper_layers(p):
                     continue
+                w = pin_width(net, p)
                 e = escapes(board, obst, p, w)
                 if e:
                     open_.append((net, key, e))
@@ -176,7 +191,7 @@ def main():
           f"will help ({len(sealed)} pads)")
     for net, key, _e in sealed:
         p = pads[key]
-        w = R.net_width(net)
+        w = pin_width(net, p)
         by = sorted(((reach(board, obst, p, w, u), u) for u in DIRS),
                     reverse=True)
         d, u = by[0]
@@ -189,7 +204,7 @@ def main():
           f"room, which a router can usually turn in ({len(tight)} pads)")
     for net, key, _e in tight:
         p = pads[key]
-        w = R.net_width(net)
+        w = pin_width(net, p)
         by = sorted(((reach(board, obst, p, w, u), u) for u in DIRS),
                     reverse=True)
         d, u = by[0]
