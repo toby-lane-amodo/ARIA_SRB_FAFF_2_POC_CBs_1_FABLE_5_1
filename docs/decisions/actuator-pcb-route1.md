@@ -421,3 +421,26 @@ The three things round 2 should take first, in this order:
    (placement open point 1 asked for via-free).
 3. **A render sweep of the analog corridor.** The numbers say the separation
    held; the render is what actually catches a digital run that crept into it.
+
+### The DRV8323's east row is over-subscribed, and that is a placement finding
+
+Pins 5–9 — `V24_MOT`, `Q1101-G`, `MOTOR_U`, `Q1102-G`, `Q1102-S_3` — all leave
+eastward on a 0.5 mm pitch, and every one of them has to turn off inside the
+same 1.5 mm of board before it reaches open copper. Five nets, one 2.5 mm-tall
+corridor. The arithmetic does not work:
+
+* a lane between two neighbouring runs is **0.70 mm**;
+* a 0.6 mm via needs **0.905 mm** of lane to drop through;
+* so **no net in the middle of that row can change layer**, and the ones that
+  cannot get out on `F.Cu` have nowhere else to go.
+
+`Q1102-G` gets 1.2 mm east of its own fan-out stub and stops. Three searches
+at widening margins and falling via costs found no path, and the reason is not
+the search: there is no lane. `route_sealed` calls the pin free because it can
+leave its pad; it is the *second* millimetre that has no room.
+
+This is not something routing can fix. It wants one of: the low-side gates
+brought out on the package's south side instead of the east, the DRV8323
+rotated so the gate pins face their FETs, or the phase-sense and Kelvin pairs
+moved to the north row. All three are placement changes and all three are the
+captain's call — which is why they are here rather than in a rip plan.

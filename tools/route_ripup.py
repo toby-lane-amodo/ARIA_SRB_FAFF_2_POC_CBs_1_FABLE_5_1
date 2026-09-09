@@ -92,7 +92,8 @@ PLANS = {
         rip=["/power_rails/+6V0", "Net-(U302-PG)"],
         passes=[
             dict(reserve=False, fanout=True, nets=[
-                ("/power_rails/+6V0", 0.30, dict(layer_bias={R.F: 0.8})),
+                ("/power_rails/+6V0", 0.30,
+                 dict(layer_bias={R.F: 2.0}, via_cost=8)),
                 ("Net-(U302-PG)", 0.20, {})]),
         ],
     ),
@@ -134,9 +135,17 @@ PLANS = {
     # the reservations go on, so neither can take the other's lane.
     "u1101-gates": dict(
         box=(207.5, 134.0, 220.5, 144.5),
+        # The whole east row goes, not just the gates.  Pins 5..9 all leave
+        # eastward on a 0.5 mm pitch and every one of them turns off in the
+        # same 1.5 mm of board, so planning four of the five and leaving
+        # MOTOR_U where it is does not work: its own escape via sits at
+        # (217.20, 140.10), 0.35 mm off pin 7's centreline and squarely in
+        # pin 8's lane, and it is what the gate runs into 1.2 mm out.  Same
+        # R3-1 hazard, one pin further along.
         rip=["Net-(Q1102-G)", "Net-(Q1104-G)", "Net-(Q1106-G)",
              "Net-(Q1102-S_3)", "Net-(Q1104-S_3)", "Net-(Q1106-S_3)",
-             "/motor_drive/VM_DRV"],
+             "/motor_drive/VM_DRV", "/motor_drive/MOTOR_U",
+             "Net-(Q1101-G)"],
         passes=[
             dict(reserve=True, nets=[
                 ("Net-(Q1102-S_3)", 0.25, {}),
@@ -154,8 +163,10 @@ PLANS = {
                 ("Net-(Q1102-G)", 0.25, {}),
                 ("Net-(Q1104-G)", 0.25, {}),
                 ("Net-(Q1106-G)", 0.25, {})]),
-            dict(reserve=False, fanout=False,
-                 nets=[("/motor_drive/VM_DRV", 0.25, {})]),
+            dict(reserve=False, fanout=False, nets=[
+                ("/motor_drive/VM_DRV", 0.25, {}),
+                ("Net-(Q1101-G)", 0.25, {}),
+                ("/motor_drive/MOTOR_U", 0.25, dict(via_cost=25, margin=30))]),
         ],
     ),
     "u303-pg": dict(
@@ -163,7 +174,8 @@ PLANS = {
         rip=["/power_rails/+6V0", "Net-(U303-PG)"],
         passes=[
             dict(reserve=False, fanout=True, nets=[
-                ("/power_rails/+6V0", 0.30, dict(layer_bias={R.F: 0.8})),
+                ("/power_rails/+6V0", 0.30,
+                 dict(layer_bias={R.F: 2.0}, via_cost=8)),
                 ("Net-(U303-PG)", 0.20, {})]),
         ],
     ),
@@ -236,8 +248,13 @@ def main():
         if ps.get("fanout", True):
             R.escape_pass(board, obst)
         for net, w, kw in ps["nets"]:
-            f = R.connect_net(board, obst, maze, net, width=w, via_cost=45,
-                              margin=24, **kw)
+            # A plan may override the search parameters, not just add to them.
+            # Biasing a net onto B.Cu is useless while the via cost is pinned
+            # at 45: the two vias the layer change needs outprice the detour
+            # the bias was meant to avoid, and the router stays on F.Cu.
+            args = dict(via_cost=45, margin=24)
+            args.update(kw)
+            f = R.connect_net(board, obst, maze, net, width=w, **args)
             whole = R.net_is_whole(board, net)
             routed.append(net)
             print(f"   {net:<30} @ {w:4.2f}  "
