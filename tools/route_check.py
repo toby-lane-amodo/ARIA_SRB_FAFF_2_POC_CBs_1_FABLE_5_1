@@ -40,6 +40,25 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import route_lib as R  # noqa: E402
 from route3_gnd import EP_PADS  # noqa: E402
 from route3b_gndfix import ep_tied as _ep_tied  # noqa: E402
+from route4c_widen import is_load  # noqa: E402
+
+# DRV8323 sense inputs.  SHx is the VDS monitor for its phase, SPx/SNx the
+# current-sense amplifier's differential pair across the shunt.  All six draw
+# microamps into a comparator or an amplifier input, so a via that carries
+# only one of them carries no current -- the leg's 3 A goes down the phase
+# drop, which is a separate via cluster.  Naming them is the honest way to
+# say that; is_load's "not a C, not a TP" heuristic cannot know it.
+SENSE_PINS = {("U1101", n) for n in
+              ("7", "14", "17",           # SHA / SHB / SHC, VDS monitors
+               "9", "12", "19",           # SPA / SPB / SPC, CSA + inputs
+               "10", "11", "20")}         # SNA / SNB / SNC, CSA - inputs
+
+
+def draws_current(padkey):
+    ref, _, num = padkey.partition(".")
+    if (ref, num) in SENSE_PINS:
+        return False
+    return is_load(padkey)
 
 BUDGET = {
     "/power_entry_24v/V24_IN": 3.0, "Net-(F201-Pad2)": 3.0,
@@ -269,13 +288,29 @@ def check_power(board):
         if need:
             items = R.net_items(board, net)
             vidx = [i for i, it in enumerate(items) if it[0] == "via"]
-            base = len(islands_without(items, set()))
+            base = islands_without(items, set())
             found = None
             for k in range(1, min(need, 3)):
                 for combo in itertools.combinations(vidx, k):
-                    if len(islands_without(items, set(combo))) > base:
-                        found = k
-                        break
+                    parts = islands_without(items, set(combo))
+                    if len(parts) <= len(base):
+                        continue
+                    # A cut only matters if it isolates something that draws
+                    # current.  Every phase node has a sense tap into the
+                    # driver -- MOTOR_U to U1101.7 and so on -- and that tap
+                    # is a high-impedance VDS monitor on a single via by
+                    # design.  Removing its via splits the net topologically
+                    # and carries nothing: the 3 A goes down the phase drop,
+                    # which is a separate cluster.  Counting that as a
+                    # bottleneck asks for two more vias on a line with
+                    # microamps in it.
+                    small = min(parts, key=lambda g: sum(
+                        1 for k2, *_ in g if k2 == "pad"))
+                    pads = [x[1] for x in small if x[0] == "pad"]
+                    if pads and not any(draws_current(p) for p in pads):
+                        continue
+                    found = k
+                    break
                 if found:
                     break
             cut = f"{found}" if found else f">={min(need,3)}"

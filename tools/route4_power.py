@@ -47,6 +47,12 @@ VIA_BUDGET = {
     "/motor_drive/MOTOR_U": 3.0,
     "/motor_drive/MOTOR_V": 3.0,
     "/motor_drive/MOTOR_W": 3.0,
+    # The low-side source nets carry the leg's full current from the FET
+    # source into its shunt, the same 3 A the phase node sees.  They are named
+    # after the FET rather than the phase, which is why they were missed.
+    "Net-(Q1102-S_3)": 3.0,
+    "Net-(Q1104-S_3)": 3.0,
+    "Net-(Q1106-S_3)": 3.0,
     "/power_entry_24v/V24_LOGIC": 0.3,
     "Net-(U301-SW)": 0.7,
     "Net-(C306-Pad1)": 0.7,
