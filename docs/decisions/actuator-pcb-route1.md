@@ -691,3 +691,74 @@ packages — `U1001` (LQFP100, 40 blocked pads), `U1101` (QFN40, 19), `U1002`
 (QFN32, 8), `U501`, `U701`, `U601` — do not have the escape room their pin
 counts need. **Round 1's five findings are still open and still unanswered**,
 and three of them bear directly on this.
+
+
+---
+
+# Stage A — the placement delta pack, and why it is empty
+
+The captain authorised placement changes to end the escape starvation, on my
+round-2 report that the fine-pitch packages "do not have the escape room their
+pin counts need". **That report was wrong, and this stage is the measurement
+that shows it.**
+
+`tools/place2_escape.py` grades a pad by the **free area it can actually flood
+into**, not by the 0.9 mm straight lane `route_sealed` tests — the lane
+question answers "can it leave the pad" and says nothing about whether the
+corridor goes anywhere, which is precisely how `U501.12` passed it with a slot
+that dead-ends after 1.5 mm. `--bare` strips every track, via and zone first,
+so the grade reflects the placement and nothing else.
+
+| Grade | With the current routing | **Placement alone (`--bare`)** |
+|---|---|---|
+| starved (< 2 mm²) | 59 pads | **0** |
+| tight (2–6 mm²) | 10 | **0** |
+| open (> 6 mm²) | 26 | **201** |
+
+**Every one of the 201 pads on `U1001`, `U1101`, `U1002`, `U501`, `U601` and
+`U701` has open escape room from the placement.** The tightest is 79.67 mm².
+The starvation is created entirely by copper already on the board.
+
+And the copper doing it is not mysterious. Within 1.2 mm of a starved pad:
+
+| net | occurrences |
+|---|---|
+| `/mcu/+3V3_USB` | 25 |
+| `Net-(Q1103-G)` | 21 |
+| `/mcu/USB3320_nRESET` | 18 |
+| `/mcu/SYNC_TRIG` | 13 |
+| `/mcu/MCU_nRESET` | 11 |
+
+These are ordinary signals that routed early, took the shortest path they
+could see, and walled in the pins they passed. That is a **routing-order**
+failure, not a placement one.
+
+## What this means for Stage A
+
+**No placement delta is warranted, and none is proposed.** Moving `U1001` and
+its neighbours would buy escape room that already exists, cost the whole
+region's routing, and leave the actual cause untouched — the next router pass
+would wall the pins in again.
+
+Two corrections to the grader were needed before it could be trusted, and both
+are worth keeping because both would have produced a wrong move:
+
+* it graded against the routed board at first, which cannot tell starvation
+  from congestion;
+* it capped the escape width by the pad size but not by the **pitch**. A
+  0.45 mm trace cannot leave a 0.65 mm-pitch pin whatever the pad measures.
+  That alone called `U701.12` and `U701.13` starved — two Power-class nets on
+  a TSSOP, where the right answer is that the link necks down at the pin
+  exactly as the house rules already say.
+
+## What the evidence points to instead
+
+The fix is an **escape-first routing order**: fan every pin of every fine-pitch
+package out past its own ring into open board *before* any long haul is drawn.
+`escape_pass` already does this at 0.9 mm, which clears the pad but not the
+ring — the stub ends inside the corridor the next net then takes.
+
+This is routing work, not placement, and it is inside my remit — but the
+captain gated routing behind his review of this stage, so it waits for his
+word. **The round-1 findings remain unruled and untouched**, as instructed;
+none of them was involved here.
