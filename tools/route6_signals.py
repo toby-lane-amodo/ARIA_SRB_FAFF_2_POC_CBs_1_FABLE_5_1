@@ -9,6 +9,7 @@ so it gets its corridor before a long haul that has the whole board to detour
 through; the long ones are then re-tried with a wider search window if the
 first pass could not place them.  Failures are listed, never silently left.
 """
+import argparse
 import os
 import sys
 
@@ -71,6 +72,22 @@ CHUNK = 12
 
 
 def main():
+    # `--chunks` bounds how much one invocation does before exiting.  Python
+    # does not hand freed arenas back to the OS reliably, so a long-lived
+    # process keeps the high-water mark of its worst search for the rest of
+    # the run; three runs of this stage were killed under memory pressure for
+    # exactly that.  Exiting between chunks releases it properly, and the
+    # stage is resumable by construction -- `open_nets` recomputes what is
+    # still split from the board every time.
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--chunks", type=int, default=0,
+                    help="stop after this many chunks (0 = all)")
+    ap.add_argument("--skip", type=int, default=0,
+                    help="skip this many open nets before starting")
+    ap.add_argument("--pass2", action="store_true",
+                    help="run the wider second pass instead of the first")
+    a = ap.parse_args()
+
     board = R.load()
     todo = open_nets(board)
     todo.sort(key=lambda n: span(board, n))
@@ -78,7 +95,14 @@ def main():
 
     left = []
     done = 0
-    for i in range(0, len(todo), CHUNK):
+    if a.pass2:
+        todo = []
+    todo = todo[a.skip:]
+    for k, i in enumerate(range(0, len(todo), CHUNK)):
+        if a.chunks and k >= a.chunks:
+            print(f"stopping after {a.chunks} chunk(s); "
+                  f"{len(todo) - i} nets not yet tried", flush=True)
+            break
         batch = todo[i:i + CHUNK]
         board = R.load()
         obst = R.Obstacles(board)
@@ -113,12 +137,21 @@ def main():
     # chunk and giving each net one wider attempt costs a fraction of that and
     # closes the same nets; what is genuinely sealed is a job for
     # `tools/route_sealed.py` and a rip plan, not for a wider search.
+    if not a.pass2:
+        board = R.load()
+        print("\nunconnected now:", R.unconnected(board), flush=True)
+        return
     still = open_nets(board)
     still.sort(key=lambda n: span(board, n))
+    still = still[a.skip:]
     print(f"pass 2 (fresh read, wider window): retrying {len(still)}",
           flush=True)
     left2 = []
-    for i in range(0, len(still), CHUNK):
+    for k, i in enumerate(range(0, len(still), CHUNK)):
+        if a.chunks and k >= a.chunks:
+            print(f"stopping after {a.chunks} chunk(s); "
+                  f"{len(still) - i} nets not yet tried", flush=True)
+            break
         batch = still[i:i + CHUNK]
         board = R.load()
         obst = R.Obstacles(board)
