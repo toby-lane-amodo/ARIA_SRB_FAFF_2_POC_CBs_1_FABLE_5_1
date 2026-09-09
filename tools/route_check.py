@@ -45,6 +45,8 @@ BUDGET = {
     "Net-(R1101-Pad2)": 3.0, "/motor_drive/V24_MOT": 3.0,
     "/motor_drive/MOTOR_U": 3.0, "/motor_drive/MOTOR_V": 3.0,
     "/motor_drive/MOTOR_W": 3.0,
+    # the low-side source nets: same leg current, named after the FET
+    "Net-(Q1102-S_3)": 3.0, "Net-(Q1104-S_3)": 3.0, "Net-(Q1106-S_3)": 3.0,
     "/power_entry_24v/V24_LOGIC": 0.3, "Net-(U301-SW)": 0.7,
     "Net-(C306-Pad1)": 0.7, "/power_rails/+6V0": 0.6,
     "Net-(U302-SENSE)": 0.3, "Net-(U303-SENSE)": 0.3,

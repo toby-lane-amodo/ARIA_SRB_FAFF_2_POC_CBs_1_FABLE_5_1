@@ -53,8 +53,13 @@ _CLASS_W = {
     "Default": W_SIGNAL,
 }
 
+# The three low-side source nets belong here too: each carries its leg's full
+# current from the FET source into the shunt, the same 3 A peak the phase
+# node sees.  They are named after the FET rather than the phase, which is why
+# they were missed -- and Default's 0.1524 mm carries 0.61 A.
 _MOTOR = {"/motor_drive/MOTOR_U", "/motor_drive/MOTOR_V", "/motor_drive/MOTOR_W",
-          "/motor_drive/V24_MOT", "/motor_drive/VM_DRV"}
+          "/motor_drive/V24_MOT", "/motor_drive/VM_DRV",
+          "Net-(Q1102-S_3)", "Net-(Q1104-S_3)", "Net-(Q1106-S_3)"}
 _RF50 = {"/mcu/SYNC_TRIG", "Net-(J503-In)", "Net-(J504-In)"}
 _USB = {"/mcu/USB_DM", "/mcu/USB_DP"}
 _POWER = {"+3V3", "+3V3A", "+5V", "+5VA", "/power_rails/+6V0", "/mcu/+3V3_USB",
