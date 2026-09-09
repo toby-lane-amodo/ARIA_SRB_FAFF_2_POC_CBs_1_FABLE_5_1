@@ -87,7 +87,7 @@ PLANS = {
             dict(reserve=False, fanout=True, nets=[
                 ("/power_rails/+6V0", 0.30, {}),
                 ("Net-(U302-PG)", 0.20,
-                 dict(layer_bias={R.F: 0.8}, via_cost=20))]),
+                 dict(layer_bias={R.F: 0.8}))]),
         ],
     ),
     # J601 is a 10-way 0.5 mm FPC and all ten pins fan north.  Step 4 took
@@ -136,11 +136,19 @@ PLANS = {
                 ("Net-(Q1102-S_3)", 0.25, {}),
                 ("Net-(Q1104-S_3)", 0.25, {}),
                 ("Net-(Q1106-S_3)", 0.25, {})]),
-            dict(reserve=True, fanout=False, nets=[
+            # Reservations OFF for the gates, and this is the trade-off this
+            # file already names: a held lane is right almost everywhere, but
+            # a gate run is 25 mm from the FET to the driver and every
+            # package it passes has its own ring held.  With 320 lanes held
+            # board-wide there is no path at all.  Pass 1 above fanned six
+            # pins into real copper stubs, and copper is what protects the
+            # local lanes now -- so the long runs are free to cross elsewhere
+            # and the pins they must reach are still not seal-able.
+            dict(reserve=False, fanout=False, nets=[
                 ("Net-(Q1102-G)", 0.25, {}),
                 ("Net-(Q1104-G)", 0.25, {}),
                 ("Net-(Q1106-G)", 0.25, {})]),
-            dict(reserve=True, fanout=False,
+            dict(reserve=False, fanout=False,
                  nets=[("/motor_drive/VM_DRV", 0.25, {})]),
         ],
     ),
@@ -151,7 +159,7 @@ PLANS = {
             dict(reserve=False, fanout=True, nets=[
                 ("/power_rails/+6V0", 0.30, {}),
                 ("Net-(U303-PG)", 0.20,
-                 dict(layer_bias={R.F: 0.8}, via_cost=20))]),
+                 dict(layer_bias={R.F: 0.8}))]),
         ],
     ),
 }
