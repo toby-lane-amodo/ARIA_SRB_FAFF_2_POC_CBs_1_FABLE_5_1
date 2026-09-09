@@ -20,6 +20,12 @@ import route_lib as R  # noqa: E402
 
 SKIP_PREFIX = ("unconnected-",)
 
+# Round 2: the rails that now live on In2.Cu / In3.Cu are not the signal
+# fill's business.  Without this it would cheerfully put +3V3 back on F.Cu,
+# which is exactly the copper step 2 just cleared.
+from route20_power_layers import INNER as _INNER  # noqa: E402
+SKIP_NETS = set(_INNER)
+
 
 def span(board, net):
     pts = []
@@ -40,7 +46,8 @@ def open_nets(board):
     for f in board.GetFootprints():
         for p in f.Pads():
             n = p.GetNetname()
-            if not n or n in seen or n == "GND" or n.startswith(SKIP_PREFIX):
+            if not n or n in seen or n == "GND" or n in SKIP_NETS \
+                    or n.startswith(SKIP_PREFIX):
                 continue
             seen.add(n)
             if len(R.pad_nodes(board, n)) < 2:
