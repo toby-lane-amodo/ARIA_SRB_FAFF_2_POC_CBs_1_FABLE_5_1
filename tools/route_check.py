@@ -285,20 +285,91 @@ def check_power(board):
 
 
 # --------------------------------------------------------------------------
+def _copper_path(board, net, a, b):
+    """Shortest electrical path between two pad boxes through the net's copper.
+
+    Total copper length is not the pair length: the USB nets carry the two
+    B-row ties as branches off the through path, and counting those makes a
+    matched pair look 4.6 mm skewed.  What matters is the run the signal
+    actually takes, so walk the graph -- track ends are nodes, a via joins the
+    two layers at zero cost -- and take the shortest route between the two
+    pads.
+    """
+    import heapq
+    key = lambda q, l: (round(q[0], 3), round(q[1], 3), l)
+    adj = {}
+
+    def edge(u, v, w):
+        adj.setdefault(u, []).append((v, w))
+        adj.setdefault(v, []).append((u, w))
+
+    for s, e, _w, lay, _n in tracks(board, net):
+        edge(key(s, lay), key(e, lay), R.dist(s, e))
+    for q, _n in vias(board, net):
+        edge(key(q, R.F), key(q, R.B), 0.0)
+    # A run may stop anywhere inside its pad rather than on the centre, so
+    # match the ends by the pad's own box, not by an exact coordinate.
+    def within(box, u):
+        return box[0] - 0.01 <= u[0] <= box[2] + 0.01 and \
+               box[1] - 0.01 <= u[1] <= box[3] + 0.01
+    src = [u for u in adj if within(a, u)]
+    dst = {u for u in adj if within(b, u)}
+    dist = {u: 0.0 for u in src}
+    pq = [(0.0, u) for u in dist]
+    heapq.heapify(pq)
+    while pq:
+        d, u = heapq.heappop(pq)
+        if u in dst:
+            return d
+        if d > dist.get(u, 1e18):
+            continue
+        for v, w in adj.get(u, ()):
+            nd = d + w
+            if nd < dist.get(v, 1e18) - 1e-9:
+                dist[v] = nd
+                heapq.heappush(pq, (nd, v))
+    return None
+
+
+# The through path each half of the pair actually takes: the A-row connector
+# pad, the two clamp pads of D1001 it passes, and the PHY pin.
+USB_PATH = {
+    "/mcu/USB_DM": [("J1001", "A7"), ("D1001", "6"), ("D1001", "1"),
+                    ("U1002", "19")],
+    "/mcu/USB_DP": [("J1001", "A6"), ("D1001", "4"), ("D1001", "3"),
+                    ("U1002", "18")],
+}
+
+
 def check_usb(board):
     print("\n== USB 2.0 HS pair (target 90 ohm: 0.30 mm wide, 0.20 mm gap)")
     out = {}
     for net in ("/mcu/USB_DM", "/mcu/USB_DP"):
         tr = tracks(board, net)
-        ln = sum(R.dist(a, b) for a, b, *_ in tr)
         ws = sorted({round(t[2], 3) for t in tr})
         lay = sorted({board.GetLayerName(t[3]) for t in tr})
         nv = len(vias(board, net))
-        out[net] = ln
-        print(f"   {net:<16} {ln:7.2f} mm  widths {ws}  layers {lay}  "
-              f"vias {nv}")
+        pts = []
+        for ref, num in USB_PATH[net]:
+            g = R.pad_group(board, ref, num)
+            pts.append(R.pad_bbox(g[0][1]) if g else None)
+        ln, ok = 0.0, True
+        for a, b in zip(pts, pts[1:]):
+            d = _copper_path(board, net, a, b) if a and b else None
+            if d is None:
+                ok = False
+                break
+            ln += d
+        out[net] = ln if ok else None
+        print(f"   {net:<16} "
+              + (f"{ln:7.2f} mm" if ok else "  NO PATH")
+              + f"  widths {ws}  layers {lay}  vias {nv}"
+              + f"  (copper total {sum(R.dist(a, b) for a, b, *_ in tr):.2f})")
+    if out["/mcu/USB_DM"] is None or out["/mcu/USB_DP"] is None:
+        fails.append("USB through path not continuous")
+        return
     skew = abs(out["/mcu/USB_DM"] - out["/mcu/USB_DP"])
-    print(f"   skew {skew:.3f} mm "
+    print(f"   through-path skew {skew:.3f} mm "
           f"({'within' if skew < 1.0 else 'OVER'} the 1 mm working tolerance)")
     if skew >= 1.0:
         fails.append(f"USB skew {skew:.2f} mm")
