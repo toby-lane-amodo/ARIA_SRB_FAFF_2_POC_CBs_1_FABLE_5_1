@@ -30,8 +30,19 @@ sys.path.insert(0, HERE)
 import route_lib as R  # noqa: E402
 
 # The stub and via as drawn: (143.75, 56.27) -> via (143.632, 55.601).
-RIP_BOX = (143.0, 54.9, 144.5, 56.4)
+# The box has to contain the *new* via as well as the old stub, or a second
+# run adds a second via on top of the first -- holes_co_located, which is how
+# this was found.  A rip-and-redo stage that is not idempotent is a trap.
+RIP_BOX = (142.4, 54.9, 144.5, 57.0)
 RIP_NETS = ["GND"]
+# The swung stitch lands 0.05 mm from Net-(U1002-RBIAS), which runs north up
+# x = 142.45.  The gap between that trace and C1020's pad is 0.89 mm and a via
+# wants 0.905 -- five microns short, again.  RBIAS is the one that yields: it
+# is a bias-resistor net carrying microamps with the whole west side to detour
+# through, where the ground stitch is pinned by the two crystal pins it just
+# made room for.
+RBIAS = "Net-(U1002-RBIAS)"
+RBIAS_BOX = (141.0, 53.0, 147.0, 62.0)
 
 PAD = (143.75, 56.27)          # C1020 pad 2 centre
 STUB = [(143.75, 56.27), (142.90, 56.60)]
@@ -65,9 +76,9 @@ R.save(b)
 '''
 
 
-def rip():
-    src = CHILD.format(here=HERE, box=json.dumps(list(RIP_BOX)),
-                       nets=json.dumps(RIP_NETS))
+def rip(box=None, nets=None):
+    src = CHILD.format(here=HERE, box=json.dumps(list(box or RIP_BOX)),
+                       nets=json.dumps(list(nets or RIP_NETS)))
     out = subprocess.run([sys.executable, "-c", src], capture_output=True,
                          text=True)
     if out.returncode != 0:
@@ -102,7 +113,21 @@ def main():
     R.add_via(board, VIA, nc)
     R.refill(board)
     R.save(board)
+
+    # ...and now RBIAS goes back round it.
+    n = rip(RBIAS_BOX, [RBIAS])
+    board = R.load()
+    obst = R.Obstacles(board)
+    obst.reserve_pin_escapes(board)
+    maze = R.Maze(obst)
+    f = R.connect_net(board, obst, maze, RBIAS, width=0.20, via_cost=35,
+                      margin=24, verbose=False, hw=2.0, max_nodes=600_000)
+    R.refill(board)
+    R.save(board)
+    board = R.load()
     print(f"   C1020.2 stitch re-laid: {PAD} -> via {VIA}")
+    print(f"   {RBIAS}: ripped {n}, "
+          f"{'whole' if R.net_is_whole(board, RBIAS) else 'SPLIT'}")
     print("unconnected now:", R.unconnected(board))
 
 
