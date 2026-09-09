@@ -434,21 +434,27 @@ def main():
     if bad:
         raise SystemExit(f"unknown stage(s): {sorted(bad)}")
 
-    board = R.load()
-    obst = R.Obstacles(board)
-    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
-    R.escape_pass(board, obst)
-    maze = R.Maze(obst)
-
+    # Refill + save after **every** stage, reloading in between.  The first
+    # run of this script did all four stages and then segfaulted (exit 139)
+    # inside the single refill at the end, and took ten minutes of routing
+    # with it.  Saving per stage bounds that loss to one stage, and the
+    # reload gives each stage a fresh obstacle model anyway -- which is what
+    # route6's repair pass does deliberately.
     fns = {"bridge": bridge, "usb": usb_pair, "rs422": stage_rs422,
            "analog": stage_analog, "rf": stage_rf, "clocks": stage_clocks}
     for name in STAGES:
-        if name in run:
-            fns[name](board, obst, maze)
-
-    R.refill(board)
-    R.save(board)
-    print("\nunconnected now:", R.unconnected(board))
+        if name not in run:
+            continue
+        board = R.load()
+        obst = R.Obstacles(board)
+        print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape "
+              f"lanes held")
+        R.escape_pass(board, obst)
+        maze = R.Maze(obst)
+        fns[name](board, obst, maze)
+        R.refill(board)
+        R.save(board)
+        print(f"-- {name} saved; unconnected now: {R.unconnected(board)}")
 
 
 if __name__ == "__main__":

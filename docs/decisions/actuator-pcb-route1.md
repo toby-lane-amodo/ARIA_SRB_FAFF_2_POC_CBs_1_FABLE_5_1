@@ -173,3 +173,86 @@ idempotent: run either twice and you get the same board.
 
 `route5_critical.py` is **not**: its stages only add. Its `bridge` and `usb`
 stages are superseded and excluded by the default `--stages`.
+
+## 4. The commutation loop and the DRV8323 interface
+
+`tools/route8_drv.py`. Fourteen nets reach one 6 mm package from three legs
+spread over 30 mm, through a channel that also carries the motor bus and the
+driver's own supply. Step 5 drew the block leg by leg and the first net to ask
+for the channel got it; four runs came out unrouted. This stage rips the window
+(193, 111)–(235, 153) and redoes it in **priority order**.
+
+**Priority is accuracy, not length.** The three Kelvin taps go first. Each has
+exactly one useful path — from the shunt's own pad, never off the power path —
+and the CSA's gain error is whatever IR drop the tap picks up. A gate run that
+detours 4 mm costs nanoseconds of edge; a Kelvin tap that detours costs percent
+of current-sense accuracy.
+
+| Tap | Net | Run | Direct |
+|---|---|---|---|
+| SPA | `Net-(Q1102-S_3)` → `U1101.9` | 8.89 mm, 0 vias | 11.14 mm |
+| SPB | `Net-(Q1104-S_3)` → `U1101.12` | 5.92 mm, 2 vias | 9.48 mm |
+| SPC | `Net-(Q1106-S_3)` → `U1101.19` | 21.74 mm, 0 vias | 19.17 mm |
+
+A note the captain should see: **the schematic ties `SNx` to `GND`**, so a true
+four-wire Kelvin is not available on the low side. What the layout can offer is
+the `SPx` tap taken at the shunt's own pad rather than off the power path, plus
+a dedicated `F.Cu` return from each shunt's ground pad to the driver's `SNx`
+pin **in addition to** the plane, drawn only where it stays under 14 mm. Beyond
+that the plane is the better return and the dedicated trace is dropped.
+
+The commutation loop itself is unchanged from step 5 and is the tightest copper
+on the board: each leg's phase node is drawn high-side source to low-side drain
+on `F.Cu` at 1.00 mm, the low-side source runs to its own shunt at the same
+width, and the phase leaves the node on `B.Cu` through a **three-via drop on
+the node itself** (3 A peak ÷ 1.0 A per via, setup §3). Keeping the phase
+output on the far layer keeps the whole discontinuous d*i*/d*t* inside the
+bridge and leaves `F.Cu` free for the gate runs.
+
+## 7. Open points for the captain
+
+1. **The DM tie's landing point.** `J1001` B7 joins DM 1.6 mm past `D1001`
+   pad 1 rather than on the connector side, because its band would otherwise
+   have to cross both VBUS's B.Cu spine and DP's band. It is 0.2 mm from a
+   clamp cell of its own and 9 mm ahead of the PHY, so the protection order is
+   intact — but it is met by argument rather than by inspection, and it is the
+   one place in the USB block where that is true.
+2. **`SNx` is tied to `GND` on the schematic**, so no true four-wire Kelvin is
+   available on the low side. §4 says what the layout offers instead. If the
+   captain wants a real four-wire sense the schematic has to change first.
+3. **Gate runs are not all via-free.** Placement open point 1 asked for all six
+   gates on `F.Cu` without vias. The east row of the DRV8323 is not planar —
+   `Q1101`'s gate comes from the furthest north and lands on the southmost of
+   four adjacent pins — so at least two of the six have to cross. §5 has the
+   count that actually landed.
+4. **Thermal copper is widening, not pours** — §8. If the captain wants real
+   outer-layer pours in the motor block, that is a G3 waiver and his call.
+5. **`route_check --usb` was measuring the wrong thing** and is fixed (§3).
+   Worth knowing because the old number is in the previous round's notes.
+
+## 10. Tooling notes worth carrying forward
+
+* **`pgrep -f 'python3 tools/route8_drv'` matches the shell that runs the
+  `pgrep`.** A wait loop written that way never sees its job finish, because it
+  keeps finding itself. Use `ps -eo cmd | grep '[r]oute8_drv'` — the bracket
+  keeps the pattern from matching its own command line.
+* **Redirect a long stage with `python3 -u`.** Without it Python block-buffers
+  stdout and the progress file stays at zero bytes for the whole run, which
+  looks exactly like a wedged job.
+* Every stage that saves goes through `place_lib.save()`, which snapshots the
+  sibling `.kicad_pro` and writes it back — `pcbnew.SaveBoard()` rewrites it
+  wholesale with KiCad defaults, and that cost the DEC-0021 ERC baseline once.
+
+## 11. A crash worth recording
+
+The first run of `route5_critical.py --stages rs422,analog,rf,clocks` routed all
+four classes and then **segfaulted (exit 139) inside the single `refill()` at
+the end**, taking ten minutes of routing with it — the board on disk was
+untouched, and `[exited with code 0]` on the wrapper hid it. Two things follow,
+and both are now in the script:
+
+* **Refill and save after every stage, reloading in between.** That bounds the
+  loss to one stage, and the reload gives each stage a fresh obstacle model,
+  which is what `route6`'s repair pass does deliberately anyway.
+* **Read the stage's own exit code, not the wrapper's.** A shell that runs
+  `python …; echo; grep` exits 0 whatever Python did.
