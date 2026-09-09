@@ -20,6 +20,9 @@ eyeballed, plus the numbers the routing decisions file quotes.
              brute-force minimum-via-cut: if removing fewer vias than the
              budget requires splits the net, the net leans on too few
   --usb      differential pair geometry, length and skew
+  --analog   closest approach between any switching node and any analog net
+             -- the floorplan promised the quiet side, this measures whether
+             the routing kept it.  Reports, never fails
   --g5       every signal via's nearest GND via (guideline G5)
   --nets     which nets are still in more than one island
 
@@ -378,6 +381,79 @@ def check_usb(board):
 
 
 # --------------------------------------------------------------------------
+# The quiet side is a placement promise; this is what checks it held in copper.
+NOISY = ("Net-(U301-SW)", "Net-(U304-SW)", "Net-(U301-BOOT)",
+         "Net-(U304-BOOT)", "/motor_drive/MOTOR_U", "/motor_drive/MOTOR_V",
+         "/motor_drive/MOTOR_W", "/motor_drive/V24_MOT",
+         "Net-(Q1101-G)", "Net-(Q1102-G)", "Net-(Q1103-G)",
+         "Net-(Q1104-G)", "Net-(Q1105-G)", "Net-(Q1106-G)")
+ANALOG_WANT = 5.0        # mm -- what the floorplan promised, not a DRC rule
+
+
+def check_analog(board):
+    """Closest approach between any switching node and any analog net.
+
+    The placement put the load-cell AFE bottom-left and the switchers and the
+    bridge in the right-hand column, and the routing order gave the analog
+    chains their corridor before the general fill could claim it.  Both of
+    those are claims about distance, so measure it: for every pair of
+    (switching-node segment, analog segment) take the segment-to-segment
+    distance and report the worst.  This is not a DRC rule and nothing fails
+    the build on it -- it is the number that says whether the separation the
+    floorplan promised actually survived the routing.
+    """
+    print(f"\n== analog separation (floorplan promise: {ANALOG_WANT} mm)")
+    from route5_critical import ANALOG  # noqa: E402
+
+    def segs(names):
+        out = []
+        for a, b, _w, _l, n in tracks(board):
+            if n in names:
+                out.append((a, b, n))
+        return out
+
+    noisy = segs(set(NOISY))
+    quiet = segs(set(ANALOG))
+    if not noisy or not quiet:
+        print("   nothing to compare")
+        return
+
+    def seg_dist(p, q, r, s):
+        # segment-segment distance, 2D, no intersection test needed here
+        def pt_seg(a, b, c):
+            vx, vy = c[0] - b[0], c[1] - b[1]
+            L = vx * vx + vy * vy
+            t = 0.0 if L == 0 else max(0.0, min(1.0, ((a[0] - b[0]) * vx
+                                                      + (a[1] - b[1]) * vy) / L))
+            return math.hypot(a[0] - (b[0] + t * vx), a[1] - (b[1] + t * vy))
+        return min(pt_seg(p, r, s), pt_seg(q, r, s),
+                   pt_seg(r, p, q), pt_seg(s, p, q))
+
+    worst = None
+    for a, b, na in noisy:
+        for c, d, nq in quiet:
+            # cheap reject on bounding boxes before the exact distance
+            if (min(a[0], b[0]) - max(c[0], d[0]) > ANALOG_WANT
+                    or min(c[0], d[0]) - max(a[0], b[0]) > ANALOG_WANT
+                    or min(a[1], b[1]) - max(c[1], d[1]) > ANALOG_WANT
+                    or min(c[1], d[1]) - max(a[1], b[1]) > ANALOG_WANT):
+                continue
+            dd = seg_dist(a, b, c, d)
+            if worst is None or dd < worst[0]:
+                worst = (dd, na, nq, a, c)
+    if worst is None:
+        print(f"   no switching node comes within {ANALOG_WANT} mm of an "
+              f"analog net")
+        return
+    d, na, nq, a, c = worst
+    print(f"   closest approach {d:.2f} mm: {na} at "
+          f"{a[0]:.1f},{a[1]:.1f}  vs  {nq} at {c[0]:.1f},{c[1]:.1f}")
+    if d < ANALOG_WANT:
+        print(f"   NOTE: under the {ANALOG_WANT} mm the floorplan promised "
+              f"-- for the captain's eye, not a failure")
+
+
+# --------------------------------------------------------------------------
 def check_g5(board):
     print("\n== G5: every signal via wants a GND via beside it")
     g = [q for q, n in vias(board) if n == "GND"]
@@ -426,7 +502,7 @@ def check_nets(board):
 
 def main():
     ap = argparse.ArgumentParser()
-    for f in ("gnd", "viainpad", "power", "usb", "g5", "nets"):
+    for f in ("gnd", "viainpad", "power", "usb", "analog", "g5", "nets"):
         ap.add_argument("--" + f, action="store_true")
     a = ap.parse_args()
     run_all = not any(vars(a).values())
@@ -439,6 +515,8 @@ def main():
         check_power(board)
     if run_all or a.usb:
         check_usb(board)
+    if run_all or a.analog:
+        check_analog(board)
     if run_all or a.g5:
         check_g5(board)
     if run_all or a.nets:
