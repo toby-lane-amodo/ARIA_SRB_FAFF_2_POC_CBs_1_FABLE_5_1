@@ -53,13 +53,17 @@ _CLASS_W = {
     "Default": W_SIGNAL,
 }
 
-# The three low-side source nets belong here too: each carries its leg's full
-# current from the FET source into the shunt, the same 3 A peak the phase
-# node sees.  They are named after the FET rather than the phase, which is why
-# they were missed -- and Default's 0.1524 mm carries 0.61 A.
+# The three low-side source nets -- Net-(Q1102-S_3) and friends -- are
+# deliberately NOT here, even though the FET-source-to-shunt half of each one
+# carries the leg's full 3 A.  The other half of the same net is that leg's
+# Kelvin tap into the DRV, and a class width applies to the whole net: put them
+# in Motor and route4c widens the sense tap to 1.00 mm, which is the opposite
+# of what a Kelvin tap wants.  The power half is sized where the distinction
+# can actually be made -- route4c's bridge test, which sizes a segment with the
+# rail's real load behind it from the current and leaves a one-pad branch at
+# the class floor.  They are in route_check's via budget at 3.0 A regardless.
 _MOTOR = {"/motor_drive/MOTOR_U", "/motor_drive/MOTOR_V", "/motor_drive/MOTOR_W",
-          "/motor_drive/V24_MOT", "/motor_drive/VM_DRV",
-          "Net-(Q1102-S_3)", "Net-(Q1104-S_3)", "Net-(Q1106-S_3)"}
+          "/motor_drive/V24_MOT", "/motor_drive/VM_DRV"}
 _RF50 = {"/mcu/SYNC_TRIG", "Net-(J503-In)", "Net-(J504-In)"}
 _USB = {"/mcu/USB_DM", "/mcu/USB_DP"}
 _POWER = {"+3V3", "+3V3A", "+5V", "+5VA", "/power_rails/+6V0", "/mcu/+3V3_USB",
