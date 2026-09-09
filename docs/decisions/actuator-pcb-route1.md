@@ -641,3 +641,53 @@ A fourth, self-inflicted: `route23_power_vias` anchored its stub at the
 island's *centroid*, which for any island of more than one pad is empty space,
 so the stub crossed whatever lay between. It now anchors on real copper and
 proves the stub clears before committing to the slot.
+
+
+## R2.5 Where round 2 got to
+
+```
+stackup            JLC06161H-7628, 6 layers, SIG/GND/PWR/PWR/GND/SIG
+DRC severity-all   199 violations, REAL 0
+  track_dangling   180   in progress -- fan-out stubs on the nets still open
+  residuals         19   the four known library classes, board setup S8
+schematic parity     0
+unconnected        100   down from 271 after the rip; 111 at the end of round 1
+```
+
+Proofs: **`--gnd`, `--viainpad`, `--usb` and `--analog` pass.** The USB pair is
+bit-identical to round 1 — 15.71/16.13 mm, 0.414 mm skew — which is the
+stackup choice paying for itself.
+
+**`--power` reports single-via cuts on the inner rails, and that wants the
+captain's word rather than more copper.** Every rail now reaches its consumers
+through its own via down from In2/In3, so a cut isolating one consumer group is
+the normal case rather than the exception. Those cuts satisfy the *current*
+requirement with room to spare — the rails carry 0.1 to 0.6 A and one via
+carries 1.0 A — but not the *convention* of a minimum of two vias on any layer
+change. 88 parallel vias were added chasing it and the remaining cuts are all
+of that shape. Two vias everywhere is cheap; the question is whether the
+convention is meant to bind a 0.3 A spur, and that is his call, not mine.
+
+## R2.6 Why zero was not reached, and what would reach it
+
+61 signal nets and 5 rails remain open. The cause is **not** any of the things
+that could have been fixed by working harder, and each was tested rather than
+assumed:
+
+| Lever | Tested | Result |
+|---|---|---|
+| more search effort | round 1 | found the `hw` ceiling; real, and already applied |
+| freeing power off the signal layers | round 2 step 2 | **worked** — 1703 mm freed, 78 → 61 open, five nets per chunk against one |
+| a third routing layer for signals | In3 offered to the router | **0 of 6** — the residue is not a layer count |
+| opening the pocket round a blocked pad | `route24_pocket`, 31 items of 9 nets ripped round `U501.12` | did not close it |
+
+What is left is one shape, and `U501.12` is its type specimen: **the free region
+round the pad is a slot 0.3 mm tall that dead-ends after 1.5 mm.** The pad
+escapes; the corridor does not go anywhere. No width, margin, heuristic or node
+budget reaches it, because there is nothing to reach.
+
+That is a placement question, and the same one round 1 raised: the fine-pitch
+packages — `U1001` (LQFP100, 40 blocked pads), `U1101` (QFN40, 19), `U1002`
+(QFN32, 8), `U501`, `U701`, `U601` — do not have the escape room their pin
+counts need. **Round 1's five findings are still open and still unanswered**,
+and three of them bear directly on this.
