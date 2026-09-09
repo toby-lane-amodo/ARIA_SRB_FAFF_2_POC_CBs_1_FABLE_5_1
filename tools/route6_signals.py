@@ -92,20 +92,35 @@ def main():
     # hundreds of Add()s behaves differently from the same board read back.
     board = R.load()
 
+    # Pass 2 is pass 1 again with a wider window, not `R.repair`.  repair
+    # rebuilds the whole obstacle model for every net and tries three
+    # progressively wider searches, which on this board is roughly fifty
+    # minutes per chunk of twenty-five -- three hours for the remainder, and
+    # it cannot help a sealed pin at any margin.  Building the model once per
+    # chunk and giving each net one wider attempt costs a fraction of that and
+    # closes the same nets; what is genuinely sealed is a job for
+    # `tools/route_sealed.py` and a rip plan, not for a wider search.
     still = open_nets(board)
-    print(f"pass 2 (fresh read, wide window): retrying {len(still)}",
+    still.sort(key=lambda n: span(board, n))
+    print(f"pass 2 (fresh read, wider window): retrying {len(still)}",
           flush=True)
     left2 = []
     for i in range(0, len(still), CHUNK):
+        batch = still[i:i + CHUNK]
         board = R.load()
-        left2 += R.repair(board, still[i:i + CHUNK],
-                          tries=(dict(via_cost=40, margin=30),
-                                 dict(via_cost=25, margin=60),
-                                 dict(via_cost=25, margin=90, hw=1.0)))
+        obst = R.Obstacles(board)
+        obst.reserve_pin_escapes(board)
+        R.escape_pass(board, obst, verbose=False)
+        maze = R.Maze(obst)
+        for net in batch:
+            f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
+                              via_cost=35, margin=32, verbose=False)
+            if f:
+                left2.append(net)
         R.refill(board)
         R.save(board)
-        print(f"   banked: {i + CHUNK} tried, {len(left2)} still open",
-              flush=True)
+        print(f"   banked: {i + len(batch)} tried, {len(left2)} still open, "
+              f"unconnected {R.unconnected(board)}", flush=True)
     for net in left2:
         print(f"   UNROUTED {net}")
 
