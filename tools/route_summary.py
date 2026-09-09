@@ -45,7 +45,7 @@ def main():
     for k in sorted(by):
         print(f"   {k:<8} {by[k]:8.1f} mm")
     print(f"   {len(seg)} segments, {len(via)} vias, "
-          f"{board.Zones().GetCount()} zones")
+          f"{len(list(board.Zones()))} zones")
 
     print("\n== vias by net class")
     cls = collections.Counter(R.net_class(v.GetNetname()) if v.GetNetname()

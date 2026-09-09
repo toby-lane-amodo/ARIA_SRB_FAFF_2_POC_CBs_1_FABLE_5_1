@@ -67,7 +67,17 @@ def open_nets(board):
 # everything reachable before returning None.  Capping the ceiling bounds the
 # memory *and* costs nothing real: a route that needs more than 300 k nodes
 # on a 210 x 130 board is not finding a sensible path anyway.
-MAX_NODES = 300_000
+MAX_NODES = 600_000
+# The heuristic weight is the whole reason this stage stalled at 66 nets.
+# A* with hw = 1.3 is nearly admissible, so on a congested board it expands an
+# enormous frontier before committing: /mcu/SWCLK, a 34 mm run from the MCU to
+# the debug header, needs *three million* nodes at 1.3 and fails at the stock
+# ceiling of 1.2 M -- which is why almost every net left open had a bare
+# U1001 pin as one of its islands.  At hw = 2.0 the same route lands inside
+# 600 k nodes and comes out 39.5 mm, sixteen per cent over the direct
+# distance.  That is the right trade for a signal: a slightly longer path
+# routed beats an optimal one that never lands.
+HW = 2.0
 CHUNK = 12
 
 
@@ -114,7 +124,8 @@ def main():
         for net in batch:
             w = R.net_width(net)
             f = R.connect_net(board, obst, maze, net, width=w, via_cost=55,
-                              margin=16, verbose=False, max_nodes=MAX_NODES)
+                              margin=16, verbose=False,
+                              max_nodes=MAX_NODES, hw=HW)
             if f:
                 left.append(net)
             else:
@@ -161,7 +172,7 @@ def main():
         for net in batch:
             f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
                               via_cost=35, margin=32, verbose=False,
-                              max_nodes=MAX_NODES)
+                              max_nodes=MAX_NODES, hw=HW)
             if f:
                 left2.append(net)
         R.refill(board)
