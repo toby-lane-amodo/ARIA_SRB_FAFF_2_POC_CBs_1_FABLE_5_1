@@ -422,6 +422,29 @@ The three things round 2 should take first, in this order:
 3. **A render sweep of the analog corridor.** The numbers say the separation
    held; the render is what actually catches a digital run that crept into it.
 
+### The router's heuristic weight, and why the fill looked worse than it was
+
+Worth recording because it cost most of a day and looked like a board problem.
+
+The general fill stalled with ~80 nets open, and **almost every one of them had
+a bare `U1001` pin as one of its islands.** That reads as congestion around the
+MCU. It is not. A path from the MCU's `SWCLK` stub to the debug header's exists
+and the maze router finds it — it just needs **three million node expansions**
+to do so at the default heuristic weight of 1.3, and `Maze.route`'s ceiling is
+1.2 M. Every long MCU run was hitting that ceiling and being reported
+unroutable, which is indistinguishable from "no path" in the output.
+
+At **hw = 2.0** the same route lands inside 600 k nodes and comes out 39.5 mm
+against a 34 mm direct distance — 16 % longer. For a signal that is the right
+trade: an optimal path that never lands is worth nothing. The fill now runs at
+hw 2.0 with a 600 k ceiling, which also bounds the memory that had three runs
+killed by the box's OOM watchdog.
+
+The diagnostic that separated the two cases is worth keeping: route the two
+islands' *seed points* directly with `maze.route` and a generous ceiling. If
+that succeeds where `connect_net` failed, the board is fine and the search is
+not.
+
 ### The DRV8323's pin rows are over-subscribed, and that is a placement finding
 
 **East row**, pins 5–9 — `V24_MOT`, `Q1101-G`, `MOTOR_U`, `Q1102-G`,
