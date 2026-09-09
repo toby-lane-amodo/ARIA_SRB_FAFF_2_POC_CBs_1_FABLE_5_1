@@ -54,7 +54,20 @@ def open_nets(board):
 # took ten minutes of work with it because nothing had been written).  So it
 # banks in chunks: route CHUNK nets, refill, save, reload, carry on.  The
 # reload is not a cost either, it is what the repair pass does on purpose.
-CHUNK = 25
+# Twelve rather than twenty-five: a wide A* search holds its whole visited
+# set in memory and this box runs several sessions at once, so two runs were
+# killed under memory pressure mid-chunk.  Smaller chunks bank more often and
+# put less at risk each time.
+#
+# The spike itself is the search, not the chunk.  `Maze.route` keeps `gscore`
+# and `came` for every node it expands, and the default ceiling of 1.2 M
+# nodes is roughly 400 MB of Python dict before it gives up -- affordable on
+# an empty board, not on this one, where a net with no path explores
+# everything reachable before returning None.  Capping the ceiling bounds the
+# memory *and* costs nothing real: a route that needs more than 300 k nodes
+# on a 210 x 130 board is not finding a sensible path anyway.
+MAX_NODES = 300_000
+CHUNK = 12
 
 
 def main():
@@ -77,7 +90,7 @@ def main():
         for net in batch:
             w = R.net_width(net)
             f = R.connect_net(board, obst, maze, net, width=w, via_cost=55,
-                              margin=16, verbose=False)
+                              margin=16, verbose=False, max_nodes=MAX_NODES)
             if f:
                 left.append(net)
             else:
@@ -114,7 +127,8 @@ def main():
         maze = R.Maze(obst)
         for net in batch:
             f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
-                              via_cost=35, margin=32, verbose=False)
+                              via_cost=35, margin=32, verbose=False,
+                              max_nodes=MAX_NODES)
             if f:
                 left2.append(net)
         R.refill(board)
