@@ -108,17 +108,29 @@ def phase_drop(board, obst, maze, net):
 
 
 def bridge(board, obst, maze):
-    """Two passes over the three legs, and the order is the whole point.
+    """Three passes over the bridge, and the order is the whole point.
 
-    Pass A gives every leg its node, its shunt path, its Kelvin taps and its
-    six gate runs -- all on F.Cu, in the channels between the legs.  Only then
-    does pass B take the three phase outputs out to the connector, on B.Cu
-    from a 3-via drop on the node itself (P1-03, 3 A peak at 1.0 A/via).
+    Pass A closes each leg's own commutation loop: the phase node from the
+    high-side source to the low-side drain, and the low-side source down to
+    its shunt.  Both are millimetres long, both are at motor width, and
+    neither has an alternative path -- they go first because nothing else can
+    be allowed to sit in them.
 
-    Routed the other way round, leg U's 1 mm phase output cuts straight
-    through leg V's gate corridors and none of them can be drawn at any width.
+    Pass B then draws the **six gate runs**, all three legs together, before
+    any of the short taps.  They are the hardest nets in the block: 13-27 mm
+    of F.Cu each, via-free by P1-05 open point 1, through channels the legs
+    themselves narrow.  Drawing them per leg -- gates for U, then everything
+    for U, then gates for V -- is what lost four of them: leg U's own sense
+    and Kelvin taps had already taken the channel leg V's gates needed.
+    Hardest first, and the short taps route around them.
+
+    Pass C takes the taps that have room to detour (phase sense, Kelvin,
+    test points) and pass D the three phase outputs, on B.Cu from a via drop
+    on the node itself (P1-03, 3 A peak at 1.0 A/via) -- last, because a 1 mm
+    phase output on F.Cu cuts straight through the neighbouring leg's gate
+    corridor.
     """
-    print("== commutation loop -- pass A: nodes, shunts, gates, senses")
+    print("== commutation loop -- pass A: phase nodes and shunt paths")
     for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
         d, w, v, ok = link(board, obst, maze, phase, (qh, "1_2_3"),
                            (ql, "5_6_7_8"), W_PHASE, margin=8)
@@ -126,25 +138,40 @@ def bridge(board, obst, maze):
         d3, w3, _, ok3 = link(board, obst, maze, snet, (ql, "1_2_3"),
                               (shunt, "1"), W_PHASE, margin=10)
         print(f"   {snet:<24} {ql}.S -> {shunt}.1   {fmt(d3, ok3)} @ {w3:.2f}")
-        d4, w4, _, ok4 = link(board, obst, maze, snet, (shunt, "1"),
-                              ("U1101", sp), W_KELVIN, layers=(R.F, R.B),
-                              margin=20, via_cost=70)
-        print(f"   {snet:<24} KELVIN {shunt}.1 -> U1101.{sp:<3} "
-              f"{fmt(d4, ok4)} @ {w4:.2f}")
-        # high-side gate and its source sense are a pair -- draw them together
-        d6, w6, nv6, ok6 = link(board, obst, maze, f"Net-({qh}-G)", (qh, "4"),
-                                ("U1101", gh), W_GATE, margin=20)
-        print(f"   Net-({qh}-G){'':<10} {qh}.G -> U1101.{gh:<3} "
-              f"{fmt(d6, ok6)} @ {w6:.2f}  vias {nv6}")
+
+    print("\n== pass B: the six gate runs, all three legs, hardest first")
+    gates = []
+    for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
+        for q, pin in ((qh, gh), (ql, gl)):
+            ga = R.node_geom(R.pad_group(board, q, "4"))[0]
+            gb = R.node_geom(R.pad_group(board, "U1101", pin))[0]
+            gates.append((R.dist(ga, gb), f"Net-({q}-G)", q, pin))
+    for _d, net, q, pin in sorted(gates, reverse=True):
+        dd, ww, nv, ok = link(board, obst, maze, net, (q, "4"),
+                              ("U1101", pin), W_GATE, margin=22,
+                              allow_layer_change=False)
+        if not ok:
+            # F.Cu only is the intent, not a law of physics -- take the layer
+            # change rather than leave a gate open, and say so.
+            dd, ww, nv, ok = link(board, obst, maze, net, (q, "4"),
+                                  ("U1101", pin), W_GATE, layers=(R.F, R.B),
+                                  margin=26, via_cost=120)
+        note = "" if nv == 0 else f"  <-- {nv} via(s), not via-free"
+        print(f"   {net:<20} {q}.G -> U1101.{pin:<3} {fmt(dd, ok)} "
+              f"@ {ww:.2f}{note}")
+
+    print("\n== pass C: phase sense, Kelvin taps and the phase test points")
+    for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
         d7, w7, nv7, ok7 = link(board, obst, maze, phase, (ql, "5_6_7_8"),
                                 ("U1101", sh), 0.35, layers=(R.F, R.B),
-                                margin=20, via_cost=70)
+                                margin=22, via_cost=70)
         print(f"   {phase:<24} SH   -> U1101.{sh:<3}   {fmt(d7, ok7)} @ "
               f"{w7:.2f}  vias {nv7}")
-        d8, w8, nv8, ok8 = link(board, obst, maze, f"Net-({ql}-G)", (ql, "4"),
-                                ("U1101", gl), W_GATE, margin=20)
-        print(f"   Net-({ql}-G){'':<10} {ql}.G -> U1101.{gl:<3} "
-              f"{fmt(d8, ok8)} @ {w8:.2f}  vias {nv8}")
+        d4, w4, _, ok4 = link(board, obst, maze, snet, (shunt, "1"),
+                              ("U1101", sp), W_KELVIN, layers=(R.F, R.B),
+                              margin=22, via_cost=70)
+        print(f"   {snet:<24} KELVIN {shunt}.1 -> U1101.{sp:<3} "
+              f"{fmt(d4, ok4)} @ {w4:.2f}")
         dt, wt, _, okt = link(board, obst, maze, phase, (ql, "5_6_7_8"),
                               (tp, "1"), 0.6, margin=12)
         print(f"   {phase:<24} TP   -> {tp:<10} {fmt(dt, okt)} @ {wt:.2f}")
@@ -158,7 +185,7 @@ def bridge(board, obst, maze):
               + (f"{d5:6.2f} mm @ {w5:.2f}" if ok5
                  else "  none: over 14 mm, the plane is the return"))
 
-    print("\n== commutation loop -- pass B: phase outputs to J1103, on B.Cu")
+    print("\n== pass D: phase outputs to J1103, on B.Cu from the node drop")
     for (phase, qh, ql, gh, gl, sh, shunt, snet, sp, sn, tp, jp) in LEGS:
         vias = phase_drop(board, obst, maze, phase)
         nc = R.netcode(board, phase)
