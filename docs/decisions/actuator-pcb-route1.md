@@ -482,6 +482,18 @@ and DRC has zero real violations. What is missing is completeness, not
 correctness: nothing on the board is wrong, there is simply not enough of it
 yet.
 
+**The residue is saturation, and that was tested rather than assumed.**
+`tools/route_sealed.py` over the final board finds **1 sealed pad** (`U1101.18`,
+the last low-side gate), **10 tight** and **208 escapable** — so all but eleven
+of the open pads *can* leave their own pad, and their nets still will not
+close. Two searches were then run over a sample of six of them: the stage's
+own settings (hw 2.0, margin 32, via cost 35) and a much greedier and wider
+one (hw 3.0, margin 45, via cost 20, 900 k nodes). **Both routed zero of six.**
+More passes are not the answer; the corridors those nets need are occupied.
+
+That is what the next round has to move, and it moves at placement or by
+ripping wide, not by asking the router again.
+
 The three things round 2 should take first, in this order:
 
 1. **The two placement points in §7** — `C1025`/`C1026`, and anything else the
