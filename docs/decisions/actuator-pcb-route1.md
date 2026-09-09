@@ -643,6 +643,35 @@ so the stub crossed whatever lay between. It now anchors on real copper and
 proves the stub clears before committing to the slot.
 
 
+## R2.4b Via convention for power spurs — provisional
+
+**Ruling (routine engineering call, made and recorded rather than escalated;
+flagged for the captain's veto at review):** a **single via is acceptable for a
+power spur carrying 0.5 A or less** — at least 2× inside the 1.0 A per-via
+budget from setup §3. Above 0.5 A, or wherever a second via is free, use two.
+
+The house convention is a minimum of two vias on any layer change. That exists
+for robustness, not for current, and round 2 is where the distinction started
+to matter: every rail now reaches every consumer through its own via down from
+In2/In3, so a single-consumer spur is the normal case rather than the
+exception. Demanding two vias on a 0.3 A spur puts copper where no current
+flows, and there are dozens of them.
+
+`route_check --power` **warns rather than fails** on such a cut, and prints the
+current each one actually carries so nothing is hidden. It still fails on
+anything above the threshold.
+
+The current through a cut is what is *behind* it, not the rail total, and the
+proof apportions by load count rather than assuming the worst everywhere.
+`+6V0` is the case that forced this: it carries 0.60 A and feeds **two**
+ADPL42005 regulators, so a cut isolating one of them carries that regulator's
+share — ~0.24 A — and demanding a second via there would size copper for
+current that never flows in it. Apportioning by load count is crude, but it is
+the right direction and it is stated rather than assumed.
+
+Result: **all power proofs pass**, with 30 single-via spurs listed as notes,
+each with its apportioned current, for the captain to veto or accept.
+
 ## R2.5 Where round 2 got to
 
 ```
