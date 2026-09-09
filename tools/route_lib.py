@@ -1074,7 +1074,8 @@ def escape_pass(board, obst, pitch_max=1.35, min_pads=6, length=0.9,
 
 
 def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
-                skip_nodes=(), verbose=True, min_width=None, **kw):
+                skip_nodes=(), verbose=True, min_width=None, max_hops=0,
+                **kw):
     """Route a net until every pad is in one island.
 
     Works on *islands*, and merges the closest pair of them each round rather
@@ -1116,7 +1117,13 @@ def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
     ladder = [x for x in (w, 0.30, 0.20, W_SIGNAL)
               if x <= w and x >= (min_width or W_SIGNAL)] or [w]
     fails = []
+    # `max_hops` stops after N successful merges so the caller can save and
+    # come back.  A rail with sixty pads is one call that either finishes or
+    # is killed with nothing written; in hops it is a stage that banks.
+    hops = 0
     while len(keys) > 1:
+        if max_hops and hops >= max_hops:
+            break
         pairs = []
         for i, a in enumerate(keys):
             for b in keys[i + 1:]:
@@ -1148,6 +1155,7 @@ def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
             del comps[b]
             keys.remove(b)
             placed = True
+            hops += 1
             break
         if not placed:
             for k in keys[1:]:

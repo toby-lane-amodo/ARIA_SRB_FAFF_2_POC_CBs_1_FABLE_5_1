@@ -48,6 +48,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nets", help="comma-separated subset")
     ap.add_argument("--chunks", type=int, default=0)
+    ap.add_argument("--hops", type=int, default=0,
+                    help="stop after this many island merges, then save")
     a = ap.parse_args()
 
     want = [n for n in ORDER
@@ -78,7 +80,8 @@ def main():
         f = R.connect_net(board, obst, maze, net, width=w,
                           layers=(LAYER_A, LAYER_B, R.F),
                           via_cost=8, margin=20, hw=2.0, verbose=False,
-                          min_width=R.W_SIGNAL, max_nodes=250_000)
+                          min_width=R.W_SIGNAL, max_nodes=250_000,
+                          max_hops=a.hops)
         R.refill(board)
         R.save(board)
         board = R.load()
