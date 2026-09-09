@@ -49,47 +49,68 @@ def open_nets(board):
     return todo
 
 
+# Pass 1 is the longest single stretch of routing on the board -- 150-odd
+# nets -- and a refill can segfault (route5's first run did, exit 139, and
+# took ten minutes of work with it because nothing had been written).  So it
+# banks in chunks: route CHUNK nets, refill, save, reload, carry on.  The
+# reload is not a cost either, it is what the repair pass does on purpose.
+CHUNK = 25
+
+
 def main():
     board = R.load()
-    obst = R.Obstacles(board)
-    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
-    R.escape_pass(board, obst)
-    maze = R.Maze(obst)
-
     todo = open_nets(board)
     todo.sort(key=lambda n: span(board, n))
-    print(f"{len(todo)} nets still open")
+    print(f"{len(todo)} nets still open", flush=True)
 
     left = []
-    for net in todo:
-        w = R.net_width(net)
-        f = R.connect_net(board, obst, maze, net, width=w, via_cost=55,
-                          margin=16, verbose=False)
-        if f:
-            left.append(net)
-    print(f"pass 1: {len(todo) - len(left)} routed, {len(left)} left")
+    done = 0
+    for i in range(0, len(todo), CHUNK):
+        batch = todo[i:i + CHUNK]
+        board = R.load()
+        obst = R.Obstacles(board)
+        print(f"   [{i}..{i + len(batch)}] "
+              f"{obst.reserve_pin_escapes(board)} escape lanes held",
+              flush=True)
+        R.escape_pass(board, obst, verbose=False)
+        maze = R.Maze(obst)
+        for net in batch:
+            w = R.net_width(net)
+            f = R.connect_net(board, obst, maze, net, width=w, via_cost=55,
+                              margin=16, verbose=False)
+            if f:
+                left.append(net)
+            else:
+                done += 1
+        R.refill(board)
+        R.save(board)
+        print(f"   banked: {done} routed so far, {len(left)} left, "
+              f"unconnected {R.unconnected(board)}", flush=True)
+    print(f"pass 1: {done} routed, {len(left)} left", flush=True)
 
     # Reload before the repair pass: a board object that has taken many
     # hundreds of Add()s behaves differently from the same board read back.
-    R.refill(board)
-    R.save(board)
     board = R.load()
 
     still = open_nets(board)
-    if still:
-        print(f"pass 2 (fresh read, wide window): retrying {len(still)}")
-        left2 = R.repair(board, still,
-                         tries=(dict(via_cost=40, margin=30),
-                                dict(via_cost=25, margin=60),
-                                dict(via_cost=25, margin=90, hw=1.0)))
-        for net in left2:
-            print(f"   UNROUTED {net}")
-    else:
-        print("pass 2: nothing left to repair")
+    print(f"pass 2 (fresh read, wide window): retrying {len(still)}",
+          flush=True)
+    left2 = []
+    for i in range(0, len(still), CHUNK):
+        board = R.load()
+        left2 += R.repair(board, still[i:i + CHUNK],
+                          tries=(dict(via_cost=40, margin=30),
+                                 dict(via_cost=25, margin=60),
+                                 dict(via_cost=25, margin=90, hw=1.0)))
+        R.refill(board)
+        R.save(board)
+        print(f"   banked: {i + CHUNK} tried, {len(left2)} still open",
+              flush=True)
+    for net in left2:
+        print(f"   UNROUTED {net}")
 
-    R.refill(board)
-    R.save(board)
-    print("\nunconnected now:", R.unconnected(board))
+    board = R.load()
+    print("\nunconnected now:", R.unconnected(board), flush=True)
 
 
 if __name__ == "__main__":

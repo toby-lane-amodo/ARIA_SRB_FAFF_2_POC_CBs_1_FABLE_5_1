@@ -229,6 +229,24 @@ bridge and leaves `F.Cu` free for the gate runs.
    outer-layer pours in the motor block, that is a G3 waiver and his call.
 5. **`route_check --usb` was measuring the wrong thing** and is fixed (§3).
    Worth knowing because the old number is in the previous round's notes.
+6. **`C1025` and `C1026` look swapped** — a placement point, raised here
+   because routing is where it shows. `Y1002` pin 1 is `USB_REFCLK_24M` at
+   (140.5, 57.75) and pin 2 is `USB_XO_24M` at (140.5, 53.25); `C1025`
+   (REFCLK) sits at (135.725, **53.25**) and `C1026` (XO) at (135.725,
+   **57.75**). Each load capacitor is beside the *other* crystal pin, so both
+   crystal nets run the 4.5 mm across the part instead of dropping straight
+   down. Exchanging the two positions is a one-line change to
+   `gen_pcb_place1.py` and halves both nets, but it is a placement change
+   after the G7 gate, so it is the captain's to approve.
+7. **Two pins were sealed in by earlier steps, and both are fixed by
+   resequencing rather than by rerouting harder.** `+5V_ENC`'s feed to
+   `J601.9` was drawn across the whole 10-way FPC fan — a wall on F.Cu 1.4 mm
+   above the pad tops plus two vias parked in pins 6-9's lanes — and every
+   RS-422 pair came out of step 5 with its `J601` end alone in its own island.
+   `C1020`'s ground stitch does the same to `U1002` pins 25/26, the USB
+   crystal pair: the pad's in-line escape is due south and that is exactly
+   where the two pins have to run. Both are the R3-1 hazard the house rules
+   name; §5 says what each one cost.
 
 ## 10. Tooling notes worth carrying forward
 

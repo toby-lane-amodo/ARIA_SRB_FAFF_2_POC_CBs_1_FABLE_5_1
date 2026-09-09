@@ -79,6 +79,30 @@ PLANS = {
             dict(reserve=True, nets=[("/power_rails/+6V0", 0.30, {})]),
         ],
     ),
+    # J601 is a 10-way 0.5 mm FPC and all ten pins fan north.  Step 4 took
+    # +5V_ENC to pin 9 across that fan -- a wall on F.Cu at y = 149.55 from
+    # x = 126.15 to 130.5, 1.4 mm above the pad tops, plus two vias parked in
+    # pins 6-9's lanes -- and sealed nine pins in.  Every RS-422 pair came out
+    # of step 5 split with its J601 end alone in its own island, and no amount
+    # of retrying reaches a sealed pin.
+    #
+    # So the fan goes first, all eight signals, and the supply goes back
+    # afterwards: it has the whole board to detour through and the pins have
+    # one lane each.  R3-1, and the same shape as the two PGOOD plans above.
+    "j601-fan": dict(
+        box=(122.0, 142.0, 134.0, 152.5),
+        rip=["/linear_encoder/+5V_ENC"],
+        passes=[
+            dict(reserve=True, nets=[
+                (n, 0.20, dict(via_cost=55, margin=22)) for n in (
+                    "/linear_encoder/ENC_A_P", "/linear_encoder/ENC_A_N",
+                    "/linear_encoder/ENC_B_P", "/linear_encoder/ENC_B_N",
+                    "/linear_encoder/ENC_Z_P", "/linear_encoder/ENC_Z_N",
+                    "/linear_encoder/ENC_nPROG", "/linear_encoder/ENC_SDO")]),
+            dict(reserve=True, nets=[("/linear_encoder/+5V_ENC", 0.50,
+                                      dict(via_cost=35, margin=30))]),
+        ],
+    ),
     "u303-pg": dict(
         box=(172.0, 76.5, 179.5, 83.5),
         rip=["/power_rails/+6V0", "Net-(U303-PG)"],
