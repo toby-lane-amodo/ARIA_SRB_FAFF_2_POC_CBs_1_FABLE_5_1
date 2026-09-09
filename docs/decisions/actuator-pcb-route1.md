@@ -422,12 +422,13 @@ The three things round 2 should take first, in this order:
 3. **A render sweep of the analog corridor.** The numbers say the separation
    held; the render is what actually catches a digital run that crept into it.
 
-### The DRV8323's east row is over-subscribed, and that is a placement finding
+### The DRV8323's pin rows are over-subscribed, and that is a placement finding
 
-Pins 5–9 — `V24_MOT`, `Q1101-G`, `MOTOR_U`, `Q1102-G`, `Q1102-S_3` — all leave
-eastward on a 0.5 mm pitch, and every one of them has to turn off inside the
-same 1.5 mm of board before it reaches open copper. Five nets, one 2.5 mm-tall
-corridor. The arithmetic does not work:
+**East row**, pins 5–9 — `V24_MOT`, `Q1101-G`, `MOTOR_U`, `Q1102-G`,
+`Q1102-S_3`. **North row**, pins 12–19 — `Q1104-S_3`, `Q1104-G`, `MOTOR_V`,
+`MOTOR_W`, `Q1106-G`, `Q1106-S_3`. Each row leaves in one direction on a
+0.5 mm pitch, and every net in it has to turn off inside the same 1.5 mm of
+board before it reaches open copper. The arithmetic does not work:
 
 * a lane between two neighbouring runs is **0.70 mm**;
 * a 0.6 mm via needs **0.905 mm** of lane to drop through;
@@ -438,6 +439,12 @@ corridor. The arithmetic does not work:
 at widening margins and falling via costs found no path, and the reason is not
 the search: there is no lane. `route_sealed` calls the pin free because it can
 leave its pad; it is the *second* millimetre that has no room.
+
+Ripping the **whole** east row and replanning it together did move the problem
+— `Q1102-G` reached `U1101.8` and only its FET end stayed open — which is the
+proof that the row is the constraint rather than any one net in it. The north
+row was left as it was and both of its gates stayed shut, which is the same
+proof from the other side.
 
 This is not something routing can fix. It wants one of: the low-side gates
 brought out on the package's south side instead of the east, the DRV8323
