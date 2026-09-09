@@ -69,14 +69,25 @@ PLANS = {
     # over the row to pin 5, straight across it.  The tie is a convenience;
     # the PGOOD pin has nowhere else to go, so it is drawn first and the tie
     # routes around it.
+    # ...and each of those plans, having run, sealed the pin it had just been
+    # let past.  PGOOD left pin 7 and elbowed west across pin 8's lane at
+    # y = 65.80, 0.20 mm above the pad's north edge, which leaves +6V0's own
+    # supply pin 0.048 mm of travel.  Trading one sealed pin for another is
+    # not a fix.
+    #
+    # The answer is neither ordering nor reservations, both of which pick a
+    # winner: it is the **fan-out**.  `escape_pass` stubs every split net's
+    # pin one lane-length out of the ring before anything long is drawn, and a
+    # stub is real copper -- so whichever net routes second has to go round it
+    # rather than through it, and neither can seal the other.
     "u302-pg": dict(
         box=(172.0, 62.5, 179.5, 69.5),
         rip=["/power_rails/+6V0", "Net-(U302-PG)"],
         passes=[
-            dict(reserve=False, fanout=False,
-                 nets=[("Net-(U302-PG)", 0.20,
-                        dict(layer_bias={R.F: 0.8}, via_cost=20))]),
-            dict(reserve=True, nets=[("/power_rails/+6V0", 0.30, {})]),
+            dict(reserve=False, fanout=True, nets=[
+                ("/power_rails/+6V0", 0.30, {}),
+                ("Net-(U302-PG)", 0.20,
+                 dict(layer_bias={R.F: 0.8}, via_cost=20))]),
         ],
     ),
     # J601 is a 10-way 0.5 mm FPC and all ten pins fan north.  Step 4 took
@@ -137,10 +148,10 @@ PLANS = {
         box=(172.0, 76.5, 179.5, 83.5),
         rip=["/power_rails/+6V0", "Net-(U303-PG)"],
         passes=[
-            dict(reserve=False, fanout=False,
-                 nets=[("Net-(U303-PG)", 0.20,
-                        dict(layer_bias={R.F: 0.8}, via_cost=20))]),
-            dict(reserve=True, nets=[("/power_rails/+6V0", 0.30, {})]),
+            dict(reserve=False, fanout=True, nets=[
+                ("/power_rails/+6V0", 0.30, {}),
+                ("Net-(U303-PG)", 0.20,
+                 dict(layer_bias={R.F: 0.8}, via_cost=20))]),
         ],
     ),
 }

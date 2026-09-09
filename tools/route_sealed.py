@@ -27,7 +27,12 @@ import pcbnew
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import route_lib as R  # noqa: E402
 
-LANE = 0.90            # mm of clear lane a pad needs to count as escapable
+LANE = 0.90            # mm of straight lane a pad wants to count as free
+TIGHT = 0.30           # below this it is sealed; between the two it is tight
+# A straight-lane test is a proxy, not the truth: a real router turns.  So the
+# verdict is graded.  Under TIGHT the pad has nowhere to go at all and only a
+# rip will help.  Between TIGHT and LANE it has a stub's worth of room and a
+# router can usually work with it -- worth listing, not worth ripping for.
 DIRS = [(math.cos(math.radians(a)), math.sin(math.radians(a)))
         for a in range(0, 360, 45)]
 
@@ -149,7 +154,7 @@ def main():
         for p in f.Pads():
             pads[f"{f.GetReference()}.{p.GetNumber()}"] = p
 
-    sealed, open_ = [], []
+    sealed, tight, open_ = [], [], []
     for net in sorted(split):
         w = R.net_width(net)
         isl = R.net_islands(board, net)
@@ -159,12 +164,16 @@ def main():
                 if p is None or not R.pad_copper_layers(p):
                     continue
                 e = escapes(board, obst, p, w)
-                (open_ if e else sealed).append((net, key, e))
+                if e:
+                    open_.append((net, key, e))
+                    continue
+                best = max(reach(board, obst, p, w, u) for u in DIRS)
+                (sealed if best < TIGHT else tight).append((net, key, e))
 
     print(f"{len(split)} nets still split, "
-          f"{len(sealed) + len(open_)} pads in them")
-    print(f"\n== SEALED -- no lane out at {LANE} mm, on either layer "
-          f"({len(sealed)} pads)")
+          f"{len(sealed) + len(tight) + len(open_)} pads in them")
+    print(f"\n== SEALED -- under {TIGHT} mm in every direction, so only a rip "
+          f"will help ({len(sealed)} pads)")
     for net, key, _e in sealed:
         p = pads[key]
         w = R.net_width(net)
@@ -176,6 +185,20 @@ def main():
         note = (f"{b[2]} {b[1]} at {b[0]:.2f} mm" if b else "?")
         print(f"   {net:<34} {key:<12} best {d:.2f} mm at {deg:>4} deg, "
               f"stopped by {note}")
+    print(f"\n== TIGHT -- between {TIGHT} and {LANE} mm: a stub's worth of "
+          f"room, which a router can usually turn in ({len(tight)} pads)")
+    for net, key, _e in tight:
+        p = pads[key]
+        w = R.net_width(net)
+        by = sorted(((reach(board, obst, p, w, u), u) for u in DIRS),
+                    reverse=True)
+        d, u = by[0]
+        deg = int(round(math.degrees(math.atan2(u[1], u[0]))))
+        b = blocker(board, p, u, d)
+        note = (f"{b[2]} {b[1]} at {b[0]:.2f} mm" if b else "?")
+        print(f"   {net:<34} {key:<12} best {d:.2f} mm at {deg:>4} deg, "
+              f"stopped by {note}")
+
     print(f"\n== escapable, so the net is a routing problem not a lane one "
           f"({len(open_)} pads)")
     for net, key, e in open_[:60]:
