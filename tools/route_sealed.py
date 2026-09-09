@@ -32,14 +32,26 @@ DIRS = [(math.cos(math.radians(a)), math.sin(math.radians(a)))
         for a in range(0, 360, 45)]
 
 
+def half_at(bb, u):
+    """Half-extent of an axis-aligned pad box along direction u.
+
+    Using max(w, h) for every direction -- which is what this did at first --
+    overshoots badly on the tall thin pads of a fine-pitch package: U302's
+    pin 8 is 0.30 wide and 0.80 tall, so a 0.40 mm offset eastward starts the
+    test *inside* pin 7 and every direction reports sealed.  Three of the
+    twelve pads in the first scan were that, not a real seal.
+    """
+    return abs(u[0]) * (bb[2] - bb[0]) / 2.0 + abs(u[1]) * (bb[3] - bb[1]) / 2.0
+
+
 def escapes(board, obst, pad, width):
     """Which of the eight directions a `width` trace can leave this pad by."""
     q = R.pt(pad.GetPosition())
     bb = R.pad_bbox(pad)
-    half = max(bb[2] - bb[0], bb[3] - bb[1]) / 2.0
     nc = pad.GetNetCode()
     out = []
     for u in DIRS:
+        half = half_at(bb, u)
         a = (round(q[0] + u[0] * half, 3), round(q[1] + u[1] * half, 3))
         b = (round(q[0] + u[0] * (half + LANE), 3),
              round(q[1] + u[1] * (half + LANE), 3))
@@ -56,7 +68,7 @@ def reach(board, obst, pad, width, u):
     """How far a `width` trace can get out of this pad in direction u, mm."""
     q = R.pt(pad.GetPosition())
     bb = R.pad_bbox(pad)
-    half = max(bb[2] - bb[0], bb[3] - bb[1]) / 2.0
+    half = half_at(bb, u)
     nc = pad.GetNetCode()
     layers = [l for l in (R.F, R.B) if l in R.pad_copper_layers(pad)]
     best = 0.0
@@ -78,7 +90,7 @@ def blocker(board, pad, u, d):
     """Nearest foreign-net copper to where the lane in direction u ran out."""
     q = R.pt(pad.GetPosition())
     bb = R.pad_bbox(pad)
-    half = max(bb[2] - bb[0], bb[3] - bb[1]) / 2.0
+    half = half_at(bb, u)
     at = (q[0] + u[0] * (half + d), q[1] + u[1] * (half + d))
     nc = pad.GetNetCode()
     best = None
