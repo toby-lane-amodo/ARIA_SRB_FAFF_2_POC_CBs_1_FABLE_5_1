@@ -238,7 +238,14 @@ bridge and leaves `F.Cu` free for the gate runs.
    down. Exchanging the two positions is a one-line change to
    `gen_pcb_place1.py` and halves both nets, but it is a placement change
    after the G7 gate, so it is the captain's to approve.
-7. **Two pins were sealed in by earlier steps, and both are fixed by
+7. **`D903` is 9.4 mm of trace from the SMA pin it protects.** The house rule
+   puts an ESD device as close to the source as the neighbouring courtyard
+   allows, and `J902.1` → `D903.1` is a long way past that. `route12_sync.py`
+   fixes the *order* — the clamp is now the first thing a strike meets rather
+   than a 4.5 mm branch off a run that had already forked to `R907` — but it
+   cannot fix the distance. Moving `D903` up against `J902` is a placement
+   change and the captain's to approve.
+8. **Two pins were sealed in by earlier steps, and both are fixed by
    resequencing rather than by rerouting harder.** `+5V_ENC`'s feed to
    `J601.9` was drawn across the whole 10-way FPC fan — a wall on F.Cu 1.4 mm
    above the pad tops plus two vias parked in pins 6-9's lanes — and every
@@ -317,6 +324,20 @@ right-hand column, and the two never share a corridor. `MCO2`
 (source termination) → `U901` → `SYNC_TRIG`, at the `RF50` class width of
 0.37 mm — the 50 Ω microstrip geometry for this stackup (setup §2:
 H = 0.2104 mm, Dk 4.4, W = 0.37 mm → 50.0 Ω).
+
+### Clocks
+
+Four clock nets and the two crystal loops, drawn before the general fill so
+nothing runs alongside them by accident: `HSE_CLK_24M` and `Y1001`'s loop for
+the MCU, `Y1002`'s for the USB PHY, and **`MCO2` → `ADS1235_CLKIN`**, which is
+the one that matters for the analog block. `MCO2` is a square-wave clock landing
+on a 24-bit ADC, so it is routed as a clock and kept out of the `AIN` corridor
+rather than being left to the general fill, which would have had no reason to
+care.
+
+`Net-(U501A-CLKIN)`, `HSE_CLK_24M` and `Net-(Y1001-OUT)` closed in this stage.
+`USB_XO_24M` and `USB_REFCLK_24M` could not, and the reason was not the routing
+— see §7 open points 6 and 7.
 
 ## 2. Power: via counts against the 1.0 A budget
 
