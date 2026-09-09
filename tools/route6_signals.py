@@ -177,8 +177,12 @@ def main():
         R.escape_pass(board, obst, verbose=False)
         maze = R.Maze(obst)
         for net in batch:
+            # Round 2: cheaper vias and a wider window.  With power off the
+            # signal layers there is room to change layer, and a via that
+            # costs 35 is one the search will detour a long way to avoid --
+            # which on a two-signal-layer board is usually the wrong trade.
             f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
-                              via_cost=35, margin=32, verbose=False,
+                              via_cost=15, margin=40, verbose=False,
                               max_nodes=MAX_NODES, hw=HW)
             if f:
                 left2.append(net)

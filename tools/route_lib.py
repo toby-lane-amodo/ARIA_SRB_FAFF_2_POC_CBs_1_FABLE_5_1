@@ -46,6 +46,18 @@ F = pcbnew.F_Cu
 B = pcbnew.B_Cu
 IN1 = pcbnew.In1_Cu
 IN2 = pcbnew.In2_Cu
+IN3 = pcbnew.In3_Cu
+IN4 = pcbnew.In4_Cu
+
+# Round 2 restacked the board to six layers, SIG / GND / PWR / PWR / GND / SIG.
+# ROUTE_LAYERS is every layer copper may be *routed* on -- the two outer signal
+# layers and the two inner power layers; PLANES is the two that stay whole.
+# Everything below that used to key a dict on {F, B} keys it on ROUTE_LAYERS
+# instead, so the same machinery serves either stackup: on the 4-layer board
+# In2/In3 simply never appear.
+ROUTE_LAYERS = (F, B, IN2, IN3)
+PLANES = (IN1, IN4)
+ALL_CU = (F, B, IN1, IN2, IN3, IN4)
 
 _CLASS_W = {
     "Motor": W_MOTOR, "RF50": W_RF50, "USB_HS": W_USB,
@@ -755,7 +767,7 @@ def pad_target_rect(p):
 
 def node_geom(grp):
     """(centre, target-rects per layer, representative points) for a group."""
-    rects = {F: [], B: []}
+    rects = {l: [] for l in ROUTE_LAYERS}
     pts = []
     for _ref, p in grp:
         tr = pad_target_rect(p)
@@ -802,28 +814,31 @@ def seg_boxes(a, b, hw, step=None):
 
 def board_net_rects(board, nc, hw_extra=0.0):
     """Every existing copper rectangle of a net, per layer, chain-boxed."""
-    out = {F: [], B: []}
+    out = {l: [] for l in ROUTE_LAYERS}
     for t in board.GetTracks():
         if t.GetNetCode() != nc:
             continue
         if isinstance(t, pcbnew.PCB_VIA):
             q = pt(t.GetPosition())
             hw = VIA_D / 2.0 / 1.5      # inscribed square of the via pad
-            for l in (F, B):
+            for l in ROUTE_LAYERS:
                 out[l].append((q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw))
         else:
             hw = tomm(t.GetWidth()) / 2.0 + hw_extra
-            out[t.GetLayer()] += seg_boxes(pt(t.GetStart()), pt(t.GetEnd()), hw)
+            if t.GetLayer() in out:
+                out[t.GetLayer()] += seg_boxes(pt(t.GetStart()),
+                                               pt(t.GetEnd()), hw)
     return out
 
 
 def seg_rects(res, hw):
-    out = {F: [], B: []}
+    out = {l: [] for l in ROUTE_LAYERS}
     for layer, pts in res[0]:
         for a, b in zip(pts, pts[1:]):
+            out.setdefault(layer, [])
             out[layer] += seg_boxes(a, b, hw)
     for v in res[1]:
-        for l in (F, B):
+        for l in ROUTE_LAYERS:
             out[l].append((v[0] - VIA_D / 2, v[1] - VIA_D / 2,
                            v[0] + VIA_D / 2, v[1] + VIA_D / 2))
     return out
@@ -867,7 +882,7 @@ def net_items(board, net):
             if not lay:
                 continue
             if is_hole(p):
-                lay = {F, B, IN1, IN2}
+                lay = set(ALL_CU)
             out.append(("pad", f"{f.GetReference()}.{p.GetNumber()}",
                         frozenset(lay), [pad_bbox(p)],
                         [pad_target_rect(p)]))
@@ -879,7 +894,7 @@ def net_items(board, net):
             hw = VIA_D / 2.0
             g = hw / 1.5
             out.append(("via", f"{q[0]:.3f},{q[1]:.3f}",
-                        frozenset((F, B, IN1, IN2)),
+                        frozenset(ALL_CU),
                         [(q[0] - hw, q[1] - hw, q[0] + hw, q[1] + hw)],
                         [(q[0] - g, q[1] - g, q[0] + g, q[1] + g)]))
         else:
@@ -951,9 +966,10 @@ def island_geoms(board, net):
     isl, pad_root = {}, {}
     for i, it in enumerate(items):
         r = uf.find(i)
-        d = isl.setdefault(r, {F: [], B: [], "pts": []})
+        d = isl.setdefault(r, dict({l: [] for l in ROUTE_LAYERS},
+                                    **{"pts": []}))
         for l in it[2]:
-            if l in (F, B):
+            if l in d:
                 d[l] += it[4]
         b0 = it[4][0]
         d["pts"].append(((b0[0] + b0[2]) / 2.0, (b0[1] + b0[3]) / 2.0))
@@ -1089,8 +1105,9 @@ def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
                 break
     comps = {}
     for bi, r in node_root.items():
-        c = comps.setdefault(r, {F: list(isl[r][F]), B: list(isl[r][B]),
-                                 "pts": list(isl[r]["pts"]), "nodes": []})
+        c = comps.setdefault(r, dict(
+            {l: list(isl[r][l]) for l in ROUTE_LAYERS},
+            **{"pts": list(isl[r]["pts"]), "nodes": []}))
         c["nodes"].append(bi)
     keys = list(comps)
     if len(keys) < 2:
@@ -1111,8 +1128,10 @@ def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
             res, ww = None, ladder[0]
             for ww in ladder:
                 res = maze.route(nc, [pa], [pb], ww, layers=layers,
-                                 start_rects={F: comps[a][F], B: comps[a][B]},
-                                 goal_rects={F: comps[b][F], B: comps[b][B]},
+                                 start_rects={l: comps[a][l]
+                                              for l in ROUTE_LAYERS},
+                                 goal_rects={l: comps[b][l]
+                                             for l in ROUTE_LAYERS},
                                  **kw)
                 if res is not None:
                     break
@@ -1120,11 +1139,11 @@ def connect_net(board, obst, maze, netname, width=None, layers=(F, B),
                 continue
             emit_result(board, obst, res, ww, nc)
             r = seg_rects(res, ww / 2.0)
-            comps[a][F] += comps[b][F] + r[F]
-            comps[a][B] += comps[b][B] + r[B]
+            for l in ROUTE_LAYERS:
+                comps[a][l] += comps[b][l] + r.get(l, [])
             comps[a]["pts"] += comps[b]["pts"] + [
                 (round((q[0] + q[2]) / 2, 3), round((q[1] + q[3]) / 2, 3))
-                for q in r[F] + r[B]]
+                for l in ROUTE_LAYERS for q in r.get(l, [])]
             comps[a]["nodes"] += comps[b]["nodes"]
             del comps[b]
             keys.remove(b)
@@ -1245,8 +1264,8 @@ def _with_island(ng, isl, pad_root, grp, radius=ISLAND_NEAR):
             continue
         c = ng[0]
         return (c,
-                {F: [b for b in isl[r][F] if _near_box(b, c, radius)] + ng[1][F],
-                 B: [b for b in isl[r][B] if _near_box(b, c, radius)] + ng[1][B]},
+                {l: [b for b in isl[r][l] if _near_box(b, c, radius)]
+                    + ng[1][l] for l in ROUTE_LAYERS},
                 [q for q in isl[r]["pts"] if abs(q[0] - c[0]) <= radius
                  and abs(q[1] - c[1]) <= radius] + ng[2])
     return ng

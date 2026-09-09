@@ -25,8 +25,11 @@ import route_lib as R  # noqa: E402
 # MOTOR_U leads: it was whole before the east-row experiment ripped it, and
 # recovering it is worth more than any of the gates -- it is the leg's VDS
 # sense into the driver.
-NETS = ["/motor_drive/MOTOR_U", "Net-(Q1102-G)", "Net-(Q1104-G)",
-        "Net-(Q1106-G)", "/motor_drive/VM_DRV"]
+# Round 2: VM_DRV is off this list -- it moved to the internal power layers in
+# step 2 and is step 4's business now.  MOTOR_U is whole again after the board
+# was restored, so what is left is the three low-side gates, retried against a
+# board with 1703 mm less copper on its signal layers than when they failed.
+NETS = ["Net-(Q1102-G)", "Net-(Q1104-G)", "Net-(Q1106-G)"]
 TRIES = (dict(via_cost=45, margin=30),
          dict(via_cost=25, margin=55),
          dict(via_cost=12, margin=90, hw=1.0))
