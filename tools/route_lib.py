@@ -953,7 +953,7 @@ def _boxes_touch(a, b):
 
 def net_islands(board, net, plane=False):
     items = net_items(board, net)
-    uf = _touch_graph(items, (IN1, IN2) if plane else ())
+    uf = _touch_graph(items, PLANES if plane else ())
     groups = {}
     for i, it in enumerate(items):
         groups.setdefault(uf.find(i), []).append(it)

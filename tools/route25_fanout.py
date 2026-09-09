@@ -24,6 +24,19 @@ missing.
 After this every long route starts from a via in open board instead of from a
 pin in a ring, so no net can wall another in: the copper that would do the
 walling is already there and is the escape itself.
+
+**The stub has to be allowed to jog, and that is the whole difference between
+124 pins placed and nearly all of them.**  The first cut drew it as a straight
+in-line segment, which cannot work and the arithmetic says why: a via barrel is
+0.6 mm across and the clearance floor is 0.1524 mm, so a min-width stub passing
+*beside* one needs 0.3 + 0.1524 + 0.0762 = 0.5286 mm of lateral room against a
+0.5 mm pitch -- 29 microns short, everywhere, for every pin whose row is deeper
+than its neighbour's.  Two same-row vias are 1.5 mm apart, which leaves a
+0.9 mm channel, and the two stubs that must thread it need
+0.1524 x 5 = 0.762 mm between the barrels.  There is room; it is just not on
+the straight line.  So each stub is a maze route on F.Cu from the pad to its
+own slot, in a 1.2 mm window -- the jog it needs is about 30 microns, and the
+router finds it.
 """
 import argparse
 import math
@@ -73,10 +86,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--refs", help="only these packages")
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--straight", action="store_true",
+                    help="the round-2 straight in-line stub (placed 124/291)")
     a = ap.parse_args()
 
     board = R.load()
     obst = R.Obstacles(board)
+    maze = R.Maze(obst)
     want = set(a.refs.split(",")) if a.refs else None
 
     made, held, skipped = 0, [], 0
@@ -109,19 +125,33 @@ def main():
                 s = (round(q[0] + u[0] * half, 3), round(q[1] + u[1] * half, 3))
                 e = (round(q[0] + u[0] * (half + d), 3),
                      round(q[1] + u[1] * (half + d), 3))
-                if not R.seg_ok(obst, s, e, w, nc, R.F):
-                    continue
                 win = obst.ij(e[0] - 1.5, e[1] - 1.5) + \
                     obst.ij(e[0] + 1.5, e[1] + 1.5)
                 m = obst.via_mask(win, nc)
                 ii, jj = obst.ij(*e)
                 if m[ii - win[0], jj - win[1]]:
                     continue
+                if a.straight:
+                    if not R.seg_ok(obst, s, e, w, nc, R.F):
+                        continue
+                    res = ([(R.F, [s, e])], [])
+                else:
+                    goal = (e[0] - 0.03, e[1] - 0.03, e[0] + 0.03, e[1] + 0.03)
+                    res = maze.route(nc, [q], [e], w, layers=(R.F,),
+                                     margin=1.2, hw=1.6, max_nodes=80_000,
+                                     start_rects={R.F: [R.pad_target_rect(p)]},
+                                     goal_rects={R.F: [goal]})
+                    if res is None:
+                        continue
                 if not a.check:
-                    R.add_track(board, s, e, w, R.F, nc)
+                    R.emit_result(board, obst, res, w, nc)
                     R.add_via(board, e, nc)
-                obst.add_seg(s, e, w / 2.0, R.F, nc)
-                obst.add_via_at(e, nc)
+                    obst.add_via_at(e, nc)
+                else:
+                    for lay, pts in res[0]:
+                        for x, y in zip(pts, pts[1:]):
+                            obst.add_seg(x, y, w / 2.0, lay, nc)
+                    obst.add_via_at(e, nc)
                 made += 1
                 placed = True
                 break

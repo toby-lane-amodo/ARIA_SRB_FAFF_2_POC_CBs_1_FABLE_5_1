@@ -222,12 +222,17 @@ table and the connector edge plan: [`docs/decisions/actuator-pcb-setup.md`](docs
 
 Board-wide numbers every layout task needs:
 
-- **Stackup: JLCPCB `JLC04161H-7628`** — standard no-surcharge 4-layer, 1.6 mm, 1 oz outer /
-  0.5 oz inner. The only impedance-relevant dielectric is the **0.2104 mm 7628 prepreg,
-  Dk 4.4**, between each outer layer and its GND plane. 50 Ω microstrip = 0.37 mm;
-  90 Ω differential (USB) = 0.30 mm wide / 0.20 mm gap.
-- **Layer roles (house G1)**: `F.Cu` and `B.Cu` are `mixed` and carry **all** signals **and**
-  power as traces; `In1.Cu`/`In2.Cu` are unbroken GND planes. Never split a plane (G10).
+- **Stackup: JLCPCB `JLC06161H-7628`** — no-surcharge 6-layer, 1.582 mm, since round 2
+  (`tools/gen_pcb_stack6.py`; `docs/decisions/actuator-pcb-setup.md` §2a). It was chosen so the
+  impedance geometry carried over unchanged: the outer dielectric is the same **0.2104 mm 7628
+  prepreg, Dk 4.4**. 50 Ω microstrip = 0.37 mm; 90 Ω differential (USB) = 0.30 mm wide /
+  0.20 mm gap. The 4-layer `JLC04161H-7628` is superseded — do not quote it.
+- **Layer roles (house G1)**: `In1.Cu` and `In4.Cu` are the **unbroken GND planes**; never split
+  one (G10). `F.Cu`, `B.Cu`, `In2.Cu` and `In3.Cu` are all `mixed` and carry signals **and**
+  power as traces — the inner two are stripline between the planes. `In2.Cu` also carries the
+  `+3V3` pour (route1 §R2.3), so signals are kept off it by preference; `In3.Cu` is open.
+  `route_lib.ROUTE_LAYERS` / `PLANES` are the single source of truth for this and **anything
+  keyed `{F, B}` is a round-1 leftover** — that class of bug bit three times (route1 §R2.4).
 - **One via for the whole board: 0.6 mm pad / 0.20 mm drill**, annular ring 0.20 mm — JLC's
   *recommended* annulus, on a no-surcharge drill. No blind, buried or micro vias.
 - **1.0 A per via — not 3 A.** JLC plates ~18 µm, so the barrel is worth a 0.32 mm 1 oz trace

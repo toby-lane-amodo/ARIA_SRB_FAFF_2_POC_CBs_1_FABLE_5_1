@@ -791,3 +791,86 @@ This is routing work, not placement, and it is inside my remit — but the
 captain gated routing behind his review of this stage, so it waits for his
 word. **The round-1 findings remain unruled and untouched**, as instructed;
 none of them was involved here.
+
+# Round 2b — the escape-first re-route
+
+## R2b.1 The order change, and why it is the whole finding
+
+Stage A measured the board twice: once bare, with every track and via
+stripped, and once as routed. **Bare, all 201 fine-pitch pins have open escape
+room** — the tightest is 79.67 mm² of reachable free area. Routed, 59 of them
+are starved. Nothing about the placement changed between the two
+measurements, so the starvation is made entirely by the routing that ran
+between them, and the copper doing it is ordinary signal copper that took the
+shortest path it could see past a pin ring it did not need to enter.
+
+So the order was inverted. Instead of *route a net, then discover its pin is
+walled in*, every fine-pitch pin is **fanned out of its own ring first**, into
+open board, and the long hauls are then drawn between fan-out endpoints that
+already exist:
+
+1. `tools/route26_escape_first.py` rips every signal net (`KEEP` holds GND,
+   the inner-layer rails, the USB HS pair, the sync chain and the three Kelvin
+   taps — copper whose geometry is the design, not a routing choice);
+2. `tools/route25_fanout.py` stages each package's pins out on three rows
+   0.6 mm apart, which puts adjacent vias 0.78 mm apart rather than on top of
+   one another — a staggered fan-out, the BGA pattern applied to QFN and
+   LQFP rings;
+3. `tools/route6_signals.py` then fills, banking every twelve nets.
+
+`escape_pass` was already doing step 2 at 0.9 mm, which clears the pad but
+**not the ring** — the stub ends inside the corridor the next net takes, so it
+bought nothing. 0.9 mm was the bug.
+
+The effect is not subtle. Before: the fill closed one to five nets per chunk
+of twelve and stalled. After: ten to twelve per chunk, and unconnected fell
+from 388 to 120 with open signal nets from 200 to 82 across three cycles
+(`4742b21`, `049631c`, `614c064`, `1d63522`, `acc068e`).
+
+This is a routing-order change inside my remit, taken under the captain's
+standing "press on" instruction. **No part moved, and the round-1 findings
+remain unruled and untouched.**
+
+## R2b.2 The signal fill had two layers on a six-layer board
+
+The fill then stalled again at 82 nets, and the cause was a fourth instance of
+the "correct by coincidence" class from R2.4. `route_lib.connect_net` declares
+`layers=(F, B)` as its default — the whole truth on the four-layer stack — and
+`route6_signals` never overrode it. The copper census says it plainly:
+
+| layer | track segments |
+|---|---|
+| `F.Cu` | 3064 |
+| `B.Cu` | 1038 |
+| `In2.Cu` | 174 |
+| `In3.Cu` | 16 |
+
+`F.Cu` was full and the fill had nowhere else to go, while two mixed inner
+layers sat all but empty. The stack is
+`SIG+PWR : GND : PWR+SIG : PWR+SIG : GND : SIG+PWR`; `In2.Cu` and `In3.Cu` are
+mixed exactly as the outer layers are, each referenced to an adjacent unbroken
+GND plane, so a signal there is stripline rather than microstrip and is if
+anything the quieter home. `route6_signals --layers` now selects the set.
+
+`In3.Cu` is opened to signals and `In2.Cu` held back, because `In2.Cu` carries
+the `+3V3` pour (R2.3): every signal crossing it carves a channel the pour must
+go round, and enough of them fragment the rail. `In3.Cu` carries only rails
+drawn as traces, with the rest of the layer empty. The layer bias keeps the
+outer layers preferred — a signal dives inside only when that is worth about a
+fifth again in path length — so the impedance-controlled runs stay microstrip
+where they were designed.
+
+## R2b.3 What "UNROUTED" actually meant
+
+The third measurement is the one that changed the plan. Flood-filling the free
+space out of `C1112.1` — a plain 0402 land, nothing fine-pitch about it —
+reaches **388 grid cells, about one square millimetre**, on a board whose
+search window is half free. The A* returns in ten milliseconds having
+exhausted its entire frontier. No margin, node budget or heuristic weight
+reaches a goal from there, and none ever could.
+
+So the residue was never "needs a wider search". `tools/route_sealed.py` grades
+only 6 pads as sealed on a straight-lane test, and that test is the wrong
+question: a lane 0.34 mm long that dead-ends after a millimetre grades as
+*tight* and is as impassable as a lane of zero. The reachable-area flood is the
+honest measure, and `tools/route27_batch_pocket.py` now uses it.

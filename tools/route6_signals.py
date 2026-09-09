@@ -75,6 +75,29 @@ def open_nets(board):
 # memory *and* costs nothing real: a route that needs more than 300 k nodes
 # on a 210 x 130 board is not finding a sensible path anyway.
 MAX_NODES = 600_000
+
+# Round 2, six layers.  `connect_net` defaults to `layers=(F, B)`, which was
+# the whole truth on the four-layer stack and is now two layers short: the
+# stack is SIG+PWR : GND : PWR+SIG : PWR+SIG : GND : SIG+PWR, and In2/In3 are
+# mixed power-and-signal exactly as the outer layers are -- each referenced to
+# an adjacent unbroken GND plane, so a signal there is stripline rather than
+# microstrip and is if anything the quieter home.  It showed up as a copper
+# census: 3064 track segments on F.Cu against 1038 on B.Cu, 174 on In2.Cu and
+# 16 on In3.Cu.  F.Cu is full and the fill had nowhere else to go.
+#
+# In3.Cu is opened to signals first and In2.Cu held back, because In2.Cu
+# carries the +3V3 pour: every signal crossing it carves a channel the pour
+# must go round, and enough of them fragment the rail.  In3.Cu holds only the
+# rails routed as traces, with the whole rest of the layer empty.
+#
+# The bias keeps the outer layers preferred -- a signal only dives inside when
+# doing so is worth roughly a fifth again in path length -- so the impedance-
+# controlled and short local runs stay microstrip where they were designed.
+LAYER_SETS = {
+    "FB": ((R.F, R.B), None),
+    "FBI": ((R.F, R.B, R.IN3), {R.IN3: 0.20}),
+    "FBII": ((R.F, R.B, R.IN2, R.IN3), {R.IN2: 0.35, R.IN3: 0.20}),
+}
 # The heuristic weight is the whole reason this stage stalled at 66 nets.
 # A* with hw = 1.3 is nearly admissible, so on a congested board it expands an
 # enormous frontier before committing: /mcu/SWCLK, a 34 mm run from the MCU to
@@ -103,7 +126,10 @@ def main():
                     help="skip this many open nets before starting")
     ap.add_argument("--pass2", action="store_true",
                     help="run the wider second pass instead of the first")
+    ap.add_argument("--layers", default="FB",
+                    help="FB = outer only; FBI = outer plus In3.Cu")
     a = ap.parse_args()
+    layers, bias = LAYER_SETS[a.layers]
 
     board = R.load()
     todo = open_nets(board)
@@ -131,7 +157,8 @@ def main():
         for net in batch:
             w = R.net_width(net)
             f = R.connect_net(board, obst, maze, net, width=w, via_cost=55,
-                              margin=16, verbose=False,
+                              margin=16, verbose=False, layers=layers,
+                              layer_bias=bias,
                               max_nodes=MAX_NODES, hw=HW)
             if f:
                 left.append(net)
@@ -183,6 +210,7 @@ def main():
             # which on a two-signal-layer board is usually the wrong trade.
             f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
                               via_cost=15, margin=40, verbose=False,
+                              layers=layers, layer_bias=bias,
                               max_nodes=MAX_NODES, hw=HW)
             if f:
                 left2.append(net)
