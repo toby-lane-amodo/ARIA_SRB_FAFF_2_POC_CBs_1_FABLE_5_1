@@ -27,6 +27,7 @@ Order inside the stage, tightest constraint first:
 7. **Clocks**: the ADS1235 MCO2 clock kept clear of the analog inputs, and
    both crystals' loops.
 """
+import argparse
 import math
 import os
 import sys
@@ -364,16 +365,10 @@ CLOCKS = ["/loadcell_afe/ADS1235_CLKIN", "Net-(U501A-CLKIN)",
           "/mcu/USB_REFCLK_24M", "/mcu/USB_XO_24M"]
 
 
-def main():
-    board = R.load()
-    obst = R.Obstacles(board)
-    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
-    R.escape_pass(board, obst)
-    maze = R.Maze(obst)
+STAGES = ("bridge", "usb", "rs422", "analog", "rf", "clocks")
 
-    bridge(board, obst, maze)
-    usb_pair(board, obst, maze)
 
+def stage_rs422(board, obst, maze):
     print("\n== RS-422 encoder pairs")
     for p, n in RS422:
         for net in (p, n):
@@ -386,6 +381,8 @@ def main():
             print(f"   {net:<32} {ln:6.2f} mm"
                   + ("  UNROUTED " + ",".join(f) if f else ""))
 
+
+def stage_analog(board, obst, maze):
     print("\n== analog (quiet side first)")
     for net in ANALOG:
         w = R.net_width(net)
@@ -395,6 +392,8 @@ def main():
             print(f"   ! {net} left {f}")
     print(f"   {len(ANALOG)} analog nets routed at >= 0.25 mm")
 
+
+def stage_rf(board, obst, maze):
     print("\n== 50 ohm sync chain (ESD in line, source terminated at R907)")
     for a, b, net, w in ((("J902", "1"), ("D903", "1"), "Net-(D903-K)", 0.37),
                          (("D903", "1"), ("R907", "2"), "Net-(D903-K)", 0.37),
@@ -410,11 +409,42 @@ def main():
         if f:
             print(f"   ! {net} left {f}")
 
+
+def stage_clocks(board, obst, maze):
     print("\n== clocks")
     for net in CLOCKS:
         f = R.connect_net(board, obst, maze, net, width=0.20, via_cost=80,
                           margin=20)
         print(f"   {net:<34}" + ("  UNROUTED " + ",".join(f) if f else "  ok"))
+
+
+def main():
+    # Stage selection, because two of these stages have been superseded and
+    # re-running them would undo better work.  `bridge` was redone in priority
+    # order by tools/route8_drv.py (Kelvin taps first, then the gates), and
+    # `usb` by tools/route9_usb.py, which draws the pair by hand -- the
+    # version here spreads it to 1.6 mm and leaves the connector's B-row
+    # duplicates to a router that ran DM straight through a DP pad.  Neither
+    # runs by default any more.
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--stages", default="rs422,analog,rf,clocks",
+                    help="comma-separated subset of " + ", ".join(STAGES))
+    run = [a.strip() for a in ap.parse_args().stages.split(",") if a.strip()]
+    bad = set(run) - set(STAGES)
+    if bad:
+        raise SystemExit(f"unknown stage(s): {sorted(bad)}")
+
+    board = R.load()
+    obst = R.Obstacles(board)
+    print(f"   {obst.reserve_pin_escapes(board)} fine-pitch pin escape lanes held")
+    R.escape_pass(board, obst)
+    maze = R.Maze(obst)
+
+    fns = {"bridge": bridge, "usb": usb_pair, "rs422": stage_rs422,
+           "analog": stage_analog, "rf": stage_rf, "clocks": stage_clocks}
+    for name in STAGES:
+        if name in run:
+            fns[name](board, obst, maze)
 
     R.refill(board)
     R.save(board)
