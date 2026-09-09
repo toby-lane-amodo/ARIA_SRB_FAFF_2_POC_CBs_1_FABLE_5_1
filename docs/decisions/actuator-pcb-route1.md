@@ -140,6 +140,29 @@ a dedicated `F.Cu` return from each shunt's ground pad to the driver's `SNx`
 pin **in addition to** the plane, drawn only where it stays under 14 mm. Beyond
 that the plane is the better return and the dedicated trace is dropped.
 
+**What went wrong in this stage, and how it was found.** Five of the six gate
+runs came out of it unrouted, and the obvious reading — "the taps took the
+channel first, which is the price of the priority" — was wrong.
+`tools/route_sealed.py` (written for this, §10) asks each pad of each open net
+whether a trace of its class width can leave in any of eight directions for a
+lane length. Twelve pads on the whole board answered no, and four of them were
+on this one package: pins 8, 13 and 18 — the three low-side gates — and pin 4,
+`VM_DRV`.
+
+The cause is a line `route8_drv.py` never called. It built its obstacle model
+as `Obstacles(board)` with **no `reserve_pin_escapes`**, so nothing held the
+neighbouring pins' lanes while it drew. Leg A's Kelvin tap left pin 9 and
+elbowed 0.15 mm north to y = 139.40; pin 8 sits 0.5 mm above it at 139.75 and
+pin 7's own run at 140.25, which leaves pin 8 a **0.60 mm slot** for a trace
+wanting 0.4572 mm of copper and 0.3048 mm of clearance. Five microns short.
+Legs B and C went the same way.
+
+That is the R3-1 hazard exactly — an elbowed escape parks itself in the
+neighbour's corridor — and it is why the rule says to prove the neighbours can
+still get out *before* parking anything. `route_ripup.py --plan u1101-gates`
+redoes the window with the priority unchanged and the reservations on, so
+neither can take the other's lane.
+
 The commutation loop itself is unchanged from step 5 and is the tightest copper
 on the board: each leg's phase node is drawn high-side source to low-side drain
 on `F.Cu` at 1.00 mm, the low-side source runs to its own shunt at the same
@@ -356,6 +379,14 @@ stages are superseded and excluded by the default `--stages`.
 * **Redirect a long stage with `python3 -u`.** Without it Python block-buffers
   stdout and the progress file stays at zero bytes for the whole run, which
   looks exactly like a wedged job.
+* **`route_sealed.py` is the tool this round most wanted and did not have.**
+  A router's `UNROUTED` line does not say *why*, and the two reasons want
+  opposite treatment: a pad with no lane out of its own pin ring cannot be
+  reached at any width on either layer, however wide the window, and the only
+  fix is to rip the sealer and resequence; a pad that can get out but whose net
+  still would not close wants a wider window or a different corridor. Running
+  it over the round-1 residue took a guess ("the taps took the channel") and
+  turned it into a five-micron measurement and a missing function call.
 * Every stage that saves goes through `place_lib.save()`, which snapshots the
   sibling `.kicad_pro` and writes it back — `pcbnew.SaveBoard()` rewrites it
   wholesale with KiCad defaults, and that cost the DEC-0021 ERC baseline once.
