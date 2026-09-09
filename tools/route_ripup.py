@@ -103,6 +103,36 @@ PLANS = {
                                       dict(layer_bias={R.B: 0.4}))]),
         ],
     ),
+    # The DRV8323's east row, again.  route8_drv drew the block in priority
+    # order and got the Kelvin taps in first, which was right -- but it built
+    # its obstacle model *without* `reserve_pin_escapes`, so nothing held the
+    # neighbouring pins' lanes while it worked.  Leg A's tap left pin 9 and
+    # elbowed 0.15 mm north to y = 139.40; pin 8 is 0.5 mm above it at 139.75
+    # and pin 7's own run sits at 140.25, which leaves pin 8 a 0.60 mm slot
+    # for a trace that needs 0.4572 of copper and 0.3048 of clearance.  Five
+    # microns short, and the low-side gate was sealed.  The same happened on
+    # legs B and C, and on VM_DRV at pin 4.
+    #
+    # The priority stands -- accuracy before length, taps before gates -- but
+    # the reservations go on, so neither can take the other's lane.
+    "u1101-gates": dict(
+        box=(207.5, 134.0, 220.5, 144.5),
+        rip=["Net-(Q1102-G)", "Net-(Q1104-G)", "Net-(Q1106-G)",
+             "Net-(Q1102-S_3)", "Net-(Q1104-S_3)", "Net-(Q1106-S_3)",
+             "/motor_drive/VM_DRV"],
+        passes=[
+            dict(reserve=True, nets=[
+                ("Net-(Q1102-S_3)", 0.25, {}),
+                ("Net-(Q1104-S_3)", 0.25, {}),
+                ("Net-(Q1106-S_3)", 0.25, {})]),
+            dict(reserve=True, fanout=False, nets=[
+                ("Net-(Q1102-G)", 0.25, {}),
+                ("Net-(Q1104-G)", 0.25, {}),
+                ("Net-(Q1106-G)", 0.25, {})]),
+            dict(reserve=True, fanout=False,
+                 nets=[("/motor_drive/VM_DRV", 0.25, {})]),
+        ],
+    ),
     "u303-pg": dict(
         box=(172.0, 76.5, 179.5, 83.5),
         rip=["/power_rails/+6V0", "Net-(U303-PG)"],
