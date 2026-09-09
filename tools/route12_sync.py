@@ -40,8 +40,12 @@ W = 0.37
 # leaves the clamp pad eastward and comes up under R907 from the south.
 TO_CLAMP = [(90.00, 36.25), (89.25, 37.50), (89.25, 40.30),
             (85.75, 43.80), (85.00, 44.20)]
-TO_R907 = [(85.00, 44.20), (85.90, 45.10), (89.10, 45.10),
-           (90.00, 44.20), (90.00, 42.675)]
+# R907 stands vertically with pin 1 north of pin 2, so the second leg has to
+# reach pin 2 from the *west*: an approach from the north walks straight
+# through pin 1, which is the other side of the series resistor and a
+# different net.
+TO_R907 = [(85.00, 44.20), (86.00, 45.20), (87.60, 45.20),
+           (88.60, 44.20), (88.60, 42.675), (90.00, 42.675)]
 
 CHILD = '''
 import json, sys
