@@ -52,6 +52,64 @@ def escapes(board, obst, pad, width):
     return out
 
 
+def reach(board, obst, pad, width, u):
+    """How far a `width` trace can get out of this pad in direction u, mm."""
+    q = R.pt(pad.GetPosition())
+    bb = R.pad_bbox(pad)
+    half = max(bb[2] - bb[0], bb[3] - bb[1]) / 2.0
+    nc = pad.GetNetCode()
+    layers = [l for l in (R.F, R.B) if l in R.pad_copper_layers(pad)]
+    best = 0.0
+    for layer in layers:
+        lo, hi = 0.0, LANE
+        a = (round(q[0] + u[0] * half, 3), round(q[1] + u[1] * half, 3))
+        for _ in range(7):
+            mid = (lo + hi) / 2.0
+            b = (round(a[0] + u[0] * mid, 3), round(a[1] + u[1] * mid, 3))
+            if R.seg_ok(obst, a, b, width, nc, layer):
+                lo = mid
+            else:
+                hi = mid
+        best = max(best, lo)
+    return best
+
+
+def blocker(board, pad, u, d):
+    """Nearest foreign-net copper to where the lane in direction u ran out."""
+    q = R.pt(pad.GetPosition())
+    bb = R.pad_bbox(pad)
+    half = max(bb[2] - bb[0], bb[3] - bb[1]) / 2.0
+    at = (q[0] + u[0] * (half + d), q[1] + u[1] * (half + d))
+    nc = pad.GetNetCode()
+    best = None
+    for t in board.GetTracks():
+        if t.GetNetCode() == nc:
+            continue
+        if isinstance(t, pcbnew.PCB_VIA):
+            dd = R.dist(at, R.pt(t.GetPosition()))
+            what = "via"
+        else:
+            a, b = R.pt(t.GetStart()), R.pt(t.GetEnd())
+            vx, vy = b[0] - a[0], b[1] - a[1]
+            L = vx * vx + vy * vy
+            tt = 0.0 if L == 0 else max(0.0, min(1.0, ((at[0] - a[0]) * vx
+                                                       + (at[1] - a[1]) * vy) / L))
+            dd = math.hypot(at[0] - (a[0] + tt * vx), at[1] - (a[1] + tt * vy))
+            what = "track"
+        if best is None or dd < best[0]:
+            best = (dd, t.GetNetname() or "GND", what)
+    for f in board.GetFootprints():
+        for p in f.Pads():
+            if p.GetNetCode() == nc:
+                continue
+            bx = R.pad_bbox(p)
+            dd = math.hypot(max(bx[0] - at[0], 0, at[0] - bx[2]),
+                            max(bx[1] - at[1], 0, at[1] - bx[3]))
+            if best is None or dd < best[0]:
+                best = (dd, f"{f.GetReference()}.{p.GetNumber()}", "pad")
+    return best
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--net", help="only this net")
@@ -96,7 +154,16 @@ def main():
     print(f"\n== SEALED -- no lane out at {LANE} mm, on either layer "
           f"({len(sealed)} pads)")
     for net, key, _e in sealed:
-        print(f"   {net:<36} {key}")
+        p = pads[key]
+        w = R.net_width(net)
+        by = sorted(((reach(board, obst, p, w, u), u) for u in DIRS),
+                    reverse=True)
+        d, u = by[0]
+        deg = int(round(math.degrees(math.atan2(u[1], u[0]))))
+        b = blocker(board, p, u, d)
+        note = (f"{b[2]} {b[1]} at {b[0]:.2f} mm" if b else "?")
+        print(f"   {net:<34} {key:<12} best {d:.2f} mm at {deg:>4} deg, "
+              f"stopped by {note}")
     print(f"\n== escapable, so the net is a routing problem not a lane one "
           f"({len(open_)} pads)")
     for net, key, e in open_[:60]:
