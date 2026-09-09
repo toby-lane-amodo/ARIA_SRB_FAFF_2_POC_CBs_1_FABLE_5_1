@@ -265,14 +265,50 @@ The placement tools mutate the board — they never regenerate it:
 
 Sequencing, and what is **not** done yet:
 
-- **G7 is a hard gate: the captain reviews placement before any routing.** Nothing is routed;
-  the board still carries 0 tracks, 0 vias and 0 zones. Do not start routing without his word.
-- DRC after placement is **19 violations, all four library residuals from board setup §8**
-  (`Q201` keepout, `U501` EP annulus, `H1`–`H4`/`J201`/`J1001` lib mismatch) plus 499
-  unconnected, which is the whole ratsnest. Schematic parity 0, silkscreen 0. Any other
-  number is yours.
+- **G7 was a hard gate and it is cleared** — the captain reviewed placement round 1 and
+  approved it, which is what authorised routing. See the Routing phase section below.
+- DRC after placement was **19 violations, all four library residuals from board setup §8**
+  (`Q201` keepout, `U501` EP annulus, `H1`–`H4`/`J201`/`J1001` lib mismatch) plus the whole
+  ratsnest as unconnected. Those 19 are still the whole residual set; schematic parity 0.
+  Any other number is yours.
 - **The two GND plane zones are routing step 1, not board setup** — the house process opens
   and closes each routing step with the engineer, so the pours land there.
+
+## Routing phase
+
+Stage order, the tool per stage and every judgement call:
+[`docs/decisions/actuator-pcb-route1.md`](docs/decisions/actuator-pcb-route1.md).
+`tools/route_check.py` is the proof harness — `--gnd --viainpad --power --usb
+--g5 --nets`, all of them when given no flag, exit 1 on any failure.
+`tools/route_lib.py` holds the obstacle model, the two-layer A* and the
+emitters; the stage scripts only ever **mutate** the board.
+
+**Run DRC with `AMODO_KICAD_LIB` set.** Without it `kicad-cli pcb drc` cannot
+open the library, reports **199 `lib_footprint_issues`**, and buries the six
+real `lib_footprint_mismatch` under them. The residual set is 19 and is
+library-side, not routing: `Q201` keep-out (9 `items_not_allowed`), `U501` EP
+annulus (4 `annular_width`), `H1`–`H4`/`J201`/`J1001` (6
+`lib_footprint_mismatch`).
+
+**The recurring failure mode is a sealed pin** — a net drawn across a pin ring
+before the pins inside it were routed. No amount of retrying reaches one: it has
+no lane at any width on either layer. The fix is always the same shape — rip the
+sealing net, route the sealed pins first, put the sealer back, because the
+sealer usually has the whole board to detour through and the pins have one lane
+each. `tools/route_ripup.py` holds the plans and the doctrine. Two cost a stage
+each in round 1: `+5V_ENC` across `J601`'s 10-way FPC fan, and `C1020`'s ground
+stitch across `U1002`'s crystal pins.
+
+**A long routing stage must bank as it goes.** `refill()` can segfault (exit
+139), and a stage that saves once at the end loses everything — that cost ten
+minutes of routing with nothing written. `route5_critical` saves per stage,
+`route6_signals` every 25 nets, both reloading in between. Three traps that go
+with it: run the stage under `python3 -u` or its progress file stays empty and
+looks wedged; read the **stage's** exit code, not the wrapper shell's
+(`python …; echo; grep` exits 0 whatever Python did); and
+`pgrep -f 'python3 tools/routeN'` matches the shell running the `pgrep` — use
+`ps -eo cmd | grep '[r]outeN'`. **Never commit while a stage is writing the
+board.**
 
 ## Sharp edges
 
