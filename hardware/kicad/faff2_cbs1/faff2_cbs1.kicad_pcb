@@ -3,14 +3,16 @@
 	(generator "pcbnew")
 	(generator_version "9.0")
 	(general
-		(thickness 1.6062)
+		(thickness 1.582)
 		(legacy_teardrops no)
 	)
 	(paper "A2")
 	(layers
 		(0 "F.Cu" mixed)
 		(4 "In1.Cu" power "GND Plane L2")
-		(6 "In2.Cu" power "GND Plane L3")
+		(6 "In2.Cu" power "PWR Plane L3")
+		(8 "In3.Cu" power "PWR Plane L4")
+		(10 "In4.Cu" power "GND Plane L5")
 		(2 "B.Cu" mixed)
 		(9 "F.Adhes" user "F.Adhesive")
 		(11 "B.Adhes" user "B.Adhesive")
@@ -64,9 +66,9 @@
 			)
 			(layer "dielectric 2"
 				(type "core")
-				(thickness 1.065)
+				(thickness 0.4)
 				(material "NP-155F Core")
-				(epsilon_r 4.43)
+				(epsilon_r 4.36)
 				(loss_tangent 0.02)
 			)
 			(layer "In2.Cu"
@@ -74,6 +76,28 @@
 				(thickness 0.0152)
 			)
 			(layer "dielectric 3"
+				(type "prepreg")
+				(thickness 0.2104)
+				(material "NP-155F 7628")
+				(epsilon_r 4.4)
+				(loss_tangent 0.02)
+			)
+			(layer "In3.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 4"
+				(type "core")
+				(thickness 0.4)
+				(material "NP-155F Core")
+				(epsilon_r 4.36)
+				(loss_tangent 0.02)
+			)
+			(layer "In4.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 5"
 				(type "prepreg")
 				(thickness 0.2104)
 				(material "NP-155F 7628")
@@ -131652,7 +131676,7 @@
 	(zone
 		(net 118)
 		(net_name "GND")
-		(layer "In2.Cu")
+		(layer "In4.Cu")
 		(uuid "c80bbd85-9e14-4510-a4da-17f1dd536f66")
 		(hatch edge 0.5)
 		(connect_pads
@@ -131672,7 +131696,7 @@
 			)
 		)
 		(filled_polygon
-			(layer "In2.Cu")
+			(layer "In4.Cu")
 			(pts
 				(xy 238.002642 30.300688) (xy 238.236581 30.31742) (xy 238.24703 30.318921) (xy 238.473645 30.368219)
 				(xy 238.483757 30.371189) (xy 238.701039 30.45223) (xy 238.710637 30.456613) (xy 238.914173 30.567753)

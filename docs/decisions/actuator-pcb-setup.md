@@ -15,7 +15,8 @@ KiCad 9 only — `kicad-cli` 9.0.8, board format `20241229`. AGENTS.md has the h
 
 | Ruling | Where it lives |
 |---|---|
-| JLCPCB standard 4-layer, stackup verified from JLC's published table (`JLC04161H-7628`) | `(setup (stackup …))` in the board — §2 |
+| JLCPCB standard 4-layer, stackup verified from JLC's published table (`JLC04161H-7628`) | `(setup (stackup …))` in the board — §2, **superseded by §2a** |
+| Round 2: six layers, SIG/GND/PWR/PWR/GND/SIG, power off the signal layers | `JLC06161H-7628` — §2a |
 | House G1: outer layers carry **all** signals **and** power as traces; both inner layers unbroken GND | layer roles in the board — §2 |
 | Via 0.6 mm pad / 0.20 mm drill, no-surcharge JLC drill, reaches the recommended 0.20 mm annulus | single via definition in every net class — §3 |
 | **1.0 A per via**, *not* the old 3 A figure — JLC plates ~18 µm | §3, with the derivation |
@@ -25,7 +26,61 @@ KiCad 9 only — `kicad-cli` 9.0.8, board format `20241229`. AGENTS.md has the h
 
 ---
 
-## 2. Stackup — JLCPCB `JLC04161H-7628`
+## 2a. Stackup, round 2 — JLCPCB `JLC06161H-7628` (6 layers)
+
+**Superseded §2 on 2026-09-09.** The captain, reviewing routing round 1:
+*"The PCB looks to be pretty un-routed still. Can you press on and keep going?
+If needed, remove all power connections, and only route signals for now. Then,
+we can add two additional internal layers and use these for routing power."*
+
+That authorises six layers, arranged **SIG / GND / PWR / PWR / GND / SIG**:
+
+| # | Layer | Role | Material | Thickness mm | Dk |
+|---|---|---|---|---|---|
+| — | F.Mask | — | solder mask | 0.010 | |
+| L1 | **F.Cu** | `mixed` — signals | copper 1 oz | 0.0350 | |
+| — | dielectric 1 | prepreg | NP-155F **7628** | **0.2104** | **4.40** |
+| L2 | **In1.Cu** | `power` — GND Plane L2, unbroken | copper 0.5 oz | 0.0152 | |
+| — | dielectric 2 | core | NP-155F Core | 0.4000 | 4.36 |
+| L3 | **In2.Cu** | `power` — PWR Plane L3, power routing | copper 0.5 oz | 0.0152 | |
+| — | dielectric 3 | prepreg | NP-155F 7628 | 0.2104 | 4.40 |
+| L4 | **In3.Cu** | `power` — PWR Plane L4, power routing | copper 0.5 oz | 0.0152 | |
+| — | dielectric 4 | core | NP-155F Core | 0.4000 | 4.36 |
+| L5 | **In4.Cu** | `power` — GND Plane L5, unbroken | copper 0.5 oz | 0.0152 | |
+| — | dielectric 5 | prepreg | NP-155F 7628 | 0.2104 | 4.40 |
+| L6 | **B.Cu** | `mixed` — signals | copper 1 oz | 0.0350 | |
+| — | B.Mask | — | solder mask | 0.010 | |
+
+Total **1.582 mm** including mask — JLC's 1.6 mm class.
+
+**House G1's substance is preserved, not waived.** G1 exists so that every
+signal is referenced to a solid plane; here every outer-layer signal still
+faces an unbroken ground plane 0.2104 mm below it, which is the same reference
+distance the 4-layer build gave. What changes is that power no longer has to
+share the signal layers, which is the whole point of the ruling.
+
+**Why `-7628` of JLC's ten 6-layer options.** Its outer prepreg is *identical*
+to the 4-layer board's — 7628 glass, 0.2104 mm, Dk 4.40 — so every impedance
+number already derived and already routed carries over untouched: the USB pair
+stays **0.30 mm on a 0.20 mm gap for 90.6 Ω**, `SYNC_TRIG` and the two U.FL
+inputs stay **0.37 mm for 50 Ω**, and round 1's hand-drawn pair does not have
+to be redrawn. The alternatives all move the reference plane closer and would
+have forced both geometries to narrow: `-1080` at 0.0764 mm, `-3313` at
+0.0994 mm, `-2116` at 0.1164/0.1270 mm.
+
+Same copper weights and the same no-surcharge class as before: 1 oz outer,
+0.5 oz inner. Materials Nan Ya NP-155F throughout.
+
+*Source.* JLCPCB's published impedance-template data, `templateName`
+`JLC06161H-7628`, 6-layer 1.6 mm, 1 oz outer / 0.5 oz inner. As in §2, JLC's
+own impedance calculator is the arbiter before fab.
+
+Applied by `tools/gen_pcb_stack6.py`. The second ground plane moved from
+`In2.Cu` to `In4.Cu` with it.
+
+---
+
+## 2. Stackup — JLCPCB `JLC04161H-7628` (4 layers, superseded by §2a)
 
 4-layer, 1.6 mm nominal, 1 oz outer / 0.5 oz inner. This is JLC's default no-surcharge
 4-layer build.
