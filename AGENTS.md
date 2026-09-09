@@ -299,6 +299,25 @@ each. `tools/route_ripup.py` holds the plans and the doctrine. Two cost a stage
 each in round 1: `+5V_ENC` across `J601`'s 10-way FPC fan, and `C1020`'s ground
 stitch across `U1002`'s crystal pins.
 
+**The maze router's heuristic weight is the first thing to check when a net
+"cannot" be routed.** At the default `hw=1.3` A* is nearly admissible and
+expands an enormous frontier on a full board: a 34 mm MCU run needed *three
+million* node expansions against `Maze.route`'s 1.2 M ceiling, so every long
+MCU net was reported unroutable when a path existed. `hw=2.0` lands the same
+route in 600 k nodes at 16 % over the direct distance. The diagnostic that
+separates a search problem from a board problem: route the two islands' seed
+points directly with `maze.route` and a generous ceiling — if that succeeds
+where `connect_net` failed, the board is fine.
+
+**`tools/route_sealed.py` grades every open net's pads** — sealed (no lane out
+at all: only a rip helps), tight, or escapable — and names the copper that
+stops each one. Run it before deciding what to do about an unrouted net; the
+two answers want opposite treatment. Its own two traps are worth knowing: probe
+from the pad's extent *along the direction tested* (not `max(w,h)`, which
+overshoots into the neighbour on tall thin pads), and probe at the width the
+pin can take (the class width, capped by the pad — a 1.00 mm Motor trace cannot
+leave a 0.5 mm-pitch pin by definition).
+
 **A long routing stage must bank as it goes.** `refill()` can segfault (exit
 139), and a stage that saves once at the end loses everything — that cost ten
 minutes of routing with nothing written. `route5_critical` saves per stage,
@@ -308,7 +327,8 @@ looks wedged; read the **stage's** exit code, not the wrapper shell's
 (`python …; echo; grep` exits 0 whatever Python did); and
 `pgrep -f 'python3 tools/routeN'` matches the shell running the `pgrep` — use
 `ps -eo cmd | grep '[r]outeN'`. **Never commit while a stage is writing the
-board.**
+board.** A rip-and-redo stage must also rip the area it *writes*, or a second
+run stacks a second via on the first.
 
 ## Sharp edges
 
