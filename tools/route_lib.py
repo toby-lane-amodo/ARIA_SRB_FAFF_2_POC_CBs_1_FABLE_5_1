@@ -143,13 +143,15 @@ def pad_bbox(p):
 
 
 def pad_copper_layers(p):
-    """{F, B} the pad actually has copper on.  Paste-only pads have none."""
-    out = set()
-    if p.IsOnLayer(F):
-        out.add(F)
-    if p.IsOnLayer(B):
-        out.add(B)
-    return out
+    """Every routing layer the pad actually has copper on.
+
+    This asked only about F and B, which was complete while those were the
+    only routing layers.  On six layers a through-hole pad has copper on all
+    of them, and reporting {F, B} let the inner-layer router drive straight
+    through J301's and J603's PTH lands -- the same shape of mistake as the
+    via barrels, one object along.  Paste-only pads still have none.
+    """
+    return {l for l in ROUTE_LAYERS if p.IsOnLayer(l)}
 
 
 def is_hole(p):
