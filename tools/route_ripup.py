@@ -94,13 +94,13 @@ PLANS = {
         rip=["/linear_encoder/+5V_ENC"],
         passes=[
             dict(reserve=True, nets=[
-                (n, 0.20, dict(via_cost=55, margin=22)) for n in (
+                (n, 0.20, {}) for n in (
                     "/linear_encoder/ENC_A_P", "/linear_encoder/ENC_A_N",
                     "/linear_encoder/ENC_B_P", "/linear_encoder/ENC_B_N",
                     "/linear_encoder/ENC_Z_P", "/linear_encoder/ENC_Z_N",
                     "/linear_encoder/ENC_nPROG", "/linear_encoder/ENC_SDO")]),
             dict(reserve=True, nets=[("/linear_encoder/+5V_ENC", 0.50,
-                                      dict(via_cost=35, margin=30))]),
+                                      dict(layer_bias={R.B: 0.4}))]),
         ],
     ),
     "u303-pg": dict(

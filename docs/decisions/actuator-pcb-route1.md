@@ -274,3 +274,81 @@ and both are now in the script:
   which is what `route6`'s repair pass does deliberately anyway.
 * **Read the stage's own exit code, not the wrapper's.** A shell that runs
   `python …; echo; grep` exits 0 whatever Python did.
+
+## 5. The critical classes
+
+Order inside step 5 is tightest constraint first, and each class gets its
+corridor before the general fill can claim it.
+
+### RS-422 encoder pairs
+
+`/linear_encoder/ENC_{A,B,Z}_{P,N}`, routed pair by pair at 0.20 mm so each
+P/N run stays together. Each net has five nodes — `J601` (the FPC read head),
+`J602` (the second interface), a termination resistor `R603`–`R605`, a
+`ENC_VREF` bias jumper on the N legs, and the `U601` receiver — so "the pair"
+is a five-point net, not a two-point run, and the P and N of a pair are drawn
+back to back rather than truly coupled over their whole length. That is a
+consequence of the schematic's topology, not of the layout.
+
+They were all split at their `J601` end by the sealed fan (§7 open point 7).
+`route_ripup.py --plan j601-fan` unsealed them: rip `+5V_ENC` inside the fan,
+route all eight `J601` signals first, then put the supply back. It took six of
+the eight whole in one pass — `ENC_A_P/N`, `ENC_B_P/N`, `ENC_Z_N`, `ENC_nPROG`
+— and `+5V_ENC` went back whole at 0.50 mm afterwards, which is the point: the
+supply had the whole board to detour through and the pins had one lane each.
+`ENC_Z_P` and `ENC_SDO` were left for the general fill.
+
+### Analog — the quiet corridor
+
+31 of the 34 nets in the load-cell and temperature chains route at **0.25 mm or
+wider** (`Analog` class), drawn before the general fill so the digital corridors
+have to go round them rather than through. The chain order the placement set up
+is preserved in copper: connector → series R → filter → ADC, with the reference
+leg beside it.
+
+The guard the house rules ask for is separation, and it comes from placement:
+the analog block sits bottom-left, the switchers and the DRV8323 on the
+right-hand column, and the two never share a corridor. `MCO2`
+(`ADS1235_CLKIN`) is routed as a clock, away from the AIN chains.
+
+### 50 Ω sync
+
+`J902` (SMA) → `D903` (ESD, **in the line**, not hanging off it) → `R907`
+(source termination) → `U901` → `SYNC_TRIG`, at the `RF50` class width of
+0.37 mm — the 50 Ω microstrip geometry for this stackup (setup §2:
+H = 0.2104 mm, Dk 4.4, W = 0.37 mm → 50.0 Ω).
+
+## 2. Power: via counts against the 1.0 A budget
+
+The budget is the board's own, from `docs/decisions/actuator-pcb-setup.md` §3:
+JLC plates ~18 µm, so one 0.20 mm-drill barrel is worth a 0.323 mm 1 oz trace,
+which IPC-2221 gives **1.05 A at a 10 °C rise**. So `n = ceil(I / 1.0)`, and
+never fewer than 2 on any rail that changes layer. **The old 3 A/via figure is
+wrong by about 3×** and is not used anywhere on this board.
+
+Trace widths come from the same table — 0.1524 mm carries 0.61 A, 0.30 carries
+1.00, 0.50 carries 1.45, 1.00 carries 2.39, all at a 10 °C rise on 1 oz outer
+copper.
+
+`tools/route_check.py --power` is the proof, and it does two things: it counts
+the vias each net actually has against its budgeted current, and it runs a
+**brute-force minimum-via cut** — if removing fewer vias than the budget
+requires would split the net, the net leans on too few, whatever the total
+count says.
+
+## 12. What is left, and what round 2 should look at first
+
+This is round 1: the board is routed for review, not signed off. The residue
+below is listed rather than hidden, and each line says why it is where it is.
+
+The three things round 2 should take first, in this order:
+
+1. **The two placement points in §7** — `C1025`/`C1026`, and anything else the
+   sealed-pin work turned up. Placement changes are cheap now and expensive
+   after the copper is reviewed.
+2. **The gate runs.** Five of six came out of step 5b unrouted because the
+   Kelvin taps legitimately took the channel first, and the general fill put
+   them back with vias. Whether that is acceptable is the captain's call
+   (placement open point 1 asked for via-free).
+3. **A render sweep of the analog corridor.** The numbers say the separation
+   held; the render is what actually catches a digital run that crept into it.
