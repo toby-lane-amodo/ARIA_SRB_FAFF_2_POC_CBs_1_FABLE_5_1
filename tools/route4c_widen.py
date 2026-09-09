@@ -50,6 +50,26 @@ def need_width(amps):
     return CAPACITY[-1][0]
 
 
+def target(net, amps, loads):
+    """What this particular bridge segment has to carry.
+
+    The rail's design current is what the *trunk* carries.  A branch with one
+    pad behind it carries that pad, and most of those pads are an IC supply
+    pin or a sense input drawing milliamps -- U1101 pin 5 is VDRAIN, a
+    high-impedance drain sense, and sizing its stub for the motor bus's 3 A
+    would be theatre.  So a one-pad branch is held to the net-class width,
+    which is the house floor for the class anyway (G3), and only a segment
+    with the rail's real load behind it is sized from the current.
+
+    Neither is a licence to go below the class width: that is the floor in
+    both cases.
+    """
+    cls = R.net_width(net)
+    if len(loads) <= 1:
+        return cls, "branch"
+    return max(cls, need_width(amps)), "trunk"
+
+
 def islands_without(items, drop):
     keep = [it for i, it in enumerate(items) if i not in drop]
     uf = R._touch_graph(keep)
@@ -99,17 +119,18 @@ def main():
         by_key.setdefault(
             f"{p[0]:.2f},{p[1]:.2f}-{q[0]:.2f},{q[1]:.2f}", []).append(t)
 
-    print(f"{'net':<30} {'I':>5} {'want':>5}  bottlenecks")
+    print(f"{'net':<30} {'I':>5}  bottlenecks "
+          f"(trunk = sized from the rail current, branch = class floor)")
     thin, fixed, stuck = 0, 0, []
     for net, amps in sorted(VIA_BUDGET.items(), key=lambda kv: -kv[1]):
         try:
             nc = R.netcode(board, net)
         except KeyError:
             continue
-        want = need_width(amps)
         rows = []
         for key, pads in bridges(board, net):
             loads = [p for p in pads if is_load(p)]
+            want, kind = target(net, amps, loads)
             for t in by_key.get(key, []):
                 if t.GetNetCode() != nc:
                     continue
@@ -129,16 +150,23 @@ def main():
                             obst.add_seg(s, e, cand / 2.0, t.GetLayer(), nc)
                             got = cand
                             break
-                rows.append((key, w, got, loads[:4]))
+                rows.append((key, w, got, want, kind, loads[:4]))
                 if got >= want - 1e-6:
                     fixed += 1
                 else:
-                    stuck.append((net, key, got, want, loads[:4]))
+                    stuck.append((net, key, got, want, kind, loads[:4]))
         if rows:
-            print(f"{net:<30} {amps:5.2f} {want:5.2f}")
-            for key, w, got, loads in rows:
+            cw = R.net_width(net)
+            note = ("" if cw >= need_width(amps) - 1e-6 else
+                    f"   (class {cw:.2f} mm carries "
+                    f"{[a for w, a in CAPACITY if abs(w - cw) < 1e-6][0]:.2f} A"
+                    f" at a 10 degC rise; the trunk wants "
+                    f"{need_width(amps):.2f} mm)")
+            print(f"{net:<30} {amps:5.2f}{note}")
+            for key, w, got, want, kind, loads in rows:
                 arrow = "" if got == w else f" -> {got:.3f}"
-                print(f"    {key:<32} {w:.3f}{arrow}  behind it: {loads}")
+                print(f"    {kind:<6} {key:<32} {w:.3f}{arrow} "
+                      f"of {want:.2f}  behind it: {loads}")
 
     if not a.check and fixed:
         R.refill(board)
@@ -148,8 +176,9 @@ def main():
     if stuck:
         print("STILL BELOW -- the channel has no more room, needs the "
               "engineer:")
-        for net, key, got, want, loads in stuck:
-            print(f"   {net} {key}  {got:.3f} of {want:.2f}  behind: {loads}")
+        for net, key, got, want, kind, loads in stuck:
+            print(f"   {kind:<6} {net} {key}  {got:.3f} of {want:.2f}  "
+                  f"behind: {loads}")
     return 1 if stuck else 0
 
 
