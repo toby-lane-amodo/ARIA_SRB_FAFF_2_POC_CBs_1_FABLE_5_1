@@ -558,3 +558,86 @@ brought out on the package's south side instead of the east, the DRV8323
 rotated so the gate pins face their FETs, or the phase-sense and Kelvin pairs
 moved to the north row. All three are placement changes and all three are the
 captain's call — which is why they are here rather than in a rip plan.
+
+
+---
+
+# Round 2 — six layers
+
+The captain, on routing round 1: *"The PCB looks to be pretty un-routed still.
+Can you press on and keep going? If needed, remove all power connections, and
+only route signals for now. Then, we can add two additional internal layers and
+use these for routing power."*
+
+## R2.1 Stackup
+
+`JLC06161H-7628`, **SIG / GND / PWR / PWR / GND / SIG** — full table and the
+reasoning in `actuator-pcb-setup.md` §2a. The one point worth repeating here:
+of JLC's ten 6-layer options this is the only one whose outer prepreg matches
+the 4-layer board's (7628, 0.2104 mm, Dk 4.40), so **every impedance result
+from round 1 carries over unchanged** and the hand-drawn USB pair did not have
+to be redrawn. USB stays 0.30/0.20 for 90.6 Ω; SYNC stays 0.37 mm for 50 Ω.
+
+House **G1 is preserved in substance**: every outer-layer signal still faces an
+unbroken ground plane 0.2104 mm below it, the same reference distance as
+before. What changed is that power no longer shares the signal layers.
+
+## R2.2 What moved, and what did not
+
+The split is set by what 0.5 oz internal copper carries, not by preference.
+IPC-2221 internal is `I = 0.024·ΔT^0.44·A^0.725` against 0.048 external — half
+the constant — and the inner foil is 0.0152 mm against 0.035 outside. At a
+10 °C rise:
+
+| width | 0.5 mm | 1.0 | 1.5 | 2.0 | 3.0 | 4.0 | 6.0 |
+|---|---|---|---|---|---|---|---|
+| carries | 0.40 A | 0.65 | 0.88 | 1.08 | 1.45 | 1.79 | 2.39 |
+
+A 3 A net would want ~8 mm of internal width. So:
+
+**Moved to In2/In3** — thirteen logic rails, 0.1 to 1.5 A: `+3V3`, `+3V3A`,
+`+5V`, `+5VA`, `+6V0`, `V24_LOGIC`, `+3V3_USB`, `+1V8_USB`, `+5V_ENC`, `VENC`,
+`VM_DRV`, both regulator `SENSE` nets. **1703 mm of outer copper freed — 23 %
+of every trace on the board**, `+3V3` alone 715 mm of it.
+
+**Stayed outer** — the 3 A nets (24 V entry chain, `V24_MOT`, the three motor
+phases, the three low-side source nets), because 1 oz outer gives 2.39 A at
+1.00 mm and they are already drawn and proved against the via budget; and the
+two buck **SW nodes**, which would stay outer at any current, because threading
+a discontinuous-current node through two vias into a buried layer is the
+opposite of what the house rules and both datasheets ask.
+
+## R2.3 `+3V3` is a pour, and that is not a G3 waiver
+
+G3 says power on the outer layers is deliberate traces and never pours, *so
+that every current path is explicit where signals share the copper*. In2.Cu
+shares its copper with nothing — the captain added it for power alone — and on
+a dedicated power layer a pour is the standard construction and the lowest
+impedance available. The outer layers keep G3 exactly as before: what stayed
+outside is still explicit traces at sized widths.
+
+`+3V3` needs 3.15 mm of 0.5 oz foil for its 1.5 A. It is poured on In2 and fed
+by **66 vias, one per island** — which is what a power plane wants, against the
+forty pairwise maze routes the first attempt tried and which took a minute
+each. The other twelve rails route as traces at 0.50–0.90 mm and do not need
+a pour.
+
+## R2.4 Three assumptions that were correct by coincidence
+
+Worth recording as a class, because all three behaved the same way: each was
+right on a 4-layer board for a reason that stopped holding at six, **none of
+them failed loudly**, and DRC caught all three rather than the code.
+
+| Assumption | Why it was right before | What it did on six layers |
+|---|---|---|
+| per-layer dicts keyed `{F, B}` | F and B were the only routing layers | `KeyError: 6` on the first inner route — the loud one |
+| a via is an obstacle on `{F, B}` | a through via *is* on both | inner router drove through all 535 via barrels: 61 real violations |
+| `pad_copper_layers` asks only F/B | a PTH pad *is* on both | inner router drove through `J301`, `J603`, `TP501` lands |
+
+The library now names `ROUTE_LAYERS` and `PLANES` once and builds from them,
+so the same code serves either stackup.
+
+A fourth, self-inflicted: `route23_power_vias` anchored its stub at the
+island's *centroid*, which for any island of more than one pad is empty space,
+so the stub crossed whatever lay between. It now anchors on real copper and
+proves the stub clears before committing to the slot.
