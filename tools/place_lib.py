@@ -18,9 +18,15 @@ PCB = os.path.join(PRJ, "faff2_cbs1.kicad_pcb")
 PRO = os.path.join(PRJ, "faff2_cbs1.kicad_pro")
 
 # Board outline on the A2 page (docs/decisions/actuator-pcb-setup.md S4).
-BX, BY, BW, BH = 30.0, 30.0, 210.0, 130.0
+# Round 4 grew the board: 210x130 -> 250x165 (gen_pcb_place2).  These are the
+# checker's bounds as well as the placer's, so they must follow the outline or
+# check_place reports 188 parts "off-board" that are comfortably inside it.
+BX, BY, BW, BH = 30.0, 30.0, 250.0, 165.0
 EDGE_KEEP = 0.30           # copper-to-board-edge, DRC constraint
-MOUNTS = [(36.0, 36.0), (234.0, 36.0), (234.0, 154.0), (36.0, 154.0)]
+# Derived, not hardcoded: round 4 moved the holes with the outline and a
+# literal list here kept the checker testing the old corners.
+MOUNTS = [(BX + 6.0, BY + 6.0), (BX + BW - 6.0, BY + 6.0),
+          (BX + BW - 6.0, BY + BH - 6.0), (BX + 6.0, BY + BH - 6.0)]
 MOUNT_KEEP = 2.80          # the M3 footprint's own 5.5 mm keepout, radius
 SNAP = 0.25                # house soft placement grid
 
