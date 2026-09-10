@@ -564,8 +564,14 @@ def main():
     ap = argparse.ArgumentParser()
     for f in ("gnd", "viainpad", "power", "usb", "analog", "g5", "nets"):
         ap.add_argument("--" + f, action="store_true")
+    ap.add_argument("--board",
+                    help="prove a different board file -- an autorouter's "
+                         "output has to answer the same six questions ours "
+                         "does, or a win on connection count is not a win")
     a = ap.parse_args()
-    run_all = not any(vars(a).values())
+    if a.board:
+        R.PCB = a.board
+    run_all = not any(v for k, v in vars(a).items() if k != "board")
     board = R.load()
     if run_all or a.gnd:
         check_gnd(board)
