@@ -128,11 +128,30 @@ def main():
                     help="run the wider second pass instead of the first")
     ap.add_argument("--layers", default="FB",
                     help="FB = outer only; FBI = outer plus In3.Cu")
+    ap.add_argument("--only",
+                    help="comma-separated nets to try, and only those.  A "
+                         "wide ceiling costs a minute per net that has no "
+                         "path at all, so it belongs on the nets a "
+                         "reachability check says are merely unrouted")
+    ap.add_argument("--nodes", type=int, default=MAX_NODES,
+                    help="A* node ceiling for pass 2.  The stock 600k is "
+                         "sized for a fill; /mcu/HALL2 is a 119 mm haul that "
+                         "lands at 139 mm with ten vias and needs millions")
+    ap.add_argument("--margin", type=float, default=40.0)
+    ap.add_argument("--hw", type=float, default=HW)
+    ap.add_argument("--board",
+                    help="fill a copy instead of the project's board, so an "
+                         "experiment can run beside a live stage")
     a = ap.parse_args()
     layers, bias = LAYER_SETS[a.layers]
+    if a.board:
+        R.PCB = a.board
 
+    only = set(a.only.split(",")) if a.only else None
     board = R.load()
     todo = open_nets(board)
+    if only:
+        todo = [n for n in todo if n in only]
     todo.sort(key=lambda n: span(board, n))
     print(f"{len(todo)} nets still open", flush=True)
 
@@ -187,6 +206,8 @@ def main():
         print("\nunconnected now:", R.unconnected(board), flush=True)
         return
     still = open_nets(board)
+    if only:
+        still = [n for n in still if n in only]
     still.sort(key=lambda n: span(board, n))
     still = still[a.skip:]
     print(f"pass 2 (fresh read, wider window): retrying {len(still)}",
@@ -209,9 +230,9 @@ def main():
             # costs 35 is one the search will detour a long way to avoid --
             # which on a two-signal-layer board is usually the wrong trade.
             f = R.connect_net(board, obst, maze, net, width=R.net_width(net),
-                              via_cost=15, margin=40, verbose=False,
+                              via_cost=15, margin=a.margin, verbose=False,
                               layers=layers, layer_bias=bias,
-                              max_nodes=MAX_NODES, hw=HW)
+                              max_nodes=a.nodes, hw=a.hw)
             if f:
                 left2.append(net)
         R.refill(board)

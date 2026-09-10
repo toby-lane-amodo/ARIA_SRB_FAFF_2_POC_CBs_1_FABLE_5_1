@@ -919,3 +919,45 @@ routes them to a *band* of open board 1.6–4.5 mm off their own side of the
 package, no via required, which is the right escape for a single-row package
 anyway — a via-per-pin field is a BGA pattern, and a QFP escapes on the outer
 layer and vias further out, where the lanes have somewhere to spread.
+
+## R2b.5 The corridor field: right in principle, measured, and rejected
+
+A via for every pin of a 0.5 mm-pitch package does not fit — R2b.4's
+arithmetic — so about a third of each ring has to leave on the outer layer
+instead, and those pins need a lane that was **reserved** rather than one that
+happened to survive. That is what a hand layout does, and it is why the field
+was rebuilt to draw one pin in three straight out past the deepest via row
+*before* any via existed to sit across it, with the two neighbours' slots
+nudged 0.03 mm away so the lane stayed legal.
+
+On this board it loses. Four fields, same ripped board, each filled to a
+plateau:
+
+| field | pins served of 291 | walled after | **filled to** |
+|---|---|---|---|
+| no corridors, lateral slots | 190 (all vias) | 47 | **94** |
+| straight-ladder corridors | 193 (68 + 125) | 30 | — |
+| strict 5.8 mm corridors | 167 (37 + 130) | — | — |
+| maze corridors to the band | 182 (88 + 94) | 40 | **101** |
+
+Both proxies point the other way from the verdict, which is the reason to
+record all four rather than the winner. Corridors do free the ring — walled
+pins fall from 47 to 30 — and a lane that reaches open board is worth more per
+pin than a barrel parked 1–5 mm out. But the room a corridor takes comes out
+of the via field, and the fill ends seven items worse. **Only the last column
+is a verdict.** `--corridors 3` reproduces it; the code stays, because the
+reasoning holds for a board with more room round its fine-pitch packages, and
+this one has not got it.
+
+Two intermediate cuts are worth keeping for the same reason:
+
+* **A straight corridor is the wrong shape.** Insisting the lane be a straight
+  5.8 mm stub fits 37 pins of 291 and eats the via field to do it. A ladder of
+  shorter straight lengths fits 68 — and none of those is a real corridor,
+  because the via phase drops a barrel past the end of a short lane and seals
+  it again.
+* **A smaller via is not the lever either.** Measured on the board as it
+  stands, new vias only, the existing 0.60 mm barrels kept as obstacles at
+  full size: 0.60 mm finds slots for 101 more pins, 0.50 mm for 118, 0.45 mm
+  for 129. A 28-pin gain is real and it is nowhere near enough to be worth
+  asking for a waiver of G2's single via definition.

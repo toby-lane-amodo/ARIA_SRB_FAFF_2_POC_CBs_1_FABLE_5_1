@@ -255,6 +255,12 @@ def main():
         shutil.copyfile(snap, R.PCB)
         print(f"   signal {signum} -- board restored from the snapshot",
               flush=True)
+        # `finally` never runs on SIGTERM, so this is the only place the
+        # snapshot gets deleted on that path -- one was left behind.
+        try:
+            os.remove(snap)
+        except OSError:
+            pass
         os._exit(2)
     for sig in (signal.SIGTERM, signal.SIGINT):
         signal.signal(sig, _bail)
