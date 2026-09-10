@@ -71,6 +71,65 @@ LATERAL = (0.0, 0.25, -0.25, 0.5, -0.5, 0.75, -0.75, 1.0, -1.0,
            1.25, -1.25)
 SKIP = {"GND"}
 
+# One pin in three is a CORRIDOR: it gets no via, and its lane is drawn out
+# past the deepest via row before any via is placed, so nothing can be put
+# across it.
+#
+# Without this the field is assigned greedily, pin by pin, and simply fills
+# up: 190 of 291 pins found a slot and the other 101 were left inside a ring
+# with no way through it.  A pin between two same-row barrels 1.00 mm apart
+# has a 0.40 mm channel and needs 0.4572 mm, and no amount of jogging fixes
+# 57 microns -- the board cannot host a via for every pin of a 0.5 mm-pitch
+# package, so a third of them have to leave on the outer layer instead, and
+# they need a lane that was reserved rather than one that happened to survive.
+#
+# The two neighbours either side of a corridor are nudged 0.03 mm away from
+# it, which is what makes the lane legal: a barrel one pitch away leaves
+# 0.5000 mm where a min-width trace needs 0.5286, and 0.53 mm clears it.
+BAND_IN = 1.6           # mm off the pad edge where open board starts
+BAND_OUT = 4.5          # mm -- past every fan-out row
+BAND_HALF = 3.0         # mm of lateral room the band spans
+#
+# Measured, and it loses.  Four fields were built on the same ripped board and
+# filled to a plateau; only the last column is a verdict, the others are
+# proxies that disagree with it:
+#
+#   field                          pins served   walled after   FILLED TO
+#   no corridors, lateral slots     190 (vias)        47           94
+#   straight-ladder corridors       193 (68+125)      30            -
+#   strict 5.8 mm corridors         167 (37+130)       -            -
+#   maze corridors to the band      182 (88+94)       40          101
+#
+# A corridor is worth more per pin than a via and the ring likes it better --
+# walled pins fall - but it costs more room than it saves, and the fill ends
+# seven items worse.  So corridors are OFF by default.  Set `--corridors 3` to
+# reproduce the measurement; the code stays because the reasoning is sound and
+# a board with more room round its fine-pitch packages would take it.
+CORRIDOR_EVERY = 0
+# A corridor is not a straight line, and insisting it was cost more than it
+# bought.  It has to clear the deepest via row -- ROWS[-1] is 5.25 mm and a
+# barrel needs 0.45 mm beyond that -- or the via phase drops one past the end
+# of it and seals the lane again; but a straight 5.8 mm stub fits for only 37
+# pins of 291, and the room it takes comes out of the via field.  A ladder of
+# shorter straight lengths fits 68 and none of them is a real corridor.
+#
+# So the corridor is maze-routed to the same band of open board
+# `route28_escape_ring` aims at, free to jog round whatever is in the way, and
+# a pin whose lane will not reach falls through and takes a via like the rest.
+CORRIDOR_PUSH = 0.03
+
+
+def band(q, u, half):
+    """The rectangle of open board a pin should reach, on its own side."""
+    a = (q[0] + u[0] * (half + BAND_IN), q[1] + u[1] * (half + BAND_IN))
+    b = (q[0] + u[0] * (half + BAND_OUT), q[1] + u[1] * (half + BAND_OUT))
+    v = (-u[1], u[0])
+    xs = [a[0] + v[0] * s * BAND_HALF for s in (-1, 1)] + \
+         [b[0] + v[0] * s * BAND_HALF for s in (-1, 1)]
+    ys = [a[1] + v[1] * s * BAND_HALF for s in (-1, 1)] + \
+         [b[1] + v[1] * s * BAND_HALF for s in (-1, 1)]
+    return (min(xs), min(ys), max(xs), max(ys)), b
+
 
 def pkg_pitch(f):
     cs = [R.pt(p.GetPosition()) for p in f.Pads() if R.pad_copper_layers(p)]
@@ -100,14 +159,33 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--straight", action="store_true",
                     help="the round-2 straight in-line stub (placed 124/291)")
+    ap.add_argument("--via", type=float, default=None,
+                    help="evaluate a different via PAD diameter for the new "
+                         "vias only, in mm (G2 is 0.60; needs the captain's "
+                         "ruling before it is used for real)")
+    ap.add_argument("--board", help="read this board instead of the project's")
+    ap.add_argument("--corridors", type=int, default=CORRIDOR_EVERY,
+                    help="reserve every Nth pin as an outer-layer lane "
+                         "(0 disables)")
     a = ap.parse_args()
 
+    if a.board:
+        R.PCB = a.board
     board = R.load()
     obst = R.Obstacles(board)
+    # After the model is built, so the vias already on the board keep their
+    # real 0.60 mm pads as obstacles and only the *candidate* shrinks.  That
+    # is the honest form of the question: what would a smaller via buy us on
+    # the board as it stands, not what would it buy if the whole board had
+    # been drawn with one.
+    if a.via:
+        R.VIA_D = a.via
+        print(f"evaluating a {a.via:.2f} mm via pad for new vias "
+              f"(G2 is 0.60 -- this is a measurement, not a change)")
     maze = R.Maze(obst)
     want = set(a.refs.split(",")) if a.refs else None
 
-    made, held, skipped = 0, [], 0
+    made, held, skipped, lanes = 0, [], 0, 0
     for f in board.GetFootprints():
         ref = f.GetReference()
         if want and ref not in want:
@@ -118,9 +196,40 @@ def main():
         # order pins along the ring so the row assignment alternates round it
         pads.sort(key=lambda p: (R.pt(p.GetPosition())[1],
                                  R.pt(p.GetPosition())[0]))
+        # Phase 1 -- the corridors, before any via exists to sit across one.
+        corridor = set()
         for idx, p in enumerate(pads):
             net = p.GetNetname()
             if not net or net in SKIP or net.startswith("unconnected-"):
+                continue
+            if a.corridors <= 0 or idx % a.corridors != 1:
+                continue
+            nc = p.GetNetCode()
+            q, u, half = outward(f, p)
+            w = R.W_SIGNAL
+            rect, goal = band(q, u, half)
+            res = maze.route(nc, [q], [goal], w, layers=(R.F,), margin=3.0,
+                             hw=1.8, max_nodes=200_000,
+                             start_rects={R.F: [R.pad_target_rect(p)]},
+                             goal_rects={R.F: [rect]})
+            if res is None:
+                continue
+            if a.check:
+                for lay, pts in res[0]:
+                    for x, y in zip(pts, pts[1:]):
+                        obst.add_seg(x, y, w / 2.0, lay, nc)
+            else:
+                R.emit_result(board, obst, res, w, nc)
+            corridor.add(idx)
+            lanes += 1
+
+        # Phase 2 -- a via for everyone else, on a slot that now has to
+        # respect the corridors.
+        for idx, p in enumerate(pads):
+            net = p.GetNetname()
+            if not net or net in SKIP or net.startswith("unconnected-"):
+                continue
+            if idx in corridor:
                 continue
             nc = p.GetNetCode()
             q, u, half = outward(f, p)
@@ -134,7 +243,12 @@ def main():
                      for k in range(len(ROWS) // 3 + 1)]
             order += [d for d in ROWS if d not in order]
             v = (-u[1], u[0])
-            slots = [(d, lat) for d in order for lat in LATERAL]
+            push = 0.0
+            if (idx - 1) in corridor:
+                push = CORRIDOR_PUSH
+            elif (idx + 1) in corridor:
+                push = -CORRIDOR_PUSH
+            slots = [(d, lat + push) for d in order for lat in LATERAL]
             for d, lat in slots:
                 s = (round(q[0] + u[0] * half, 3), round(q[1] + u[1] * half, 3))
                 e = (round(q[0] + u[0] * (half + d) + v[0] * lat, 3),
@@ -178,7 +292,8 @@ def main():
                 held.append(f"{ref}.{p.GetNumber()}")
         skipped += 1
 
-    print(f"{skipped} fine-pitch packages; {made} pins fanned out to a via")
+    print(f"{skipped} fine-pitch packages; {lanes} corridors reserved, "
+          f"{made} pins fanned out to a via")
     if held:
         print(f"{len(held)} pins with no legal row: {held[:12]}"
               + (" ..." if len(held) > 12 else ""))

@@ -707,7 +707,7 @@ assumed:
 |---|---|---|
 | more search effort | round 1 | found the `hw` ceiling; real, and already applied |
 | freeing power off the signal layers | round 2 step 2 | **worked** — 1703 mm freed, 78 → 61 open, five nets per chunk against one |
-| a third routing layer for signals | In3 offered to the router | **0 of 6** — the residue is not a layer count |
+| a third routing layer for signals | In3 offered to the router | **0 of 6** — the residue is not a layer count. **This row is wrong and R2b.2 supersedes it**: `connect_net` defaults to `layers=(F, B)` and the fill never passed anything else, so In3.Cu was offered to one hand-run experiment and to nothing that mattered. The copper census settles it — 3064 segments on F.Cu against 16 on In3.Cu. |
 | opening the pocket round a blocked pad | `route24_pocket`, 31 items of 9 nets ripped round `U501.12` | did not close it |
 
 What is left is one shape, and `U501.12` is its type specimen: **the free region
