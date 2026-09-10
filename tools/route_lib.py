@@ -20,6 +20,32 @@ import pcbnew
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from place_lib import PCB, PRO, BX, BY, BW, BH, mm, save, by_ref  # noqa: E402,F401
 
+
+def save(b):                                                    # noqa: F811
+    """Write the board to `route_lib.PCB` -- deliberately shadowing
+    `place_lib.save`, which cannot.
+
+    `place_lib.save` resolves `PCB` in its OWN module namespace, so every
+    `--board` option in this toolset -- which redirects `route_lib.PCB` --
+    redirected `load()` and not `save()`.  A stage pointed at a scratch copy
+    would faithfully read the copy and then write the master.  It did exactly
+    that once: round 3's Experiment B input builder stripped a scratch board
+    and saved the stripped result over the real one, which git caught and git
+    restored.  Reads were safe the whole time; only writes were not.
+
+    The `.kicad_pro` snapshot is the same one `place_lib.save` takes and for
+    the same reason: `Save()` rewrites the sibling project file wholesale.
+    """
+    pro = os.path.splitext(PCB)[0] + ".kicad_pro"
+    keep = None
+    if os.path.exists(pro):
+        with open(pro, "rb") as fh:
+            keep = fh.read()
+    b.Save(PCB)
+    if keep is not None:
+        with open(pro, "wb") as fh:
+            fh.write(keep)
+
 # --------------------------------------------------------------------------
 # Board constants.  Sources, in order of authority:
 #   docs/decisions/actuator-pcb-setup.md S3/S6 and faff2_cbs1.kicad_pro.
