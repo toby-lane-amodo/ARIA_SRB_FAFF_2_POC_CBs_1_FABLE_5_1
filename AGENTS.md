@@ -314,14 +314,28 @@ separates a search problem from a board problem: route the two islands' seed
 points directly with `maze.route` and a generous ceiling — if that succeeds
 where `connect_net` failed, the board is fine.
 
-**`tools/route_sealed.py` grades every open net's pads** — sealed (no lane out
-at all: only a rip helps), tight, or escapable — and names the copper that
-stops each one. Run it before deciding what to do about an unrouted net; the
-two answers want opposite treatment. Its own two traps are worth knowing: probe
-from the pad's extent *along the direction tested* (not `max(w,h)`, which
-overshoots into the neighbour on tall thin pads), and probe at the width the
-pin can take (the class width, capped by the pad — a 1.00 mm Motor trace cannot
-leave a 0.5 mm-pitch pin by definition).
+**Measure a pad's escape room by the area it can FLOOD into, never by a straight
+lane.** `route_sealed.py`'s eight-direction probe is a first pass and it lies in
+one direction: a 0.34 mm lane that dead-ends after a millimetre grades *tight*
+and is as impassable as no lane at all. `C1112.1` graded tight with 388 grid
+cells — one square millimetre — of reachable space, and the A\* returns from
+that in ten milliseconds having exhausted its whole frontier. `free_area()` in
+`tools/route27_batch_pocket.py` is the honest measure; seed it from the island's
+own copper *on the layers that copper is on*, or it takes a free ride onto an
+empty inner layer and reports twenty thousand cells for a pad that cannot fit a
+via. (`route_sealed`'s own two traps are still worth knowing: probe from the
+pad's extent *along the direction tested*, not `max(w,h)`; and probe at the
+width the pin can take — class width capped by the pad and by the pitch.)
+
+**A fan-out field is limited by its via SLOTS, not by its stubs.** At 0.5 mm
+pitch a 0.6 mm via and the 0.1524 mm floor leave no room to pass a barrel on
+the straight line — 0.5286 mm needed against 0.5 mm — so a via-per-pin field on
+the pin's own lane places well under half the ring and the pins it *cannot*
+place are exactly the ones the fill then cannot leave. Letting the **slot** move
+laterally took `route25_fanout` from 124 of 291 pins to 190; maze-routing the
+**stub** without moving the slot made it *worse* (108), because a greedy jog
+takes the neighbour's lane. Straight stub first, jog as fallback. Full
+arithmetic: route1 §R2b.4.
 
 **A long routing stage must bank as it goes.** `refill()` can segfault (exit
 139), and a stage that saves once at the end loses everything — that cost ten

@@ -57,6 +57,18 @@ MIN_PADS = 8
 # is preserved -- a pin starts at its assigned row and walks outward -- but a
 # pin that cannot use any row is reported rather than forced.
 ROWS = (1.05, 1.65, 2.25, 2.85, 3.45, 4.05, 4.65, 5.25)
+# The slot does not have to be on the pin's own lane, and insisting that it is
+# was the real reason 183 of 291 pins found "no legal row": the check that
+# rejects them is `via_mask`, before the stub is even considered, and it fails
+# identically whether the stub is drawn straight or maze-routed.  The field is
+# not short of room -- a 12 mm package edge has some seven rows of legal
+# 0.78 mm-spaced slots in the 1.05-5.25 mm band -- it is that the pin's own
+# lane is often occupied by a GND stitch via, which the house rule puts beside
+# every ground pad and which therefore lives in the ring by construction.  So
+# each depth is tried at a lateral offset too, nearest first, and the stub
+# reaches the offset slot by maze route.
+LATERAL = (0.0, 0.25, -0.25, 0.5, -0.5, 0.75, -0.75, 1.0, -1.0,
+           1.25, -1.25)
 SKIP = {"GND"}
 
 
@@ -121,28 +133,35 @@ def main():
             order = [ROWS[(start + 3 * k) % len(ROWS)]
                      for k in range(len(ROWS) // 3 + 1)]
             order += [d for d in ROWS if d not in order]
-            for d in order:
+            v = (-u[1], u[0])
+            slots = [(d, lat) for d in order for lat in LATERAL]
+            for d, lat in slots:
                 s = (round(q[0] + u[0] * half, 3), round(q[1] + u[1] * half, 3))
-                e = (round(q[0] + u[0] * (half + d), 3),
-                     round(q[1] + u[1] * (half + d), 3))
+                e = (round(q[0] + u[0] * (half + d) + v[0] * lat, 3),
+                     round(q[1] + u[1] * (half + d) + v[1] * lat, 3))
                 win = obst.ij(e[0] - 1.5, e[1] - 1.5) + \
                     obst.ij(e[0] + 1.5, e[1] + 1.5)
                 m = obst.via_mask(win, nc)
                 ii, jj = obst.ij(*e)
                 if m[ii - win[0], jj - win[1]]:
                     continue
-                if a.straight:
-                    if not R.seg_ok(obst, s, e, w, nc, R.F):
-                        continue
+                # Straight first, always.  A jogged stub is wider than its
+                # own lane for part of its length and a greedy one steals the
+                # neighbour's -- routing every pin by maze placed *fewer*
+                # pins than the straight version did (108 against 124).  The
+                # jog is the fallback, not the rule.
+                res = None
+                if R.seg_ok(obst, s, e, w, nc, R.F):
                     res = ([(R.F, [s, e])], [])
-                else:
+                elif not a.straight:
                     goal = (e[0] - 0.03, e[1] - 0.03, e[0] + 0.03, e[1] + 0.03)
                     res = maze.route(nc, [q], [e], w, layers=(R.F,),
-                                     margin=1.2, hw=1.6, max_nodes=80_000,
+                                     margin=1.2, hw=1.6, bend_cost=3.0,
+                                     max_nodes=80_000,
                                      start_rects={R.F: [R.pad_target_rect(p)]},
                                      goal_rects={R.F: [goal]})
-                    if res is None:
-                        continue
+                if res is None:
+                    continue
                 if not a.check:
                     R.emit_result(board, obst, res, w, nc)
                     R.add_via(board, e, nc)

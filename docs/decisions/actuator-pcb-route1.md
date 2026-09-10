@@ -874,3 +874,48 @@ only 6 pads as sealed on a straight-lane test, and that test is the wrong
 question: a lane 0.34 mm long that dead-ends after a millimetre grades as
 *tight* and is as impassable as a lane of zero. The reachable-area flood is the
 honest measure, and `tools/route27_batch_pocket.py` now uses it.
+
+## R2b.4 The fan-out field was the wall, and the slot — not the stub — was why
+
+`route25_fanout` placed 124 of 291 pins and reported the other 167 as "no legal
+row". Those 167 are, pin for pin, the pins the fill then could not leave. So
+the escape-first stage was making the wall it was written to prevent.
+
+**The arithmetic says a straight via-per-pin field cannot work at 0.5 mm
+pitch.** A via barrel is 0.6 mm across and the clearance floor is 0.1524 mm
+(G12), so a minimum-width stub passing *beside* a barrel needs
+0.3 + 0.1524 + 0.0762 = **0.5286 mm** of lateral room against a 0.5 mm pitch —
+29 µm short, for every pin whose assigned row is deeper than its neighbour's.
+Two same-row barrels one pin apart are 1.0 mm apart and leave a 0.40 mm
+channel where 0.4572 mm is needed — **57 µm short**. `U1001.54` is the type
+specimen: pins 53 and 55 both took row 1.65 mm and pin 54 is walled out by
+those 57 µm, with 99 grid cells of reachable free space to show for it.
+
+**But the stub was not what was failing.** Giving every stub a maze route so it
+could jog placed *fewer* pins, not more — 108 against 124 — because a greedy
+jog is wider than its own lane for part of its length and takes the
+neighbour's. The check that rejects a pin fires earlier than that: it is
+`via_mask` on the **slot**, and it fails identically however the stub is drawn.
+
+The field is not short of room. A 12 mm package edge has roughly seven rows of
+legal 0.78 mm-spaced slots in the 1.05–5.25 mm band, for 25 pins. What it is
+short of is room *on the pin's own lane* — because the house rule puts a GND
+stitch via beside every ground pad, so those vias live inside the ring by
+construction and sit on their neighbours' lanes.
+
+So the slot is allowed to move sideways. Each depth is now tried at a lateral
+offset as well, nearest first, and the stub reaches an offset slot by maze
+route with straight tried first and the jog kept as the fallback:
+
+| fan-out | pins placed of 291 |
+|---|---|
+| straight stub, lane slot only (round 2) | 124 |
+| maze stub, lane slot only | 108 |
+| straight-first stub, slot offset to ±0.75 mm | 188 |
+| straight-first stub, slot offset to ±1.25 mm | **190** |
+
+`tools/route28_escape_ring.py` takes the pins that still have no legal slot: it
+routes them to a *band* of open board 1.6–4.5 mm off their own side of the
+package, no via required, which is the right escape for a single-row package
+anyway — a via-per-pin field is a BGA pattern, and a QFP escapes on the outer
+layer and vias further out, where the lanes have somewhere to spread.
