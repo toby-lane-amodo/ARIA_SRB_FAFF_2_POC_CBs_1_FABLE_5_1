@@ -1048,3 +1048,105 @@ resolved and it is not asserted either way.** What is known: unconnected did
 not move across any of the three trims, so nothing removed was carrying
 current, and the class was already present at 180 in round 2 (R2.5) where it
 was attributed to fan-out stubs — that attribution is now also in doubt.
+
+# Round 3 — an external autorouter, and what it settles
+
+## R3.1 Toolchain
+
+**Freerouting is not viable on this machine**: no Java runtime, no jar, and no
+sudo to install one. Per the round-3 brief it was not pursued further.
+
+**KiCadRoutingTools 0.19.3** (`~/KiCadRoutingTools`, Rust core built) runs
+headless on this board and handles the six-layer stack correctly — it appends
+`In1.Cu`, `In2.Cu` and `In4.Cu` as **forbidden obstacles**, so plane integrity
+and the `+3V3` pour are structurally safe rather than a matter of trust. Every
+run was sandboxed: the tool reads a copy and writes a copy, because it is never
+read-only (even `--skip-routing` applied 6 segment layer changes, added a via
+and stripped two).
+
+**Two rule breaches it commits by default**, both pinned off before any run
+counted:
+
+* it **escalates itself to a surcharged "advanced" fab tier** and places
+  0.3/0.15 vias against G2's single 0.6/0.20 definition. Its own log gives the
+  reason — *"nominal 0.6 does not fit"* — which is R2b.4's arithmetic reached
+  independently by another tool. `--fab-overrides` pins our floor and disables
+  escalation.
+* its last-chance **rescue pass routes at finer grid, track and clearance**
+  than the G12 floors. `KICAD_NET_RESCUE=0` disables it. It is also ruinously
+  slow here (~268 s per net), and left running it consumed a 90-minute budget
+  and wrote nothing — the first Experiment A attempt died exactly that way.
+
+Runtime: 138 s of obstacle-map build per run, then ~11–12 min of routing.
+**The 95-percent-then-stall pattern did not reproduce** — A stalled at 25% of
+its scope, B reached 87.5%.
+
+## R3.2 Results
+
+| | ours | A: residue-only | B: full re-route | B repaired |
+|---|---|---|---|---|
+| scope | — | the 60 open nets | all 201 signal nets | — |
+| routed | — | 15 | 176 | — |
+| **unconnected** | **85** | 69 | **33** | 84 |
+| clearance + hole | 0 | 166 | 8 *(713 before refill)* | 14 |
+| shorts + crossings | 0 | 0 | 0 | 8 |
+| vias in pads (G9) | 0 | 0 | **53** | 0 |
+| tracks on planes | 0 | 2 | 0 | 0 |
+| vias off G2 | 0 | 0 | 0 | 0 |
+| six proofs | pass | pass | `--viainpad` FAILS | pass |
+
+**A's 15 wins were 5 wins.** 154 of its 166 clearance violations (93%) involve
+a net it had just routed; ten of its fifteen closed only by driving through
+copper. The five that were clean are genuinely interesting — `Net-(U302-PG)`,
+which R2b.6 classed as bounded 75–86% by immovable copper, and
+`Net-(U902A-A)`/`(U902A-B)`, whose pads graded as having *no legal cell to
+leave at all*. The tool found legal paths our router did not.
+`tools/route33_graft.py` took those five: **91 → 85, zero new violations.**
+
+**B's 713 clearance violations were mostly stale zone fill** — a known gap in
+this tool. Refilling took them to 8. That correction is what made B look like a
+transformation: 33 unconnected against our 85.
+
+**And B's advantage was entirely G9.** It put 53 vias in pads.
+`tools/route34_unpad.py` slides such a via along its own track until the barrel
+clears every foreign land; 12 could be freed and 41 had to be removed, which
+re-opens their nets. Result: **0 vias in pads, unconnected 33 → 84.** One net
+better than ours, with 17 real DRC violations ours does not have.
+
+## R3.3 The hybrid, and why it failed
+
+Grafting B's 133 doubly-clean nets onto our board gave **85 → 45** and a board
+with **199 shorting items, 180 crossing tracks and 303 clearance violations**.
+Reverted.
+
+The reason is worth keeping: B's copper is internally consistent *within B's
+global solution*, and our board keeps our topology for every net not grafted.
+Splicing two different solutions to the same problem collides them. A's graft
+worked precisely because A was routed **on top of our copper**
+(`--keep-input-copper`), so it was consistent with ours by construction. **A
+subset of a global re-route is only graftable onto the board it was routed
+against.**
+
+## R3.4 Verdict
+
+**No. An external autorouter cannot reach zero, and does not materially beat
+our board, on this placement — once the house rules are enforced.** Given a
+clean board, no obligation to preserve our topology, and a different algorithm,
+it lands at 84 against our 85.
+
+That **corroborates the capacity floor** of R2b.6 rather than refuting it, and
+more convincingly than our own rip experiments could: a second tool reached the
+same wall from the other side, and said so in its own words — *"nominal 0.6
+does not fit."* The four floor-movers in R2b.6 are unchanged and remain the
+captain's to rule on.
+
+**Board kept: ours**, at 85 unconnected — one net worse than the repaired
+autorouter board and 17 real DRC violations better, which is the trade the
+round-3 brief asked for explicitly.
+
+Two limitations recorded rather than buried: `route34_unpad` re-checks the
+via's new position against pads and the via mask but **not** the path of the
+track it drags with it, which is where B-repaired's 3 shorts and 5 crossings
+came from; and the tool reports `min_clearance_used: 0.1524` on a board where
+KiCad finds hundreds of clearance violations, so its internal clearance model
+is not KiCad's and its own numbers cannot be taken as a DRC result.
