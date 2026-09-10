@@ -46,6 +46,77 @@ import route_lib as R  # noqa: E402
 POURED = {"GND", "+3V3"}
 
 
+def _online(a, c, q, tol=2e-3):
+    cross = (c[0] - a[0]) * (q[1] - a[1]) - (c[1] - a[1]) * (q[0] - a[0])
+    L = max(R.dist(a, c), 1e-9)
+    if abs(cross) / L > tol:
+        return False
+    t = ((q[0] - a[0]) * (c[0] - a[0]) + (q[1] - a[1]) * (c[1] - a[1])) / (L * L)
+    return -1e-6 <= t <= 1 + 1e-6
+
+
+def covered(board):
+    """[(kind, key, layer)] of every track lying wholly inside another.
+
+    A stage that redraws an area must rip what it is about to write, or the
+    second run lays a second trace over the first -- AGENTS.md records the
+    same trap for vias.  On this board it left 92 of them, three per motor
+    half-bridge, and KiCad reports each as `track_dangling`: V24_MOT had
+    collinear tracks of 1.45, 3.45 and 4.65 mm all sharing one endpoint.
+
+    Removing a track whose whole extent lies inside another of the same net
+    and layer cannot change connectivity -- the copper stays exactly where it
+    was.  Ties are broken on index so that of two identical tracks exactly one
+    goes.
+    """
+    segs = {}
+    for t in board.GetTracks():
+        if isinstance(t, pcbnew.PCB_VIA):
+            continue
+        a, c = R.pt(t.GetStart()), R.pt(t.GetEnd())
+        segs.setdefault((t.GetNetname(), t.GetLayer()), []).append((a, c))
+    dead = []
+    for (net, lay), lst in segs.items():
+        for i, (a, c) in enumerate(lst):
+            for j, (p, q) in enumerate(lst):
+                if i == j:
+                    continue
+                if R.dist(a, c) > R.dist(p, q) + 1e-6:
+                    continue
+                if R.dist(a, c) == R.dist(p, q) and j < i:
+                    continue
+                if _online(p, q, a) and _online(p, q, c):
+                    dead.append(("track", f"{a[0]:.2f},{a[1]:.2f}-"
+                                          f"{c[0]:.2f},{c[1]:.2f}", lay, net))
+                    break
+    return dead
+
+
+def orphans(board, net):
+    """[(kind, key, layer)] of every item in an island that reaches no pad.
+
+    Leaf-pruning cannot see these.  An island left behind by a rip-and-reroute
+    is internally connected -- a chain of track between two vias, or a loop --
+    so every item in it touches two others and none of them is a leaf, while
+    the island as a whole reaches no pad at all.  KiCad calls all of it
+    dangling and it is right to: 48 of `/motor_drive/V24_MOT`'s copper was
+    exactly this.
+    """
+    items = R.net_items(board, net)
+    uf = R._touch_graph(items)
+    groups = {}
+    for i, it in enumerate(items):
+        groups.setdefault(uf.find(i), []).append(i)
+    dead = []
+    for ids in groups.values():
+        if any(items[i][0] == "pad" for i in ids):
+            continue
+        for i in ids:
+            kind, key, lay = items[i][0], items[i][1], items[i][2]
+            dead.append((kind, key, -1 if kind == "via" else min(lay)))
+    return dead
+
+
 def leaves(board, net):
     """[(kind, key, layer)] of every item of `net` that hangs by one end.
 
@@ -123,13 +194,25 @@ def main():
             if len(R.pad_nodes(board, n)) < 2:
                 continue
             if not R.net_is_whole(board, n):
-                continue        # its stub is the next pass's escape
-            got = leaves(board, n)
+                # Its stub is the next pass's escape and must stay -- but a
+                # padless island is dead on an open net too, and is what makes
+                # an unfinished board's DRC unreadable.
+                got = orphans(board, n)
+                if got:
+                    per_net[n] = len(got)
+                    kill += [(k, n, key, lay) for k, key, lay in got]
+                continue
+            got = orphans(board, n) + leaves(board, n)
             if got:
                 per_net[n] = len(got)
                 kill += [(k, n, key, lay) for k, key, lay in got]
 
-    print(f"{len(kill)} dangling items on {len(per_net)} whole nets")
+    cov = covered(board)
+    for kind, key, lay, net in cov:
+        per_net[net] = per_net.get(net, 0) + 1
+        kill.append((kind, net, key, lay))
+    print(f"{len(kill)} dead items on {len(per_net)} nets "
+          f"({len(cov)} stacked, plus padless islands and leaves)")
     for n, c in sorted(per_net.items(), key=lambda kv: -kv[1])[:15]:
         print(f"   {c:3d}  {n}")
     if a.check or not kill:

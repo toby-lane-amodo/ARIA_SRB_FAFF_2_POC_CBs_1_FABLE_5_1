@@ -961,3 +961,90 @@ Two intermediate cuts are worth keeping for the same reason:
   full size: 0.60 mm finds slots for 101 more pins, 0.50 mm for 118, 0.45 mm
   for 129. A 28-pin gain is real and it is nowhere near enough to be worth
   asking for a waiver of G2's single via definition.
+
+## R2b.6 Where round 2b ends, and the measured floor
+
+```
+stackup            JLC06161H-7628, 6 layers, SIG/GND/PWR/PWR/GND/SIG
+unconnected        91      (388 after the rip; 120 at the last check-in; 111 at
+                            the end of round 1 on four layers)
+open signal nets   60
+schematic parity   0
+DRC severity-all   310 violations
+  residuals         19     the four known library classes, board setup S8
+  copper_sliver      1     F.Cu, severity warning, no position reported
+  track_dangling   147     see below
+  via_dangling     143     see below
+proofs             --gnd --viainpad --power --usb --g5 --analog all PASS;
+                   --nets fails on the 65 still-split nets, and only that
+```
+
+**The escape-first re-route did not cost any structural property.** Ground-via
+completeness, the G5 return-via pairing, no-via-in-pad, the USB pair geometry
+and the analog corridor all still pass, on a board whose signal copper was
+ripped and redrawn twice. `--power` passes with 24 notes, all of them the
+one-via cuts allowed provisionally by R2.4b.
+
+### The floor, and the evidence for it
+
+**Zero unconnected is not reachable on this placement, stackup and via
+definition.** The measured floor is about 85–91. Of 60 open nets:
+
+| population | count | what it is |
+|---|---|---|
+| reachable but unrouted | 5 → 3 | a search problem; the wide ceiling closed 2 |
+| walled by rippable copper | 42 | a routing-order problem — but every rip is break-even |
+| bounded ≥55% by pads, GND vias and kept rails | 9 | not a routing problem |
+| no legal cell to leave the pad at all | 5 | not a routing problem |
+
+The middle row is the finding. `route31_unwall` floods out of a blocked island,
+names the nets the frontier stops against, rips them **whole**, routes the
+blocked net, and puts them back — the round-1 doctrine with the sealer
+identified automatically. Aimed by boundary composition it **works**: it closes
+3 of every 4 blocked nets it attempts. It has never once been accepted, because
+putting the sealers back costs as much as the blocked nets gain:
+
+| batch | targeting | closed | sealers back | result |
+|---|---|---|---|---|
+| walls 2, limit 6 | frontier contact | 0/6 | 5/8 | 93 → 96 |
+| walls 10, limit 2 | shortest span | 0/2 | 10/11 | 93 → 94 |
+| walls 8, limit 4 | graded by rippable boundary | 3/4 | 1/5 | 93 → 93 |
+| walls 6, limit 4 | graded **+ global refill** | 3/4 | 1/5 (+5) | not better |
+
+The last row is the one that settles it. Refilling *every* open net rather than
+only the ripped sealers is the widest restore available, and it came out the
+same. **Opening a pocket for N nets costs about N elsewhere, which is what a
+region at capacity looks like.** Four batch shapes, zero accepted.
+
+`Net-(U1101-CPH)` is the single clearest case and needs no router at all: 68% of
+its pocket boundary is `C1112`'s **own other pad**. No routing order closes
+that.
+
+### What would move the floor — all the captain's to rule
+
+1. **Placement round 2 at the fine-pitch packages.** Round 1's findings 1–3
+   remain unruled and bear directly on this; `C1112` needs rotating or moving
+   whatever else is decided.
+2. **Two more routing layers.**
+3. **A smaller via in the fan-out field only** — measured: 0.45 mm finds slots
+   for 28 more pins than 0.60 mm. Real, not sufficient alone, and a G2 waiver.
+4. **The R‑C3‑1 EP tie for QFN ground pins** — frees 6 ring slots on `U1101`
+   and 1 on `U1002`. Small, and his ruling rather than mine.
+
+### The dangling classes, honestly
+
+290 `track_dangling` / `via_dangling`, of which 245 are on nets that are
+**whole**. Three explanations were tested and all three are wrong: they are not
+padless islands (`route30_trim --check` finds none), not stacked copper (92
+stacked tracks were removed and the count went *up* by one), and not the
+mid-span junction rule (of `V24_MOT`'s 16 genuinely free ends, none lands
+mid-span of another segment). Taking one flagged track apart, it is connected
+at **both** ends — end A on `Q1101`'s pad on its own layer, end B to another
+track end on the same layer.
+
+So either KiCad is flagging something this model cannot see, or the mapping
+from a DRC item back to a track is not what it appears to be. **It is not
+resolved and it is not asserted either way.** What is known: unconnected did
+not move across any of the three trims, so nothing removed was carrying
+current, and the class was already present at 180 in round 2 (R2.5) where it
+was attributed to fan-out stubs — that attribution is now also in doubt.
