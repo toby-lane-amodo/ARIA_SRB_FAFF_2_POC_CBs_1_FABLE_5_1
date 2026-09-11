@@ -1150,3 +1150,88 @@ track it drags with it, which is where B-repaired's 3 shorts and 5 crossings
 came from; and the tool reports `min_clearance_used: 0.1524` on a board where
 KiCad finds hundreds of clearance violations, so its internal clearance model
 is not KiCad's and its own numbers cannot be taken as a DRC result.
+
+# Round 4 — full placement authority, and what it could not buy
+
+The captain granted authority to move any component to reach zero. Every lever
+below was **measured against a full re-route**, not argued, and the board ends
+where it started: **85 unconnected**, all six proofs passing, zero clearance
+violations, `check_place` 0/0/0.
+
+## R4.1 The two placement strategies, and why both lost
+
+| placement | fill plateau |
+|---|---|
+| original (round 2b, fresh re-route) | **94** |
+| grow to 250×165 and spread every block | 128 |
+| clear the four fine-pitch rings in place | 125 |
+
+* **The spread traded haul length for ring room.** Open nets with a span over
+  150 mm went 7 → 16, over 100 mm 19 → 25. Wider rings do not pay for longer
+  hauls. It also dragged all 14 edge connectors inboard (the SMA by 18 mm) and
+  stretched the +3V3A decouplers from 18/21 mm to 30/32 — both caught by
+  `place_report`/`check_place` and fixed, but both were mine.
+* **The band relief traded channel space for ring room.** Band occupancy fell
+  properly — `U1001` 27 → 20 parts within 7 mm, `U501` 25 → 12, `U1002` 19 →
+  13, `U1101` 15 → 11 — and the 67 evicted parts land in the corridors between
+  blocks, which is where the hauls run.
+
+Both chased **ring crowding, which is a symptom**. The analysis that should
+have come first is block-pair traffic against distance:
+
+| nets | distance | pair |
+|---|---|---|
+| **25** | **97.7 mm** | mcu ↔ motor |
+| 9 | 97.7 mm | loadcell ↔ mcu |
+| 9 | 34.1 mm | ui_io ↔ mcu |
+
+The MCU is the hub — 55 inter-block nets — and sits 60 mm from its
+traffic-weighted centroid. That is the cost the fill has been paying since
+round 1.
+
+## R4.2 Why the haul lever is not available either
+
+Moving the traffic apart is the right idea and the **edge plan blocks every
+form of it**. Total weighted haul is 7111 net-mm; the beneficial block swaps
+are `nvm↔motor` and `ui_io↔motor` (−17%) and `lin_enc↔mcu` (−14%), and every
+one of them carries a block whose connectors are pinned to an edge — the motor
+block's 3 A phase connectors off the actuator edge, or `J601`–`J603` off it.
+The edge plan is a standing ruling and round 4's brief reaffirmed it.
+
+Moving the MCU **core** alone (27 parts, no connectors, so the plan is intact)
+is the version that is allowed, and it is too small to matter: +20/+16 mm is
+all the slack there is, and it buys 7111 → 6831 net-mm, **4%**, with
+mcu↔motor only 97.7 → 88.8 mm. The 33% needs the whole block, connectors
+included.
+
+## R4.3 Three rip strategies, none ever accepted
+
+| tool | scope | location | result |
+|---|---|---|---|
+| `route27_batch_pocket` | disc of fixed radius | guessed | never accepted |
+| `route31_unwall` | whole sealing nets | flood-named | never accepted |
+| `route31_unwall` | **per-sealer local window** | flood-named | never accepted |
+
+The last one is genuinely surgical — 81 mm² across six windows against 400 mm²
+for a union window — and gives *exactly* the same result: 2 of 5 blocked nets
+closed, **1 of 6 sealers back**, 85 → 88, restored. Removing twenty items from
+a region and getting one back is what no slack looks like, and scope was never
+the problem.
+
+## R4.4 What this round establishes
+
+**Zero is not reachable by placement on this design, and the binding
+constraint is not placement.** It is R2b.4's geometry: at 0.5 mm pitch a
+0.6 mm via cannot be placed for every pin, so a third of each fine-pitch ring
+must escape radially into channels that are already full — and the channels
+cannot be widened without either lengthening the hauls (measured: worse) or
+moving connectors off their edges (forbidden).
+
+The two levers that address the constraint directly were **explicitly not
+authorised for this round**, and both are measured:
+
+* **a 0.45 mm fan-out via** — +28 pins find slots (R2b.5). A G2 waiver.
+* **two more routing layers** — untested, and the only lever that adds channel
+  capacity without moving anything.
+
+`C1025`/`C1026` remains a netlist question and is untouched, as instructed.

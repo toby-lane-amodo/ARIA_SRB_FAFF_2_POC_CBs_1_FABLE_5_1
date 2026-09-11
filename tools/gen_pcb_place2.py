@@ -423,9 +423,51 @@ def restore_edges(board, before):
     return rows
 
 
+def mcu_core(board, radius=6.0):
+    """U1001 and the parts pinned to it -- its own decouplers and satellites.
+
+    Connectors are excluded deliberately: the edge plan is a standing ruling,
+    and every block SWAP that would cut haul cost (nvm<->motor and
+    ui_io<->motor at 17%, lin_enc<->mcu at 14%) moves a block whose connectors
+    are pinned to an edge.  Moving the core alone is the version of that lever
+    which does not break the plan.
+    """
+    u = board.FindFootprintByReference("U1001")
+    UB = _box(u)
+    unets = {p.GetNetname() for p in u.Pads() if p.GetNetname()}
+    core = [u]
+    for f in board.GetFootprints():
+        r = f.GetReference()
+        if r == "U1001" or r.startswith(("H", "J")):
+            continue
+        nets = {p.GetNetname() for p in f.Pads() if p.GetNetname()}
+        if _gap(UB, _box(f)) <= radius and (nets & unets):
+            core.append(f)
+    return core
+
+
+def move_mcu(board, dx, dy):
+    """Slide the MCU core along the vector toward the motor block.
+
+    25 nets cross 97.7 mm between the MCU and the motor drive -- by far the
+    dominant traffic on the board, and the cost the fill has been paying all
+    along.  Ring crowding, which round 4's first two attempts chased, is a
+    symptom of that.
+    """
+    core = mcu_core(board)
+    dx = round(dx / STEP) * STEP
+    dy = round(dy / STEP) * STEP
+    for f in core:
+        q = R.pt(f.GetPosition())
+        f.SetPosition(pcbnew.VECTOR2I(R.mm(q[0] + dx), R.mm(q[1] + dy)))
+    return [f.GetReference() for f in core], dx, dy
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--yes", action="store_true")
+    ap.add_argument("--mcu", metavar="DX,DY",
+                    help="slide the MCU core toward the motor block")
     ap.add_argument("--edges", metavar="BEFORE_BOARD",
                     help="restore edge connectors to their original edge "
                          "offsets, read from the pre-round-4 board")
@@ -445,6 +487,17 @@ def main():
     if not a.yes:
         print("dry run -- pass --yes")
         return 0
+    if a.mcu:
+        dx, dy = (float(v) for v in a.mcu.split(","))
+        refs, dx, dy = move_mcu(board, dx, dy)
+        print(f"\n  MCU core: {len(refs)} parts by ({dx:+.2f},{dy:+.2f})")
+        print("   ", ", ".join(sorted(refs)))
+        R.refill(board)
+        R.save(board)
+        board = R.load()
+        print(f"   unconnected {R.unconnected(board)}")
+        return 0
+
     if a.edges:
         rows = restore_edges(board, a.edges)
         print(f"\n  {len(rows)} edge connectors returned to their edges:")
