@@ -63,7 +63,7 @@ def wall_nets(obst, maze, board, net, layers, width=R.W_SIGNAL,
     isl, pad_root = R.island_geoms(board, net)
     roots = [r for r in isl if r in set(pad_root.values())]
     if len(roots) < 2:
-        return [], False
+        return [], False, None
     a, b = roots[0], roots[1]
     pts = isl[a]["pts"] + isl[b]["pts"]
     win = maze.window(pts, WINDOW)
@@ -109,7 +109,7 @@ def wall_nets(obst, maze, board, net, layers, width=R.W_SIGNAL,
                     seen.add((i, j, l2))
                     q.append((i, j, l2))
     if reached:
-        return [], True
+        return [], True, None
 
     # Which net owns each frontier cell?
     code = {}
@@ -128,6 +128,20 @@ def wall_nets(obst, maze, board, net, layers, width=R.W_SIGNAL,
             if box[0] - r <= x <= box[2] + r and box[1] - r <= y <= box[3] + r:
                 key = n if kind != "pad" else -n
                 hits[key] = hits.get(key, 0) + 1
+    # The flood's own extent is where the wall is, so the rip can be a window
+    # round THAT rather than the whole net.  Ripping sealers whole is why this
+    # stage was never once accepted: it closed 3 or 4 of every 4 blocked nets
+    # and could not put the sealers back, because a net ripped end to end has
+    # to find its way home through the same congestion.  A window leaves the
+    # rest of each sealer's route standing.
+    cells = [(i + i0, j + j0) for i, j, _l in
+             [(c[0], c[1], c[2]) for c in seen]]
+    if cells:
+        xs = [obst.xy(i, j)[0] for i, j in cells]
+        ys = [obst.xy(i, j)[1] for i, j in cells]
+        window = (min(xs) - 1.5, min(ys) - 1.5, max(xs) + 1.5, max(ys) + 1.5)
+    else:
+        window = None
     out = [(c, (code.get(n, "") if n > 0
                 else code.get(-n, "") + " [pad]")) for n, c in hits.items()]
     out.sort(reverse=True)
@@ -136,28 +150,41 @@ def wall_nets(obst, maze, board, net, layers, width=R.W_SIGNAL,
         # signal nets that touch the frontier most closed 0 of 6 blocked nets,
         # which only makes sense if most of the boundary is copper no rip may
         # touch -- so the honest report has to show all of it.
-        return out, False
+        return out, False, window
     out = [(c, nm) for c, nm in out if nm and nm not in KEEP]
-    return [nm for _c, nm in out], False
+    return [nm for _c, nm in out], False, window
 
 
 CHILD = '''
 import json, sys
 sys.path.insert(0, {here!r})
 import pcbnew, route_lib as R
-nets = set(json.loads({nets!r}))
+plan = json.loads({plan!r})
 b = pcbnew.LoadBoard(R.PCB)
-doomed = [t for t in b.GetTracks() if t.GetNetname() in nets]
+doomed, hit = [], {{}}
+for net, win in plan.items():
+    x0, y0, x1, y1 = win
+    def inside(p):
+        return x0 <= p[0] <= x1 and y0 <= p[1] <= y1
+    for t in b.GetTracks():
+        if t.GetNetname() != net:
+            continue
+        if isinstance(t, pcbnew.PCB_VIA):
+            ok = inside(R.pt(t.GetPosition()))
+        else:
+            ok = inside(R.pt(t.GetStart())) and inside(R.pt(t.GetEnd()))
+        if ok:
+            doomed.append(t); hit[net] = hit.get(net, 0) + 1
 for t in doomed:
     b.Remove(t)
-print(json.dumps({{"removed": len(doomed)}}))
+print(json.dumps({{"removed": len(doomed), "nets": hit}}))
 R.refill(b)
 R.save(b)
 '''
 
 
-def rip(nets):
-    src = CHILD.format(here=HERE, nets=json.dumps(sorted(nets)))
+def rip(plan):
+    src = CHILD.format(here=HERE, plan=json.dumps(plan))
     out = subprocess.run([sys.executable, "-c", src], capture_output=True,
                          text=True)
     if out.returncode != 0:
@@ -165,8 +192,8 @@ def rip(nets):
         raise SystemExit("rip failed")
     for line in out.stdout.splitlines():
         if line.strip().startswith("{"):
-            return json.loads(line.strip())["removed"]
-    return 0
+            return json.loads(line.strip())
+    return {"removed": 0, "nets": {}}
 
 
 def fill(board, nets, layers, bias, **kw):
@@ -196,7 +223,8 @@ def run(a, layers, bias, before):
 
     if a.why:
         for net in todo[:a.limit]:
-            walls, ok = wall_nets(obst, maze, board, net, layers, full=True)
+            walls, ok, _win = wall_nets(obst, maze, board, net,
+                                        layers, full=True)
             if ok:
                 print(f"{net}: reachable", flush=True)
                 continue
@@ -222,7 +250,8 @@ def run(a, layers, bias, before):
     plan, reachable, hopeless = {}, 0, []
     graded = []
     for net in todo:
-        walls, ok = wall_nets(obst, maze, board, net, layers, full=True)
+        walls, ok, win = wall_nets(obst, maze, board, net, layers,
+                                   full=True)
         if ok:
             reachable += 1
             continue
@@ -242,10 +271,13 @@ def run(a, layers, bias, before):
         if frac > a.maxfixed or not rippable:
             hopeless.append((frac, net))
             continue
-        graded.append((frac, net, rippable[:a.walls]))
-    graded.sort()
-    for frac, net, walls in graded[:a.limit]:
+        graded.append((frac, net, rippable[:a.walls], win))
+    graded.sort(key=lambda t: t[0])
+    windows = {}
+    for frac, net, walls, win in graded[:a.limit]:
         plan[net] = walls
+        if win:
+            windows[net] = win
     noroom = [n for f, n in hopeless if f is None]
     bounded = sorted((f, n) for f, n in hopeless if f is not None)
     print(f"{len(todo)} open; {reachable} reachable; {len(noroom)} with no "
@@ -257,14 +289,37 @@ def run(a, layers, bias, before):
         print(f"   BOUNDED {100 * frac:5.1f}% fixed  {net}")
     if not plan:
         return False
-    victims = sorted({w for ws in plan.values() for w in ws} - set(plan))
     for net, ws in list(plan.items())[:a.limit]:
         print(f"   {net:<36} sealed by {ws}", flush=True)
     if a.check:
         return False
 
-    n = rip(victims)
-    print(f"   ripped {n} items of {len(victims)} whole nets", flush=True)
+    # Rip each sealer only where THAT sealer is in the way.  Taking the union
+    # of every blocked net's window instead made the rip 20 x 20 mm across the
+    # whole MCU region for a batch of five, which is broader than any single
+    # wall and cost more than it freed (85 -> 88, restored).  A sealer that
+    # walls two pockets is ripped in the union of those two, and no more.
+    per = {}
+    for net, ws in plan.items():
+        win = windows.get(net)
+        if not win:
+            continue
+        for sealer in ws:
+            if sealer in plan:
+                continue
+            if sealer in per:
+                a = per[sealer]
+                per[sealer] = [min(a[0], win[0]), min(a[1], win[1]),
+                               max(a[2], win[2]), max(a[3], win[3])]
+            else:
+                per[sealer] = list(win)
+    if not per:
+        return False
+    info = rip(per)
+    area = sum((w[2] - w[0]) * (w[3] - w[1]) for w in per.values())
+    print(f"   ripped {info['removed']} items of {len(info['nets'])} sealers "
+          f"in {len(per)} windows, {area:.0f} mm2 total", flush=True)
+    victims = sorted(per)
 
     board = R.load()
     mine = sorted(plan, key=lambda x: span(board, x))
