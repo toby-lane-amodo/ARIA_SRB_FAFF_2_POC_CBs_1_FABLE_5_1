@@ -21,7 +21,11 @@ PRO = os.path.join(PRJ, "faff2_cbs1.kicad_pro")
 # Round 4 grew the board: 210x130 -> 250x165 (gen_pcb_place2).  These are the
 # checker's bounds as well as the placer's, so they must follow the outline or
 # check_place reports 188 parts "off-board" that are comfortably inside it.
-BX, BY, BW, BH = 30.0, 30.0, 250.0, 165.0
+# Round 4 measured the growth and REVERTED it: spreading the blocks to fill a
+# 250x165 board lengthened every inter-block haul and the fill paid more for
+# that than the wider rings gained (open nets with a span over 150 mm went from
+# 7 to 16).  The board stays 210x130; the rings are cleared in place instead.
+BX, BY, BW, BH = 30.0, 30.0, 210.0, 130.0
 EDGE_KEEP = 0.30           # copper-to-board-edge, DRC constraint
 # Derived, not hardcoded: round 4 moved the holes with the outline and a
 # literal list here kept the checker testing the old corners.

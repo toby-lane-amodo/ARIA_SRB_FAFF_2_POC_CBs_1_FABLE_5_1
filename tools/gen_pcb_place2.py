@@ -207,6 +207,11 @@ def _pinned(f, host_nets):
     probe-reachable, which the whole board is.
     """
     ref = f.GetReference()
+    if ref.startswith("J"):
+        # Connectors are pinned by the edge plan, which is a standing captain
+        # ruling.  Without this, settle() cheerfully relocated the SMA off the
+        # board edge to resolve an overlap with the ESD diode placed beside it.
+        return True
     if ref.startswith("Y"):
         return True
     nets = {p.GetNetname() for p in f.Pads() if p.GetNetname()}
@@ -348,21 +353,22 @@ def settle(board, rounds=60):
 # captain-named round-1 finding handed over as placement, or a defect this
 # round's own block spread introduced.
 FIXES = [
-    # The block spread pulled the MCU's analog-supply decouplers further from
-    # the pin they serve -- 18.2/21.2 mm became 29.6/32.0.  They were already
-    # too long; blocks 3 and 10 disagree about who owns them.  Placement is
-    # authorised, so they go where they belong: beside U1001.21 (+3V3A).
+    # C323/C324 are the MCU's +3V3A decouplers and sat 18/21 mm from the pin
+    # they serve, in the power_rails block.  U1001.21 is at (118.0, 77.75) and
+    # the package's south edge is y = 79.0, so they go just below it.
     # (The sheet-membership question that put them in power_rails is a
     # SCHEMATIC matter and is flagged, not touched.)
-    ("C323", 133.5, 91.0, 0.0, "+3V3A decoupler to U1001.21"),
-    ("C324", 137.0, 91.0, 0.0, "+3V3A decoupler to U1001.21"),
+    ("C323", 115.0, 82.0, 0.0, "+3V3A decoupler to U1001.21"),
+    ("C324", 118.5, 82.0, 0.0, "+3V3A decoupler to U1001.21"),
     # C1112 walls in its own net: 68% of Net-(U1101-CPH)'s pocket boundary is
-    # C1112's OTHER pad (R2b.6).  Rotated 90 so the two pads sit on separate
-    # rows facing U1101 pins 2 and 3 rather than one behind the other.
-    ("C1112", 249.5, 170.25, 90.0, "rotate off its own net's escape"),
+    # C1112's OTHER pad (R2b.6).  U1101 pins 2 and 3 are at x = 213.94, one
+    # 0.5 mm below the other; rotating the cap 90 puts its pads on separate
+    # rows facing them instead of one behind the other.
+    ("C1112", 217.75, 142.5, 90.0, "rotate off its own net's escape"),
     # ESD as close as physically possible to the source pin (skill): D903
-    # clamps the SYNC line where it enters at the SMA, and sat 8.8 mm away.
-    ("D903", 108.0, 57.75, 0.0, "ESD onto the SMA it protects"),
+    # clamps SYNC where it enters at the SMA J902 (90.0, 36.25), and sat
+    # 8.8 mm away.
+    ("D903", 90.0, 39.75, 0.0, "ESD onto the SMA it protects"),
 ]
 
 
